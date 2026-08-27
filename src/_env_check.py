@@ -28,11 +28,12 @@ def test_imports():
         ("textstat", "Textstat (Readability scores)"),
         ("sacrebleu", "SacreBLEU (Translation metrics)"),
         ("pyphen", "Pyphen (Syllable counting)"),
+        ("spacy", "spaCy (Syntactic & POS NLP)"),
     ]
 
-    p("=" * 60)
+    p("=" * 65)
     p("KIEM TRA IMPORT CAC THU VIEN COT LOI (CAPYVOCAB ML)")
-    p("=" * 60)
+    p("=" * 65)
 
     success_count = 0
     for module_name, label in packages:
@@ -46,15 +47,26 @@ def test_imports():
         except Exception as e:
             p(f"  [ERR]  {label:35} : Loi khi nap ({e})")
 
-    p("-" * 60)
-    p(f"Ti le thu vien san sang: {success_count}/{len(packages)}")
-    p("=" * 60)
-    return success_count == len(packages)
+    # Kiem tra model spacy en_core_web_sm
+    try:
+        import spacy
+        nlp = spacy.load("en_core_web_sm")
+        doc = nlp("CapyVocab makes learning English vocabulary easy.")
+        p(f"  [OK]  {'spaCy Model (en_core_web_sm)':35} : Loaded successfully ({len(doc)} tokens)")
+        success_count += 1
+    except Exception as e:
+        p(f"  [FAIL] {'spaCy Model (en_core_web_sm)':35} : ❌ Failed to load ({e})")
+
+    total_checks = len(packages) + 1
+    p("-" * 65)
+    p(f"Ti le kiem tra thanh cong: {success_count}/{total_checks}")
+    p("=" * 65)
+    return success_count == total_checks
 
 def test_hardware():
-    p("\n" + "=" * 60)
+    p("\n" + "=" * 65)
     p("KIEM TRA THONG TIN PHAN CUNG & ACCELERATOR")
-    p("=" * 60)
+    p("=" * 65)
     p(f"  He dieu hanh    : {platform.system()} {platform.release()} ({platform.machine()})")
     p(f"  Python Version  : {sys.version.split()[0]}")
 
@@ -76,7 +88,7 @@ def test_hardware():
     except ImportError:
         p("  PyTorch chua duoc cai dat, khong the kiem tra CUDA.")
 
-    p("=" * 60)
+    p("=" * 65)
 
 if __name__ == "__main__":
     test_imports()

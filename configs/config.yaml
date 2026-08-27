@@ -3,8 +3,13 @@
 # ==============================================================================
 # Mục đích:
 # - Nơi lưu trữ tập trung tất cả các hyperparameters, model paths, dataset configs,
-#   và pipeline settings cho từng model (Translator, CEFR Classifier,
-#   Example Generator, Second Pair of Eyes).
+#   và pipeline settings cho từng model trong kiến trúc phân nhánh (Word / Sentence):
+#   + Model 1: Translator (Dịch nghĩa ngữ cảnh EN - VI)
+#   + Model 2a: CEFR Word Classifier (Phân loại cấp độ từ vựng A1-C2)
+#   + Model 2b: CEFR Sentence Classifier (Phân loại cấp độ câu A1-C2)
+#   + Model 3a: Example Generator (Sinh câu ví dụ theo từ & cấp độ)
+#   + Model 3b: Sentence Rewriter (Viết lại câu theo cấp độ CEFR mục tiêu)
+#   + Model 4: Second Pair of Eyes (Kiểm duyệt chất lượng & độ chính xác)
 # - Giúp tái tạo thí nghiệm (reproducibility) và tránh hard-code các tham số
 #   trực tiếp trong mã nguồn script.
 #
