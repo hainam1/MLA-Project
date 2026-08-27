@@ -25,18 +25,25 @@ Tài liệu ghi lại toàn bộ quá trình phát triển, các quyết định
     + Làm rõ thiết kế Model 2b: Thuộc hoàn toàn họ **Classical ML** (XGBoost/Random Forest); baseline chính sử dụng bộ đặc trưng ngôn ngữ học thủ công (Readability, spaCy syntactic tree, word frequency); DeBERTa (nếu dùng) chỉ đóng vai trò bộ trích xuất embedding tĩnh (frozen, không fine-tune).
     + Nâng cấp `src/pipeline/input_type_detector.py`: Thêm trạng thái `"invalid_input"` cho chuỗi rỗng / khoảng trắng; vượt qua 100% (14/14) test cases kiểm thử tự động.
   - **[Phase 1 - Part B.1] Thu thập dữ liệu từ HuggingFace & Zenodo:**
-    + **Model 1 (Translator VI-EN)**: Tải bộ dữ liệu `phongmt184172/mtet` (4.2M câu, CC-BY-4.0) làm nguồn chính và `thainq107/iwslt2015-en-vi` (133k câu, nghiên cứu học thuật) làm tập đánh giá chuẩn; lập `data/raw/translator_corpus/SOURCE.md`.
+    + **Model 1 (Translator VI-EN)**: Tải bộ dữ liệu `phongmt184172/mtet` (4.2M câu) làm nguồn chính và `thainq107/iwslt2015-en-vi` (133k câu, nghiên cứu học thuật) làm tập đánh giá chuẩn; lập `data/raw/translator_corpus/SOURCE.md`.
     + **Model 2a (CEFR Word Classifier)**: Tải và giải nén bộ dữ liệu chuẩn Zenodo Record 12501 (Istanbul Sehir University 2014, CC-BY-4.0) gồm 7.000 từ thẩm định bởi 30 giáo viên và 51.352 từ mở rộng; lập `data/raw/cefr_wordlist/SOURCE.md`.
     + **Model 2b (CEFR Sentence Classifier)**: Tải thành công `UniversalCEFR/cefr_sp_en` (10.004 câu, CC-BY-NC-SA-4.0) và `UniversalCEFR/readme_en` (2.822 câu, CC-BY-NC-SA-4.0); lập `data/raw/cefr_sentence/SOURCE.md`.
     + **Model 3b (Sentence Rewriter)**: Tải thành công `facebook/asset` (2.000 validation + 359 test sentences, CC-BY-NC-4.0) gồm các cặp câu gốc và 10 bản viết lại đơn giản hóa; lập `data/raw/sentence_simplification/SOURCE.md`.
     + Viết script tự động hóa tải dữ liệu tập trung `src/data/download_datasets.py`.
+  - **[Phase 1 - Part B.2] Xác thực Giấy phép, Thống kê C2 & Bắt đầu Trích xuất Đặc trưng Từ vựng:**
+    + Kiểm tra trực tiếp license của `phongmt184172/mtet`: Metadata card trên HuggingFace không khai báo license tag; upstream repository chính thức `vietai/mTet` được phát hành theo giấy phép **CC-BY-NC-SA-4.0** (phi thương mại, phục vụ nghiên cứu & học thuật).
+    + Thống kê số lượng mẫu C2 sẽ được loại bỏ trong bước làm sạch:
+      * `cefr_wordlist`: 191 mẫu C2 (2,73%) bị loại, cùng 1.056 mẫu Unknown, giữ lại 5.753 mẫu chuẩn A1-C1.
+      * `cefr_sp_en`: 230 mẫu C2 (2,30%) bị loại, giữ lại 9.774 câu A1-C1.
+      * `readme_en`: 71 mẫu C2 (2,52%) bị loại, giữ lại 2.751 câu A1-C1.
+    + Làm rõ giải pháp gán nhãn CEFR Proxy cho ASSET trong `SOURCE.md`: Sử dụng chỉ số đọc hiểu Flesch-Kincaid Grade Level kết hợp Dale-Chall Score qua `textstat` để ước lượng cấp độ cho câu gốc và bản viết lại ở Phase 2.7.
+    + Viết script `src/data/build_word_cefr_features.py`: Trích xuất 10+ đặc trưng ngôn ngữ học (độ dài, số âm tiết Pyphen, tỷ lệ nguyên âm, Google N-gram frequency, log frequency, Zipf score & frequency qua `wordfreq`, PoS tag, teachers average score) và xuất thành công `data/processed/cefr_word_features_preview.csv` (100 dòng đầu).
 
-- **Vấn đề gặp phải:**
+- **Vấn đề gặp phải & Giải pháp:**
   - Python mặc định không nằm trong PATH hệ thống; đã sử dụng `uv` với CPython 3.12 để tạo `.venv` và cài đặt các thư viện Deep Learning nhanh chóng.
   - Xảy ra xung đột phiên bản giữa `datasets`, `pyarrow` và `huggingface-hub` khi nâng cấp; đã giải quyết triệt để bằng cách cố định `datasets>=3.0.0,<3.5.0`, `pyarrow<19.0.0` và `huggingface-hub<1.0,>=0.34.0`.
-  - Terminal Windows sử dụng bảng mã mặc định cp1252 gây lỗi Unicode khi in tiếng Việt; đã cấu hình tự động `sys.stdout.reconfigure(encoding='utf-8')` trong các script CLI.
   - Link gốc của `IWSLT/mt_eng_vietnamese` trỏ về server Stanford NLP (`nlp.stanford.edu`) bị nghẽn mạng/timeout; đã khắc phục bằng cách sử dụng mirror sạch tương thích hoàn toàn `thainq107/iwslt2015-en-vi` trên HuggingFace.
 
 - **Việc tiếp theo:**
-  - [Phase 1 - Part B.2] Xây dựng module trích xuất đặc trưng ngôn ngữ học `src/data/features.py` (Zipf score `wordfreq`, âm tiết `pyphen`, độ phức tạp cú pháp cây `spaCy`, chỉ số `textstat`).
-  - [Phase 1 - Part B.3] Tiền xử lý, lọc sạch, gán nhãn A1-C1 và phân chia tập dữ liệu (Train/Val/Test) lưu vào `data/processed/`.
+  - [Phase 1 - Part B.3] Xây dựng script trích xuất đặc trưng cú pháp và độ đọc hiểu cho câu `src/data/build_sentence_cefr_features.py` (spaCy dependency depth, POS ratios, Flesch-Kincaid, ARI, Dale-Chall).
+  - [Phase 1 - Part B.4] Hoàn thiện toàn bộ pipeline làm sạch, gán nhãn và xuất các tập Train/Val/Test chuẩn hóa vào `data/processed/`.
