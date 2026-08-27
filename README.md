@@ -9,14 +9,14 @@ Hệ thống Machine Learning & NLP phục vụ nền tảng học từ vựng v
 Hệ thống CapyVocab ML hỗ trợ linh hoạt 2 chế độ đầu vào thông qua bộ điều hướng `input_type_detector`:
 
 1. **`word_mode` (Chế độ Từ / Cụm từ vựng)**:
-   - **Translator (Model 1)**: Dịch nghĩa chính xác EN-VI theo ngữ cảnh.
-   - **CEFR Word Classifier (Model 2a)**: Phân loại cấp độ từ vựng theo khung CEFR (A1 - C2) dựa trên đặc trưng ngôn ngữ học (Zipf frequency, âm tiết, độ dài) và mô hình phân loại.
+   - **Translator (Model 1)**: Dịch nghĩa chính xác từ/cụm từ tiếng Việt sang tiếng Anh (VI → EN) theo ngữ cảnh (Base model: `Helsinki-NLP/opus-mt-vi-en`).
+   - **CEFR Word Classifier (Model 2a)**: Phân loại cấp độ từ vựng tiếng Anh theo khung CEFR (A1 - C2) dựa trên đặc trưng ngôn ngữ học (Zipf frequency, âm tiết, độ dài) và mô hình phân loại.
    - **Example Generator (Model 3a)**: Tự động sinh câu ví dụ ngữ cảnh tự nhiên chứa từ mục tiêu phù hợp với cấp độ người học.
    - **Second Pair of Eyes (Model 4)**: Kiểm duyệt chất lượng ngữ pháp, độ chính xác và mức độ phù hợp của câu ví dụ sinh ra.
 
 2. **`sentence_mode` (Chế độ Câu hoàn chỉnh)**:
-   - **Translator (Model 1)**: Dịch toàn bộ câu tiếng Anh sang tiếng Việt.
-   - **CEFR Sentence Classifier (Model 2b)**: Đánh giá độ khó và xếp hạng cấp độ CEFR (A1 - C2) của câu dựa trên đặc trưng cú pháp (spaCy POS/Dep parsing), độ đọc hiểu (readability scores) và Transformer.
+   - **Translator (Model 1)**: Dịch câu tiếng Việt sang tiếng Anh (VI → EN) chuẩn xác (Base model: `Helsinki-NLP/opus-mt-vi-en`).
+   - **CEFR Sentence Classifier (Model 2b)**: Đánh giá độ khó và xếp hạng cấp độ CEFR (A1 - C2) của câu tiếng Anh dựa trên đặc trưng cú pháp (spaCy POS/Dep parsing), độ đọc hiểu (readability scores) và Transformer.
    - **Sentence Rewriter (Model 3b)**: Viết lại / đơn giản hóa hoặc nâng cấp câu theo cấp độ CEFR mục tiêu (ví dụ: chuyển từ C1 xuống B1 hoặc ngược lại).
    - **Second Pair of Eyes (Model 4)**: Đánh giá câu viết lại đảm bảo bảo toàn ngữ nghĩa gốc và chuẩn ngữ pháp.
 
@@ -34,7 +34,8 @@ capyvocab-ml/
 ├── src/                     # Source code chính của dự án
 │   ├── data/                # Data loaders, downloaders, preprocessors, feature extractors
 │   ├── models/              # Các modules mô hình NLP
-│   │   ├── translator/                  # [Model 1] Dịch nghĩa song ngữ Anh - Việt
+│   │   ├── translator/                  # [Model 1] Dịch nghĩa ngữ cảnh Việt - Anh (VI -> EN)
+
 │   │   ├── cefr_word_classifier/        # [Model 2a] Phân loại CEFR cho từ vựng (A1-C2)
 │   │   ├── cefr_sentence_classifier/    # [Model 2b] Phân loại CEFR cho câu (A1-C2)
 │   │   ├── example_generator/           # [Model 3a] Sinh câu ví dụ cho từ

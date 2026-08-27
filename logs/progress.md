@@ -8,7 +8,7 @@ Tài liệu ghi lại toàn bộ quá trình phát triển, các quyết định
 - **Việc đã làm:**
   - Khởi tạo toàn bộ cấu trúc thư mục dự án Machine Learning theo chuẩn: `data/` (`raw`, `interim`, `processed`), `notebooks/`, `src/` (`data`, `models/`, `eval`, `pipeline`), `reports/figures/`, `configs/`, `logs/`, `tests/`.
   - Cập nhật cấu trúc phân nhánh xử lý từ và câu (Word & Sentence Branching):
-    + `src/models/translator/`: Model 1 (Dịch nghĩa ngữ cảnh Anh - Việt)
+    + `src/models/translator/`: Model 1 (Dịch nghĩa ngữ cảnh Việt -> Anh: VI -> EN, base model: `Helsinki-NLP/opus-mt-vi-en`)
     + `src/models/cefr_word_classifier/`: Model 2a (Phân loại CEFR cho từ vựng)
     + `src/models/cefr_sentence_classifier/`: Model 2b (Phân loại CEFR cho câu)
     + `src/models/example_generator/`: Model 3a (Sinh câu ví dụ theo từ & cấp độ)

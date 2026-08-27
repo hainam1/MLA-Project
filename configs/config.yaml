@@ -4,7 +4,7 @@
 # Mục đích:
 # - Nơi lưu trữ tập trung tất cả các hyperparameters, model paths, dataset configs,
 #   và pipeline settings cho từng model trong kiến trúc phân nhánh (Word / Sentence):
-#   + Model 1: Translator (Dịch nghĩa ngữ cảnh EN - VI)
+#   + Model 1: Translator (Dịch nghĩa ngữ cảnh Việt -> Anh: VI -> EN, base model: Helsinki-NLP/opus-mt-vi-en)
 #   + Model 2a: CEFR Word Classifier (Phân loại cấp độ từ vựng A1-C2)
 #   + Model 2b: CEFR Sentence Classifier (Phân loại cấp độ câu A1-C2)
 #   + Model 3a: Example Generator (Sinh câu ví dụ theo từ & cấp độ)
