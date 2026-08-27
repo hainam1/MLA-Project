@@ -76,9 +76,12 @@ venv.bak/
 .DS_Store
 
 # Logs
-logs/*
+logs/*.log
+logs/*.txt
+logs/runs/
 !logs/.gitkeep
-*.log
+!logs/*.md
+
 
 # Data
 data/raw/*

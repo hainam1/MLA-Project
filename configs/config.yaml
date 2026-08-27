@@ -1,0 +1,12 @@
+# ==============================================================================
+# CapyVocab ML - Master Configuration File
+# ==============================================================================
+# Mục đích:
+# - Nơi lưu trữ tập trung tất cả các hyperparameters, model paths, dataset configs,
+#   và pipeline settings cho từng model (Translator, CEFR Classifier,
+#   Example Generator, Second Pair of Eyes).
+# - Giúp tái tạo thí nghiệm (reproducibility) và tránh hard-code các tham số
+#   trực tiếp trong mã nguồn script.
+#
+# (Sẽ được bổ sung chi tiết các tham số huấn luyện và đường dẫn ở các Phase tiếp theo)
+# ==============================================================================
