@@ -1,17 +1,126 @@
-# ==============================================================================
-# CapyVocab ML - Master Configuration File
-# ==============================================================================
-# Mục đích:
-# - Nơi lưu trữ tập trung tất cả các hyperparameters, model paths, dataset configs,
-#   và pipeline settings cho từng model trong kiến trúc phân nhánh (Word / Sentence):
-#   + Model 1: Translator (Dịch nghĩa ngữ cảnh Việt -> Anh: VI -> EN, base model: Helsinki-NLP/opus-mt-vi-en)
-#   + Model 2a: CEFR Word Classifier (Phân loại cấp độ từ vựng A1-C2)
-#   + Model 2b: CEFR Sentence Classifier (Phân loại cấp độ câu A1-C2)
-#   + Model 3a: Example Generator (Sinh câu ví dụ theo từ & cấp độ)
-#   + Model 3b: Sentence Rewriter (Viết lại câu theo cấp độ CEFR mục tiêu)
-#   + Model 4: Second Pair of Eyes (Kiểm duyệt chất lượng & độ chính xác)
-# - Giúp tái tạo thí nghiệm (reproducibility) và tránh hard-code các tham số
-#   trực tiếp trong mã nguồn script.
-#
-# (Sẽ được bổ sung chi tiết các tham số huấn luyện và đường dẫn ở các Phase tiếp theo)
-# ==============================================================================
+project:
+  name: capyvocab-ml
+  random_seed: 42
+  cefr_levels: [A1, A2, B1, B2, C1]
+  commercial_use_allowed: false
+
+paths:
+  processed_data: data/processed
+  word_model: src/models/cefr_word_classifier/model.pkl
+  sentence_model: src/models/cefr_sentence_classifier/model.pkl
+  translator_checkpoint: src/models/translator/checkpoint-best
+  example_generator_checkpoint: src/models/example_generator/checkpoint-best
+  sentence_rewriter_checkpoint: src/models/sentence_rewriter/checkpoint-best
+  model4_review_queue: data/review/model4_failure_candidates.csv
+  release_output: dist
+  artifact_manifest: artifacts/manifest.json
+
+router:
+  word_mode_max_tokens: 3
+  terminal_punctuation: ".?!…"
+  multiword_model2a_is_out_of_distribution: true
+
+model2a:
+  task: context_free_word_cefr_classification
+  split:
+    strategy: stratified_group_kfold
+    group: word
+    train_val_test: [0.70, 0.15, 0.15]
+  features:
+    - char_length
+    - syllable_count
+    - vowel_count
+    - vowel_ratio
+    - wordfreq_zipf
+    - wordfreq_freq
+  calibration:
+    method: temperature_scaling
+    temperature: 1.159419
+    needs_review_threshold: 0.42
+
+model2b:
+  task: sentence_cefr_classification
+  split:
+    strategy: stratified_group_kfold
+    group: cluster_id
+    train_val_test: [0.70, 0.15, 0.15]
+  feature_count: 25
+  calibration:
+    method: temperature_scaling
+    temperature: 0.887635
+    needs_review_threshold: 0.62
+
+translator:
+  model: Helsinki-NLP/opus-mt-vi-en
+  direction: vi-en
+  max_length: 128
+  num_beams: 4
+  evaluation:
+    default_random_samples: 1000
+    random_seed: 42
+    full_evaluation_flag: "--eval_samples 0"
+
+model3a:
+  status: trained_and_integrated
+  model: google/flan-t5-small
+  input: [target_word, target_level]
+  target: target_sentence
+  dataset: data/processed/example_generation_pairs.csv
+  split_group: target_word
+  checkpoint_selection: validation_rouge_l_plus_lexical_constraint
+  inference:
+    lexical_constraint: forced_decoding
+    num_beams: 4
+
+model3b:
+  status: trained_and_integrated
+  model: google/flan-t5-small
+  supported_directions: [simplify, preserve]
+  unsupported_direction: upgrade
+  dataset: data/processed/sentence_rewrite_simplification_pairs.csv
+  split_group: original
+  checkpoint_selection: validation_sari_plus_semantic_similarity
+  inference:
+    default_target: one_cefr_level_lower
+    a1_behavior: preserve
+    reject_upgrade: true
+
+model4:
+  status: awaiting_human_review
+  task: output_quality_verification
+  review_queue: data/review/model4_failure_candidates.csv
+  readiness:
+    minimum_reviewed: 100
+    minimum_confirmed_failures: 50
+  current_reviewed: 0
+  current_confirmed_failures: 0
+  training_ready: false
+
+pipeline:
+  input_contract: vietnamese_vocabulary_only
+  vocabulary_max_tokens: 3
+  target_level_required: true
+  sentence_rewriting_enabled: false
+  candidate_selection: bilingual_lexical_gate_then_target_cefr
+  semantic_anchor: avdict_gloss_plus_marian_candidate
+  word_sense_policy: explicit_sense_id_and_part_of_speech
+  semantic_reranker: intfloat/multilingual-e5-small
+  unavailable_level_policy: no_exact_level_match
+  output_verification: [word_cefr, lexical_constraint, sentence_cefr]
+  implemented: [translation_candidates, target_level_selection, cefr_verification, example_generation]
+  pending: [quality_verification]
+
+api:
+  framework: fastapi
+  version: 0.3.0
+  max_input_characters: 100
+  endpoints: [/health/live, /health/ready, /v1/status, /v1/process]
+  production_auth_configured: false
+  production_rate_limiting_configured: false
+
+release:
+  version: 0.3.0
+  commercial_use_allowed: false
+  source_bundle_ci: true
+  model_bundle_requires_noncommercial_acknowledgement: true
+  model4_included: false

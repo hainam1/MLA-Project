@@ -1,0 +1,54 @@
+name: Release source bundle
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SemVer without the v prefix
+        required: true
+        default: 0.1.0
+
+permissions:
+  contents: write
+
+jobs:
+  source-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Resolve version
+        id: version
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build source-only release
+        run: python -m src.release.build_release build --source-only --require-clean --version "${{ steps.version.outputs.value }}"
+      - name: Verify release checksums
+        run: python -m src.release.build_release verify "dist/capyvocab-ml-${{ steps.version.outputs.value }}"
+      - name: Upload immutable source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: capyvocab-ml-source-${{ steps.version.outputs.value }}
+          path: dist/capyvocab-ml-${{ steps.version.outputs.value }}/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Publish checksummed GitHub source release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "dist/capyvocab-ml-${{ steps.version.outputs.value }}"/* \
+            --verify-tag --generate-notes --title "CapyVocab ML ${GITHUB_REF_NAME}"

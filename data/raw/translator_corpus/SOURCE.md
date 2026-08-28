@@ -17,15 +17,17 @@ Tài liệu ghi lại nguồn gốc, quy mô, giấy phép (license) và đánh 
 ---
 
 ## 2. Supplementary Dataset: IWSLT 2015 (TED Talks English-Vietnamese)
-- **HuggingFace Hub ID**: [`IWSLT/mt_eng_vietnamese`](https://huggingface.co/datasets/IWSLT/mt_eng_vietnamese) / [`thainq107/iwslt2015-en-vi`](https://huggingface.co/datasets/thainq107/iwslt2015-en-vi)
-- **Tác giả**: Cettolo et al. (IWSLT Evaluation Campaign), Stanford NLP.
-- **Quy mô**: ~133.317 cặp câu Train, 1.268 cặp Validation, 1.268 cặp Test.
-- **Domain**: Bài thuyết trình TED Talks (Diễn thuyết, giáo dục, khoa học xã hội).
-- **License**: **Non-Commercial / Research Use** (Dựa trên bản quyền TED Talks CC-BY-NC-ND cho mục đích nghiên cứu & học thuật).
-- **Đánh giá chất lượng**: Bản dịch chuẩn mực theo văn phong nói tự nhiên, câu có độ dài trung bình 15-25 từ. Đề xuất sử dụng làm tập đánh giá chuẩn (**Benchmark & Evaluation Set**) và nguồn bổ sung cho văn phong thuyết trình/giao tiếp.
+- **HuggingFace Hub ID**: [`thainq107/iwslt2015-en-vi`](https://huggingface.co/datasets/thainq107/iwslt2015-en-vi)
+- **Dataset gốc theo TASKS.md**: [`IWSLT/mt_eng_vietnamese`](https://huggingface.co/datasets/IWSLT/mt_eng_vietnamese)
+- **Tác giả gốc**: Luong & Manning (Stanford Neural Machine Translation Systems, IWSLT 2015), Cettolo et al. (TED Talks).
+- **Quy mô**: 133.317 cặp câu Train, 1.268 cặp Validation, 1.268 cặp Test.
+- **Bản chất của repo `thainq107/iwslt2015-en-vi`**:
+  - Đây là bản **Parquet conversion/mirror** được một cá nhân (`thainq107`) chuyển đổi nguyên vẹn từ tập dữ liệu IWSLT 2015 gốc của Stanford NLP lên Hugging Face Hub.
+  - **Lý do sử dụng repo thay thế**: Khi gọi `load_dataset('IWSLT/mt_eng_vietnamese')`, script remote của HuggingFace cố gắng tải trực tiếp các tệp thô từ server Stanford (`https://nlp.stanford.edu/projects/nmt/data/iwslt15.en-vi/`), nhưng server này thường xuyên bị timeout / HTTP 403 khi tải tự động từ Python. Repo của `thainq107` lưu sẵn định dạng Parquet trên HF Hub nên tải nhanh và ổn định 100%.
+  - **Rủi ro & Tình trạng License**: Uploader cá nhân không điền thẻ `license` trong metadata. Bản thân dữ liệu TED Talks gốc thuộc bản quyền phi thương mại (**Non-Commercial / Research Use**). Dữ liệu này chỉ được dùng trong dự án làm tập đánh giá chuẩn (**Benchmark & Evaluation Set**) phi thương mại.
 
 ---
 
 ## 📌 Đề xuất sử dụng trong Pipeline:
 - **Tập Train chính**: Trích xuất tập con cân bằng ~100.000 - 200.000 cặp câu chất lượng cao từ MTET (lọc câu sạch, độ dài 3-64 từ).
-- **Tập Benchmark/Eval**: Sử dụng tập test chuẩn của IWSLT 2015 (tst2012, tst2013) để đo lường điểm SacreBLEU và ROUGE-L khách quan.
+- **Tập Benchmark/Eval**: Sử dụng tập test chuẩn của IWSLT 2015 (1.268 câu) để đo lường điểm SacreBLEU và ROUGE-L khách quan.

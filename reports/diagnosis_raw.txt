@@ -1,0 +1,146 @@
+================================================================================
+PHAN A -- CHAN DOAN MODEL 1 (TRANSLATOR VI -> EN)
+================================================================================
+
+1. NAP MODEL & TOKENIZER...
+   [OK] Da nap checkpoint-best fine-tuned.
+
+--------------------------------------------------------------------------------
+2. KIEM TRA 3 CAU BAN DICH: RAW TOKENS, DECODE VA GROUND TRUTH
+--------------------------------------------------------------------------------
+
+[CAU #1]
+  • Tieng Viet goc           : Có những dòng trông như thế này khi bàn về biến đổi khí hậu , và như thế này khi nói về chất lượng không khí hay khói bụi .
+  • Ground Truth (Tho)       : 'Headlines that look like this when they have to do with climate change , and headlines that look like this when they have to do with air quality or smog .'
+  • Ground Truth (Detok)     : 'Headlines that look like this when they have to do with climate change, and headlines that look like this when they have to do with air quality or smog.'
+  • Raw Token IDs (Fine)     : [53738, 382, 76, 5017, 23, 494, 145, 62, 9, 726, 137, 1659, 1783, 9130, 1324]...
+  • Decode (skip_special=F)  : '<pad> There are lines that look like this to talk about climate change , and this is what it is like to talk about air quality or smoky smoke .</s>'
+  • Decode (skip_special=T)  : 'There are lines that look like this to talk about climate change , and this is what it is like to talk about air quality or smoky smoke .'
+  • Fine Model (Detok)       : 'There are lines that look like this to talk about climate change, and this is what it is like to talk about air quality or smoky smoke.'
+  -> Tho      : BLEU = 20.32 | ChrF++ = 48.60
+  -> Detok    : BLEU = 20.32 | ChrF++ = 48.60
+
+[CAU #2]
+  • Tieng Viet goc           : Nghiên cứu được viết bởi 620 nhà khoa học từ 40 quốc gia khác nhau .
+  • Ground Truth (Tho)       : 'That report was written by 620 scientists from 40 countries .'
+  • Ground Truth (Detok)     : 'That report was written by 620 scientists from 40 countries.'
+  • Raw Token IDs (Fine)     : [53738, 14760, 63, 2420, 162, 1223, 7313, 6396, 132, 1973, 1178, 3543, 224, 0]...
+  • Decode (skip_special=F)  : '<pad> Research was written by 620 scientists from 40 different countries .</s>'
+  • Decode (skip_special=T)  : 'Research was written by 620 scientists from 40 different countries .'
+  • Fine Model (Detok)       : 'Research was written by 620 scientists from 40 different countries.'
+  -> Tho      : BLEU = 63.16 | ChrF++ = 74.23
+  -> Detok    : BLEU = 63.16 | ChrF++ = 74.23
+
+[CAU #3]
+  • Tieng Viet goc           : Dù trọng lượng phân tử rất nhỏ , thế nhưng lượng isoprene được thải vào khí quyển hàng năm ngang ngửa với tổng trọng lượng của dân số toàn cầu .
+  • Ground Truth (Tho)       : 'But despite its very small weight , enough of it is emitted into the atmosphere every year to equal the weight of all the people on the planet .'
+  • Ground Truth (Detok)     : 'But despite its very small weight, enough of it is emitted into the atmosphere every year to equal the weight of all the people on the planet.'
+  • Raw Token IDs (Fine)     : [53738, 3145, 6, 4553, 12, 6, 18934, 31, 153, 1749, 108, 6, 31, 6329, 85]...
+  • Decode (skip_special=F)  : "<pad> Although the weight of the molecule is so small , the isoprene is inculcated into the atmosphere every year as much as the total weight of the world 's population .</s>"
+  • Decode (skip_special=T)  : "Although the weight of the molecule is so small , the isoprene is inculcated into the atmosphere every year as much as the total weight of the world 's population ."
+  • Fine Model (Detok)       : "Although the weight of the molecule is so small, the isoprene is inculcated into the atmosphere every year as much as the total weight of the world's population."
+  -> Tho      : BLEU = 17.86 | ChrF++ = 47.68
+  -> Detok    : BLEU = 18.49 | ChrF++ = 47.68
+
+--------------------------------------------------------------------------------
+3. KIEM TRA 20 CAP CAU NGAU NHIEN TU TAP TRAIN (model1_translator_train.csv)
+--------------------------------------------------------------------------------
+
+[Train Sample #1 (Index 83810) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Sara Lewis : Tình yêu và sự dối lừa của đom đóm'
+  EN : 'Sara Lewis : The loves and lies of fireflies'
+
+[Train Sample #2 (Index 14592) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Vì thì hạnh phúc là thế nào vậy ?'
+  EN : 'So now , how is that ?'
+
+[Train Sample #3 (Index 3278) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Camera đang thu mọi hình ảnh -- nhận biết màu sắc và đường viền và nhiều thuật toán nhỏ khác sẽ diễn ra ở bên trong .'
+  EN : 'The camera is actually doing -- just , getting all the images -- is doing the edge recognition and also the color recognition and so many other small algorithms are going on inside .'
+
+[Train Sample #4 (Index 36048) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Mỗi một bong bóng là một quốc gia . Màu là đại diện cho lục địa .'
+  EN : 'Each bubble is a country -- the color , you can see , a continent .'
+
+[Train Sample #5 (Index 32098) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Và bạn có thể có hàng trăm triệu những ngôi nhà như thế . Và chẳng phải rất tuyệt khi chúng có thể thu khí cacbon .'
+  EN : "And you can have a hundred million of these homes , and it 's great because they suck carbon ."
+
+[Train Sample #6 (Index 29256) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Hai năm rưỡi trước , tôi đã ngất xỉu vì lao lực .'
+  EN : 'Two-and-a-half years ago , I fainted from exhaustion .'
+
+[Train Sample #7 (Index 18289) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Chủ đích của anh ta là gây cười .'
+  EN : 'His intent is to be funny .'
+
+[Train Sample #8 (Index 13434) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Cô bé biết rằng mình sẽ phải cưới ông già đó khi mới 14 tuổi .'
+  EN : 'She knew she would have to marry that old man , and she was 14 .'
+
+[Train Sample #9 (Index 88696) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Đầu tiên , cách ta tiêu thụ nhiều loại thức ăn ảnh hưởng cơ quan sinh dưỡng , hóc-môn , en-zim và qua cơ chế phân tử nhiều lớp nào ?'
+  EN : 'First , how do the various foods we consume impact our metabolism , hormones and enzymes , and through what nuanced molecular mechanisms ?'
+
+[Train Sample #10 (Index 71482) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Catarina Mota : Chơi với vật liệu thông minh'
+  EN : 'Catarina Mota : Play with smart materials'
+
+[Train Sample #11 (Index 11395) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Bạn có thể chọn lối sống để thay đổi cân nặng của mình tăng giảm trong trong khoảng đó , nhưng nó rất , rất khó để nằm ngoài phạm vi đó .'
+  EN : "You can use lifestyle choices to move your weight up and down within that range , but it 's much , much harder to stay outside of it ."
+
+[Train Sample #12 (Index 77397) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Chúng tôi quyết định thâm nhập vào một số công ty và tiến hành một thứ nghiệm tương tự'
+  EN : 'We decided to infiltrate some companies and do a very similar thing .'
+
+[Train Sample #13 (Index 55302) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Và những gì tôi cảm thấy thú vị là rằng Amazon gần đây đã tung ra tiền xu Amazon .'
+  EN : 'And what I find interesting is that Amazon has recently launched Amazon coins .'
+
+[Train Sample #14 (Index 4165) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Thực sự , không , không phải như vậy .'
+  EN : "Actually , no , I 'm not ."
+
+[Train Sample #15 (Index 3905) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Và một điều khác lại xảy ra .'
+  EN : 'And something else happened instead .'
+
+[Train Sample #16 (Index 12280) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'tên cậu ấy là Chris Farina .'
+  EN : 'His name is Chris Farina .'
+
+[Train Sample #17 (Index 28657) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Giờ ta hãy nhìn vào tranh vui này .'
+  EN : "Now let 's look at this cartoon ."
+
+[Train Sample #18 (Index 30495) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Nhưng nó đang diễn ra ở khắp mọi nơi , và những công cụ này một phần để biến những điều ấp ủ đó trở nên khả thi hơn .'
+  EN : "But it 's happening all over the place , and these tools are part of what 's making it possible ."
+
+[Train Sample #19 (Index 66237) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'nhưng cơ bản chúng ta hiểu rằng họ không phải là một công ty xe .'
+  EN : 'But they understood fundamentally that they are not a car company .'
+
+[Train Sample #20 (Index 78907) - Nguon: iwslt_train] [DAU CACH TRUOC DAU CAU]
+  VI : 'Số lượng như vậy .'
+  EN : "That 's it ."
+
+--------------------------------------------------------------------------------
+4. DANH GIA THUC TE 300 CAU TEST: NGUYEN BAN VS DETOKENIZED
+--------------------------------------------------------------------------------
+
+KET QUA SO SANH TOAN DIEN TREN 300 CAU TEST:
+A. Danh gia Tho (Khong Detokenize - nhu lan chay truoc):
+   • Baseline Pretrained : SacreBLEU = 31.83 | ChrF++ = 56.30
+   • Fine-tuned Model    : SacreBLEU = 31.93 | ChrF++ = 52.26
+   • Delta Raw           : Delta BLEU = +0.10 | Delta ChrF++ = -4.04
+
+B. Danh gia Chuan Hoa (Co Detokenize sach khoang trang dau cau):
+   • Baseline Pretrained : SacreBLEU = 34.76 | ChrF++ = 56.30
+   • Fine-tuned Model    : SacreBLEU = 31.68 | ChrF++ = 52.26
+   • Delta Detok         : Delta BLEU = -3.07 | Delta ChrF++ = -4.04
+
+================================================================================
+HOAN THANH CHAN DOAN PHAN A!
+================================================================================

@@ -33,7 +33,25 @@ if sys.stdout.encoding != "utf-8":
     except Exception:
         pass
 
-TERMINAL_PUNCTUATION_PATTERN = re.compile(r'[\.\?\!\…\n]')
+TERMINAL_PUNCTUATION_PATTERN = re.compile(r"[\.\?\!\…\n]")
+
+
+def validate_vocabulary_input(text: str, max_tokens: int = 3) -> tuple[bool, str | None]:
+    """Validate the serving contract for a Vietnamese vocabulary item.
+
+    Multi-word lexical items are supported, but complete sentences are not.
+    """
+    if not isinstance(text, str) or not text.strip():
+        return False, "Vietnamese vocabulary must not be blank."
+    cleaned = text.strip()
+    if TERMINAL_PUNCTUATION_PATTERN.search(cleaned):
+        return False, "Only vocabulary items are accepted; complete sentences are not supported."
+    if len(cleaned.split()) > max_tokens:
+        return False, f"Vocabulary input must contain at most {max_tokens} words."
+    if any(not (character.isalpha() or character in " -'") for character in cleaned):
+        return False, "Vocabulary input may contain letters, spaces, hyphens, and apostrophes only."
+    return True, None
+
 
 def detect_input_type(text: str) -> str:
     """
@@ -56,7 +74,7 @@ def detect_input_type(text: str) -> str:
     """
     if not isinstance(text, str):
         return "invalid_input"
-        
+
     cleaned_text = text.strip()
     if not cleaned_text:
         return "invalid_input"
@@ -83,15 +101,21 @@ if __name__ == "__main__":
         ("look after", "word_mode", "Phrasal verb 2 từ không dấu câu"),
         ("look forward to", "word_mode", "Phrasal verb 3 từ không dấu câu"),
         ("machine learning", "word_mode", "Cụm danh từ chuyên ngành 2 từ"),
-        
         # Nhóm Sentence Mode
         ("I am.", "sentence_mode", "Câu cực ngắn (2 từ) nhưng CÓ dấu chấm kết thúc"),
         ("Why not?", "sentence_mode", "Câu hỏi ngắn (2 từ) có dấu chấm hỏi"),
         ("Stop it!", "sentence_mode", "Câu cảm thán (2 từ) có dấu chấm than"),
-        ("she wants to learn english because it is fun", "sentence_mode", "Câu dài (9 từ) KHÔNG có dấu chấm cuối"),
+        (
+            "she wants to learn english because it is fun",
+            "sentence_mode",
+            "Câu dài (9 từ) KHÔNG có dấu chấm cuối",
+        ),
         ("cats like drinking milk", "sentence_mode", "Câu 4 từ không dấu câu kết thúc"),
-        ("Tôi đang học từ vựng mỗi ngày.", "sentence_mode", "Câu tiếng Việt hoàn chỉnh có dấu chấm"),
-        
+        (
+            "Tôi đang học từ vựng mỗi ngày.",
+            "sentence_mode",
+            "Câu tiếng Việt hoàn chỉnh có dấu chấm",
+        ),
         # Nhóm Invalid Input Edge Cases
         ("", "invalid_input", "Edge case: Chuỗi rỗng hoàn toàn"),
         ("   ", "invalid_input", "Edge case: Chuỗi chỉ chứa khoảng trắng space"),
@@ -107,16 +131,18 @@ if __name__ == "__main__":
     all_passed = True
     for raw_input, expected, description in test_cases:
         detected = detect_input_type(raw_input)
-        is_pass = (detected == expected)
+        is_pass = detected == expected
         status = "PASS" if is_pass else "FAIL"
         if not is_pass:
             all_passed = False
-        display_text = f"\"{raw_input}\"" if raw_input else "\"\" (empty/whitespace)"
+        display_text = f'"{raw_input}"' if raw_input else '"" (empty/whitespace)'
         print(f"{display_text:<47} | {detected:<15} | {expected:<15} | {status:<6}")
 
     print("=" * 82)
     if all_passed:
-        print(f">>> TAT CA {len(test_cases)}/{len(test_cases)} TEST CASES DEU DAT CHUAN (PASSED)! <<<")
+        print(
+            f">>> TAT CA {len(test_cases)}/{len(test_cases)} TEST CASES DEU DAT CHUAN (PASSED)! <<<"
+        )
     else:
         print(">>> CO TEST CASE THAT BAI! VUI LONG KIEM TRA LAI LOGIC! <<<")
     print("=" * 82)

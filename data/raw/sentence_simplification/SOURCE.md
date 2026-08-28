@@ -12,32 +12,27 @@ Tài liệu ghi lại nguồn gốc, quy mô, cấu trúc và giải pháp gán 
 
 ---
 
-## 2. Cấu Trúc Dữ Liệu Thực Tế:
+## 2. Cấu Trúc Dữ Liệu & Thống Kê Explode Thực Tế:
 
-| Tên split | Số lượng câu gốc | Số lượng bản viết lại | Cấu trúc trường dữ liệu |
+Qua kiểm tra thực tế, **100% các câu gốc trong ASSET đều có chính xác 10 bản viết lại thủ công**:
+
+| Split | Số lượng câu gốc | Số references / câu | Số cặp $(original, reference)$ sau khi Explode |
 | :--- | :--- | :--- | :--- |
-| `validation` (`asset_validation.csv`) | **2.000 câu** | **20.000 bản viết lại** (10 bản viết lại thủ công do con người thực hiện cho mỗi câu) | `original` (str), `simplifications` (list of 10 str) |
-| `test` (`asset_test.csv`) | **359 câu** | **3.590 bản viết lại** (10 bản viết lại thủ công cho mỗi câu) | `original` (str), `simplifications` (list of 10 str) |
+| `validation` (`asset_validation.csv`) | **2.000 câu** | 10 bản / câu (100%) | **20.000 cặp** |
+| `test` (`asset_test.csv`) | **359 câu** | 10 bản / câu (100%) | **3.590 cặp** |
+| **Tổng cộng toàn bộ dataset** | **2.359 câu gốc** | **10 bản / câu** | **23.590 cặp song ngữ đơn giản hóa** |
 
-> ⚠️ **LƯU Ý QUAN TRỌNG VỀ NHÃN CEFR**:
-> - Tập dữ liệu gốc **ASSET KHÔNG CÓ sẵn nhãn phân cấp CEFR** (chỉ cung cấp câu gốc phức tạp và 10 bản viết lại đơn giản hơn ở các mức độ tự do).
-> - Để phục vụ bài toán viết lại câu có kiểm soát cấp độ mục tiêu (**Target CEFR-controlled Sentence Rewriter**), cần có cơ chế gán nhãn cấp độ cho từng câu gốc và từng bản rewrite.
+> 📌 **Kết luận**: Với **23.590 cặp dữ liệu chất lượng cao (Gold standard human-written)**, ASSET hoàn toàn đủ số lượng để huấn luyện mô hình Model 3b (Sentence Rewriter). Tạm thời chưa cần bổ sung `wiki_auto` hay LLM silver data ở Phase 1 để giữ dữ liệu sạch và tối ưu thời gian.
 
 ---
 
 ## 3. Đề Xuất Phương Án Gán Nhãn CEFR Proxy (Thực hiện ở Phase 2.7)
 
-Trong bước `prepare_sentence_rewrite_pairs.py` (Phase 2.7), hệ thống sẽ sử dụng **chỉ số đọc hiểu Flesch-Kincaid Grade Level (FKGL qua `textstat`) kết hợp Dale-Chall Score** làm proxy khách quan để ước lượng cấp độ CEFR cho câu:
+Do ASSET gốc không gắn sẵn nhãn cấp độ CEFR, trong bước `prepare_sentence_rewrite_pairs.py` (Phase 2.7), hệ thống sẽ sử dụng chỉ số đọc hiểu **Flesch-Kincaid Grade Level (FKGL qua `textstat`) kết hợp Dale-Chall Score** làm proxy khách quan:
+- $\text{FKGL} \le 3.0 \to \mathbf{A1}$
+- $3.0 < \text{FKGL} \le 6.0 \to \mathbf{A2}$
+- $6.0 < \text{FKGL} \le 9.0 \to \mathbf{B1}$
+- $9.0 < \text{FKGL} \le 12.0 \to \mathbf{B2}$
+- $\text{FKGL} > 12.0 \to \mathbf{C1}$
 
-| Flesch-Kincaid Grade Level (FKGL) | Ước lượng CEFR Proxy | Đặc điểm ngôn ngữ học |
-| :--- | :--- | :--- |
-| $\text{FKGL} \le 3.0$ | **A1** | Câu rất ngắn (3-6 từ), chỉ gồm từ vựng cơ bản nhất. |
-| $3.0 < \text{FKGL} \le 6.0$ | **A2** | Cấu trúc câu đơn giản, thì hiện tại/quá khứ đơn, câu ngắn. |
-| $6.0 < \text{FKGL} \le 9.0$ | **B1** | Bắt đầu xuất hiện liên từ, mệnh đề quan hệ đơn giản. |
-| $9.0 < \text{FKGL} \le 12.0$ | **B2** | Câu ghép, từ vựng học thuật phổ biến, mệnh đề phụ. |
-| $\text{FKGL} > 12.0$ | **C1** | Cấu trúc câu phức hợp, thuật ngữ chuyên sâu, mệnh đề phân từ/đảo ngữ. |
-
-### Cặp dữ liệu huấn luyện hình thành:
-- Đầu vào: `[TARGET_LEVEL: A2] [ORIGINAL: C1] <original_sentence>`
-- Đầu ra: `<simplified_sentence_at_A2>`
-- Giúp mô hình **Model 3b** học được kỹ năng chuyển dịch cấp độ (Style & Complexity Transfer) chuẩn mực.
+Cặp dữ liệu huấn luyện hình thành: `[TARGET: A2] [ORIGINAL: C1] <original_sentence>` $\to$ `<simplified_sentence_at_A2>`.

@@ -74,16 +74,19 @@ venv.bak/
 *.swo
 *~
 .DS_Store
+.github/
 
 # Logs
+*.log
 logs/*.log
 logs/*.txt
 logs/runs/
 !logs/.gitkeep
 !logs/*.md
 
-
 # Data
+*.db
+*.sqlite3
 data/raw/**/*
 !data/raw/**/
 !data/raw/**/SOURCE.md
@@ -94,9 +97,10 @@ data/interim/**/*
 data/processed/**/*
 !data/processed/**/
 !data/processed/**/.gitkeep
-
-
-
+data/external/**/*
+!data/external/**/
+!data/external/**/SOURCE.md
+data/external/vi-en-dictionary-source/
 
 # Model weights, checkpoints & large artifacts
 *.ckpt
@@ -104,6 +108,7 @@ data/processed/**/*
 *.pth
 *.bin
 *.safetensors
+*.pkl
 *.onnx
 *.h5
 *.tflite
@@ -115,3 +120,4 @@ wandb/
 runs/
 mlruns/
 .neptune/
+

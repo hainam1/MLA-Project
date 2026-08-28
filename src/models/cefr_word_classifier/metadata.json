@@ -1,0 +1,83 @@
+{
+  "model_name": "Logistic Regression (Baseline)",
+  "model_type": "LogisticRegression",
+  "task": "CEFR Word Classification (5 classes: A1-C1)",
+  "features": [
+    "char_length",
+    "syllable_count",
+    "vowel_count",
+    "vowel_ratio",
+    "wordfreq_zipf",
+    "wordfreq_freq"
+  ],
+  "train_date": "2026-08-27 16:29:44",
+  "metrics_test": {
+    "accuracy": 0.3608,
+    "macro_f1": 0.3665,
+    "weighted_f1": 0.3538
+  },
+  "metrics_val": {
+    "Logistic Regression (Baseline)": {
+      "val_accuracy": 0.3598,
+      "val_macro_f1": 0.3715,
+      "val_weighted_f1": 0.3556
+    },
+    "Random Forest (Default)": {
+      "val_accuracy": 0.3416,
+      "val_macro_f1": 0.3375,
+      "val_weighted_f1": 0.343
+    },
+    "Random Forest (Tuned)": {
+      "val_accuracy": 0.3481,
+      "val_macro_f1": 0.3553,
+      "val_weighted_f1": 0.3441
+    },
+    "XGBoost (Default)": {
+      "val_accuracy": 0.3546,
+      "val_macro_f1": 0.3627,
+      "val_weighted_f1": 0.3485
+    },
+    "XGBoost (Tuned)": {
+      "val_accuracy": 0.3468,
+      "val_macro_f1": 0.3514,
+      "val_weighted_f1": 0.3441
+    }
+  },
+  "feature_importances": {},
+  "calibration": {
+    "method": "temperature_scaling",
+    "temperature": 1.159419,
+    "fit_split": "validation",
+    "test_metrics_before": {
+      "accuracy": 0.3608,
+      "macro_f1": 0.3665,
+      "log_loss": 1.398,
+      "brier_multiclass": 0.7208,
+      "ece_10_bins": 0.0552
+    },
+    "test_metrics_after": {
+      "accuracy": 0.3608,
+      "macro_f1": 0.3665,
+      "log_loss": 1.3925,
+      "brier_multiclass": 0.7194,
+      "ece_10_bins": 0.0562
+    },
+    "needs_review_threshold": 0.42,
+    "threshold_policy": {
+      "selection_rule": "best_selective_accuracy_with_minimum_20pct_coverage",
+      "minimum_coverage": 0.2,
+      "target_selective_accuracy": 0.4598,
+      "validation_coverage": 0.2047,
+      "validation_selective_accuracy": 0.3949,
+      "validation_review_rate": 0.7953
+    },
+    "test_selective_metrics": {
+      "coverage": 0.2,
+      "review_rate": 0.8,
+      "selective_accuracy": 0.4444,
+      "accepted_samples": 153,
+      "review_samples": 612
+    },
+    "uncalibrated_backup": "src/models/cefr_word_classifier/model_uncalibrated.pkl"
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "metric": "meaning_retrieval_recall_at_5",
+  "score": 1.0,
+  "top_1_accuracy": 1.0,
+  "top_1_hits": 21,
+  "hits": 21,
+  "total": 21,
+  "cases": [
+    {
+      "vietnamese": "tốt",
+      "acceptable": [
+        "fine",
+        "good",
+        "well"
+      ],
+      "predicted": [
+        "good",
+        "fine",
+        "all right",
+        "well",
+        "right"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "học",
+      "acceptable": [
+        "learn",
+        "study"
+      ],
+      "predicted": [
+        "study",
+        "learning",
+        "learn",
+        "read"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "con chó",
+      "acceptable": [
+        "dog"
+      ],
+      "predicted": [
+        "dog",
+        "doggy",
+        "doggie"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "nghiên cứu",
+      "acceptable": [
+        "research",
+        "study"
+      ],
+      "predicted": [
+        "research",
+        "study",
+        "search",
+        "survey",
+        "explore"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "giúp đỡ",
+      "acceptable": [
+        "aid",
+        "assist",
+        "help"
+      ],
+      "predicted": [
+        "help",
+        "helpful",
+        "assist",
+        "helping",
+        "assistant"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "thành công",
+      "acceptable": [
+        "succeed",
+        "success",
+        "successful"
+      ],
+      "predicted": [
+        "successful",
+        "successfully",
+        "succeed",
+        "success",
+        "successfulness"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "kiên trì",
+      "acceptable": [
+        "enduring",
+        "persevere",
+        "persevering",
+        "persist",
+        "persistent",
+        "tenacious"
+      ],
+      "predicted": [
+        "persevere",
+        "persevering",
+        "perseverance"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "thông minh",
+      "acceptable": [
+        "brainy",
+        "bright",
+        "clever",
+        "intelligent",
+        "smart"
+      ],
+      "predicted": [
+        "clever",
+        "apt"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "nhanh",
+      "acceptable": [
+        "fast",
+        "quick",
+        "quickly",
+        "rapid",
+        "rapidly",
+        "swift"
+      ],
+      "predicted": [
+        "quick",
+        "quickly",
+        "fast",
+        "ready"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "vui",
+      "acceptable": [
+        "fun",
+        "glad",
+        "happy",
+        "joyful",
+        "pleasant"
+      ],
+      "predicted": [
+        "fun",
+        "funny",
+        "playfulness",
+        "merriment"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "buồn",
+      "acceptable": [
+        "sad",
+        "sorrowful",
+        "unhappy"
+      ],
+      "predicted": [
+        "sad",
+        "sadness",
+        "sadly"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "đẹp",
+      "acceptable": [
+        "beautiful",
+        "good-looking",
+        "pretty"
+      ],
+      "predicted": [
+        "beautiful",
+        "pretty",
+        "splendid"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "khó",
+      "acceptable": [
+        "difficult",
+        "hard",
+        "tough"
+      ],
+      "predicted": [
+        "difficult",
+        "hard",
+        "difficulty"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "dễ",
+      "acceptable": [
+        "easy",
+        "simple"
+      ],
+      "predicted": [
+        "easy",
+        "easily",
+        "facile",
+        "simple",
+        "soft"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "nhà",
+      "acceptable": [
+        "home",
+        "house"
+      ],
+      "predicted": [
+        "home",
+        "house",
+        "place",
+        "interior"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "sách",
+      "acceptable": [
+        "book"
+      ],
+      "predicted": [
+        "book",
+        "writing",
+        "edition",
+        "passage"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "ăn",
+      "acceptable": [
+        "eat"
+      ],
+      "predicted": [
+        "eat",
+        "feed"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "uống",
+      "acceptable": [
+        "drink"
+      ],
+      "predicted": [
+        "drink",
+        "drank",
+        "imbibe"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "yêu",
+      "acceptable": [
+        "love"
+      ],
+      "predicted": [
+        "love"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "ghét",
+      "acceptable": [
+        "dislike",
+        "hate"
+      ],
+      "predicted": [
+        "hate",
+        "detest"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    },
+    {
+      "vietnamese": "công việc",
+      "acceptable": [
+        "job",
+        "work"
+      ],
+      "predicted": [
+        "job",
+        "work",
+        "business",
+        "labor",
+        "task"
+      ],
+      "top_1_hit": true,
+      "top_k_hit": true
+    }
+  ]
+}

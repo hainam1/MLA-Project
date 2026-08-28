@@ -1,0 +1,288 @@
+{
+  "model_name": "google/flan-t5-small",
+  "task": "English sentence simplification and level preservation",
+  "supported_directions": [
+    "simplify",
+    "preserve"
+  ],
+  "unsupported_direction": "upgrade",
+  "checkpoint_selection": "validation SARI + 20 * semantic TF-IDF cosine",
+  "best_epoch": 1,
+  "dataset_rows": {
+    "train": 15952,
+    "val": 3429,
+    "test": 3430
+  },
+  "dataset_unique_originals": {
+    "train": 1651,
+    "val": 353,
+    "test": 355
+  },
+  "training_config": {
+    "epochs": 1,
+    "batch_size": 16,
+    "grad_accum": 2,
+    "learning_rate": 0.0003,
+    "train_samples": 10000,
+    "eval_tasks": 500,
+    "seed": 42,
+    "device": "cuda",
+    "output_dir": "D:\\học trên trường\\mla project\\src\\models\\sentence_rewriter\\checkpoint-candidate",
+    "evaluate_only": false,
+    "device_used": "cuda",
+    "selected_train_rows": 10000,
+    "selected_validation_tasks": 500,
+    "selected_test_tasks": 500,
+    "sampling": "random_seed_42"
+  },
+  "baseline_validation": {
+    "tasks": 500,
+    "sari": 28.32,
+    "rouge_l_f1_best_reference": 0.8119,
+    "semantic_tfidf_cosine": 0.9859,
+    "target_fkgl_mae": 3.67,
+    "direction_success": 0.378,
+    "rewrite_changed_rate": 0.156,
+    "simplification_success": 0.0497,
+    "preservation_success": 0.9719,
+    "evaluation_seconds": 29.04
+  },
+  "epoch_history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0511,
+      "validation": {
+        "tasks": 500,
+        "sari": 37.89,
+        "rouge_l_f1_best_reference": 0.8094,
+        "semantic_tfidf_cosine": 0.9205,
+        "target_fkgl_mae": 3.04,
+        "direction_success": 0.612,
+        "rewrite_changed_rate": 0.616,
+        "simplification_success": 0.5497,
+        "preservation_success": 0.7247,
+        "evaluation_seconds": 27.9
+      },
+      "selection_score": 56.3,
+      "selected": true
+    }
+  ],
+  "test_metrics": {
+    "tasks": 500,
+    "sari": 36.29,
+    "rouge_l_f1_best_reference": 0.8008,
+    "semantic_tfidf_cosine": 0.9228,
+    "target_fkgl_mae": 3.25,
+    "direction_success": 0.564,
+    "rewrite_changed_rate": 0.562,
+    "simplification_success": 0.4851,
+    "preservation_success": 0.7256,
+    "evaluation_seconds": 45.16,
+    "cefr_exact_alignment": 0.2024,
+    "cefr_within_one_level": 0.5709
+  },
+  "training_seconds": 144.57,
+  "sample_predictions": [
+    {
+      "source": "They run 20 hours a day, 364 days a year, with 95% of them operational at any one time, and can cope with 13,000 passengers per hour.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "They run 20 hours a day, 364 days a year, with 95% of them operating at any time. They can cope with 13,000 passengers per hour.",
+      "predicted_level": "B1",
+      "sari": 33.03,
+      "semantic_tfidf_cosine": 0.8196,
+      "rewrite_changed": true
+    },
+    {
+      "source": "Tropical storms in Arizona are infrequent, since the predominant storm track carries most storms that form in the Eastern Pacific either parallel or away from the Pacific coast of northwestern Mexico.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "Tropical storms in Arizona are infrequent, since the main storm track carries most storms that form in the Eastern Pacific either parallel or away from the Pacific coast of northwestern Mexico.",
+      "predicted_level": "C1",
+      "sari": 63.89,
+      "semantic_tfidf_cosine": 0.9428,
+      "rewrite_changed": true
+    },
+    {
+      "source": "Career Berzelius was born at Väversunda in Östergötland in Sweden.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "Berzelius was born at Väversunda in stergötland in Sweden.",
+      "predicted_level": "C1",
+      "sari": 27.15,
+      "semantic_tfidf_cosine": 0.6952,
+      "rewrite_changed": true
+    },
+    {
+      "source": "They are culturally akin to the coastal peoples of Papua New Guinea.",
+      "target_level": "B2",
+      "direction": "preserve",
+      "prediction": "They are akin to the coastal peoples of Papua New Guinea.",
+      "predicted_level": "B2",
+      "sari": 47.76,
+      "semantic_tfidf_cosine": 0.8653,
+      "rewrite_changed": true
+    },
+    {
+      "source": "The series premiered August 20, 2007 on Nick Jr. and began broadcasting February 23, 2008 on Noggin.",
+      "target_level": "B1",
+      "direction": "preserve",
+      "prediction": "The series premiered August 20, 2007 on Nick Jr. and began broadcasting February 23, 2008 on Noggin.",
+      "predicted_level": "B2",
+      "sari": 30.46,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Many students choose a faculty committee whose members represent their own interdisciplinary interests.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "Many students choose a faculty committee whose members represent their own interdisciplinary interests.",
+      "predicted_level": "B2",
+      "sari": 19.54,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "The largest by far is Triton, discovered by William Lassell just seventeen days after the discovery of Neptune itself.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "The largest by far is Triton. It was discovered by William Lassell just seventeen days after the discovery of Neptune itself.",
+      "predicted_level": "C1",
+      "sari": 66.44,
+      "semantic_tfidf_cosine": 0.9366,
+      "rewrite_changed": true
+    },
+    {
+      "source": "John Lennon and Yoko Ono conduct their Bed-In at the Queen Elizabeth Hotel in Montreal, Quebec.",
+      "target_level": "B2",
+      "direction": "preserve",
+      "prediction": "John Lennon and Yoko Ono conduct their Bed-In at the Queen Elizabeth Hotel in Montreal, Quebec.",
+      "predicted_level": "B2",
+      "sari": 30.19,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Apparently after her death, Shah Jahan went into secluded mourning for a year.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "After her death, Shah Jahan went into secluded mourning for a year.",
+      "predicted_level": "C1",
+      "sari": 61.62,
+      "semantic_tfidf_cosine": 0.9423,
+      "rewrite_changed": true
+    },
+    {
+      "source": "He is considered to be the most important sculptor of the Spanish Renaissance, and is known for his emotive sculptures depicting religious ecstasy or torment.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "He is considered to be the most important sculptor of the Spanish Renaissance. He is known for his emotive sculptures depicting religious ecstasy or torment.",
+      "predicted_level": "C1",
+      "sari": 67.79,
+      "semantic_tfidf_cosine": 0.9424,
+      "rewrite_changed": true
+    },
+    {
+      "source": "Before the second game got underway, the press agreed that the \"midget-in-a-cake\" appearance had not been up to Veeck's usual promotional standard.",
+      "target_level": "B2",
+      "direction": "simplify",
+      "prediction": "Before the second game started, the press agreed that the \"midget-in-a-cake\" appearance had not been up to Veeck's usual promotional standard.",
+      "predicted_level": "C1",
+      "sari": 68.63,
+      "semantic_tfidf_cosine": 0.8788,
+      "rewrite_changed": true
+    },
+    {
+      "source": "Pompeii was transformed into a much more public and open place.",
+      "target_level": "A2",
+      "direction": "preserve",
+      "prediction": "Pompeii was transformed into a much more public and open place.",
+      "predicted_level": "B2",
+      "sari": 28.42,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "References External links \"A Remembrance of Olin Eggen — 1919 – 1998\", by Nicholas B. Suntzeff, 6 October 1998; NOAO Newsletter, No. 56, December 1998.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "References External links \"A Remembrance of Olin Eggen — 1919 – 1998\", by Nicholas B. Suntzeff, 6 October 1998; NOAO Newsletter, No. 56, December 1998.",
+      "predicted_level": "C1",
+      "sari": 30.77,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "From 1900 to 1920 many new facilities were constructed on campus, including facilities for the dental and pharmacy programs, a chemistry building, a building for the natural sciences, Hill Auditorium, large hospital and library complexes, and two residence halls.",
+      "target_level": "B2",
+      "direction": "simplify",
+      "prediction": "From 1900 to 1920, many new facilities were built on campus. They included facilities for the dental and pharmacy programs, a chemistry building, building for the natural sciences, Hill Auditorium, large hospital and library complexes, and two residence halls.",
+      "predicted_level": "B2",
+      "sari": 53.69,
+      "semantic_tfidf_cosine": 0.8846,
+      "rewrite_changed": true
+    },
+    {
+      "source": "That same year, he starred opposite Matt Damon, Ben Affleck, and Chris O'Donnell in School Ties.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "That same year, he starred opposite Matt Damon, Ben Affleck, and Chris O'Donnell in School Ties.",
+      "predicted_level": "B2",
+      "sari": 29.95,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Very large corporations such as GE, Toyota and Sharp, and investment firms such as Goldman Sachs are making multi-billion dollar investments in clean technology.",
+      "target_level": "B2",
+      "direction": "simplify",
+      "prediction": "Very large corporations such as GE, Toyota and Sharp, and investment firms such as Goldman Sachs are making multi-billion dollar investments in clean technology.",
+      "predicted_level": "C1",
+      "sari": 31.25,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "In 1919, all of the major pro-independence factions formed the Provisional Government in Shanghai.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "In 1919, all of the major pro-independence factions formed the Provisional Government in Shanghai.",
+      "predicted_level": "B2",
+      "sari": 19.07,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Punt Road underpasses directly under the station via a major interchange with Swan Street and Brunton Avenue.",
+      "target_level": "A2",
+      "direction": "simplify",
+      "prediction": "Punt Road underpasses directly under the station via a major interchange with Swan Street and Brunton Avenue.",
+      "predicted_level": "C1",
+      "sari": 15.18,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Working Group I: Assesses scientific aspects of the climate system and climate change.",
+      "target_level": "B1",
+      "direction": "simplify",
+      "prediction": "Working Group I: Assesses scientific aspects of the climate system and climate change.",
+      "predicted_level": "B2",
+      "sari": 30.67,
+      "semantic_tfidf_cosine": 1.0,
+      "rewrite_changed": false
+    },
+    {
+      "source": "Cogeneration (also combined heat and power, CHP) is the use of a heat engine or a power station to simultaneously generate both electricity and useful heat.",
+      "target_level": "C1",
+      "direction": "preserve",
+      "prediction": "Cogeneration is the use of a heat engine or a power station to generate both electricity and useful heat.",
+      "predicted_level": "B2",
+      "sari": 33.01,
+      "semantic_tfidf_cosine": 0.7838,
+      "rewrite_changed": true
+    }
+  ],
+  "created_at": "2026-08-27T17:18:32.746654+00:00"
+}

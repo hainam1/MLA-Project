@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapyVocab ML — Học Tiếng Anh theo chuẩn CEFR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.12);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+      --primary-hover: #4f46e5;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      
+      --cefr-a1: #10b981;
+      --cefr-a2: #06b6d4;
+      --cefr-b1: #f59e0b;
+      --cefr-b2: #f97316;
+      --cefr-c1: #8b5cf6;
+      --cefr-c2: #ec4899;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1.5rem;
+      background-image: 
+        radial-gradient(circle at 20% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .input-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      transition: border-color 0.2s;
+    }
+
+    .input-card:focus-within {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .keyboard-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .textarea-wrapper {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 1rem 1.25rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+      background: rgba(10, 14, 23, 0.7);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.85rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.2s ease;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .suggestion-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+
+    .pill {
+      font-size: 0.82rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .pill:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .pill.sentence-pill {
+      border-color: rgba(236, 72, 153, 0.2);
+    }
+
+    .pill.sentence-pill:hover {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .options {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .option-select {
+      background: rgba(10, 14, 23, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 0.5rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--primary-gradient);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Result View */
+    .result-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .res-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .route-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.35rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* Main Translation Box */
+    .translation-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 14, 23, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.85rem;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .translation-text {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .speak-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .speak-btn:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* CEFR Analysis */
+    .cefr-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .cefr-badge-large {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 1rem;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 8px 25px -5px currentColor;
+    }
+
+    .cefr-badge-large span {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+
+    .badge-A1 { background: var(--cefr-a1); color: #064e3b !important; }
+    .badge-A2 { background: var(--cefr-a2); color: #083344 !important; }
+    .badge-B1 { background: var(--cefr-b1); color: #451a03 !important; }
+    .badge-B2 { background: var(--cefr-b2); color: #431407 !important; }
+    .badge-C1 { background: var(--cefr-c1); color: #2e1065 !important; }
+
+    .cefr-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cefr-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bar-level {
+      width: 25px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.5s ease-out;
+    }
+
+    .bar-pct {
+      width: 45px;
+      text-align: right;
+      color: #94a3b8;
+    }
+
+    /* Example / Rewrite Box */
+    .content-box {
+      background: rgba(10, 14, 23, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.85rem;
+      padding: 1.25rem 1.5rem;
+      line-height: 1.6;
+      font-size: 1.15rem;
+      color: #e2e8f0;
+    }
+
+    .highlight-word {
+      background: rgba(99, 102, 241, 0.25);
+      color: #a5b4fc;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.3rem;
+      font-weight: 700;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .warning-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fcd34d;
+      padding: 0.75rem 1rem;
+      border-radius: 0.65rem;
+      font-size: 0.88rem;
+      margin-top: 0.75rem;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-badge">
+        <span>✨</span> CapyVocab ML Pipeline v0.3.0
+      </div>
+      <h1>Học Tiếng Anh Theo Chuẩn CEFR</h1>
+      <p class="subtitle">Nhập từ vựng tiếng Việt, chọn mức A1–C1 — AI sẽ chọn từ tiếng Anh phù hợp và tạo câu ví dụ cùng cấp độ</p>
+    </header>
+
+    <div class="input-card">
+      <div class="input-group">
+        <label for="vietnameseInput">
+          <span>Nhập Từ Vựng Tiếng Việt:</span>
+          <span class="keyboard-hint">Nhấn <strong>Ctrl + Enter</strong> để xử lý</span>
+        </label>
+        <div class="textarea-wrapper">
+          <textarea 
+            id="vietnameseInput" 
+            placeholder="Ví dụ: tốt, kiên trì, quả táo... (tối đa 3 từ, không nhập câu)"
+            maxlength="100"
+            autofocus
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="suggestions">
+        <span class="suggestion-label">Thử nhanh:</span>
+        <span class="pill" onclick="quickFill('kiên trì', 'C1')">🎯 kiên trì · C1</span>
+        <span class="pill" onclick="quickFill('thành công', 'B1')">🎯 thành công · B1</span>
+        <span class="pill" onclick="quickFill('nghiên cứu', 'B2')">🎯 nghiên cứu · B2</span>
+        <span class="pill" onclick="quickFill('con chó', 'A1')">🎯 con chó · A1</span>
+      </div>
+
+      <div class="action-row">
+        <div class="options">
+          <select id="targetLevel" class="option-select" title="Mức CEFR mong muốn">
+            <option value="B1" selected>Mức CEFR: B1 · Trung cấp</option>
+            <option value="A1">Mức CEFR: A1 · Cơ bản</option>
+            <option value="A2">Mức CEFR: A2 · Sơ cấp</option>
+            <option value="B2">Mức CEFR: B2 · Trên trung cấp</option>
+            <option value="C1">Mức CEFR: C1 · Cao cấp</option>
+          </select>
+        </div>
+        <button id="submitBtn" class="btn-submit" onclick="handleProcess()">
+          <span>Xử lý ngay</span>
+          <span>⚡</span>
+        </button>
+      </div>
+      
+      <div id="errorBox" class="warning-box hidden" style="background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5; margin-top: 1rem;">
+        <span>❌</span>
+        <span id="errorMessageText">Lỗi xử lý</span>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultContainer" class="result-container hidden">
+      
+      <!-- 1. Selected vocabulary card -->
+      <div class="res-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🌐</span> Từ Vựng Tiếng Anh Được Chọn
+          </div>
+          <span id="routeBadge" class="route-tag">WORD MODE</span>
+        </div>
+        <div class="translation-box">
+          <div id="translationOutput" class="translation-text">Perseverance</div>
+          <button class="speak-btn" onclick="speakText()" title="Nghe phát âm">🔊</button>
+        </div>
+      </div>
+
+      <!-- 2. CEFR verification card -->
+      <div class="res-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📊</span> Model 2 — Kiểm Chứng Trình Độ CEFR
+          </div>
+          <span id="confidenceBadge" class="route-tag">Độ tin cậy: 98%</span>
+        </div>
+        
+        <div class="cefr-grid">
+          <div id="cefrBadgeLarge" class="cefr-badge-large badge-C1">
+            <span id="cefrLevelText">C1</span>
+            <span>LEVEL</span>
+          </div>
+          
+          <div id="cefrBars" class="cefr-bars">
+            <!-- Dynamic bars -->
+          </div>
+        </div>
+
+        <div id="reviewWarning" class="warning-box hidden">
+          <span>⚠️</span>
+          <span id="selectionWarningText">Ứng viên tốt nhất chưa khớp chắc chắn với mức đã chọn.</span>
+        </div>
+      </div>
+
+      <!-- 3. Verified example card -->
+      <div class="res-card">
+        <div class="card-header">
+          <div id="genCardTitle" class="card-title">
+            <span>✨</span> Model 3a — Câu Ví Dụ Đã Kiểm Chứng CEFR
+          </div>
+          <span id="genStrategy" class="route-tag">FLAN-T5-small</span>
+        </div>
+        <div id="genContentBox" class="content-box">
+          <!-- Text with highlighted keyword -->
+        </div>
+        <div id="rewriteWarning" class="warning-box hidden">
+          <span>ℹ️</span>
+          <span id="rewriteWarningText"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      CapyVocab ML Pipeline &copy; 2026. Non-commercial Educational Release. Running on FastAPI & PyTorch GPU.
+    </footer>
+  </div>
+
+  <script>
+    function quickFill(text, level) {
+      document.getElementById('vietnameseInput').value = text;
+      document.getElementById('targetLevel').value = level;
+      handleProcess();
+    }
+
+    document.getElementById('vietnameseInput').addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        handleProcess();
+      }
+    });
+
+    async function handleProcess() {
+      const input = document.getElementById('vietnameseInput').value.trim();
+      const errorBox = document.getElementById('errorBox');
+      const errorMsg = document.getElementById('errorMessageText');
+      errorBox.classList.add('hidden');
+
+      if (!input) {
+        errorMsg.textContent = 'Vui lòng nhập từ vựng tiếng Việt.';
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      const targetLevel = document.getElementById('targetLevel').value || null;
+      const resultContainer = document.getElementById('resultContainer');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<div class="spinner"></div><span>Đang phân tích...</span>`;
+
+      try {
+        const payload = {
+          vietnamese_vocabulary: input,
+          target_level: targetLevel
+        };
+
+        const res = await fetch('/v1/process', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorMsg.textContent = data.error ? data.error.message : 'Không thể xử lý yêu cầu.';
+          errorBox.classList.remove('hidden');
+          return;
+        }
+
+        renderResult(data);
+        resultContainer.classList.remove('hidden');
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        errorMsg.textContent = 'Không thể kết nối đến server: ' + err.message;
+        errorBox.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Xử lý ngay</span><span>⚡</span>`;
+      }
+    }
+
+    function renderResult(data) {
+      // 1. Translation
+      const translation = data.translation_en || '';
+      document.getElementById('translationOutput').textContent = translation;
+      document.getElementById('routeBadge').textContent = `🎯 MỤC TIÊU ${data.requested_level}`;
+
+      // 2. CEFR
+      const cefr = data.cefr || {};
+      const level = cefr.predicted_level || data.requested_level || 'A1';
+      const badge = document.getElementById('cefrBadgeLarge');
+      badge.className = `cefr-badge-large badge-${level}`;
+      badge.children[0].textContent = level;
+
+      const confBadge = document.getElementById('confidenceBadge');
+      confBadge.textContent = `Độ tin cậy: ${cefr.confidence ? cefr.confidence.toFixed(1) : 0}%`;
+
+      const warning = document.getElementById('reviewWarning');
+      const warningText = document.getElementById('selectionWarningText');
+      const selection = data.selected_vocabulary || {};
+      const meaning = data.meaning_analysis || {};
+      if (selection.selection_status === 'no_exact_level_match') {
+        const available = (selection.available_verified_levels || []).join(', ');
+        warningText.textContent = available
+          ? `Không có từ đồng nghĩa đã kiểm chứng ở mức ${data.requested_level}. Giữ từ đúng nghĩa nhất; các mức xác thực hiện có: ${available}.`
+          : `Không có từ đồng nghĩa được wordlist xác thực ở mức ${data.requested_level}. Kết quả hiện tại giữ đúng nghĩa và được đánh dấu cần xem xét.`;
+        warning.classList.remove('hidden');
+      } else if (meaning.needs_clarification) {
+        warningText.textContent = 'Từ tiếng Việt có thể thuộc nhiều từ loại/nghĩa. Hệ thống đã giữ lựa chọn tốt nhất và hiển thị cảnh báo thay vì âm thầm đổi nghĩa.';
+        warning.classList.remove('hidden');
+      } else if (cefr.needs_review) {
+        warningText.textContent = 'Độ tin cậy CEFR thấp; kết quả cần được xem xét.';
+        warning.classList.remove('hidden');
+      } else {
+        warning.classList.add('hidden');
+      }
+
+      // Render probabilities bars
+      const barsContainer = document.getElementById('cefrBars');
+      barsContainer.innerHTML = '';
+      const probs = cefr.probabilities || {};
+      ['A1', 'A2', 'B1', 'B2', 'C1'].forEach(lvl => {
+        const pct = probs[lvl] || 0;
+        const row = document.createElement('div');
+        row.className = 'cefr-bar-row';
+        row.innerHTML = `
+          <span class="bar-level">${lvl}</span>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: ${pct}%; background: var(--cefr-${lvl.toLowerCase()});"></div>
+          </div>
+          <span class="bar-pct">${pct.toFixed(1)}%</span>
+        `;
+        barsContainer.appendChild(row);
+      });
+
+      // 3. Model 3 output
+      const genCardTitle = document.getElementById('genCardTitle');
+      const genContentBox = document.getElementById('genContentBox');
+      const rewriteWarning = document.getElementById('rewriteWarning');
+      const rewriteWarningText = document.getElementById('rewriteWarningText');
+      rewriteWarning.classList.add('hidden');
+
+      if (data.generated_example) {
+        const ex = data.generated_example;
+        genCardTitle.innerHTML = `<span>✨</span> Model 3a — Câu Ví Dụ Theo Chuẩn CEFR (${ex.target_level || level})`;
+        
+        let sentence = ex.sentence || '';
+        const targetWord = ex.target_word || '';
+        if (targetWord && sentence) {
+          const regex = new RegExp(`\\b(${targetWord})\\b`, 'gi');
+          sentence = sentence.replace(regex, `<span class="highlight-word">$1</span>`);
+        }
+        genContentBox.innerHTML = sentence;
+        if (ex.level_match === false) {
+          rewriteWarning.classList.remove('hidden');
+          rewriteWarningText.textContent = 'Câu có chứa đúng từ nhưng mức CEFR dự đoán chưa khớp hoàn toàn với mức bạn chọn.';
+        }
+      }
+    }
+
+    function speakText() {
+      const text = document.getElementById('translationOutput').textContent;
+      if (!text) return;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>

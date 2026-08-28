@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T19:03:08.389710+00:00",
+  "artifacts": [
+    {
+      "path": "data/external/vi_en_dictionary/vi_en_dict.db",
+      "bytes": 36401152,
+      "sha256": "1e8841deeb91b4217a0fab076cfdd3cc87f482599dc652945ed885030890e7f0"
+    },
+    {
+      "path": "data/external/nltk_data/corpora/wordnet.zip",
+      "bytes": 10775600,
+      "sha256": "cbda5ea6eef7f36a97a43d4a75f85e07fccbb4f23657d27b4ccbc93e2646ab59"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/config.json",
+      "bytes": 655,
+      "sha256": "69137736cab8b8903a07fe8afaafdda25aac55415a12a55d1bffa9f581abf959"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/model.safetensors",
+      "bytes": 470641600,
+      "sha256": "1a55775f53449dac10a2bcbc312469fac40b96d53198c407081a831f81c98477"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/sentencepiece.bpe.model",
+      "bytes": 5069051,
+      "sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/special_tokens_map.json",
+      "bytes": 167,
+      "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/tokenizer.json",
+      "bytes": 17082730,
+      "sha256": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39"
+    },
+    {
+      "path": "src/models/semantic_reranker/checkpoint/tokenizer_config.json",
+      "bytes": 443,
+      "sha256": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b"
+    },
+    {
+      "path": "src/models/cefr_word_classifier/model.pkl",
+      "bytes": 3098,
+      "sha256": "653fb1a9cc9916888e1ee8643ab9e4a4cb50140cfcb342b0b45c87ee0a184250"
+    },
+    {
+      "path": "src/models/cefr_word_classifier/model_uncalibrated.pkl",
+      "bytes": 2929,
+      "sha256": "029e80cb663701c8c8423d98b900edd79d7c7d5e48c8e308a2ac70a51569fd1e"
+    },
+    {
+      "path": "src/models/cefr_word_classifier/metadata.json",
+      "bytes": 2295,
+      "sha256": "f7a4ac2b59548cf99e7aeb31877048104ffe14d6dfd3d61c0ac84c8e2a7a7cea"
+    },
+    {
+      "path": "src/models/cefr_sentence_classifier/model.pkl",
+      "bytes": 46776538,
+      "sha256": "44c437bc1a885b1b75e7609fc6505837894e7cb87cfc8c6b91e9af7ac848f436"
+    },
+    {
+      "path": "src/models/cefr_sentence_classifier/model_uncalibrated.pkl",
+      "bytes": 46776369,
+      "sha256": "a9c6179b8257e82b8b153f5f8e59a5b89db940bbcade48763697400cc2a13cdc"
+    },
+    {
+      "path": "src/models/cefr_sentence_classifier/metadata.json",
+      "bytes": 3710,
+      "sha256": "65c0341161769632b6a1c06380797adb9dcc5c762601089aada2d8c041fd1a91"
+    },
+    {
+      "path": "src/models/translator/checkpoint-best/config.json",
+      "bytes": 1366,
+      "sha256": "0680198026be835f033061dc4b802c3b14af65eb33467b6ab5dc3d80821488d3"
+    },
+    {
+      "path": "src/models/translator/checkpoint-best/model.safetensors",
+      "bytes": 286855468,
+      "sha256": "470b95dbe3d00edd5e57d037f0848a81bf517cb2c225721dd235458476718aa7"
+    },
+    {
+      "path": "src/models/translator/checkpoint-best/source.spm",
+      "bytes": 756168,
+      "sha256": "9deb4f9e7bebd3876f4bf238a9eb52f2f95a1fba2210a4a8239167c55c15e67d"
+    },
+    {
+      "path": "src/models/translator/checkpoint-best/target.spm",
+      "bytes": 808853,
+      "sha256": "629182070d11db929990c603779345a11743b749f6586f224829303fa979c138"
+    },
+    {
+      "path": "src/models/translator/checkpoint-best/vocab.json",
+      "bytes": 1354817,
+      "sha256": "12a5107f47747fa5e51f7a082cfd65801115d15c5f81a4c6365be2786e01c471"
+    },
+    {
+      "path": "src/models/translator/metadata.json",
+      "bytes": 5608,
+      "sha256": "3ae970c66103e3f716c60b18c93968ef5aa0fa7b68d07b0e44e68a3c882da02e"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/config.json",
+      "bytes": 1567,
+      "sha256": "ea2a536e5280f4fc365dc67af766c54bba4d07d142fa6fed0a215edb6c2f54c3"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/generation_config.json",
+      "bytes": 149,
+      "sha256": "34f49d5043dafc40ac0f60a26f3ba19690bd2f2f4ea4957bdafa51d05feee63e"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/model.safetensors",
+      "bytes": 307867048,
+      "sha256": "4930c8f8ad3f733b8930b12a097b968512f4637cf3ed3ae0e364e2b9455f8d89"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/spiece.model",
+      "bytes": 791656,
+      "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/tokenizer.json",
+      "bytes": 2422486,
+      "sha256": "3550c5f922922567115f702e0543b57276366fc321cf1f088859c71491656cf6"
+    },
+    {
+      "path": "src/models/example_generator/checkpoint-best/tokenizer_config.json",
+      "bytes": 21770,
+      "sha256": "f0f4630efa94e1d9e93c877ecdf2e45a8b9685037f752eddf0611508425b967b"
+    },
+    {
+      "path": "src/models/example_generator/metadata.json",
+      "bytes": 8235,
+      "sha256": "e16952c19a7ae658df6e645e05de59872ce57199f20e321fa11c48e63f11b704"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/config.json",
+      "bytes": 1567,
+      "sha256": "ea2a536e5280f4fc365dc67af766c54bba4d07d142fa6fed0a215edb6c2f54c3"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/generation_config.json",
+      "bytes": 149,
+      "sha256": "34f49d5043dafc40ac0f60a26f3ba19690bd2f2f4ea4957bdafa51d05feee63e"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/model.safetensors",
+      "bytes": 307867048,
+      "sha256": "83a08b2424b94e57ae5e3447691df00f326d8f1741719f4a3f1409c5dd416395"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/spiece.model",
+      "bytes": 791656,
+      "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/tokenizer.json",
+      "bytes": 2422486,
+      "sha256": "dc856f1be037756d043c1557df9a075bb8658c03c26405ef78a9fc759521cc3e"
+    },
+    {
+      "path": "src/models/sentence_rewriter/checkpoint-best/tokenizer_config.json",
+      "bytes": 21770,
+      "sha256": "f0f4630efa94e1d9e93c877ecdf2e45a8b9685037f752eddf0611508425b967b"
+    },
+    {
+      "path": "src/models/sentence_rewriter/metadata.json",
+      "bytes": 11897,
+      "sha256": "0d6fa5d3e6b357bf8da2f79fe1d995cdf95bc69906f77e3f44c984546e44e954"
+    }
+  ]
+}

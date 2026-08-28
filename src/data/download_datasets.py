@@ -11,7 +11,6 @@ Downloads and stages raw datasets for:
 import sys
 import os
 import urllib.request
-import re
 import tarfile
 import pandas as pd
 from datasets import load_dataset
@@ -23,6 +22,7 @@ if sys.stdout.encoding != "utf-8":
         sys.stderr.reconfigure(encoding="utf-8")
     except Exception:
         pass
+
 
 def download_translator_corpus():
     print("\n[1/4] Processing Translator Datasets (VI -> EN)...")
@@ -38,8 +38,8 @@ def download_translator_corpus():
         for i, item in enumerate(ds_mtet):
             if i >= 5000:
                 break
-            tr = item.get('translation', {})
-            samples.append({'en': tr.get('target', ''), 'vi': tr.get('source', '')})
+            tr = item.get("translation", {})
+            samples.append({"en": tr.get("target", ""), "vi": tr.get("source", "")})
         pd.DataFrame(samples).to_csv(mtet_path, index=False, encoding="utf-8")
         print(f"    Saved: {mtet_path}")
     else:
@@ -50,12 +50,15 @@ def download_translator_corpus():
     if not os.path.exists(iwslt_train_path):
         print("  - Downloading IWSLT 2015 en-vi splits...")
         ds_iwslt = load_dataset("thainq107/iwslt2015-en-vi")
-        for split in ['train', 'validation', 'test']:
+        for split in ["train", "validation", "test"]:
             df = pd.DataFrame(ds_iwslt[split])
-            df.to_csv(os.path.join(out_dir, f"iwslt2015_en_vi_{split}.csv"), index=False, encoding="utf-8")
+            df.to_csv(
+                os.path.join(out_dir, f"iwslt2015_en_vi_{split}.csv"), index=False, encoding="utf-8"
+            )
         print(f"    Saved IWSLT splits ({len(ds_iwslt['train'])} train rows)")
     else:
         print(f"    Already exists: {iwslt_train_path}")
+
 
 def download_cefr_wordlist():
     print("\n[2/4] Processing CEFR Wordlist Dataset (Zenodo 12501)...")
@@ -67,8 +70,8 @@ def download_cefr_wordlist():
         print("  - Fetching archive from Zenodo Record 12501...")
         archive_path = os.path.join(out_dir, "word-level-survey.tar.gz")
         dl_url = "https://zenodo.org/records/12501/files/word-level-survey.tar.gz?download=1"
-        req = urllib.request.Request(dl_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as resp, open(archive_path, 'wb') as f:
+        req = urllib.request.Request(dl_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req) as resp, open(archive_path, "wb") as f:
             f.write(resp.read())
         print(f"    Downloaded: {archive_path}")
 
@@ -78,6 +81,7 @@ def download_cefr_wordlist():
         print(f"    Extracted files to: {out_dir}")
     else:
         print(f"    Already exists: {target_csv}")
+
 
 def download_cefr_sentence():
     print("\n[3/4] Processing UniversalCEFR Sentence Datasets...")
@@ -89,7 +93,7 @@ def download_cefr_sentence():
     if not os.path.exists(sp_path):
         print("  - Downloading UniversalCEFR/cefr_sp_en...")
         ds_sp = load_dataset("UniversalCEFR/cefr_sp_en")
-        pd.DataFrame(ds_sp['train']).to_csv(sp_path, index=False, encoding="utf-8")
+        pd.DataFrame(ds_sp["train"]).to_csv(sp_path, index=False, encoding="utf-8")
         print(f"    Saved: {sp_path} ({len(ds_sp['train'])} rows)")
     else:
         print(f"    Already exists: {sp_path}")
@@ -99,10 +103,11 @@ def download_cefr_sentence():
     if not os.path.exists(readme_path):
         print("  - Downloading UniversalCEFR/readme_en...")
         ds_readme = load_dataset("UniversalCEFR/readme_en")
-        pd.DataFrame(ds_readme['train']).to_csv(readme_path, index=False, encoding="utf-8")
+        pd.DataFrame(ds_readme["train"]).to_csv(readme_path, index=False, encoding="utf-8")
         print(f"    Saved: {readme_path} ({len(ds_readme['train'])} rows)")
     else:
         print(f"    Already exists: {readme_path}")
+
 
 def download_sentence_simplification():
     print("\n[4/4] Processing facebook/asset Simplification Dataset...")
@@ -113,11 +118,16 @@ def download_sentence_simplification():
     if not os.path.exists(val_path):
         print("  - Downloading facebook/asset...")
         ds_asset = load_dataset("facebook/asset")
-        pd.DataFrame(ds_asset['validation']).to_csv(val_path, index=False, encoding="utf-8")
-        pd.DataFrame(ds_asset['test']).to_csv(os.path.join(out_dir, "asset_test.csv"), index=False, encoding="utf-8")
-        print(f"    Saved ASSET splits (validation={len(ds_asset['validation'])}, test={len(ds_asset['test'])})")
+        pd.DataFrame(ds_asset["validation"]).to_csv(val_path, index=False, encoding="utf-8")
+        pd.DataFrame(ds_asset["test"]).to_csv(
+            os.path.join(out_dir, "asset_test.csv"), index=False, encoding="utf-8"
+        )
+        print(
+            f"    Saved ASSET splits (validation={len(ds_asset['validation'])}, test={len(ds_asset['test'])})"
+        )
     else:
         print(f"    Already exists: {val_path}")
+
 
 def main():
     print("=" * 70)
@@ -130,6 +140,7 @@ def main():
     print("\n" + "=" * 70)
     print(">>> DATA COLLECTION COMPLETED SUCCESSFULLY! <<<")
     print("=" * 70)
+
 
 if __name__ == "__main__":
     main()
