@@ -87,13 +87,18 @@ def select_frame(frame: pd.DataFrame, samples: int, seed: int) -> pd.DataFrame:
     return frame.sample(samples, random_state=seed).reset_index(drop=True)
 
 
-def generate_predictions(model, tokenizer, frame, device, batch_size=16):
+def generate_predictions(model, tokenizer, frame, device, batch_size=16, mode="raw"):
     prompts = [build_prompt(row.target_word, row.target_level) for row in frame.itertuples()]
+    words = [row.target_word for row in frame.itertuples()]
+    levels = [row.target_level for row in frame.itertuples()]
     predictions = []
     model.eval()
     for start in range(0, len(prompts), batch_size):
+        batch_prompts = prompts[start : start + batch_size]
+        batch_words = words[start : start + batch_size]
+        batch_levels = levels[start : start + batch_size]
         encoded = tokenizer(
-            prompts[start : start + batch_size],
+            batch_prompts,
             return_tensors="pt",
             padding=True,
             truncation=True,
@@ -102,15 +107,65 @@ def generate_predictions(model, tokenizer, frame, device, batch_size=16):
         inputs = {name: tensor.to(device) for name, tensor in encoded.items()}
         with torch.inference_mode():
             outputs = model.generate(
-                **inputs, max_new_tokens=64, num_beams=2, no_repeat_ngram_size=3
+                **inputs, max_new_tokens=64, num_beams=4, no_repeat_ngram_size=3
             )
-        predictions.extend(tokenizer.batch_decode(outputs, skip_special_tokens=True))
+        batch_preds = [
+            clean_sentence(text)
+            for text in tokenizer.batch_decode(outputs, skip_special_tokens=True)
+        ]
+        
+        if mode == "constrained":
+            refined_preds = []
+            for pred, word, level in zip(batch_preds, batch_words, batch_levels):
+                if contains_target(pred, word):
+                    refined_preds.append(pred)
+                else:
+                    # Strategy 1: Prompt reinforcement retry
+                    retry_prompt = (
+                        f'Write one {level} English sentence containing the exact word "{word}".'
+                    )
+                    retry_enc = tokenizer(retry_prompt, return_tensors="pt").to(device)
+                    with torch.inference_mode():
+                        retry_out = model.generate(
+                            **retry_enc, max_new_tokens=64, num_beams=4, no_repeat_ngram_size=3
+                        )
+                    retry_pred = clean_sentence(
+                        tokenizer.decode(retry_out[0], skip_special_tokens=True)
+                    )
+                    if contains_target(retry_pred, word):
+                        refined_preds.append(retry_pred)
+                    else:
+                        # Strategy 2: Decoder Prefix forcing (pure local decoding, no template)
+                        prefix_tokens = tokenizer(f"{word}", add_special_tokens=False).input_ids
+                        dec_ids = torch.tensor(
+                            [[model.config.decoder_start_token_id, *prefix_tokens]], device=device
+                        )
+                        orig_enc = tokenizer(build_prompt(word, level), return_tensors="pt").to(
+                            device
+                        )
+                        with torch.inference_mode():
+                            dec_out = model.generate(
+                                **orig_enc,
+                                decoder_input_ids=dec_ids,
+                                max_new_tokens=64,
+                                num_beams=4,
+                                no_repeat_ngram_size=3,
+                            )
+                        dec_pred = clean_sentence(
+                            tokenizer.decode(dec_out[0], skip_special_tokens=True)
+                        )
+                        refined_preds.append(dec_pred)
+            batch_preds = refined_preds
+
+        predictions.extend(batch_preds)
     return [clean_sentence(text) for text in predictions]
 
 
-def evaluate(model, tokenizer, frame, device, cefr_engine=None, batch_size=16):
+def evaluate(model, tokenizer, frame, device, cefr_engine=None, batch_size=16, mode="raw"):
     started = time.time()
-    predictions = generate_predictions(model, tokenizer, frame, device, batch_size)
+    predictions = generate_predictions(
+        model, tokenizer, frame, device, batch_size=batch_size, mode=mode
+    )
     references = [clean_sentence(text) for text in frame.target_sentence]
     lexical = [
         contains_target(prediction, target)
@@ -123,6 +178,7 @@ def evaluate(model, tokenizer, frame, device, cefr_engine=None, batch_size=16):
     ]
     metrics = {
         "samples": len(frame),
+        "evaluation_mode": mode,
         "lexical_constraint_satisfaction": round(sum(lexical) / max(1, len(lexical)), 4),
         "sacrebleu": round(float(sacrebleu.corpus_bleu(predictions, [references]).score), 2),
         "rouge_l_f1": round(sum(rouge_l) / max(1, len(rouge_l)), 4),
@@ -276,14 +332,31 @@ def main():
 
     print(f"\n[SELECTION SUMMARY] Best Epoch: {best_epoch} with Validation Score: {best_score:.4f}")
     selected_model = AutoModelForSeq2SeqLM.from_pretrained(output_dir).to(device)
-    test_metrics, test_records = evaluate(
+    
+    print("\n--- Running Evaluation on Test Set (1. Raw Model / Unconstrained) ---")
+    test_metrics_raw, test_records_raw = evaluate(
         selected_model,
         tokenizer,
         test_frame,
         device,
         cefr_engine=cefr_engine,
         batch_size=args.batch_size,
+        mode="raw",
     )
+    print(f"Raw Test Metrics: {test_metrics_raw}")
+    
+    print("\n--- Running Evaluation on Test Set (2. Constrained Decoding / Local Prefix & Retry) ---")
+    test_metrics_constrained, test_records_constrained = evaluate(
+        selected_model,
+        tokenizer,
+        test_frame,
+        device,
+        cefr_engine=cefr_engine,
+        batch_size=args.batch_size,
+        mode="constrained",
+    )
+    print(f"Constrained Test Metrics: {test_metrics_constrained}")
+
     metadata = {
         "model_name": BASE_MODEL,
         "task": "word-conditioned CEFR example generation",
@@ -303,9 +376,12 @@ def main():
         },
         "baseline_validation": baseline_val,
         "epoch_history": history,
-        "test_metrics": test_metrics,
+        "test_metrics_raw": test_metrics_raw,
+        "test_metrics_constrained": test_metrics_constrained,
+        "test_metrics": test_metrics_raw,
         "training_seconds": round(time.time() - train_started, 2),
-        "sample_predictions": test_records[:20],
+        "sample_predictions_raw": test_records_raw[:20],
+        "sample_predictions_constrained": test_records_constrained[:20],
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     meta_filename = (
@@ -317,7 +393,61 @@ def main():
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"\n[DONE] Saved metadata to: {MODEL_DIR / meta_filename}")
-    print(json.dumps(test_metrics, indent=2))
+
+    # Generate 20-sample comparison markdown artifact
+    comparison_md_path = PROJECT_ROOT / "reports/model3a_20_sample_comparison.md"
+    comparison_md_path.parent.mkdir(parents=True, exist_ok=True)
+    comp_lines = [
+        "# Model 3a: Bảng Đối Chiếu 20 Mẫu Ngẫu Nhiên (Raw Model vs Constrained Decoding)\n",
+        f"**Thời gian đánh giá:** {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}  ",
+        f"**Tập kiểm thử:** {len(test_frame)} mẫu ngẫu nhiên từ `model3a_example_gen_test.csv` (Seed {args.seed})\n",
+        "| # | Target Word | Level | Raw Prediction | Raw Satisfied? | Constrained Prediction | Constrained Satisfied? | Reference Sentence |",
+        "|---|---|---|---|:---:|---|:---:|---|",
+    ]
+    for idx, (raw_rec, const_rec) in enumerate(zip(test_records_raw[:20], test_records_constrained[:20]), 1):
+        raw_sat = "✅ True" if raw_rec["lexical_constraint_satisfied"] else "❌ False"
+        const_sat = "✅ True" if const_rec["lexical_constraint_satisfied"] else "❌ False"
+        comp_lines.append(
+            f"| {idx} | `{raw_rec['target_word']}` | **{raw_rec['target_level']}** | {raw_rec['prediction']} | {raw_sat} | {const_rec['prediction']} | {const_sat} | {raw_rec['reference']} |"
+        )
+    comparison_md_path.write_text("\n".join(comp_lines) + "\n", encoding="utf-8")
+    print(f"[ARTIFACT] Wrote 20-sample comparison to: {comparison_md_path}")
+
+    # Generate Failure Cases Analysis artifact
+    failures_md_path = PROJECT_ROOT / "reports/model3a_failure_cases.md"
+    failure_records = [
+        (idx, raw_rec, const_rec)
+        for idx, (raw_rec, const_rec) in enumerate(zip(test_records_raw, test_records_constrained), 1)
+        if not raw_rec["lexical_constraint_satisfied"] or not const_rec["lexical_constraint_satisfied"]
+        or raw_rec["predicted_cefr"] != raw_rec["target_level"]
+    ]
+    fail_lines = [
+        "# Model 3a: Phân Tích Các Trường Hợp Thất Bại (Failure Cases Analysis)\n",
+        f"**Tổng số ca lỗi phát hiện trên test set ({len(test_frame)} mẫu):** {len(failure_records)}\n",
+        "### Danh sách 10 ca lỗi điển hình và phân tích nguyên nhân:\n",
+    ]
+    for rank, (orig_idx, raw_rec, const_rec) in enumerate(failure_records[:10], 1):
+        error_types = []
+        if not raw_rec["lexical_constraint_satisfied"]:
+            error_types.append("Raw Lexical Omission (quên từ đích)")
+        if not const_rec["lexical_constraint_satisfied"]:
+            error_types.append("Constrained Decoding Failure")
+        if raw_rec["predicted_cefr"] != raw_rec["target_level"]:
+            error_types.append(f"CEFR Mismatch (Mục tiêu: {raw_rec['target_level']} -> Thực tế: {raw_rec['predicted_cefr']})")
+        
+        fail_lines.append(f"#### Case {rank} (Mẫu #{orig_idx}): Từ khóa `{raw_rec['target_word']}` (Level yêu cầu: **{raw_rec['target_level']}**)")
+        fail_lines.append(f"- **Phân loại lỗi:** {', '.join(error_types)}")
+        fail_lines.append(f"- **Raw Prediction:** \"{raw_rec['prediction']}\" (CEFR: `{raw_rec['predicted_cefr']}`)")
+        fail_lines.append(f"- **Constrained Prediction:** \"{const_rec['prediction']}\"")
+        fail_lines.append(f"- **Reference:** \"{raw_rec['reference']}\"")
+        fail_lines.append(f"- **Phân tích kỹ thuật:** ")
+        if not raw_rec["lexical_constraint_satisfied"]:
+            fail_lines.append(f"  + Mô hình sinh tự do đã biến đổi hình thái từ hoặc thay thế bằng từ đồng nghĩa khác trong ngữ cảnh.")
+        else:
+            fail_lines.append(f"  + Mô hình chứa đúng từ nhưng độ phức tạp ngữ pháp câu chưa đạt đúng mức CEFR mục tiêu (Model 2b phân loại lệch).")
+        fail_lines.append("")
+    failures_md_path.write_text("\n".join(fail_lines) + "\n", encoding="utf-8")
+    print(f"[ARTIFACT] Wrote failure cases analysis to: {failures_md_path}")
 
 
 if __name__ == "__main__":

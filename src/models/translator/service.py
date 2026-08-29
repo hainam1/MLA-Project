@@ -25,27 +25,39 @@ def normalize_translation_text(text: str) -> str:
 
 class TranslatorService:
     def __init__(self, checkpoint: Path | str | None = None, device: str = "auto"):
-        self.checkpoint = Path(checkpoint or PROJECT_ROOT / "src/models/translator/checkpoint-best")
-        required = [self.checkpoint / "config.json", self.checkpoint / "model.safetensors"]
-        missing = [path for path in required if not path.exists()]
-        if missing:
-            raise FileNotFoundError(f"Translator checkpoint is incomplete: {missing}")
-        # Lazy imports avoid native DLL collisions in processes that only use
-        # the lightweight classifier pipeline.
+        lora_ckpt = PROJECT_ROOT / "src/models/translator/checkpoint-lora-best"
+        base_ckpt = PROJECT_ROOT / "src/models/translator/checkpoint-best"
+        
+        if checkpoint:
+            self.checkpoint = Path(checkpoint)
+        elif lora_ckpt.exists() and (lora_ckpt / "adapter_model.safetensors").exists() or (lora_ckpt / "adapter_model.bin").exists():
+            self.checkpoint = lora_ckpt
+        else:
+            self.checkpoint = base_ckpt
+
         from transformers import MarianMTModel, MarianTokenizer
 
         self.device = select_device(device)
         LOGGER.info("Loading translator from %s on %s", self.checkpoint, self.device)
-        tokenizer_path = self._ascii_tokenizer_path()
+        tokenizer_path = self._ascii_tokenizer_path(base_ckpt)
         self.tokenizer = MarianTokenizer.from_pretrained(tokenizer_path)
-        self.model = MarianMTModel.from_pretrained(self.checkpoint).to(self.device)
+
+        if self.checkpoint == lora_ckpt:
+            from peft import PeftModel
+            base_model = MarianMTModel.from_pretrained(base_ckpt)
+            lora_m = PeftModel.from_pretrained(base_model, lora_ckpt)
+            self.model = lora_m.merge_and_unload().to(self.device)
+        else:
+            self.model = MarianMTModel.from_pretrained(self.checkpoint).to(self.device)
+            
         self.model.eval()
         LOGGER.info("Translator is ready")
 
-    def _ascii_tokenizer_path(self) -> Path:
+    def _ascii_tokenizer_path(self, base_dir: Path | None = None) -> Path:
         """Stage SentencePiece assets because its Windows DLL rejects Unicode paths."""
-        if str(self.checkpoint).isascii():
-            return self.checkpoint
+        source_dir = base_dir or self.checkpoint
+        if str(source_dir).isascii():
+            return source_dir
         destination = Path(tempfile.gettempdir()) / "capyvocab" / "translator-tokenizer"
         destination.mkdir(parents=True, exist_ok=True)
         filenames = [
@@ -57,7 +69,7 @@ class TranslatorService:
             "config.json",
         ]
         for filename in filenames:
-            source = self.checkpoint / filename
+            source = source_dir / filename
             if not source.exists():
                 raise FileNotFoundError(f"Missing tokenizer asset: {source}")
             target = destination / filename

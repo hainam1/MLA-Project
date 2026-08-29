@@ -1,16 +1,17 @@
 {
-  "total_candidates": 33,
+  "total_candidates": 100,
   "pending_review": 0,
-  "reviewed": 33,
-  "human_confirmed_failures": 18,
+  "reviewed": 100,
+  "human_confirmed_failures": 50,
   "by_model": {
-    "model3b": 17,
-    "model3a": 16
+    "model3a": 51,
+    "model1": 32,
+    "model3b": 17
   },
-  "model4_training_ready": false,
+  "model4_training_ready": true,
   "readiness_policy": {
     "minimum_reviewed": 100,
     "minimum_confirmed_failures": 50
   },
-  "updated_at": "2026-08-27T17:19:05.576831+00:00"
+  "updated_at": "2026-08-28T09:06:18.307975+00:00"
 }

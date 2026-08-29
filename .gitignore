@@ -121,3 +121,8 @@ runs/
 mlruns/
 .neptune/
 
+# Scratch & temporary experiment files
+scratch/
+*.parquet
+
+

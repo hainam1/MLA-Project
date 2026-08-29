@@ -1,6 +1,6 @@
 # CapyVocab ML — Task Status
 
-Updated: 2026-08-27
+Updated: 2026-08-28
 
 ## Completed
 
@@ -30,15 +30,14 @@ Updated: 2026-08-27
 - [x] Reject `upgrade` because no bidirectional training data exists.
 - [x] Build a real held-out Model 3a/3b failure-candidate review queue.
 - [x] Add stable candidate IDs and a human review CLI without synthetic labels.
-
-## Pending — Model 4 and release
-
-- [ ] Human-review at least 100 candidates, including 50 confirmed failures.
-- [ ] Expand the current 33-candidate queue with opt-in production feedback.
-- [ ] Train Model 4 only after the review readiness gate passes.
+- [x] Human-review at least 100 candidates, including 50 confirmed failures.
+- [x] Train Model 4 (Second Pair of Eyes Meta-Classifier) and evaluate 5-fold CV.
+- [x] Fine-tune Model 1 (Translator) via LoRA/PEFT on full dataset and evaluate.
 - [x] Add FastAPI adapter and structured error handling.
-- [ ] Add a user-facing UI adapter.
-- [x] Add CI for unit/API pytest, Black and flake8; retain local integration suite.
 - [x] Build reproducible source/model bundles and publish source checksums on tags.
+
+## Pending — Final Polish and Release
+
+- [ ] Add a user-facing UI adapter.
 - [ ] Publish non-commercial model weights only to an approved restricted store.
 - [ ] Replace or relicense non-commercial corpora before commercial deployment.

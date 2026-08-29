@@ -136,9 +136,13 @@ def selective_test_metrics(model, features, labels, threshold: float) -> dict:
 
 
 def calibrate_model(name: str, spec: dict) -> dict:
+    backup = spec["model"].with_name("model_uncalibrated.pkl")
     base_model = joblib.load(spec["model"])
     if isinstance(base_model, TemperatureScaledClassifier):
-        raise RuntimeError(f"{name} is already calibrated; retrain it before calibrating again")
+        if backup.exists():
+            base_model = joblib.load(backup)
+        else:
+            raise RuntimeError(f"{name} is already calibrated; retrain it before calibrating again")
     validation = pd.read_csv(spec["val"])
     test = pd.read_csv(spec["test"])
     feature_names = spec["features"]
@@ -152,7 +156,6 @@ def calibrate_model(name: str, spec: dict) -> dict:
     threshold, policy = choose_review_threshold(calibrated, x_val, y_val)
     test_policy = selective_test_metrics(calibrated, x_test, y_test, threshold)
 
-    backup = spec["model"].with_name("model_uncalibrated.pkl")
     shutil.copy2(spec["model"], backup)
     joblib.dump(calibrated, spec["model"])
 

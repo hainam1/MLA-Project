@@ -1,6 +1,6 @@
 {
-  "model_name": "Logistic Regression (Baseline)",
-  "model_type": "LogisticRegression",
+  "model_name": "XGBoost (Tuned)",
+  "model_type": "XGBClassifier",
   "task": "CEFR Word Classification (5 classes: A1-C1)",
   "features": [
     "char_length",
@@ -8,75 +8,114 @@
     "vowel_count",
     "vowel_ratio",
     "wordfreq_zipf",
-    "wordfreq_freq"
+    "wordfreq_freq",
+    "suffix_tion",
+    "suffix_ity",
+    "suffix_ment",
+    "suffix_able",
+    "suffix_ible",
+    "suffix_ology",
+    "suffix_istic",
+    "suffix_ize",
+    "suffix_ness",
+    "suffix_ive",
+    "prefix_un",
+    "prefix_in",
+    "prefix_dis",
+    "prefix_counter",
+    "prefix_hyper",
+    "prefix_anti"
   ],
-  "train_date": "2026-08-27 16:29:44",
+  "train_date": "2026-08-28 19:23:40",
   "metrics_test": {
-    "accuracy": 0.3608,
-    "macro_f1": 0.3665,
-    "weighted_f1": 0.3538
+    "accuracy": 0.3542,
+    "macro_f1": 0.3592,
+    "weighted_f1": 0.3499
   },
   "metrics_val": {
     "Logistic Regression (Baseline)": {
-      "val_accuracy": 0.3598,
-      "val_macro_f1": 0.3715,
-      "val_weighted_f1": 0.3556
+      "val_accuracy": 0.352,
+      "val_macro_f1": 0.3613,
+      "val_weighted_f1": 0.3452
     },
     "Random Forest (Default)": {
-      "val_accuracy": 0.3416,
-      "val_macro_f1": 0.3375,
-      "val_weighted_f1": 0.343
+      "val_accuracy": 0.3468,
+      "val_macro_f1": 0.3413,
+      "val_weighted_f1": 0.3484
     },
     "Random Forest (Tuned)": {
-      "val_accuracy": 0.3481,
-      "val_macro_f1": 0.3553,
-      "val_weighted_f1": 0.3441
+      "val_accuracy": 0.3468,
+      "val_macro_f1": 0.3519,
+      "val_weighted_f1": 0.3411
     },
     "XGBoost (Default)": {
       "val_accuracy": 0.3546,
-      "val_macro_f1": 0.3627,
-      "val_weighted_f1": 0.3485
+      "val_macro_f1": 0.3615,
+      "val_weighted_f1": 0.3469
     },
     "XGBoost (Tuned)": {
-      "val_accuracy": 0.3468,
-      "val_macro_f1": 0.3514,
-      "val_weighted_f1": 0.3441
+      "val_accuracy": 0.3611,
+      "val_macro_f1": 0.3638,
+      "val_weighted_f1": 0.3601
     }
   },
-  "feature_importances": {},
+  "feature_importances": {
+    "wordfreq_zipf": 0.11169999837875366,
+    "wordfreq_freq": 0.10159999877214432,
+    "suffix_ity": 0.07270000129938126,
+    "syllable_count": 0.05790000036358833,
+    "char_length": 0.053700000047683716,
+    "suffix_tion": 0.05000000074505806,
+    "vowel_count": 0.04729999974370003,
+    "suffix_ment": 0.04619999974966049,
+    "prefix_dis": 0.045099999755620956,
+    "prefix_un": 0.045099999755620956,
+    "suffix_ize": 0.04470000043511391,
+    "suffix_ive": 0.04470000043511391,
+    "suffix_istic": 0.04360000044107437,
+    "vowel_ratio": 0.0430000014603138,
+    "prefix_in": 0.042399998754262924,
+    "suffix_able": 0.040800001472234726,
+    "prefix_anti": 0.032600000500679016,
+    "suffix_ible": 0.03220000118017197,
+    "suffix_ness": 0.029899999499320984,
+    "suffix_ology": 0.014700000174343586,
+    "prefix_counter": 0.0,
+    "prefix_hyper": 0.0
+  },
   "calibration": {
     "method": "temperature_scaling",
-    "temperature": 1.159419,
+    "temperature": 1.361154,
     "fit_split": "validation",
     "test_metrics_before": {
-      "accuracy": 0.3608,
-      "macro_f1": 0.3665,
-      "log_loss": 1.398,
-      "brier_multiclass": 0.7208,
-      "ece_10_bins": 0.0552
+      "accuracy": 0.3542,
+      "macro_f1": 0.3592,
+      "log_loss": 1.3732,
+      "brier_multiclass": 0.7323,
+      "ece_10_bins": 0.1081
     },
     "test_metrics_after": {
-      "accuracy": 0.3608,
-      "macro_f1": 0.3665,
-      "log_loss": 1.3925,
-      "brier_multiclass": 0.7194,
-      "ece_10_bins": 0.0562
+      "accuracy": 0.3542,
+      "macro_f1": 0.3592,
+      "log_loss": 1.3513,
+      "brier_multiclass": 0.7189,
+      "ece_10_bins": 0.0692
     },
-    "needs_review_threshold": 0.42,
+    "needs_review_threshold": 0.44,
     "threshold_policy": {
-      "selection_rule": "best_selective_accuracy_with_minimum_20pct_coverage",
+      "selection_rule": "lowest_threshold_reaching_baseline_plus_10pp",
       "minimum_coverage": 0.2,
-      "target_selective_accuracy": 0.4598,
-      "validation_coverage": 0.2047,
-      "validation_selective_accuracy": 0.3949,
-      "validation_review_rate": 0.7953
+      "target_selective_accuracy": 0.4611,
+      "validation_coverage": 0.2412,
+      "validation_selective_accuracy": 0.4757,
+      "validation_review_rate": 0.7588
     },
     "test_selective_metrics": {
-      "coverage": 0.2,
-      "review_rate": 0.8,
-      "selective_accuracy": 0.4444,
-      "accepted_samples": 153,
-      "review_samples": 612
+      "coverage": 0.2745,
+      "review_rate": 0.7255,
+      "selective_accuracy": 0.4429,
+      "accepted_samples": 210,
+      "review_samples": 555
     },
     "uncalibrated_backup": "src/models/cefr_word_classifier/model_uncalibrated.pkl"
   }

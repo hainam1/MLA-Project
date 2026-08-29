@@ -25,7 +25,10 @@ def contains_target(text: str, target_word: str) -> bool:
 
 def normalize_generated_text(text: str) -> str:
     text = re.sub(r"\s+([,.:;?!%'])", r"\1", str(text))
-    return re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"\s+", " ", text).strip()
+    if text and text[0].islower():
+        text = text[0].upper() + text[1:]
+    return text
 
 
 class ExampleGeneratorService:
@@ -69,7 +72,8 @@ class ExampleGeneratorService:
             # Transformers 4.57 moved force_words_ids behind remote custom code.
             # Prefixing the local decoder with `word,` is a deterministic and
             # auditable fallback that does not require trust_remote_code=True.
-            prefix_ids = self.tokenizer(f"{word},", add_special_tokens=False).input_ids
+            prefix_word = word[0].upper() + word[1:] if word else word
+            prefix_ids = self.tokenizer(f"{prefix_word},", add_special_tokens=False).input_ids
             decoder_ids = torch.tensor(
                 [[self.model.config.decoder_start_token_id, *prefix_ids]], device=self.device
             )

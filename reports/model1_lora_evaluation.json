@@ -1,0 +1,101 @@
+{
+  "test_1k": {
+    "baseline_bleu": 31.83,
+    "baseline_chrf": 53.74,
+    "lora_bleu": 32.68,
+    "lora_chrf": 54.55,
+    "delta_bleu": 0.85,
+    "delta_chrf": 0.81
+  },
+  "review_32": {
+    "baseline_bleu": 33.83,
+    "baseline_chrf": 56.31,
+    "lora_bleu": 34.47,
+    "lora_chrf": 57.17,
+    "delta_bleu": 0.65,
+    "delta_chrf": 0.86
+  },
+  "failure_samples": [
+    {
+      "candidate_id": "a6fffc4e690cbc64",
+      "vi": "Ví dụ , hàng triệu triệu dollars giá trị đất vẫn chưa được quy hoạch chỉ tính riêng ở trong Ấn Độ .",
+      "baseline_pred": "For example, millions of dollars of land value are still unplanned in India alone.",
+      "lora_pred": "For example, millions of dollars of land value are not yet planned in India alone.",
+      "reference": "For example, a trillion dollars of real estate remains uncapitalized in India alone.",
+      "notes": "sai so luong nghin ty thanh millions, mat bat dong san"
+    },
+    {
+      "candidate_id": "0edd15eaa4c88de2",
+      "vi": "Vật thể càng nhỏ thì bán kính hấp dẫn càng nhỏ .",
+      "baseline_pred": "The smaller the object, the smaller the radius.",
+      "lora_pred": "The smaller the object, the smaller the radius.",
+      "reference": "Smaller objects have smaller Schwarzschild radii.",
+      "notes": "thieu tu hap dan/gravitational, mat thuat ngu khoa hoc"
+    },
+    {
+      "candidate_id": "8c0d2bb8f79e9480",
+      "vi": "Do đó bạn cần cảm giác lạ để các khoái cảm được duy trì .",
+      "baseline_pred": "So you need strange sensations for the pleasure to be maintained.",
+      "lora_pred": "So you need a strange feeling to keep the orgasms going.",
+      "reference": "So you need the novelty in order for the arousal to be sustained.",
+      "notes": "khoai cam dich thanh orgasms lech sac thai manh"
+    },
+    {
+      "candidate_id": "2ca60f9ebd529ea0",
+      "vi": "Giản đồ này thể hiện hệ mạch bạch huyết dần dần phát triển để đáp ứng nhu cầu .",
+      "baseline_pred": "This map shows that the lymphatic system gradually developed to meet the demand.",
+      "lora_pred": "This map shows the growing lymphatic system to meet the demand.",
+      "reference": "This diagram shows the body's lymphatic system, which has evolved to meet this need.",
+      "notes": "gian do dich thanh map sai thuat ngu"
+    },
+    {
+      "candidate_id": "797ded885c226471",
+      "vi": "Ban ngày , nó phơi bảng pin mặt trời dưới ánh nắng và ban đêm nó trở thành đèn đường .",
+      "baseline_pred": "During the day, it lays out solar panels in the sun and at night it becomes street lights.",
+      "lora_pred": "During the day, it hangs solar panels in the sun and at night becomes street lights.",
+      "reference": "It presents the solar panel to the sun, and at night it's a street lamp.",
+      "notes": "dao chu vi ngu, sai nghia cau"
+    },
+    {
+      "candidate_id": "b1369ec24bac5e37",
+      "vi": "Tổ chức tín dụng, chi nhánh ngân hàng nước ngoài gửi báo cáo tài chính cho Ngân hàng Nhà nước Việt Nam để chủ trì giám sát việc thực hiện chế độ tài chính của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài; đồng thời gửi Bộ Tài chính.",
+      "baseline_pred": "Trusting organization, the foreign bank branch sends financial reports to the Vietnamese State Bank to oversee the execution of the credit system, the foreign bank, and also to the Department of Finance.",
+      "lora_pred": "Trusting organizations, foreign bank branches send financial reports to the National Bank of Vietnam to oversee the execution of the financial regimes of credit, foreign bank branches, and also to the Department of Finance.",
+      "reference": "Credit institutions and branches of foreign banks shall send financial statements to the State bank of Vietnam for monitoring and to the Ministry of Finance.",
+      "notes": "sai thuat ngu phap ly nghiem trong to chuc tin dung"
+    },
+    {
+      "candidate_id": "3366e6782ce90b43",
+      "vi": "Đó là một người truyền thông đa nhiệm .",
+      "baseline_pred": "It's a multi-tasking media person.",
+      "lora_pred": "It's a multi-task media person.",
+      "reference": "That's a multimedia-tasker.",
+      "notes": "tu y them He is, mediaman guong"
+    },
+    {
+      "candidate_id": "15e3eca07fa155b0",
+      "vi": "Nhân tiện , tôi đang hướng dẫn các bạn cách sử dụng website của chúng tôi , Gapminder World . Vì sao tôi lại chỉnh sửa chúng ? Bởi vì nó là một tiện ích miễn phí trên mạng .",
+      "baseline_pred": "By the way, I'm showing you how to use our website, Gapminder World, because it's a free utility online.",
+      "lora_pred": "By the way, I'm showing you how to use our website, Gapminder World. Why am I editing it? Because it's a free utility online.",
+      "reference": "By the way, I'm teaching you how to use our website, Gapminder World, while I'm correcting this, because this is a free utility on the net.",
+      "notes": "bo sot nguyen 1 cau hoi trong doan"
+    },
+    {
+      "candidate_id": "c18106c22edee89a",
+      "vi": "Và đây là sản phẩm anh đã xây dựng nên .",
+      "baseline_pred": "And this is the product you built.",
+      "lora_pred": "And this is what he built.",
+      "reference": "So this is what he built.",
+      "notes": "nham dai tu anh thanh you can xac nhan lai ngu canh"
+    },
+    {
+      "candidate_id": "63ccaf0ce92a60d7",
+      "vi": "Tôi vẫn giữ ước mơ đó .",
+      "baseline_pred": "I kept that dream.",
+      "lora_pred": "I kept that dream.",
+      "reference": "I still have that dream.",
+      "notes": "sai thi, van giu thanh qua khu kept"
+    }
+  ],
+  "evaluated_at": "2026-08-28 16:43:46"
+}
