@@ -1,126 +1,82 @@
 project:
-  name: capyvocab-ml
+  name: english-sentence-cefr-classification
   random_seed: 42
   cefr_levels: [A1, A2, B1, B2, C1]
+  purpose: academic_language_learning_support
   commercial_use_allowed: false
 
-paths:
-  processed_data: data/processed
-  word_model: src/models/cefr_word_classifier/model.pkl
-  sentence_model: src/models/cefr_sentence_classifier/model.pkl
-  translator_checkpoint: src/models/translator/checkpoint-best
-  example_generator_checkpoint: src/models/example_generator/checkpoint-best
-  sentence_rewriter_checkpoint: src/models/sentence_rewriter/checkpoint-best
-  model4_review_queue: data/review/model4_failure_candidates.csv
-  release_output: dist
-  artifact_manifest: artifacts/manifest.json
+task:
+  type: ordinal_multiclass_classification
+  input: english_sentence
+  target: cefr_level
+  primary_metric: macro_f1
+  ordinal_metric: quadratic_weighted_kappa
 
-router:
-  word_mode_max_tokens: 3
-  terminal_punctuation: ".?!…"
-  multiword_model2a_is_out_of_distribution: true
-
-model2a:
-  task: context_free_word_cefr_classification
-  split:
-    strategy: stratified_group_kfold
-    group: word
-    train_val_test: [0.70, 0.15, 0.15]
-  features:
-    - char_length
-    - syllable_count
-    - vowel_count
-    - vowel_ratio
-    - wordfreq_zipf
-    - wordfreq_freq
-  calibration:
-    method: temperature_scaling
-    temperature: 1.159419
-    needs_review_threshold: 0.42
-
-model2b:
-  task: sentence_cefr_classification
+data:
+  primary:
+    - dataset_id: UniversalCEFR/cefr_sp_en
+      source_name: cefr_sp_en
+      revision: b78901348bda9f5a823cd3da1f3fcb2dcc6c5725
+    - dataset_id: UniversalCEFR/readme_en
+      source_name: readme_en
+      revision: 88ce5b3736bdb666b1f64f738451676b12028a33
+  auxiliary_word_lexicon:
+    enabled: true
+    purpose: aggregate_sentence_features_only
+    ablation_required: true
+  valid_levels: [A1, A2, B1, B2, C1]
   split:
     strategy: stratified_group_kfold
     group: cluster_id
-    train_val_test: [0.70, 0.15, 0.15]
-  feature_count: 25
-  calibration:
-    method: temperature_scaling
-    temperature: 0.887635
-    needs_review_threshold: 0.62
+    train_validation_test: [0.70, 0.15, 0.15]
+    near_duplicate_jaccard: 0.80
+    near_duplicate_sequence_ratio: 0.75
 
-translator:
-  model: Helsinki-NLP/opus-mt-vi-en
-  direction: vi-en
-  max_length: 128
-  num_beams: 4
-  evaluation:
-    default_random_samples: 1000
-    random_seed: 42
-    full_evaluation_flag: "--eval_samples 0"
+models:
+  required_families:
+    instance_based:
+      estimator: knn_classifier
+      preprocessing: median_imputer_then_standard_scaler
+      validation_grid:
+        n_neighbors: [3, 5, 7, 11, 15]
+        weights: [uniform, distance]
+        p: [1, 2]
+    tree_based:
+      estimator: decision_tree_classifier
+      class_weight: balanced
+      validation_grid:
+        max_depth: [4, 6, 8, 12, null]
+        min_samples_split: [2, 4, 10]
+        min_samples_leaf: [1, 2, 5, 10]
+        criterion: [gini, entropy]
+  sanity_baseline: majority_class
+  selection_metric: macro_f1
 
-model3a:
-  status: trained_and_integrated
-  model: google/flan-t5-small
-  input: [target_word, target_level]
-  target: target_sentence
-  dataset: data/processed/example_generation_pairs.csv
-  split_group: target_word
-  checkpoint_selection: validation_rouge_l_plus_lexical_constraint
-  inference:
-    lexical_constraint: forced_decoding
-    num_beams: 4
+contextual_extension:
+  enabled: false
+  model: microsoft/deberta-v3-small
+  frozen: true
+  pooling: mean
+  pca_dimensions_to_validate: [16, 32, 64]
+  fit_pca_on: train_only
+  note: optional_feature_representation_not_a_required_model_family
 
-model3b:
-  status: trained_and_integrated
-  model: google/flan-t5-small
-  supported_directions: [simplify, preserve]
-  unsupported_direction: upgrade
-  dataset: data/processed/sentence_rewrite_simplification_pairs.csv
-  split_group: original
-  checkpoint_selection: validation_sari_plus_semantic_similarity
-  inference:
-    default_target: one_cefr_level_lower
-    a1_behavior: preserve
-    reject_upgrade: true
+evaluation:
+  metrics:
+    - macro_f1
+    - quadratic_weighted_kappa
+    - accuracy
+    - weighted_f1
+    - adjacent_accuracy
+    - mean_absolute_level_error
+  bootstrap_samples: 1000
+  confidence_level: 0.95
+  error_slices: [level, error_distance, length, lexical_rarity, syntax, source, confidence]
 
-model4:
-  status: awaiting_human_review
-  task: output_quality_verification
-  review_queue: data/review/model4_failure_candidates.csv
-  readiness:
-    minimum_reviewed: 100
-    minimum_confirmed_failures: 50
-  current_reviewed: 0
-  current_confirmed_failures: 0
-  training_ready: false
-
-pipeline:
-  input_contract: vietnamese_vocabulary_only
-  vocabulary_max_tokens: 3
-  target_level_required: true
-  sentence_rewriting_enabled: false
-  candidate_selection: bilingual_lexical_gate_then_target_cefr
-  semantic_anchor: avdict_gloss_plus_marian_candidate
-  word_sense_policy: explicit_sense_id_and_part_of_speech
-  semantic_reranker: intfloat/multilingual-e5-small
-  unavailable_level_policy: no_exact_level_match
-  output_verification: [word_cefr, lexical_constraint, sentence_cefr]
-  implemented: [translation_candidates, target_level_selection, cefr_verification, example_generation]
-  pending: [quality_verification]
-
-api:
-  framework: fastapi
-  version: 0.3.0
-  max_input_characters: 100
-  endpoints: [/health/live, /health/ready, /v1/status, /v1/process]
-  production_auth_configured: false
-  production_rate_limiting_configured: false
-
-release:
-  version: 0.3.0
-  commercial_use_allowed: false
-  source_bundle_ci: true
-  model_bundle_requires_noncommercial_acknowledgement: true
-  model4_included: false
+paths:
+  cleaned_sentences: data/processed/cefr_sentences_clean.csv
+  sentence_features: data/processed/cefr_sentence_features.csv
+  auxiliary_lexicon: data/processed/cefr_wordlist_clean.csv
+  split_prefix: data/processed/sentence_cefr
+  model_dir: src/models/sentence_cefr
+  report_dir: reports

@@ -1,41 +1,16 @@
-import json
+from __future__ import annotations
 
-import joblib
-import pandas as pd
-import pytest
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
 
-from src.features import SENTENCE_FEATURE_COLUMNS, WORD_FEATURE_COLUMNS
-
-pytestmark = pytest.mark.integration
+from src.models.calibration import TemperatureScaledClassifier
 
 
-def test_calibration_preserves_base_predictions():
-    specs = [
-        (
-            "src/models/cefr_word_classifier",
-            "data/processed/model2a_word_cefr_test.csv",
-            WORD_FEATURE_COLUMNS,
-        ),
-        (
-            "src/models/cefr_sentence_classifier",
-            "data/processed/model2b_sentence_cefr_test.csv",
-            SENTENCE_FEATURE_COLUMNS,
-        ),
-    ]
-    for model_dir, test_path, features in specs:
-        calibrated = joblib.load(f"{model_dir}/model.pkl")
-        base = joblib.load(f"{model_dir}/model_uncalibrated.pkl")
-        test = pd.read_csv(test_path).head(100)
-        assert (calibrated.predict(test[features]) == base.predict(test[features])).all()
+def test_temperature_scaling_preserves_predictions_and_normalizes_probabilities():
+    features = np.array([[0.0], [0.5], [1.0], [1.5], [2.0], [2.5]])
+    labels = np.array([0, 0, 1, 1, 2, 2])
+    base = DecisionTreeClassifier(max_depth=2, random_state=42).fit(features, labels)
+    calibrated = TemperatureScaledClassifier(base, temperature=1.7)
 
-
-def test_calibration_metadata_has_review_policy():
-    for model_dir in [
-        "src/models/cefr_word_classifier",
-        "src/models/cefr_sentence_classifier",
-    ]:
-        metadata = json.loads(open(f"{model_dir}/metadata.json", encoding="utf-8").read())
-        calibration = metadata["calibration"]
-        assert calibration["method"] == "temperature_scaling"
-        assert calibration["needs_review_threshold"] > 0
-        assert 0 <= calibration["test_selective_metrics"]["coverage"] <= 1
+    assert np.array_equal(base.predict(features), calibrated.predict(features))
+    assert np.allclose(calibrated.predict_proba(features).sum(axis=1), 1.0)

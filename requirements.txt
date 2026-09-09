@@ -1,32 +1,22 @@
-# Runtime dependencies. Use a PyTorch build compatible with the local GPU;
-# the runtime falls back to CPU if an actual CUDA tensor operation fails.
-torch>=2.6,<3
-transformers>=4.57,<5
-datasets>=3.4,<4
-huggingface-hub>=0.34,<1
-accelerate>=1.0,<2
-sentencepiece>=0.2,<1
-sacremoses>=0.1,<1
-protobuf>=5,<7
-
-scikit-learn>=1.7,<2
-xgboost>=3,<4
+# Core data and classical ML
 pandas>=2.2,<3
 numpy>=2.0,<2.5
 scipy>=1.13,<2
+scikit-learn>=1.7,<2
 joblib>=1.4,<2
+pyyaml>=6,<7
 
+# Interpretable linguistic features
+spacy>=3.8,<4
 wordfreq>=3.1,<4
-nltk>=3.9,<4
 textstat>=0.7,<1
 pyphen>=0.17,<1
-spacy>=3.8,<4
-pyyaml>=6,<7
-sacrebleu>=2.5,<3
-rouge-score>=0.1,<1
-bert-score>=0.3,<1
-tqdm>=4.66,<5
+
+# Dataset acquisition
+datasets>=3.4,<4
+huggingface-hub>=0.34,<1
+
+# Evaluation and figures
 matplotlib>=3.9,<4
 seaborn>=0.13,<1
-fastapi>=0.141,<0.142
-uvicorn[standard]>=0.52,<0.53
+tqdm>=4.66,<5
