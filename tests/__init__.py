@@ -1,1 +1,1 @@
-"""Automated tests for CapyVocab ML."""
+"""Tests for English sentence CEFR classification."""

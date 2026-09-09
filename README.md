@@ -1,142 +1,90 @@
-# CapyVocab ML
+# English Sentence CEFR Classification
 
-CapyVocab ML là pipeline học từ vựng tiếng Anh theo CEFR A1–C1. Contract phục vụ hiện tại:
+This repository contains one focused final-project pipeline: classify an English sentence into
+CEFR levels A1-C1 for language-learning support.
+
+**Official model comparison:** K-Nearest Neighbors (distance/instance-based family) versus
+Decision Tree (tree-based family), using the same interpretable linguistic features and the same
+leakage-safe data split. Frozen DeBERTa embeddings remain an optional feature extension only.
+
+## Scope
 
 ```text
-Từ/cụm từ tiếng Việt (tối đa 3 token) + mức CEFR bắt buộc A1–C1
-    -> từ điển Việt–Anh truy hồi nghĩa/POS/sense_id
-    -> MarianMT + WordNet chỉ tạo thêm candidate
-    -> multilingual E5 + bằng chứng song ngữ loại candidate sai nghĩa
-    -> chuẩn hóa lemma + POS trước khi CEFR được xét
-    -> CEFR lookup theo lemma+POS và kiểm tra level có thật sự tồn tại
-    -> Model 3a + controlled templates sinh các câu ứng viên
-    -> Model 2b kiểm chứng mức CEFR của câu
-    -> từ tiếng Anh + câu hoàn chỉnh + target_match/needs_review
+English sentence
+  -> licensed UniversalCEFR data
+  -> cleaning and near-duplicate grouping
+  -> leakage-safe train/validation/test split
+  -> interpretable linguistic features
+  -> KNN: imputation + train-only scaling
+  -> Decision Tree: imputation + validation-selected pruning
+  -> KNN vs Decision Tree
+  -> Macro F1, QWK, comparison, and error analysis
 ```
 
-Pipeline không còn nhận câu tiếng Việt và không phục vụ Model 3b sentence rewriting. Artefact Model 3b vẫn được giữ để tái lập kết quả nghiên cứu cũ.
+Translation, word-level prediction, sentence generation, rewriting, quality auditing, and a
+production API are intentionally out of scope.
 
-## Nguyên tắc độ chính xác
+## Project status
 
-- `target_level` là lựa chọn bắt buộc của người dùng, không còn được suy ra từ bản dịch.
-- `target_match: true` chỉ được trả khi wordlist xác thực đúng cả lemma, POS và level. Dự đoán Model 2a không còn được dùng như bằng chứng exact.
-- Nếu tập candidate đúng nghĩa không có từ ở level yêu cầu, pipeline giữ từ đúng nghĩa nhất với `selection_status: no_exact_level_match`, `target_match: false` và `needs_review: true`; CEFR không được phép đổi nghĩa.
-- `meaning_analysis` công khai candidate, POS, `sense_id`, nguồn và điểm semantic; input mơ hồ được đánh dấu `needs_clarification`.
-- Câu phải chứa đúng từ được chọn, là câu hoàn chỉnh và được Model 2b phân loại lại. `level_match` cho biết câu có đạt target hay không.
-- WordNet chỉ mở rộng đồng nghĩa từ sense ưu tiên. Nhãn CEFR luôn đến từ wordlist của dự án hoặc classifier.
+The repository has been narrowed from an earlier multipurpose product pipeline. Existing sentence
+classification results are historical baselines and must be reproduced after the final experiment
+protocol is implemented. Do not combine figures from different metadata or experimental runs.
 
-## Cài đặt
+The detailed roadmap and acceptance gates are in
+[`final-project-plan.md`](final-project-plan.md). Current work items are in [`TASKS.md`](TASKS.md).
 
-Khuyến nghị Python 3.12:
+## Data
+
+The primary datasets are:
+
+- `UniversalCEFR/cefr_sp_en`
+- `UniversalCEFR/readme_en`
+
+Raw and processed data are intentionally ignored by Git. Provenance and current license notes are
+recorded in [`data/raw/cefr_sentence/SOURCE.md`](data/raw/cefr_sentence/SOURCE.md) and
+[`reports/00_dataset_licenses.md`](reports/00_dataset_licenses.md).
+
+The word-level CEFR survey is permitted only as an auxiliary lexical resource for aggregate
+sentence features. It is not a separate task or model, and the final experiments must include an
+ablation without it.
+
+## Planned commands
+
+The following command contract will be completed and verified phase by phase:
+
+```powershell
+python -m src.data.download_datasets
+python -m src.data.download_datasets --include-auxiliary-lexicon
+python -m src.data.clean_cefr_sentences
+python -m src.data.clean_cefr_wordlist
+python -m src.data.build_sentence_cefr_features --full
+python -m src.data.split_datasets
+python -m src.models.sentence_cefr.train
+python -m src.inference "Despite the rain, the expedition continued."
+python -m pytest -q
+```
+
+Python 3.12 is the target environment. Install the development dependencies and spaCy model with:
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m ensurepip --upgrade
 python -m pip install -r requirements-dev.txt
 python -m spacy download en_core_web_sm
-python -m nltk.downloader -d data/external/nltk_data wordnet
 ```
 
-Kiểm tra môi trường và GPU:
+Install `requirements-contextual.txt` only when implementing/running the optional DeBERTa
+extension. It is not needed for the two required model families.
 
-```powershell
-python -m src._env_check
-```
+## Results policy
 
-## Chạy pipeline
+Old model tables were removed from the active project to prevent accidental mixing of incompatible
+experiments. [`reports/model_comparison.md`](reports/model_comparison.md) is the only active
+result-table template. Fill it only with outputs from the frozen KNN-versus-Decision-Tree protocol;
+regenerate all final figures from that same run.
 
-`--target-level` là bắt buộc khi chạy non-interactive:
+## Responsible use
 
-```powershell
-python -m src.pipeline.run_pipeline "tốt" --target-level B2 --device cuda
-python -m src.pipeline.run_pipeline "quả táo" --target-level A1 --device cpu
-```
-
-Chế độ interactive sẽ hỏi lần lượt từ vựng và level:
-
-```powershell
-python -m src.pipeline.run_pipeline --interactive --device cuda
-```
-
-Ví dụ output rút gọn:
-
-```json
-{
-  "status": "success",
-  "input_vi": "tốt",
-  "requested_level": "B2",
-  "translation_en": "superb",
-  "selected_vocabulary": {
-    "predicted_level": "B2",
-    "target_match": true,
-    "selection_status": "matched"
-  },
-  "generated_example": {
-    "sentence": "After reviewing the evidence, the committee concluded that the result was superb.",
-    "level_match": true
-  }
-}
-```
-
-## REST API và giao diện web
-
-```powershell
-uvicorn src.api.app:app --host 127.0.0.1 --port 8000
-```
-
-- `GET /`: giao diện nhập từ vựng và chọn CEFR.
-- `GET /health/live`: kiểm tra process, không load model.
-- `GET /health/ready`: kiểm tra toàn bộ artefact phục vụ, bao gồm WordNet.
-- `GET /v1/status`: contract và trạng thái model.
-- `POST /v1/process`: xử lý từ vựng.
-
-Request mới:
-
-```json
-{
-  "vietnamese_vocabulary": "tốt",
-  "target_level": "B2"
-}
-```
-
-Hai trường cũ `vietnamese_text` và `rewrite_target_level` không còn được chấp nhận. API chỉ nên bind localhost vì chưa có authentication hoặc rate limiting.
-
-## Kiểm thử
-
-```powershell
-python -m pytest -q
-python -m black --check src tests
-python -m flake8 src tests
-python -m src.artifacts.build_manifest --verify
-python -m src.release.build_release verify dist/capyvocab-ml-0.3.0
-```
-
-Đánh giá riêng tầng nghĩa bằng gold set (không dùng làm runtime mapping):
-
-```powershell
-python -m src.quality.evaluate_lexical_retrieval --device cpu --top-k 5
-```
-
-Test bao phủ input vocabulary-only, target bắt buộc, lexical gate, lemma+POS CEFR lookup, lexical constraint, API contract, artefact và release.
-
-## Dữ liệu, model và giới hạn
-
-- Model 1: MarianMT VI→EN, sinh ranked beams.
-- Model 2a: word CEFR classifier; exact wordlist lookup được ưu tiên để tăng độ tin cậy.
-- Model 2b: chỉ dùng nội bộ để xác minh CEFR của câu ví dụ.
-- Model 3a: FLAN-T5-small; controlled templates là fallback khi câu sinh không hoàn chỉnh hoặc không đạt CEFR.
-- Model 3b: giữ cho nghiên cứu cũ, không nằm trong serving contract.
-- Model 4: chưa sẵn sàng; `quality_verification` vẫn là `false`.
-
-Model binary và dữ liệu lớn không commit vào Git. Một số corpus có giấy phép CC BY-NC/CC BY-NC-SA nên `commercial_use_allowed: false`. Không load file pickle/joblib từ nguồn không tin cậy.
-
-## Release
-
-```powershell
-python -m src.artifacts.build_manifest
-python -m src.release.build_release build --version 0.3.0 --allow-noncommercial
-python -m src.release.build_release verify dist/capyvocab-ml-0.3.0
-```
-
-Full model bundle bao gồm AVDict, multilingual E5 và WordNet runtime data. Source bundle bao gồm giao diện web, provenance và gold evaluation set.
+This is an academic, non-commercial project. CEFR predictions are estimates and must not be used as
+high-stakes judgments about a learner. LLM assistance is supporting-only and will be disclosed; no
+LLM supplies labels or runtime predictions.

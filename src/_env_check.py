@@ -1,36 +1,47 @@
-"""Verify imports, spaCy assets, and actual CPU/GPU execution."""
+"""Verify dependencies for the core project and optional contextual extension."""
 
 from __future__ import annotations
 
+import argparse
 import importlib
 import platform
 import sys
 
-from src.runtime.hardware import inspect_torch_device
-
-PACKAGES = [
-    "torch",
-    "transformers",
-    "datasets",
+CORE_PACKAGES = [
+    "pandas",
+    "numpy",
+    "scipy",
     "sklearn",
-    "xgboost",
+    "spacy",
     "wordfreq",
     "textstat",
-    "sacrebleu",
     "pyphen",
-    "spacy",
+    "datasets",
 ]
+CONTEXTUAL_PACKAGES = ["torch", "transformers"]
 
 
-def test_imports() -> bool:
+def check_packages(packages: list[str]) -> bool:
     passed = True
-    for name in PACKAGES:
+    for name in packages:
         try:
             module = importlib.import_module(name)
             print(f"[OK] {name}: {getattr(module, '__version__', 'installed')}")
-        except Exception as exc:  # diagnostic command: report every import failure
+        except Exception as exc:
             passed = False
             print(f"[FAIL] {name}: {exc}")
+    return passed
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--contextual", action="store_true")
+    args = parser.parse_args()
+    print(f"OS: {platform.system()} {platform.release()} ({platform.machine()})")
+    print(f"Python: {sys.version.split()[0]}")
+    passed = check_packages(CORE_PACKAGES)
+    if args.contextual:
+        passed = check_packages(CONTEXTUAL_PACKAGES) and passed
     try:
         import spacy
 
@@ -39,21 +50,7 @@ def test_imports() -> bool:
     except Exception as exc:
         passed = False
         print(f"[FAIL] spaCy model: {exc}")
-    return passed
-
-
-def test_hardware() -> bool:
-    status = inspect_torch_device()
-    print(f"OS: {platform.system()} {platform.release()} ({platform.machine()})")
-    print(f"Python: {sys.version.split()[0]}")
-    print(f"Accelerator: {status.to_dict()}")
-    if status.cuda_reported and not status.cuda_usable:
-        print("[WARN] CUDA is visible but cannot execute a tensor; CPU fallback is required.")
-    return True
-
-
-def main() -> int:
-    return 0 if test_imports() and test_hardware() else 1
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":

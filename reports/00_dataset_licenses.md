@@ -1,30 +1,57 @@
-# Báo Cáo Theo Dõi Nguồn Dữ Liệu & Giấy Phép (Dataset Licenses Tracking)
+# Dataset Provenance and License Register
 
-> **Tài liệu quản lý bản quyền dữ liệu cho dự án CapyVocab ML**  
-> Tổng hợp toàn bộ nguồn dữ liệu, đường dẫn truy cập, giấy phép sử dụng thực tế và ghi chú xử lý dữ liệu cho từng module theo checklist Phase 1.
-
----
-
-## 📊 Bảng Tổng Hợp Giấy Phép Dữ Liệu (Master Dataset License Table)
-
-| Model | Dataset | Nguồn / Link truy cập | License chính thức | Ngày kiểm tra | Ghi chú & Rủi ro pháp lý |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Model 1**<br>*(Translator VI $\to$ EN)* | **MTET** *(Primary)* | [HuggingFace: `phongmt184172/mtet`](https://huggingface.co/datasets/phongmt184172/mtet)<br>Upstream: [`vietai/mTet`](https://github.com/vietai/mTet) | **CC BY-NC-SA 4.0** *(tại repo upstream VietAI)* | 2026-08-27 | • Quy mô ~4.2M cặp câu đa miền.<br>• Metadata card trên HF chưa điền trường `license` (not specified), nhưng repo gốc `vietai/mTet` công bố chuẩn CC-BY-NC-SA 4.0.<br>• Phù hợp nghiên cứu học thuật & coursework phi thương mại. Dùng làm nguồn train chính. |
-| **Model 1**<br>*(Translator VI $\to$ EN)* | **IWSLT 2015** *(Benchmark)* | [HuggingFace: `thainq107/iwslt2015-en-vi`](https://huggingface.co/datasets/thainq107/iwslt2015-en-vi)<br>Gốc: [`IWSLT/mt_eng_vietnamese`](https://huggingface.co/datasets/IWSLT/mt_eng_vietnamese) | **Research / Non-Commercial** *(gốc Stanford NLP / TED Talks)* | 2026-08-27 | • Quy mô: 133.317 train, 1.268 val, 1.268 test.<br>• Đây là bản mirror dạng Parquet của cá nhân `thainq107` trích xuất nguyên vẹn từ Stanford IWSLT15 để thay thế `IWSLT/mt_eng_vietnamese` do server Stanford (`nlp.stanford.edu`) bị timeout khi tải qua script tự động.<br>• Dataset card ghi `license: unknown`, chỉ dùng nội bộ làm benchmark/evaluation chuẩn học thuật. |
-| **Model 2a**<br>*(CEFR Word Classifier)* | **Word Level Survey** | [Zenodo Record 12501 (DOI: 10.5281/zenodo.12501)](https://doi.org/10.5281/zenodo.12501) | **CC BY 4.0** *(Open Access)* | 2026-08-27 | • Tác giả: Guzey et al. (Istanbul Sehir University, 2014).<br>• Gồm 7.000 từ vựng cốt lõi có nhãn CEFR do hội đồng 30 giáo viên thẩm định.<br>• Sẽ lọc bỏ 191 mẫu C2 (2,73%) và 1.056 mẫu Unknown trong bước tiền xử lý để giữ lại 5.753 từ chuẩn A1–C1. |
-| **Model 2b**<br>*(CEFR Sentence Classifier)* | **CEFR-SP** *(Primary)* | [HuggingFace: `UniversalCEFR/cefr_sp_en`](https://huggingface.co/datasets/UniversalCEFR/cefr_sp_en) | **CC BY-NC-SA 4.0** | 2026-08-27 | • Chỉ sử dụng subset tiếng Anh (`en`) ở mức độ câu (`sentence-level`) từ 25 datasets của tổ chức UniversalCEFR.<br>• Quy mô: 10.004 câu.<br>• Sẽ lọc bỏ 230 mẫu C2 (2,30%) ở bước làm sạch để giữ 9.774 câu A1–C1. |
-| **Model 2b**<br>*(CEFR Sentence Classifier)* | **README-EN** *(Academic)* | [HuggingFace: `UniversalCEFR/readme_en`](https://huggingface.co/datasets/UniversalCEFR/readme_en) | **CC BY-NC-SA 4.0** | 2026-08-27 | • Subset văn bản học thuật sentence-level của UniversalCEFR.<br>• Quy mô: 2.822 câu.<br>• Sẽ lọc bỏ 71 mẫu C2 (2,52%) để giữ lại 2.751 câu A1–C1. |
-| **Model 3b**<br>*(Sentence Rewriter)* | **ASSET** | [HuggingFace: `facebook/asset`](https://huggingface.co/datasets/facebook/asset) | **CC BY-NC 4.0** | 2026-08-27 | • Tác giả: Alva-Manchego et al. (Facebook AI Research / ACL 2020).<br>• Quy mô: 2.359 câu gốc, 100% có 10 bản rewrite $\to$ **23.590 cặp câu sau khi explode** (20.000 val + 3.590 test).<br>• **Quy tắc phân chia (Mục 2.8)**: Bắt buộc chia Train/Val/Test theo cột `original` (**Group-based Split**), tuyệt đối không để 10 bản rewrite của cùng một câu gốc nằm ở các tập khác nhau nhằm tránh data leakage.<br>• **Proxy Label (Mục 2.7)**: Dùng chung bộ ngưỡng Flesch-Kincaid Grade Level (FKGL) đã định nghĩa ở mục 1.5 (A1: $\le 3$, A2: $3-6$, B1: $6-9$, B2: $9-12$, C1: $>12$) để gán CEFR proxy cho cả câu gốc và từng bản rewrite.<br>• Tạm hoãn `wiki_auto` và LLM silver data ở Phase 1; chỉ bổ sung ở Phase 5 nếu cần thiết. |
-| **Lexical gate** | **vi-en-dictionary / AVDict conversion** | [GitHub: `chuongmep/vi-en-dictionary`](https://github.com/chuongmep/vi-en-dictionary) | **MIT** *(theo repository)* | 2026-08-28 | • 108.854 mục từ, POS và ví dụ trong SQLite.<br>• Dùng làm bằng chứng song ngữ, không dùng làm nhãn CEFR.<br>• Repo cho biết dữ liệu được chuyển đổi từ AVDict; provenance nội dung kế thừa cần được rà soát riêng trước mọi mục đích thương mại. |
-| **Lexical gate** | **multilingual-e5-small** | [HuggingFace: `intfloat/multilingual-e5-small`](https://huggingface.co/intfloat/multilingual-e5-small) | **MIT** | 2026-08-28 | • Checkpoint được pin theo revision và load local-only.<br>• Chỉ rerank nghĩa trước CEFR; không sinh nhãn CEFR. |
+This document records the provenance, licensing, access timestamps, and cryptographic checksums for all datasets utilized in the English Sentence CEFR Classification project.
 
 ---
 
-## 📌 Nguyên Tắc Tuân Thủ Bản Quyền & Xử Lý Dữ Liệu Dự Án:
-1. **Mục đích phi thương mại**: Toàn bộ các bộ dữ liệu trên được sử dụng duy nhất cho mục đích nghiên cứu, học tập môn học Machine Learning (coursework) và bảo vệ đồ án tốt nghiệp/khóa luận.
-2. **Trích dẫn đầy đủ**: Mọi báo cáo học thuật, slide thuyết trình và mã nguồn đều trích dẫn chính xác tác giả/tổ chức phát hành (VietAI, Stanford NLP/IWSLT, Istanbul Sehir University, UniversalCEFR, Facebook AI Research).
-3. **Phân định rõ Ground Truth vs Proxy Label**: Ghi chú minh bạch trong báo cáo về việc nhãn CEFR của dataset ASSET được sinh tự động thông qua công thức Readability proxy (dùng chung một bộ ngưỡng chuẩn) chứ không phải do chuyên gia con người gán trực tiếp.
-4. **Không rò rỉ dữ liệu (No Data Leakage & Group-based Splitting)**:
-   - **Với Model 3b (ASSET)**: Bắt buộc Group Split theo định danh câu gốc (`original`) để 10 bản rewrite luôn cùng nằm trong 1 tập.
-   - **Với Model 2b (CEFR-SP & README-EN)**: Do tồn tại các biến thể gần-trùng lặp (near-duplicates / cloze variations), bước chia tập dữ liệu ở Mục 2.8 sẽ gom các câu liên kết bắc cầu (Transitive Connected Components qua Union-Find với ngưỡng Jaccard $\ge 0.80$, SequenceMatcher $\ge 0.75$) thành các `cluster_id` duy nhất và thực hiện `StratifiedGroupKFold`.
-   - **Giải trình đánh đổi thiết kế (Design Trade-off)**: Việc gộp chung cả các cặp câu gần-trùng lặp **bị lệch nhãn** (chiếm ~40% các cặp tương đồng, ví dụ do thay đổi 1 từ chuyên ngành) vào cùng một group khi split là **quyết định có chủ đích nhằm ưu tiên tuyệt đối mục tiêu chống rò rỉ cấu trúc cú pháp (Anti-Leakage)**. Đồng thời, một số cụm biến thể (như các câu template thống kê mô tả nhiều thực thể địa lý khác nhau dùng chung cấu trúc khuôn mẫu) cũng được gộp chung; điều này hoàn toàn hợp lý vì giúp ngăn chặn mô hình học vẹt theo cấu trúc khuôn mẫu thay vì thực sự hiểu nội dung ngữ nghĩa. Sự đánh đổi là tập Test sẽ không chứa các cặp đối chứng tối thiểu (minimal-pair contrast) với tập Train, đảm bảo độ đo đánh giá phản ánh chính xác 100% khả năng tổng quát hóa trên dữ liệu thực tế.
+## 1. Summary of Registered Resources
+
+| Role | Resource | Upstream Identifier / URL | Revision / Version | Recorded License | Access Date | Raw Rows | Retained Rows |
+|---|---|---|---|---|---|---:|---:|
+| **Primary Sentence Data** | `UniversalCEFR/cefr_sp_en` | [HuggingFace: cefr_sp_en](https://huggingface.co/datasets/UniversalCEFR/cefr_sp_en) | `b78901348bda9f5a823cd3da1f3fcb2dcc6c5725` | CC BY-NC-SA 4.0 | 2026-09-08 | 10,004 | 9,773 |
+| **Primary Sentence Data** | `UniversalCEFR/readme_en` | [HuggingFace: readme_en](https://huggingface.co/datasets/UniversalCEFR/readme_en) | `88ce5b3736bdb666b1f64f738451676b12028a33` | CC BY-NC-SA 4.0 | 2026-09-08 | 2,822 | 2,748 |
+| **Combined Clean Corpus** | Sentence Dataset (`combined`) | `data/processed/cefr_sentences_clean.csv` | Pipeline output | CC BY-NC-SA 4.0 | 2026-09-08 | 12,826 | **12,521** |
+| **Auxiliary Lexicon** | Guzey et al. Word-Level Survey | [Zenodo Record 12501](https://doi.org/10.5281/zenodo.12501) | Record 12501 | CC BY 4.0 | 2026-09-08 | ~10,000 entries | 5,697 clean entries |
+
+---
+
+## 2. Cryptographic Checksums (SHA-256)
+
+All raw and processed files have been cryptographically verified:
+
+| File Path | Size (Bytes) | SHA-256 Checksum |
+|---|---:|---|
+| `data/raw/cefr_sentence/cefr_sp_en_train.csv` | 1,399,579 | `bf497fa063a0cc5e7518b36297027ce32400f94642b729eadf9e697546955673` |
+| `data/raw/cefr_sentence/readme_en_train.csv` | 501,983 | `5b328e95accf4cb0675bbc0079029b9efa46ca0ba2b10f9dbf0d619ef11e2f8c` |
+| `data/raw/cefr_wordlist/word-level-survey.tar.gz` | 2,084,084 | `95eccf38b5bb11d54d23960ce8e45055cc03c88edf8361d5c096e3182182c90c` |
+| `data/raw/cefr_wordlist/WordsTeachersLevelsGoogleFrequenciesPredictions.csv` | 711,308 | `4395fc0df1d06971eb2e0ad98dc41c6c461c122c3da83b3537c28767127b99c1` |
+| `data/processed/cefr_sentences_clean.csv` | 1,600,670 | `b6c7a42f8464714874d6fdace5b37f88c307cff0abe86903baa0d91707b0231b` |
+| `data/processed/cefr_wordlist_clean.csv` | 203,776 | `1214fad631143bc6bc319416e37c4375b9128b03a4efbd5675adc805617c6c5a` |
+
+---
+
+## 3. Academic Citations & Author Attribution
+
+### UniversalCEFR Corpora
+
+* **Dataset identifiers:** `UniversalCEFR/cefr_sp_en`, `UniversalCEFR/readme_en`.
+* **License:** Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/))
+* **Attribution Statement:** Used strictly for non-commercial, academic research in course MLA (Machine Learning & Applications). No derivative datasets are sold or commercialized.
+* **Required citations:**
+  1. Arase, Y., Uchida, S., & Kajiwara, T. (2022). *CEFR-Based Sentence-Difficulty Annotation and Assessment*. In Proceedings of EMNLP 2022. Source dataset: [CEFR-SP](https://huggingface.co/datasets/UniversalCEFR/cefr_sp_en).
+  2. Naous, T., Ryan, M. J., Lavrouk, A., Chandra, M., & Xu, W. (2024). *ReadMe++: Benchmarking Multilingual Language Models for Multi-Domain Readability Assessment*. In Proceedings of EMNLP 2024, pp. 12230–12266. Source dataset: [ReadMe++](https://huggingface.co/datasets/UniversalCEFR/readme_en).
+
+### Guzey et al. Auxiliary Word Lexicon
+* **Source and citation:** Sohsah, G. N., Ünal, M. E., & Güzey, O. (2015). *Classification of word levels with usage frequency, expert opinions and machine learning*. British Journal of Educational Technology, 46, 1097–1101. https://doi.org/10.1111/bjet.12338. The accompanying word-level survey is archived at Zenodo record 12501.
+* **DOI:** [10.5281/zenodo.12501](https://doi.org/10.5281/zenodo.12501)
+* **License:** Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
+* **Role in Project:** Permitted exclusively for computing aggregate lexical features (`avg_word_cefr`, `max_word_cefr`, `word_oov_ratio`). Never used as a second prediction target. Mandatory feature ablation without this resource is enforced.
+
+---
+
+## 4. Data Governance & Privacy Statement
+
+1. **Academic & Non-commercial:** This project is conducted solely for educational and research evaluation purposes under CC BY-NC-SA 4.0 and CC BY 4.0.
+2. **Zero Student/Personal Data:** No personally identifiable information (PII), real learner profiles, or private student exam submissions are used.
+3. **Leakage Prevention:** Metadata attributes (`source`, IDs) are preserved for auditability and stratified clustering, but strictly blocked from entering feature matrix $X$.
+4. **Data Versioning Policy:** Large raw CSV and binary archives are git-ignored (`.gitignore`). Only reproducible downloader scripts, audit manifests (`data_audit.json`), and EDA summaries are tracked in version control.

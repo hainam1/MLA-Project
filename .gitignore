@@ -74,7 +74,6 @@ venv.bak/
 *.swo
 *~
 .DS_Store
-.github/
 
 # Logs
 *.log
@@ -100,7 +99,6 @@ data/processed/**/*
 data/external/**/*
 !data/external/**/
 !data/external/**/SOURCE.md
-data/external/vi-en-dictionary-source/
 
 # Model weights, checkpoints & large artifacts
 *.ckpt
@@ -109,11 +107,13 @@ data/external/vi-en-dictionary-source/
 *.bin
 *.safetensors
 *.pkl
+*.joblib
 *.onnx
 *.h5
 *.tflite
 models_cache/
 checkpoints/
+data/processed/embeddings/
 
 # Wandb / Tensorboard / MLflow
 wandb/

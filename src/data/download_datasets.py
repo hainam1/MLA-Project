@@ -1,145 +1,90 @@
-"""
-Data Ingestion & Download Script for CapyVocab ML (Phase 1).
+"""Download the sentence datasets and, optionally, the auxiliary CEFR word lexicon."""
 
-Downloads and stages raw datasets for:
-1. Model 1 (Translator VI-EN): MTET & IWSLT 2015 -> data/raw/translator_corpus/
-2. Model 2a (CEFR Word Classifier): Zenodo Record 12501 -> data/raw/cefr_wordlist/
-3. Model 2b (CEFR Sentence Classifier): UniversalCEFR (cefr_sp_en, readme_en) -> data/raw/cefr_sentence/
-4. Model 3b (Sentence Rewriter): facebook/asset -> data/raw/sentence_simplification/
-"""
+from __future__ import annotations
 
-import sys
-import os
-import urllib.request
+import argparse
 import tarfile
+import urllib.request
+from pathlib import Path
+
 import pandas as pd
 from datasets import load_dataset
 
-# Ensure UTF-8 output encoding for Windows terminal
-if sys.stdout.encoding != "utf-8":
-    try:
-        sys.stdout.reconfigure(encoding="utf-8")
-        sys.stderr.reconfigure(encoding="utf-8")
-    except Exception:
-        pass
+SENTENCE_DATASETS = {
+    "cefr_sp_en": "UniversalCEFR/cefr_sp_en",
+    "readme_en": "UniversalCEFR/readme_en",
+}
+PINNED_REVISIONS = {
+    "cefr_sp_en": "b78901348bda9f5a823cd3da1f3fcb2dcc6c5725",
+    "readme_en": "88ce5b3736bdb666b1f64f738451676b12028a33",
+}
+LEXICON_URL = "https://zenodo.org/records/12501/files/word-level-survey.tar.gz?download=1"
 
 
-def download_translator_corpus():
-    print("\n[1/4] Processing Translator Datasets (VI -> EN)...")
-    out_dir = "data/raw/translator_corpus"
-    os.makedirs(out_dir, exist_ok=True)
-
-    # 1. MTET Stream Sample
-    mtet_path = os.path.join(out_dir, "mtet_sample5k.csv")
-    if not os.path.exists(mtet_path):
-        print("  - Streaming 5,000 samples from phongmt184172/mtet...")
-        ds_mtet = load_dataset("phongmt184172/mtet", split="train", streaming=True)
-        samples = []
-        for i, item in enumerate(ds_mtet):
-            if i >= 5000:
-                break
-            tr = item.get("translation", {})
-            samples.append({"en": tr.get("target", ""), "vi": tr.get("source", "")})
-        pd.DataFrame(samples).to_csv(mtet_path, index=False, encoding="utf-8")
-        print(f"    Saved: {mtet_path}")
-    else:
-        print(f"    Already exists: {mtet_path}")
-
-    # 2. IWSLT 2015 en-vi
-    iwslt_train_path = os.path.join(out_dir, "iwslt2015_en_vi_train.csv")
-    if not os.path.exists(iwslt_train_path):
-        print("  - Downloading IWSLT 2015 en-vi splits...")
-        ds_iwslt = load_dataset("thainq107/iwslt2015-en-vi")
-        for split in ["train", "validation", "test"]:
-            df = pd.DataFrame(ds_iwslt[split])
-            df.to_csv(
-                os.path.join(out_dir, f"iwslt2015_en_vi_{split}.csv"), index=False, encoding="utf-8"
-            )
-        print(f"    Saved IWSLT splits ({len(ds_iwslt['train'])} train rows)")
-    else:
-        print(f"    Already exists: {iwslt_train_path}")
+def download_sentence_datasets(
+    output_dir: Path,
+    revision: str | None = None,
+    force: bool = False,
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for source_name, dataset_id in SENTENCE_DATASETS.items():
+        destination = output_dir / f"{source_name}_train.csv"
+        if destination.exists() and not force:
+            print(f"[skip] {destination}")
+            continue
+        rev = revision if revision is not None else PINNED_REVISIONS.get(source_name)
+        dataset = load_dataset(dataset_id, revision=rev)
+        frame = pd.DataFrame(dataset["train"])
+        frame.to_csv(destination, index=False, encoding="utf-8")
+        print(f"[saved] {destination}: {len(frame):,} rows (revision={rev})")
 
 
-def download_cefr_wordlist():
-    print("\n[2/4] Processing CEFR Wordlist Dataset (Zenodo 12501)...")
-    out_dir = "data/raw/cefr_wordlist"
-    os.makedirs(out_dir, exist_ok=True)
-    target_csv = os.path.join(out_dir, "WordsTeachersLevelsGoogleFrequenciesPredictions.csv")
-
-    if not os.path.exists(target_csv):
-        print("  - Fetching archive from Zenodo Record 12501...")
-        archive_path = os.path.join(out_dir, "word-level-survey.tar.gz")
-        dl_url = "https://zenodo.org/records/12501/files/word-level-survey.tar.gz?download=1"
-        req = urllib.request.Request(dl_url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req) as resp, open(archive_path, "wb") as f:
-            f.write(resp.read())
-        print(f"    Downloaded: {archive_path}")
-
-        print("  - Extracting archive...")
-        with tarfile.open(archive_path, "r:gz") as tar:
-            tar.extractall(path=out_dir)
-        print(f"    Extracted files to: {out_dir}")
-    else:
-        print(f"    Already exists: {target_csv}")
+def _safe_extract_tar(archive: Path, output_dir: Path) -> None:
+    output_root = output_dir.resolve()
+    with tarfile.open(archive, "r:gz") as bundle:
+        for member in bundle.getmembers():
+            destination = (output_dir / member.name).resolve()
+            if output_root not in destination.parents and destination != output_root:
+                raise RuntimeError(f"Unsafe path in archive: {member.name}")
+        bundle.extractall(output_dir, filter="data")
 
 
-def download_cefr_sentence():
-    print("\n[3/4] Processing UniversalCEFR Sentence Datasets...")
-    out_dir = "data/raw/cefr_sentence"
-    os.makedirs(out_dir, exist_ok=True)
-
-    # 1. CEFR-SP (10,004 sentences)
-    sp_path = os.path.join(out_dir, "cefr_sp_en_train.csv")
-    if not os.path.exists(sp_path):
-        print("  - Downloading UniversalCEFR/cefr_sp_en...")
-        ds_sp = load_dataset("UniversalCEFR/cefr_sp_en")
-        pd.DataFrame(ds_sp["train"]).to_csv(sp_path, index=False, encoding="utf-8")
-        print(f"    Saved: {sp_path} ({len(ds_sp['train'])} rows)")
-    else:
-        print(f"    Already exists: {sp_path}")
-
-    # 2. README-EN (2,822 sentences)
-    readme_path = os.path.join(out_dir, "readme_en_train.csv")
-    if not os.path.exists(readme_path):
-        print("  - Downloading UniversalCEFR/readme_en...")
-        ds_readme = load_dataset("UniversalCEFR/readme_en")
-        pd.DataFrame(ds_readme["train"]).to_csv(readme_path, index=False, encoding="utf-8")
-        print(f"    Saved: {readme_path} ({len(ds_readme['train'])} rows)")
-    else:
-        print(f"    Already exists: {readme_path}")
+def download_auxiliary_lexicon(output_dir: Path, force: bool = False) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    target_csv = output_dir / "WordsTeachersLevelsGoogleFrequenciesPredictions.csv"
+    if target_csv.exists() and not force:
+        print(f"[skip] {target_csv}")
+        return
+    archive = output_dir / "word-level-survey.tar.gz"
+    request = urllib.request.Request(LEXICON_URL, headers={"User-Agent": "cefr-course-project"})
+    with urllib.request.urlopen(request) as response, archive.open("wb") as handle:
+        handle.write(response.read())
+    _safe_extract_tar(archive, output_dir)
+    print(f"[saved] auxiliary lexicon under {output_dir}")
 
 
-def download_sentence_simplification():
-    print("\n[4/4] Processing facebook/asset Simplification Dataset...")
-    out_dir = "data/raw/sentence_simplification"
-    os.makedirs(out_dir, exist_ok=True)
-    val_path = os.path.join(out_dir, "asset_validation.csv")
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--revision", help="Pinned Hugging Face revision for reproducibility")
+    parser.add_argument(
+        "--include-auxiliary-lexicon",
+        action="store_true",
+        help="Download the optional word-level resource used by three aggregate features",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force redownload even if files already exist",
+    )
+    args = parser.parse_args()
 
-    if not os.path.exists(val_path):
-        print("  - Downloading facebook/asset...")
-        ds_asset = load_dataset("facebook/asset")
-        pd.DataFrame(ds_asset["validation"]).to_csv(val_path, index=False, encoding="utf-8")
-        pd.DataFrame(ds_asset["test"]).to_csv(
-            os.path.join(out_dir, "asset_test.csv"), index=False, encoding="utf-8"
-        )
-        print(
-            f"    Saved ASSET splits (validation={len(ds_asset['validation'])}, test={len(ds_asset['test'])})"
-        )
-    else:
-        print(f"    Already exists: {val_path}")
-
-
-def main():
-    print("=" * 70)
-    print("CAPYVOCAB ML - DATA COLLECTION PIPELINE (PHASE 1 PART B.1)")
-    print("=" * 70)
-    download_translator_corpus()
-    download_cefr_wordlist()
-    download_cefr_sentence()
-    download_sentence_simplification()
-    print("\n" + "=" * 70)
-    print(">>> DATA COLLECTION COMPLETED SUCCESSFULLY! <<<")
-    print("=" * 70)
+    download_sentence_datasets(
+        Path("data/raw/cefr_sentence"),
+        revision=args.revision,
+        force=args.force,
+    )
+    if args.include_auxiliary_lexicon:
+        download_auxiliary_lexicon(Path("data/raw/cefr_wordlist"), force=args.force)
 
 
 if __name__ == "__main__":
