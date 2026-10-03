@@ -1,0 +1,15 @@
+group_type,group,target,selected_model,n_samples,mae,rmse,r2,group_definition
+length_band,Q1,Vocabulary,Random Forest,185,0.360030352576,0.480989934079,0.18257380751,Training word-count quartiles
+length_band,Q2,Vocabulary,Random Forest,187,0.376240346867,0.489410678187,0.242893138375,Training word-count quartiles
+length_band,Q3,Vocabulary,Random Forest,202,0.335141065019,0.430575834694,0.333901558632,Training word-count quartiles
+length_band,Q4,Vocabulary,Random Forest,188,0.423125007239,0.518493197285,0.220404401512,Training word-count quartiles
+length_band,Q1,Grammar,Random Forest,185,0.445539158491,0.560375992411,0.239473702049,Training word-count quartiles
+length_band,Q2,Grammar,Random Forest,187,0.432464605377,0.541233267226,0.354429507018,Training word-count quartiles
+length_band,Q3,Grammar,Random Forest,202,0.46519819205,0.563341984475,0.35809448508,Training word-count quartiles
+length_band,Q4,Grammar,Random Forest,188,0.446221297503,0.552641525289,0.340551964381,Training word-count quartiles
+score_band,2-<3,Vocabulary,Random Forest,125,0.579663332349,0.663907225749,-9.70252535941,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"
+score_band,3-<4,Vocabulary,Random Forest,496,0.243761876998,0.30603847335,-0.601929062778,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"
+score_band,4+,Vocabulary,Random Forest,138,0.624962680215,0.693743671175,-5.88617706761,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"
+score_band,2-<3,Grammar,Random Forest,271,0.489300522949,0.587885497031,-4.76730216609,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"
+score_band,3-<4,Grammar,Random Forest,384,0.32116965302,0.395358069374,-1.5009280483,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"
+score_band,4+,Grammar,Random Forest,102,0.768587772171,0.831064386304,-8.52696058277,"Fixed score intervals [<2, 2-<3, 3-<4, 4+]"

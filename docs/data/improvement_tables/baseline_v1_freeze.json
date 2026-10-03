@@ -1,0 +1,31 @@
+{
+  "baseline_version": "v1",
+  "official_test_loaded": false,
+  "validation_reuse_for_model_development_forbidden": true,
+  "validation_rows": 762,
+  "eligible_model_train_rows": 3050,
+  "selected_models": {
+    "Vocabulary": {
+      "model": "Random Forest",
+      "mae": 0.3729771083796588
+    },
+    "Grammar": {
+      "model": "Random Forest",
+      "mae": 0.44771032053951443
+    }
+  },
+  "input_sha256": {
+    "improvement_config": "067208F1317679DA2A2FC0F3E94B4A9408B3F0F48D21FA207CE94BF689600667",
+    "phase6_manifest": "41B7A59E78636EB52C3E0EA3A0A5D9E91A399ADAA93126EF366A5FBCDFD3EA25",
+    "phase7_summary": "1E18BCB87E47F8F97215ACB503DEAD5576CF461DD492C4BE29254793F36115F0",
+    "phase7_predictions": "DA86CF4BE3B05790DB65CEB6381D75AD77FCE695694E8C62A9A03DCF7493C1D0",
+    "split_manifest": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96"
+  },
+  "raw_rater_guard": {
+    "allowlisted_eligible_development_ids": 3812,
+    "retained_rater_rows": 3812,
+    "forbidden_official_test_ids": 2571,
+    "retained_official_test_ids": 0,
+    "official_test_scores_evaluated": false
+  }
+}

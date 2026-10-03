@@ -1,0 +1,45 @@
+prompt,model_train_count,validation_count,model_train_percent,validation_percent,absolute_percentage_point_difference
+Afterschool homework club,45,11,1.4386,1.4049,0.0338
+Being busy,167,42,5.3389,5.364,0.0251
+Benefits of a good attitude,24,6,0.7673,0.7663,0.001
+Benefits of a problem,26,7,0.8312,0.894,0.0628
+Career commitment,182,45,5.8184,5.7471,0.0713
+Cell phones at school,34,9,1.087,1.1494,0.0625
+Cell phones in classrooms,49,12,1.5665,1.5326,0.0339
+Community service,38,10,1.2148,1.2771,0.0623
+Controlling extracurricular involvement,42,10,1.3427,1.2771,0.0656
+Creative arts requirement,41,10,1.3107,1.2771,0.0336
+Curfews for teenagers,43,11,1.3747,1.4049,0.0302
+Distance learning,237,60,7.5767,7.6628,0.0861
+Enjoyable educational activities,46,12,1.4706,1.5326,0.062
+Extended school day,72,18,2.3018,2.2989,0.0029
+First impressions,135,34,4.3159,4.3423,0.0264
+Four-day work week,110,27,3.5166,3.4483,0.0683
+Future accomplishments,28,7,0.8951,0.894,0.0011
+Grades for extracurricular activities,30,7,0.9591,0.894,0.0651
+Honesty,23,6,0.7353,0.7663,0.031
+Imagination,44,11,1.4066,1.4049,0.0018
+Impact of technology,141,35,4.5077,4.47,0.0377
+Individuality,118,29,3.7724,3.7037,0.0687
+Influences of character,74,18,2.3657,2.2989,0.0669
+Influencing behavior,51,13,1.6304,1.6603,0.0298
+Internships and shadowing,48,12,1.5345,1.5326,0.002
+Learning from the experience of others,24,6,0.7673,0.7663,0.001
+Lessons with elementary school students,30,8,0.9591,1.0217,0.0626
+Letter to employer,36,9,1.1509,1.1494,0.0015
+Lunch menus,74,19,2.3657,2.4266,0.0608
+Mandatory extracurricular activities,34,8,1.087,1.0217,0.0652
+Places to visit,38,10,1.2148,1.2771,0.0623
+Positive attitudes,142,36,4.5396,4.5977,0.0581
+Praising student work,46,11,1.4706,1.4049,0.0657
+Seeking multiple opinions,41,10,1.3107,1.2771,0.0336
+Self-reliance,105,26,3.3568,3.3206,0.0362
+Setting our aim,22,5,0.7033,0.6386,0.0648
+Spending time outdoors,43,11,1.3747,1.4049,0.0302
+Success and failure,174,44,5.5627,5.6194,0.0568
+Summer projects,15,4,0.4795,0.5109,0.0313
+Talents and skills,34,9,1.087,1.1494,0.0625
+Three-year high school program,122,31,3.9003,3.9591,0.0589
+Trying something beyond what you have mastered,138,34,4.4118,4.3423,0.0695
+Working with a group or alone,108,27,3.4527,3.4483,0.0044
+Year-round school,54,13,1.7263,1.6603,0.0661

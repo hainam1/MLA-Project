@@ -1,0 +1,65 @@
+{
+  "official_test_loaded": false,
+  "evaluation_population": "eligible_validation_not_flagged",
+  "validation_rows": 762,
+  "model_train_rows": 3050,
+  "excluded_validation_rows": 21,
+  "feature_count": 14,
+  "metrics": [
+    "mae",
+    "rmse",
+    "r2"
+  ],
+  "predictions_continuous_unrounded": true,
+  "validation_metrics_used_for_point_selection": true,
+  "disagreement_queue_computed": false,
+  "official_test_evaluated": false,
+  "baseline_artifacts_verified": true,
+  "phase5_baseline_review_metrics_loaded": true,
+  "point_predictors": [
+    {
+      "target": "Vocabulary",
+      "ridge_mae": 0.37481352284979,
+      "random_forest_mae": 0.3729771083796588,
+      "mae_difference_ridge_minus_random_forest": 0.0018364144701312202,
+      "selected_model": "Random Forest",
+      "selected_prediction_column": "random_forest_vocabulary",
+      "tie_within_atol": false,
+      "tie_atol": 1e-12,
+      "selection_rule": "Lower validation MAE; Ridge on tie."
+    },
+    {
+      "target": "Grammar",
+      "ridge_mae": 0.4562975936564632,
+      "random_forest_mae": 0.44771032053951443,
+      "mae_difference_ridge_minus_random_forest": 0.00858727311694879,
+      "selected_model": "Random Forest",
+      "selected_prediction_column": "random_forest_grammar",
+      "tie_within_atol": false,
+      "tie_atol": 1e-12,
+      "selection_rule": "Lower validation MAE; Ridge on tie."
+    }
+  ],
+  "input_sha256": {
+    "development_features": "CAFB1BCA27423E0A8B6FB2D282FB7BD87FB703FC637A3A15778855CAF0817A5B",
+    "split_manifest": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96",
+    "phase6_predictions": "6E86FE84B32219A6798A523C0E11C1E28B5F4036E31E182D3C349631C29EC3AB",
+    "phase6_artifact_manifest": "41B7A59E78636EB52C3E0EA3A0A5D9E91A399ADAA93126EF366A5FBCDFD3EA25",
+    "phase5_baseline_metrics": "EF8CF0130238196B79CA6E34AB977F7F67CAB6A474E7541889EFC7DA15F5413C",
+    "phase5_review_metrics": "C43E4ABBA147BED9C636B086E4E5343FA20AEC87755B24DCBBEE62F0B653AA9D",
+    "phase5_predictions": "27AF5C64139CCA930D5D427A49D5462C572502F1F12BB5480E4243B463ACB202"
+  },
+  "output_sha256": {
+    "predictions": "DA86CF4BE3B05790DB65CEB6381D75AD77FCE695694E8C62A9A03DCF7493C1D0",
+    "regression_metrics": "0E42FCB5D32B0091A026663DA8607079EA95E8FEA97B3A2448A36C977669E5E2",
+    "baseline_comparisons": "32503BA5FE95DE867EA8D1C0ECB7C1E20FC1AD45C27B8DF51ED4E26DCB645F08",
+    "point_predictors": "5748654ED2DCECFF1882DB02F5C14CF41959173C8086EA744C0969912A87C7BC",
+    "error_summary": "F674342CC417C1D8594D23A33C7EB3312F331672A0F36CC84807954D99AB50AB",
+    "scorer_distribution_summary": "EF35D74B1954A2D5C86C3C66AECA9CD1C195FB606780FFCD892DA7C83FBF68E5",
+    "machine_by_human_score": "E7E1D3A5E81078BAEC22BC6B5A31319B6D7B1517E69B82614525F9D9CD47C9BA",
+    "error_by_group": "14D84A6AE04F92541BE1B624E8A3890206DF3BE47839DE22DF31BB4F70A15FAB",
+    "report": "A99EDECC8390E93725146A4EC40D5F4A6558344A2F343FB2F4C7FE602AAD4323"
+  },
+  "phase5_review_baseline_rows": 2,
+  "phase5_review_metrics_sha256": "C43E4ABBA147BED9C636B086E4E5343FA20AEC87755B24DCBBEE62F0B653AA9D"
+}

@@ -1,0 +1,3 @@
+strategy,review_budget,validation_rows,selected_count,large_error_count,captured_count,large_error_prevalence,capture_rate,precision,lift,repetitions,capture_rate_ci_low,capture_rate_ci_high,precision_ci_low,precision_ci_high,lift_ci_low,lift_ci_high
+length_disagreement,0.2,762,153,130,25,0.17060367,0.19230769,0.16339869,0.95776772,1,,,,,,
+uniform_random,0.2,762,153,130,,0.17060367,0.20231538,0.17190196,1.00761,1000,0.14596154,0.26923077,0.12401961,0.22875817,0.7269457,1.3408748

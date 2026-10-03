@@ -1,0 +1,39 @@
+{
+  "study_status": "train_only_screening_not_final_model_selection",
+  "official_test_loaded": false,
+  "validation_rows_used": 0,
+  "model_train_rows": 3050,
+  "feature_count": 14,
+  "feature_schema_changed": false,
+  "cv": {
+    "outer_folds": 5,
+    "splitter": "frozen_predefined_folds",
+    "calibration": "inner OOF within each outer fit partition"
+  },
+  "variants": [
+    "ridge_baseline",
+    "ridge_weighted",
+    "rf_baseline",
+    "rf_weighted",
+    "rf_absolute_error",
+    "rf_absolute_error_weighted",
+    "huber",
+    "ordinal_logistic",
+    "rf_linear_calibrated",
+    "rf_isotonic_calibrated"
+  ],
+  "accepted_candidates": [],
+  "input_sha256": {
+    "development": "CAFB1BCA27423E0A8B6FB2D282FB7BD87FB703FC637A3A15778855CAF0817A5B",
+    "split": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96",
+    "phase6_parameters": "6AC78F0481606DDFCB852AC666969FB17B7DDB4A93E7A389C700B7BDB78147F2",
+    "config": "067208F1317679DA2A2FC0F3E94B4A9408B3F0F48D21FA207CE94BF689600667"
+  },
+  "output_sha256": {
+    "oof_predictions": "69F7BB6FFCD4039071885F5F7AE028F962D9E4A3F0B0A73D67554D756892B313",
+    "overall_metrics": "1BEBE75B01A6E5E6EEA51AEEAD5698068EF632AA124D1C9AF35280CD00CD66CE",
+    "band_metrics": "4A4866487FDDCF36283C85E3389AD85DDE3B67DBB45EDDC2D8D59ED898E09A68",
+    "fold_metrics": "2E1577F962E4D55F3306ADAA94A82EE839B58940B3B3209153FFF54268655DAA",
+    "acceptance": "24AAB97CCCC92F4DEDEAD42D476D65997CBB92D1A24DB0CC6B1B20B3E5184BD1"
+  }
+}

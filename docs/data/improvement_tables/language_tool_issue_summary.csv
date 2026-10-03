@@ -1,0 +1,9 @@
+issue_type,detected_matches
+misspelling,341
+whitespace,122
+grammar,113
+uncategorized,90
+typographical,65
+style,35
+duplication,3
+locale-violation,3

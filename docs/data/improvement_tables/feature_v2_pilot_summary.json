@@ -1,0 +1,19 @@
+{
+  "rows": 30,
+  "non_finite_values": 0,
+  "student_text_exported_to_public_tables": false,
+  "private_review_worksheet": "data\\04_intermediate_work\\improvement_audit\\feature_v2_rubric_review_private.csv",
+  "rubric_error_validation_complete": false,
+  "use_for_feature_selection": false,
+  "feature_names": [
+    "content_word_low_frequency_ratio",
+    "content_word_frequency_p25",
+    "content_lemma_mattr",
+    "detected_misspellings_per_100_words",
+    "detected_spelling_rule_diversity",
+    "detected_grammar_rule_diversity",
+    "detected_repeated_grammar_rule_ratio",
+    "mean_dependency_distance",
+    "mean_sentence_tree_depth"
+  ]
+}

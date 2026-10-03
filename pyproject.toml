@@ -1,3 +1,46 @@
+[project]
+name = "mla-project"
+version = "0.1.0"
+description = "Teacher-review prioritization for ELL vocabulary and grammar scoring"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+  "en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
+  "joblib>=1.4,<2",
+  "language-tool-python>=2.9,<3",
+  "lexicalrichness>=0.5,<1",
+  "numpy>=2.0,<2.5",
+  "pandas>=2.2,<3",
+  "pyyaml>=6,<7",
+  "scikit-learn>=1.7,<2",
+  "scipy>=1.13,<2",
+  "spacy>=3.8,<4",
+  "wordfreq>=3.1,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=25,<27",
+  "flake8>=7,<8",
+  "ipykernel>=6,<8",
+  "jupyter>=1,<2",
+  "pytest>=8,<10",
+  "pytest-cov>=6,<8",
+]
+analysis = [
+  "matplotlib>=3.9,<4",
+  "seaborn>=0.13,<1",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mla_project"]
+
 [tool.black]
 line-length = 100
 target-version = ["py312"]
@@ -5,16 +48,13 @@ target-version = ["py312"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+pythonpath = ["src"]
 markers = [
-  "integration: requires local datasets or trained model artifacts",
-]
-filterwarnings = [
-  "ignore:Setting the shape on a NumPy array has been deprecated:DeprecationWarning:joblib.numpy_pickle",
-  "ignore:Using `httpx` with `starlette.testclient` is deprecated:starlette.exceptions.StarletteDeprecationWarning",
+  "integration: requires a locally available approved dataset or trained artifacts",
 ]
 
 [tool.coverage.run]
-source = ["src"]
+source = ["mla_project"]
 branch = true
 
 [tool.coverage.report]

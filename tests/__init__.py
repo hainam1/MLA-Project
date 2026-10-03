@@ -1,1 +1,1 @@
-"""Tests for English sentence CEFR classification."""
+"""Automated checks for the writing-score regression project."""

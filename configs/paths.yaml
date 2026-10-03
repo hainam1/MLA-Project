@@ -1,0 +1,14 @@
+data:
+  train: data/01_original_source/official_corpus/ELLIPSE_Final_github_train.csv
+  test: data/01_original_source/official_corpus/ELLIPSE_Final_github_test.csv
+  raw_ratings: data/01_original_source/rater_scores/ellipsis_raw_rater_scores_anon_all_essay.csv
+  rubric: data/01_original_source/documentation/ELL_Rubrics.docx
+  clean: data/03_clean_ready_to_use
+  interim: data/04_intermediate_work
+  processed: data/05_model_features
+  splits: data/02_split_manifest
+outputs:
+  figures: outputs/figures
+  metrics: outputs/metrics
+  models: outputs/models
+  predictions: outputs/predictions

@@ -1,0 +1,33 @@
+privacy:
+  eligible_status: not_flagged
+  excluded_statuses: [flagged_by_rater, unresolved_raw_id_link]
+
+feature_audit:
+  outlier_rule: train_iqr_1_5
+  near_constant_std_threshold: 1.0e-8
+  near_constant_dominant_share_threshold: 0.95
+  high_correlation_threshold: 0.95
+  stability_smd_threshold: 0.20
+  stability_psi_threshold: 0.10
+  stability_ks_threshold: 0.10
+  psi_bins: 10
+
+baselines:
+  mean:
+    strategy: train_target_mean
+  length_only:
+    features: [word_count, sentence_count, mean_sentence_length]
+    ridge_alpha: 1.0
+    random_forest:
+      n_estimators: 300
+      max_depth: null
+      min_samples_leaf: 2
+      max_features: sqrt
+      n_jobs: 1
+  review:
+    priority_score: max_target_ridge_rf_disagreement
+    consensus_prediction: mean_ridge_random_forest
+    large_error_threshold: 1.0
+    review_budget: 0.20
+    random_repetitions: 1000
+    random_seed: 42

@@ -1,0 +1,46 @@
+{
+  "status": "experimental_train_only_ablation",
+  "rows": 3050,
+  "folds": 5,
+  "feature_groups": {
+    "lexical": [
+      "content_word_low_frequency_ratio",
+      "content_word_frequency_p25",
+      "content_lemma_mattr"
+    ],
+    "spelling": [
+      "detected_misspellings_per_100_words",
+      "detected_spelling_rule_diversity"
+    ],
+    "grammar_rules": [
+      "detected_grammar_rule_diversity",
+      "detected_repeated_grammar_rule_ratio"
+    ],
+    "syntax": [
+      "mean_dependency_distance",
+      "mean_sentence_tree_depth"
+    ],
+    "all": [
+      "content_word_low_frequency_ratio",
+      "content_word_frequency_p25",
+      "content_lemma_mattr",
+      "detected_misspellings_per_100_words",
+      "detected_spelling_rule_diversity",
+      "detected_grammar_rule_diversity",
+      "detected_repeated_grammar_rule_ratio",
+      "mean_dependency_distance",
+      "mean_sentence_tree_depth"
+    ]
+  },
+  "validation_rows_present_in_source_csv_but_filtered_before_analysis": true,
+  "validation_used_for_fit_metrics_or_selection": false,
+  "official_test_loaded": false,
+  "accepted": [],
+  "input_sha256": {
+    "v1": "CAFB1BCA27423E0A8B6FB2D282FB7BD87FB703FC637A3A15778855CAF0817A5B",
+    "v2": "9C66515EF25282C2D1F563F1CA37B7DE86A4993EA909A2F49073E65D5FA643E7",
+    "manifest": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96",
+    "baseline_oof": "69F7BB6FFCD4039071885F5F7AE028F962D9E4A3F0B0A73D67554D756892B313"
+  },
+  "output_sha256": "3358983532CD420DCC1E778A139A2EF41DA7FA15D069B6354ABF6E550739F7C0"
+}

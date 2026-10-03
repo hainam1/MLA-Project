@@ -1,0 +1,3 @@
+source_split,rows,blank_text,under_50_words,under_100_words,minimum_words,q1_words,median_words,q3_words,maximum_words
+official_train,3911,0,2,22,14,294.0,402.0,527.0,1239
+official_test,2571,0,4,15,27,286.0,392.0,520.0,1274

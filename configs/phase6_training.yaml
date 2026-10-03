@@ -1,0 +1,25 @@
+privacy:
+  eligible_status: not_flagged
+  excluded_statuses: [flagged_by_rater, unresolved_raw_id_link]
+
+cv:
+  folds: 5
+  scoring: neg_mean_absolute_error
+  n_jobs: 1
+
+search:
+  ridge:
+    alpha: [0.1, 1.0, 10.0, 100.0, 1000.0]
+  random_forest:
+    n_estimators: [300]
+    max_depth: [10, null]
+    min_samples_leaf: [2, 5]
+    max_features: [sqrt, 1.0]
+
+prediction:
+  clip_predictions: false
+  round_predictions: false
+
+artifacts:
+  output_dir: outputs/phase6
+  model_format: joblib

@@ -83,23 +83,34 @@ logs/runs/
 !logs/.gitkeep
 !logs/*.md
 
+# Generated experiment artifacts
+outputs/**/*
+!outputs/**/
+!outputs/**/.gitkeep
+report/*.pdf
+report/*.docx
+
 # Data
 *.db
 *.sqlite3
-data/raw/**/*
-!data/raw/**/
-!data/raw/**/SOURCE.md
-!data/raw/**/.gitkeep
-data/interim/**/*
-!data/interim/**/
-!data/interim/**/.gitkeep
-data/processed/**/*
-!data/processed/**/
-!data/processed/**/.gitkeep
-data/external/**/*
-!data/external/**/
-!data/external/**/SOURCE.md
-
+data/01_original_source/**/*
+!data/01_original_source/**/
+!data/01_original_source/**/SOURCE.md
+!data/01_original_source/**/*README*.md
+!data/01_original_source/**/.gitkeep
+data/02_split_manifest/**/*
+!data/02_split_manifest/**/
+!data/02_split_manifest/**/.gitkeep
+data/03_clean_ready_to_use/**/*
+!data/03_clean_ready_to_use/**/
+!data/03_clean_ready_to_use/**/.gitkeep
+!data/03_clean_ready_to_use/**/*README*.md
+data/04_intermediate_work/**/*
+!data/04_intermediate_work/**/
+!data/04_intermediate_work/**/.gitkeep
+data/05_model_features/**/*
+!data/05_model_features/**/
+!data/05_model_features/**/.gitkeep
 # Model weights, checkpoints & large artifacts
 *.ckpt
 *.pt
@@ -113,7 +124,7 @@ data/external/**/*
 *.tflite
 models_cache/
 checkpoints/
-data/processed/embeddings/
+data/05_model_features/embeddings/
 
 # Wandb / Tensorboard / MLflow
 wandb/

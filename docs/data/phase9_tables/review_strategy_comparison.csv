@@ -1,0 +1,5 @@
+analysis_role,error_threshold,review_budget,test_rows,random_seed,random_repetitions,strategy,selected_count,large_error_count,large_error_prevalence,captured_count,capture_rate,capture_rate_reference_low,capture_rate_reference_high,precision,precision_reference_low,precision_reference_high,lift,lift_reference_low,lift_reference_high
+primary,1,0.2,2518,42,1000,Random,504,208,0.0826052422558,41.427,0.199168269231,0.153846153846,0.250120192308,0.0821964285714,0.0634920634921,0.103224206349,0.995050995879,0.76862026862,1.24960842109
+primary,1,0.2,2518,,,Shortest-first,504,208,0.0826052422558,37,0.177884615385,,,0.0734126984127,,,0.888717185592,,
+primary,1,0.2,2518,,,Ridge extremity,504,208,0.0826052422558,43,0.206730769231,,,0.0853174603175,,,1.03283348596,,
+primary,1,0.2,2518,,,Ridge-RF disagreement,504,208,0.0826052422558,47,0.225961538462,,,0.093253968254,,,1.12891101954,,

@@ -1,0 +1,12 @@
+text_column: essay_text
+spacy_model: en_core_web_sm
+language_tool_language: en-US
+language_tool_version: "6.6"
+mtld_threshold: 0.72
+mtld_min_tokens: 10
+mattr_window: 50
+groups:
+  length: [word_count, sentence_count, mean_sentence_length]
+  vocabulary: [mtld, mattr, mean_word_frequency, mean_word_length, lexical_density, noun_diversity]
+  grammar: [detected_grammar_errors_per_100_words, detected_error_free_sentence_ratio]
+  syntax: [complex_sentence_ratio, estimated_clauses_per_sentence, subordinate_clause_ratio]

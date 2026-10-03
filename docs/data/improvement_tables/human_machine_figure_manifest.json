@@ -1,0 +1,28 @@
+{
+  "official_test_loaded": false,
+  "population": "762 privacy-eligible validation essays",
+  "predictions_are_continuous_unrounded": true,
+  "input_sha256": {
+    "phase7_predictions": "DA86CF4BE3B05790DB65CEB6381D75AD77FCE695694E8C62A9A03DCF7493C1D0",
+    "machine_by_human_score": "E7E1D3A5E81078BAEC22BC6B5A31319B6D7B1517E69B82614525F9D9CD47C9BA",
+    "human_machine_reliability": "4E86B37AC5E7F825CBDBC1FF75F97255F153F2AD2C8C6FEA274E6396531DFB67"
+  },
+  "figures": {
+    "human_machine_score_distributions.png": {
+      "path": "outputs/figures/human_machine_comparison/human_machine_score_distributions.png",
+      "sha256": "BBA9BAC4901CF1426CCC95A086CCE8189BA66746FA550E129A83C3542D53A62A"
+    },
+    "human_machine_calibration_by_score.png": {
+      "path": "outputs/figures/human_machine_comparison/human_machine_calibration_by_score.png",
+      "sha256": "9D8CD38FE3D4BC64EFE44CACF4BE6D07EB338E69F8C2109397B15034B0F9B29E"
+    },
+    "human_machine_bias_by_score.png": {
+      "path": "outputs/figures/human_machine_comparison/human_machine_bias_by_score.png",
+      "sha256": "E60EFD9B7DAE68369F4E89838C8EC162361689202AD0B734D9A4958AE87A5BE3"
+    },
+    "human_machine_reliability_mae.png": {
+      "path": "outputs/figures/human_machine_comparison/human_machine_reliability_mae.png",
+      "sha256": "48EB890009BB3470D70D83C6D3A0D8F29CCEE2DD520BAF628C2311CC3C393AE3"
+    }
+  }
+}

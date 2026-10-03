@@ -1,0 +1,31 @@
+{
+  "official_test_loaded": false,
+  "feature_count": 14,
+  "eligible_privacy_status": "not_flagged",
+  "model_train_rows_before_privacy_filter": 3128,
+  "model_train_rows_after_privacy_filter": 3050,
+  "validation_rows_before_privacy_filter": 783,
+  "validation_rows_after_privacy_filter": 762,
+  "privacy_status_counts": {
+    "model_train_flagged_by_rater": 68,
+    "model_train_not_flagged": 3050,
+    "model_train_unresolved_raw_id_link": 10,
+    "validation_flagged_by_rater": 17,
+    "validation_not_flagged": 762,
+    "validation_unresolved_raw_id_link": 4
+  },
+  "missing_feature_values": 0,
+  "infinite_feature_values": 0,
+  "near_constant_features": [],
+  "unstable_features": [],
+  "high_similarity_pairs": 1,
+  "primary_review_budget": 0.2,
+  "selected_validation_essays": 153,
+  "large_error_threshold": 1.0,
+  "random_review_repetitions": 1000,
+  "random_seed": 42,
+  "random_forest_n_jobs": 1,
+  "baseline_metrics_sha256": "EF8CF0130238196B79CA6E34AB977F7F67CAB6A474E7541889EFC7DA15F5413C",
+  "review_baselines_sha256": "C43E4ABBA147BED9C636B086E4E5343FA20AEC87755B24DCBBEE62F0B653AA9D",
+  "validation_predictions_sha256": "27AF5C64139CCA930D5D427A49D5462C572502F1F12BB5480E4243B463ACB202"
+}

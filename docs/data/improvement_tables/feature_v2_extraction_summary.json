@@ -1,0 +1,23 @@
+{
+  "status": "experimental_train_only",
+  "rows": 3050,
+  "features": [
+    "content_word_low_frequency_ratio",
+    "content_word_frequency_p25",
+    "content_lemma_mattr",
+    "detected_misspellings_per_100_words",
+    "detected_spelling_rule_diversity",
+    "detected_grammar_rule_diversity",
+    "detected_repeated_grammar_rule_ratio",
+    "mean_dependency_distance",
+    "mean_sentence_tree_depth"
+  ],
+  "validation_loaded": false,
+  "official_test_loaded": false,
+  "private_text_exported": false,
+  "input_sha256": {
+    "clean_train": "A56C0F3D195A3708F8EC74CA8DFABE125325050AF14868A59EA571290658884E",
+    "manifest": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96"
+  },
+  "output_sha256": "9C66515EF25282C2D1F563F1CA37B7DE86A4993EA909A2F49073E65D5FA643E7"
+}

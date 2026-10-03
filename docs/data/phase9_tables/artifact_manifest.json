@@ -1,0 +1,61 @@
+{
+  "one_time_official_test_evaluation": true,
+  "official_test_loaded": true,
+  "models_retrained": false,
+  "total_rows": 2571,
+  "eligible_rows": 2518,
+  "primary_selected_count": 504,
+  "reference_predictors": {
+    "Vocabulary": "random_forest_vocabulary",
+    "Grammar": "random_forest_grammar"
+  },
+  "frozen_ridge_centers": {
+    "median_ridge_vocabulary": 3.26941940240918,
+    "median_ridge_grammar": 3.124225726952784
+  },
+  "frozen_disagreement_threshold": 0.133989655155,
+  "phase6_model_sha256": {
+    "ridge_vocabulary.joblib": "14591A1822FFA4FC7C9006A5ABD270928401721739BEA3F9FE5A76852780EF64",
+    "ridge_grammar.joblib": "812885CAAB21DAC6508835C83DC91DE75B23D622577BA15A8E37E207E59B085F",
+    "random_forest_vocabulary.joblib": "899E9283E2EB01B4DF6913EADD6CF8A4A823DF0298DDFE820D14BA5912FFE7BE",
+    "random_forest_grammar.joblib": "BC285A202DE126247240982696CA94C16DBEE82BF15906D8E75EBDF4405A8F91"
+  },
+  "length_model_sha256": {
+    "length_ridge_vocabulary.joblib": "AA069D615F77BE8CCE8561E6044A4D73F22805537DBFDBD79D8DC38876187FBA",
+    "length_random_forest_vocabulary.joblib": "EBA39122B5F2A7209954D9D7B44C59BBB71D6F5C4EA707F14CEBA7A14C7E3324",
+    "length_ridge_grammar.joblib": "1F7A2DB84DC086860B6EFC4A75BB8ECFB418EDDF89C6D7643B9C7ADD296B60B5",
+    "length_random_forest_grammar.joblib": "73B16013F4AE9B043E1A8FCE688AD39AFC3ACA85D070A89FFE29E0BD30B55CF6"
+  },
+  "protocol_sha256": "48514EDEEDC14B2ACD074B4ABB85A69B74065C53FD1DA654AB85AFB87C521F28",
+  "addendum_sha256": "D0481A217A939DD5B22EC16BA7C445FCC2A509006C7D7B523B308D9807496696",
+  "input_sha256": {
+    "official_test_features": "DC7F7D03A9210A87F834B99CE5ABD202296455D7C65871C52AB8FA2DEA4A1967",
+    "official_test_labels": "8325BF8964C7A18B9C8A258C09F1BE6AE19E73EB5659C4903DB84753EB886873",
+    "split_manifest": "A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96"
+  },
+  "output_sha256": {
+    "outputs/predictions/official_test_predictions.csv": "48EB85D8BDA27DD6261179D839FD5377D694741C5740F94AC88029B0593393E8",
+    "docs/data/phase9_tables/regression_metrics.csv": "F4A816804FA606C8AE4E306769A36E56896413B8EB4A42CA9079B24BD471AE77",
+    "docs/data/phase9_tables/review_strategy_comparison.csv": "3404D568CB52274CDA2B3192AD68BD4961DFB26D5F9405A6DB825D6BE02B3817",
+    "docs/data/phase9_tables/random_reference_distribution.csv": "0C9756D92EB796E807B475D4E782268A91FCBE3FAD169C5318943EEB6B676D46",
+    "docs/data/phase9_tables/large_error_labels.csv": "E234F6BD38AB9E708CF88DB1176FE695C81FD192D91ACE80FB09534E50827A44",
+    "docs/data/phase9_tables/error_quadrants.csv": "A09D66617514DCF858C842CB8CBDFB29B93BFA87B77EA95CF2E0CC01E2F2B275",
+    "docs/data/phase9_tables/fairness_audit.csv": "99F4454042DAD9C65F884C51B7F31E871741E7BCE24FD8BDA4038C52D24DB547",
+    "docs/data/phase9_tables/sensitivity_analysis.csv": "9BB2BEAE4EBCD60ECA8299D9D13502F688023E4B63D8490342F94D3DB548FE26",
+    "docs/data/phase9_tables/validation_vs_test.csv": "77DF528120B113CA79255C2ADA2A58218409124994ED3931CB513A2F5FC4F465",
+    "docs/phase9_official_test_evaluation.md": "DD26939C38F4E593741C14446744A2D534A698B72C8CCD00397B8E66D75E3A2E"
+  },
+  "large_error_summary": {
+    "count": 208,
+    "prevalence": 0.08260524225575853,
+    "vocabulary_only": 61,
+    "grammar_only": 126,
+    "both_traits": 21
+  },
+  "correlations": {
+    "disagreement_vs_actual_max_rf_error": 0.022103404947551662,
+    "disagreement_vs_ridge_extremity": 0.10700940294575914,
+    "disagreement_vs_word_count": 0.04461749360471653
+  },
+  "confirmatory_classification": "A. Supports added value of disagreement"
+}

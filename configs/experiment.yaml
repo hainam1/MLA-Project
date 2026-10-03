@@ -1,0 +1,64 @@
+project:
+  name: mla-project
+  random_seed: 42
+  purpose: academic_language_learning_research
+
+task:
+  type: multi_target_regression
+  input_column: essay_text
+  target_columns: [Vocabulary, Grammar]
+  id_column: essay_id
+  required_columns: [essay_id, essay_text, Vocabulary, Grammar]
+  preferred_columns: [prompt_id]
+
+data:
+  raw_path: data/01_original_source/official_corpus/ELLIPSE_Final_github_train.csv
+  test_raw_path: data/01_original_source/official_corpus/ELLIPSE_Final_github_test.csv
+  clean_corpus_path: data/03_clean_ready_to_use/full_clean_corpus_6482.csv
+  feature_path: data/05_model_features/essay_features.csv
+  split_path: data/02_split_manifest/essay_split_manifest.csv
+  preserve_raw_text: true
+  duplicate_policy: group_exact_duplicates_before_splitting
+
+split:
+  development_source: official_train
+  final_test_source: official_test
+  validation_size: 0.20
+  cv_folds: 5
+  duplicate_grouping: normalized_text_hash
+  holdout_stratification: prompt_id
+  cv_strategy: stratified_group_kfold_by_prompt_and_text_hash
+  balance_audit: [prompt_id, Vocabulary, Grammar]
+  random_seed: 42
+
+config_files:
+  paths: configs/paths.yaml
+  features: configs/features.yaml
+  ridge: configs/ridge.yaml
+  random_forest: configs/random_forest.yaml
+
+evaluation:
+  primary_metric: mae
+  secondary_metrics: [rmse, r2, qwk]
+  bootstrap_samples: 1000
+  confidence_level: 0.95
+  review_priority_aggregation: max_target_disagreement
+  reference_prediction: random_forest_per_target
+  reference_predictor_selection_rule: lower_validation_mae_per_target
+  selected_reference_predictors:
+    Vocabulary: random_forest_vocabulary
+    Grammar: random_forest_grammar
+  large_error_threshold: 1.0
+  sensitivity_large_error_thresholds: [0.5, 1.5]
+  primary_review_budget: 0.20
+  sensitivity_review_budgets: [0.10, 0.30]
+  random_baseline_repetitions: 1000
+  random_seed: 42
+  random_interval: empirical_2.5_to_97.5_percentile_reference_interval
+  deterministic_tie_break: essay_id_ascending_as_string
+
+outputs:
+  tables: outputs/tables
+  figures: outputs/figures
+  predictions: outputs/predictions
+  models: outputs/models

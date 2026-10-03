@@ -1,0 +1,5 @@
+model,target,prediction_column,n_samples,mae,rmse,r2,selected_point_predictor
+Ridge,Vocabulary,ridge_vocabulary,762,0.37481352285,0.478537906664,0.304342300545,False
+Random Forest,Vocabulary,random_forest_vocabulary,762,0.37297710838,0.480023070829,0.300017589334,True
+Ridge,Grammar,ridge_grammar,762,0.456297593656,0.56032995363,0.324042341835,False
+Random Forest,Grammar,random_forest_grammar,762,0.44771032054,0.554622205664,0.337743359779,True

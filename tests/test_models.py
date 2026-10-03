@@ -1,29 +1,20 @@
-from __future__ import annotations
-
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
-from sklearn.tree import DecisionTreeClassifier
 
-from src.models.sentence_cefr.train import candidate_models
-
-
-def test_required_model_families_are_knn_and_decision_tree():
-    models = candidate_models()
-
-    assert set(models) == {"majority", "knn", "decision_tree"}
-    assert isinstance(models["knn"].named_steps["scaler"], StandardScaler)
-    assert isinstance(models["knn"].named_steps["classifier"], KNeighborsClassifier)
-    assert isinstance(models["decision_tree"].named_steps["classifier"], DecisionTreeClassifier)
+from mla_project.models.model_selection import build_model_set
 
 
-def test_both_required_models_produce_five_class_probabilities():
-    features = [[0.0], [0.1], [1.0], [1.1], [2.0], [2.1], [3.0], [3.1], [4.0], [4.1]]
-    labels = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
-
-    for name in ("knn", "decision_tree"):
-        model = candidate_models()[name]
-        if name == "knn":
-            model.set_params(classifier__n_neighbors=3)
-        model.fit(features, labels)
-        assert model.predict([[2.05]]).shape == (1,)
-        assert model.predict_proba([[2.05]]).shape == (1, 5)
+def test_four_target_model_pairs_and_preprocessing():
+    models = build_model_set({"alpha": 2.0}, {"n_estimators": 5, "random_seed": 7, "n_jobs": 1})
+    assert set(models) == {
+        "ridge_vocabulary",
+        "ridge_grammar",
+        "random_forest_vocabulary",
+        "random_forest_grammar",
+    }
+    assert isinstance(models["ridge_vocabulary"].named_steps["model"], Ridge)
+    assert isinstance(models["ridge_vocabulary"].named_steps["scaler"], StandardScaler)
+    assert isinstance(models["random_forest_grammar"].named_steps["model"], RandomForestRegressor)
+    assert models["random_forest_grammar"].named_steps["model"].n_jobs == 1
+    assert "scaler" not in models["random_forest_grammar"].named_steps

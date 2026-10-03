@@ -1,0 +1,15 @@
+column,rows,missing,minimum,maximum,zero_count,distinct_values
+Overall_1,8890,0,0.0,5.0,23,6
+Cohesion_1,8890,0,0.0,5.0,19,6
+Syntax_1,8890,0,0.0,5.0,20,6
+Vocabulary_1,8890,0,0.0,5.0,18,6
+Phraseology_1,8890,0,0.0,5.0,18,6
+Grammar_1,8890,0,0.0,5.0,18,6
+Conventions_1,8890,0,0.0,5.0,18,6
+Overall_2,8890,0,0.0,5.0,21,6
+Cohesion_2,8890,0,0.0,5.0,20,6
+Syntax_2,8890,0,0.0,5.0,18,6
+Vocabulary_2,8890,0,0.0,5.0,18,6
+Phraseology_2,8890,0,0.0,5.0,18,6
+Grammar_2,8890,0,0.0,5.0,18,6
+Conventions_2,8890,0,0.0,5.0,20,6

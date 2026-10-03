@@ -1,0 +1,27 @@
+column,class,model_use,rule
+full_text,raw model input,allowed,Only source field used to derive model features.
+text_id_kaggle,identifier,not a feature,"Tracking, joins, deterministic tie-break, and split manifests only."
+num_words,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+num_words2,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+num_words3,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+num_sent,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+num_para,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+num_word_div_para,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+MTLD,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+TTR,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+Type,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+Token,source-precomputed text feature,audit-only by default,"May validate the local extractor, but is not fed to models; train/inference features are recomputed from full_text."
+task,context/split metadata,not a feature,"Dataset audit, split verification, and slice analysis only."
+prompt,context/split metadata,not a feature,"Dataset audit, split verification, and slice analysis only."
+set,context/split metadata,not a feature,"Dataset audit, split verification, and slice analysis only."
+gender,demographic,prohibited,Fairness/subgroup audit only with responsible-use safeguards.
+grade,demographic,prohibited,Fairness/subgroup audit only with responsible-use safeguards.
+race_ethnicity,demographic,prohibited,Fairness/subgroup audit only with responsible-use safeguards.
+SES,demographic,prohibited,Fairness/subgroup audit only with responsible-use safeguards.
+Overall,human score/label,prohibited,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Cohesion,human score/label,prohibited,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Syntax,human score/label,prohibited,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Vocabulary,human score/label,target only,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Phraseology,human score/label,prohibited,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Grammar,human score/label,target only,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.
+Conventions,human score/label,prohibited,Never an input feature. Vocabulary and Grammar are labels; all other scores are excluded.

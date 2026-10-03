@@ -1,0 +1,38 @@
+study:
+  name: baseline_v1_tail_bias_improvement
+  seed: 42
+  official_test_access: forbidden
+  validation_role: frozen_historical_audit_only
+
+baseline_v1:
+  vocabulary:
+    model: random_forest
+    validation_mae: 0.372977108380
+  grammar:
+    model: random_forest
+    validation_mae: 0.447710320540
+  predictions_are_continuous: true
+  clipping: false
+
+development:
+  eligible_status: not_flagged
+  model_train_rows: 3050
+  frozen_cv_folds: 5
+  score_bands:
+    low: [1.0, 2.5]
+    middle: [3.0, 3.5]
+    high: [4.0, 5.0]
+  sample_weighting: inverse_square_root_band_frequency
+
+acceptance:
+  maximum_overall_mae_increase: 0.005
+  minimum_macro_band_mae_improvement_fraction: 0.10
+  minimum_max_tail_bias_reduction_fraction: 0.20
+  maximum_group_mae_increase: 0.05
+  minimum_improved_folds: 4
+
+prohibitions:
+  - no_official_test_access_during_development
+  - no_validation_based_feature_or_hyperparameter_selection
+  - no_raw_prediction_clipping
+  - no_naive_oversampling_of_rare_scores

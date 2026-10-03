@@ -1,33 +1,34 @@
-# Chuẩn bị bảo vệ trực tiếp
+# Oral-defense preparation
 
-## Mở đầu trong một phút
+## One-minute opening
 
-Giải thích bài toán hỗ trợ người học, input là một câu tiếng Anh, output A1–C1, dữ liệu có nhãn,
-hai family KNN/Decision Tree và Macro F1. Không nhắc các module translation/generation đã loại.
+The input is one ELLIPSE learner essay. Separate regressors estimate the rubric's Vocabulary and
+Grammar scores from interpretable length, vocabulary, detected-grammar-issue, and syntax features.
+Ridge and Random Forest are compared under one leakage-safe split. Their per-target absolute
+prediction difference prioritizes teacher review; it is not confidence, an error probability, or a
+replacement for human scoring.
 
-## Câu hỏi bắt buộc tự trả lời được
+## Questions to be ready to answer
 
-1. Vì sao đây là bài toán ML thay vì chỉ đặt ngưỡng readability?
-2. Vì sao Macro F1 là metric chính dù accuracy dễ hiểu hơn?
-3. QWK xử lý lỗi có thứ tự A1 < A2 < B1 < B2 < C1 như thế nào?
-4. Vì sao KNN và Decision Tree là hai model families khác nhau?
-5. KNN dự đoán bằng hàng xóm gần nhất như thế nào và `k` ảnh hưởng ra sao?
-6. Vì sao KNN bắt buộc cần scaling, còn Decision Tree thì không?
-7. Decision Tree học các ngưỡng ra sao và vì sao cây sâu dễ overfit?
-8. `max_depth`, `min_samples_split` và `min_samples_leaf` giúp pruning thế nào?
-9. Duplicate và near-duplicate đã được ngăn đi qua nhiều split như thế nào?
-10. Vì sao imputer/scaler/PCA chỉ được fit trên training data?
-11. Các nhóm linguistic features biểu diễn thông tin gì?
-12. Mô hình nào thắng, hơn bao nhiêu và chênh lệch có ổn định không?
-13. Ba lỗi đại diện là gì và nguyên nhân có thể là gì?
-14. Class imbalance, label noise và domain bias giới hạn kết luận ra sao?
-15. LLM được dùng thế nào và vì sao hệ thống cuối không phải LLM-only?
-16. Frozen DeBERTa, nếu có, đóng góp gì và không chứng minh điều gì?
+1. How do the ELLIPSE rubric and score scale support separate regression targets?
+2. Why are exact duplicates grouped before splitting?
+3. Where are imputation and Ridge scaling fitted to prevent leakage?
+4. Why is the same feature extractor used for training and new essays?
+5. What do lexical richness and Zipf frequency capture, and where can they fail?
+6. Why can LanguageTool matches be false positives for learner language?
+7. How do Ridge and Random Forest inductive biases differ?
+8. Why does Ridge need scaling while Random Forest does not?
+9. Why is disagreement useful for triage but not a calibrated confidence score?
+10. How will the review threshold be selected without using the test set?
+11. Which metrics describe score prediction and which describe review-queue utility?
+12. Why must error analysis have human reference scores?
+13. How might essay length, prompt, or demographic variables expose shortcuts or bias?
+14. What evidence would be needed before deployment beyond this academic prototype?
 
-## Hợp đồng demo
+## Before presenting
 
-- Nhập một câu tiếng Anh.
-- Hiển thị CEFR dự đoán và estimated probability của năm lớp.
-- Hiển thị một số feature values; với KNN có thể xem hàng xóm, với cây có decision path.
-- Nêu rõ output là ước lượng độ khó câu, không phải đánh giá người học.
-- Chuẩn bị saved predictions nếu model assets gặp lỗi khi demo.
+- [ ] Every result shown traces to a saved metric or prediction artifact.
+- [ ] Split IDs, seed, feature schema, and hyperparameters are frozen.
+- [ ] No demographic field is used as a predictor.
+- [ ] Example errors contain no identifying information.
+- [ ] Limitations and LLM assistance are disclosed.

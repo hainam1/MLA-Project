@@ -1,0 +1,26 @@
+{
+  "audited_rows": 30,
+  "feature_schema": [
+    "word_count",
+    "sentence_count",
+    "mean_sentence_length",
+    "mtld",
+    "mattr",
+    "mean_word_frequency",
+    "mean_word_length",
+    "lexical_density",
+    "noun_diversity",
+    "detected_grammar_errors_per_100_words",
+    "detected_error_free_sentence_ratio",
+    "complex_sentence_ratio",
+    "estimated_clauses_per_sentence",
+    "subordinate_clause_ratio"
+  ],
+  "rows_with_feature_mismatch": 0,
+  "maximum_absolute_feature_difference": 4.929745500703575e-11,
+  "language_tool_total_matches": 772,
+  "language_tool_grammar_matches_used": 113,
+  "language_tool_non_grammar_matches_ignored": 659,
+  "manual_false_positive_false_negative_review_complete": false,
+  "official_test_loaded": false
+}

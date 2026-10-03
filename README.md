@@ -1,90 +1,137 @@
-# English Sentence CEFR Classification
+# Prioritizing Teacher Review of English Learner Writing
 
-This repository contains one focused final-project pipeline: classify an English sentence into
-CEFR levels A1-C1 for language-learning support.
+This project studies vocabulary and grammar score prediction for English learner essays using
+interpretable linguistic features. It compares Ridge Regression with Random Forest Regression and
+uses their absolute prediction difference to prioritize essays for teacher review.
 
-**Official model comparison:** K-Nearest Neighbors (distance/instance-based family) versus
-Decision Tree (tree-based family), using the same interpretable linguistic features and the same
-leakage-safe data split. Frozen DeBERTa embeddings remain an optional feature extension only.
+The system is educational decision support. It does not replace a teacher, assign consequential
+grades, or interpret model disagreement as a confidence score or probability of error.
 
-## Scope
+## Current status
+
+Phases 1â€“5 are complete: the research protocol, dataset audit, frozen leakage-safe split, exact
+14-feature extractor, feature audit, and validation baselines are documented and reproducible.
+Task 6 is now complete: four fitted models, fixed-fold CV results, and 762 text-free validation
+predictions were exported using only 3,050 privacy-eligible model-train rows. Each artifact set
+includes explicit per-model metadata, code/config provenance, integrity hashes, and reload-prediction
+regression checks. Task 7 validation evaluation is also complete: MAE, RMSE, R-squared, baseline
+comparisons, point-predictor selection, residual summaries, and text-free diagnostic outputs are
+recorded for the same 762 eligible validation essays. Disagreement review and official-test
+evaluation remain locked for later tasks.
+
+## Dataset
+
+The project uses the ELLIPSE Corpus (Crossley et al., 2023), licensed under
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Original CSV files and the
+official rubric belong in `data/01_original_source/` and are treated as read-only. See
+[data/README.md](data/README.md) and [docs/dataset.md](docs/dataset.md) for provenance, placement,
+schema, and license notes.
+
+Input is an essay in `full_text` with `text_id_kaggle` as its ID. Training additionally uses the
+human-rated `Vocabulary` and `Grammar` columns. The frozen Phase 1 output contract includes two
+model estimates and their mean consensus estimate per target, per-target disagreement, and one
+essay-level review score equal to the maximum target disagreement. The inference API exposes this
+full contract while keeping teacher review authority explicit.
+
+## Features and models
+
+The shared extractor used for every split and for new essays has four feature groups:
+
+- Length (3): word count, sentence count, and mean sentence length.
+- Vocabulary (6): MTLD, MATTR, mean Zipf word frequency, mean word length, lexical density, and
+  noun diversity.
+- Detected grammar issues (2): grammar matches per 100 words and the ratio of sentences without a
+  detected grammar match. Matches are not proven learner errors.
+- Syntax (3): complex-sentence ratio, estimated clauses per sentence, and subordinate-clause ratio.
+
+Definitions and edge-case rules are frozen in
+[docs/feature_specification.md](docs/feature_specification.md). Reproduce the local tables with
+`uv run python scripts/phase4_extract_features.py`.
+
+Four target/model pairs are fitted: Ridge Vocabulary, Ridge Grammar, Random Forest Vocabulary, and
+Random Forest Grammar. Imputation and Ridge scaling are inside scikit-learn pipelines so learned
+preprocessing is fitted only on training rows.
+
+## Environment
+
+Python 3.12 is the supported baseline. `pyproject.toml` is the canonical dependency declaration;
+`uv.lock` pins the environment. The requirements files are compatibility entry points only.
+
+```powershell
+uv sync --locked --extra dev --extra analysis
+uv run --extra analysis python scripts/phase5_feature_audit_and_baselines.py
+uv run python scripts/phase6_train_models.py --preflight-only
+uv run pytest -q
+```
+
+The Java runtime required by `language-tool-python` must be installed before grammar features are
+extracted. The locked environment installs the pinned spaCy model, but never downloads ELLIPSE.
+
+## Dataset placement
+
+Place the untouched source files at the paths declared in `configs/paths.yaml`:
 
 ```text
-English sentence
-  -> licensed UniversalCEFR data
-  -> cleaning and near-duplicate grouping
-  -> leakage-safe train/validation/test split
-  -> interpretable linguistic features
-  -> KNN: imputation + train-only scaling
-  -> Decision Tree: imputation + validation-selected pruning
-  -> KNN vs Decision Tree
-  -> Macro F1, QWK, comparison, and error analysis
+data/01_original_source/official_corpus/ELLIPSE_Final_github_train.csv
+data/01_original_source/official_corpus/ELLIPSE_Final_github_test.csv
+data/01_original_source/rater_scores/ellipsis_raw_rater_scores_anon_all_essay.csv
+data/01_original_source/documentation/ELL_Rubrics.docx
 ```
 
-Translation, word-level prediction, sentence generation, rewriting, quality auditing, and a
-production API are intentionally out of scope.
+The repository already contains these local files; do not download or overwrite them. Dataset
+content is ignored by Git while provenance documentation and `.gitkeep` files remain trackable.
 
-## Project status
+## Intended commands
 
-The repository has been narrowed from an earlier multipurpose product pipeline. Existing sentence
-classification results are historical baselines and must be reproduced after the final experiment
-protocol is implemented. Do not combine figures from different metadata or experimental runs.
-
-The detailed roadmap and acceptance gates are in
-[`final-project-plan.md`](final-project-plan.md). Current work items are in [`TASKS.md`](TASKS.md).
-
-## Data
-
-The primary datasets are:
-
-- `UniversalCEFR/cefr_sp_en`
-- `UniversalCEFR/readme_en`
-
-Raw and processed data are intentionally ignored by Git. Provenance and current license notes are
-recorded in [`data/raw/cefr_sentence/SOURCE.md`](data/raw/cefr_sentence/SOURCE.md) and
-[`reports/00_dataset_licenses.md`](reports/00_dataset_licenses.md).
-
-The word-level CEFR survey is permitted only as an auxiliary lexical resource for aggregate
-sentence features. It is not a separate task or model, and the final experiments must include an
-ablation without it.
-
-## Planned commands
-
-The following command contract will be completed and verified phase by phase:
+Phase 6 provides a guarded command-line training entry point. Run the preflight first, then run the
+CV search and validation fit only after the configuration is reviewed:
 
 ```powershell
-python -m src.data.download_datasets
-python -m src.data.download_datasets --include-auxiliary-lexicon
-python -m src.data.clean_cefr_sentences
-python -m src.data.clean_cefr_wordlist
-python -m src.data.build_sentence_cefr_features --full
-python -m src.data.split_datasets
-python -m src.models.sentence_cefr.train
-python -m src.inference "Despite the rain, the expedition continued."
-python -m pytest -q
+uv run python scripts/phase6_train_models.py --preflight-only
+uv run python scripts/phase6_train_models.py
 ```
 
-Python 3.12 is the target environment. Install the development dependencies and spaCy model with:
+The command reads only the development feature table and frozen manifest. It rejects official-test
+rows, applies the privacy gate, and writes four models plus text-free evidence to `outputs/phase6/`.
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-dev.txt
-python -m spacy download en_core_web_sm
+Package APIs remain available for individual stages:
+
+```text
+validate data       mla_project.data.load_data.load_ellipse
+extract features    mla_project.features.extract_features
+prepare/train/save  mla_project.pipelines.training_pipeline
+evaluate            mla_project.evaluation.regression_metrics.regression_metrics
+predict one essay   mla_project.pipelines.inference_pipeline.predict_essay
 ```
 
-Install `requirements-contextual.txt` only when implementing/running the optional DeBERTa
-extension. It is not needed for the two required model families.
+## Repository structure
 
-## Results policy
+```text
+configs/                          Paths, feature settings, and model hyperparameters
+data/01_original_source/         Untouched corpus, rater scores, and official documentation
+data/02_split_manifest/          Frozen train/validation/test ID manifest
+data/03_clean_ready_to_use/      Clean essay tables for EDA, training, and evaluation
+data/04_intermediate_work/       Temporary checkpoints and private audit material
+data/05_model_features/          Final numeric feature tables
+docs/                             Dataset, method, governance, and planning documentation
+notebooks/                        Supporting exploration; never production logic
+outputs/                          Ignored figures, metrics, models, predictions, and tables
+report/                           Final-report source and ignored exported binaries
+src/mla_project/                  Installable project package
+tests/                            Fast unit and smoke tests
+```
 
-Old model tables were removed from the active project to prevent accidental mixing of incompatible
-experiments. [`reports/model_comparison.md`](reports/model_comparison.md) is the only active
-result-table template. Fill it only with outputs from the frozen KNN-versus-Decision-Tree protocol;
-regenerate all final figures from that same run.
-
-## Responsible use
-
-This is an academic, non-commercial project. CEFR predictions are estimates and must not be used as
-high-stakes judgments about a learner. LLM assistance is supporting-only and will be disclosed; no
-LLM supplies labels or runtime predictions.
+Detailed methodology is in [docs/methodology.md](docs/methodology.md), and limitations and use
+constraints are in [docs/responsible_use.md](docs/responsible_use.md).
+Verified local dataset counts, schemas, target distributions, duplicate checks, privacy findings,
+and the allowed-column catalog are in [docs/data_inventory.md](docs/data_inventory.md).
+The frozen model-train/validation/test manifest, CV folds, and leakage-control rules are documented
+in [docs/split_and_leakage_protocol.md](docs/split_and_leakage_protocol.md).
+The Phase 4 implementation, verified row counts, QA results, and generated-table hashes are in
+[docs/phase4_feature_extraction_report.md](docs/phase4_feature_extraction_report.md).
+The Phase 5 feature audit, mean/length-only prediction baselines, and random-review baseline are in
+[docs/phase5_feature_audit_and_baselines.md](docs/phase5_feature_audit_and_baselines.md).
+The Phase 6 training contract, search space, artifacts, and preflight evidence are in
+[docs/phase6_training_readiness.md](docs/phase6_training_readiness.md).
+The train-only experiment with nine new rubric-oriented features and its acceptance results are in
+[docs/feature_v2_train_only_results.md](docs/feature_v2_train_only_results.md).
