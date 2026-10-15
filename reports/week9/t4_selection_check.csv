@@ -1,0 +1,2 @@
+existing_n,reproduced_n,same_ids,same_groups,missing,extra,action
+32,32,True,True,0,0,existing sample retained unchanged

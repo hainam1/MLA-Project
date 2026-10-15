@@ -1,0 +1,15 @@
+diff --git a/.gitignore b/.gitignore
+index 6f37fab..adc88af 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -136,4 +136,10 @@ mlruns/
+ scratch/
+ *.parquet
+ 
++# Private Week 9 reading workbook and text-bearing build/preview files
++/reports/week9/t4_reading_sheet.xlsx
++/reports/week9/t4_private/
++# Local junction to the bundled spreadsheet runtime (not project dependencies)
++/scripts/week9/node_modules/
++
+ 

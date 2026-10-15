@@ -1,0 +1,26 @@
+headline,value,script,output,data_rows
+Frozen Test disagreement,47/208,scripts/week9/t0_provenance.py,reports/week9/t0_metrics.csv,2
+Frozen Test random mean,41.427 (41.4 rounded to one decimal),scripts/week9/t0_provenance.py,reports/week9/t0_metrics.csv,2
+Frozen Test empirical p,165/1000 = 0.165,scripts/week9/t0_provenance.py,reports/week9/t0_metrics.csv,2
+Frozen Test exact hypergeometric p,0.188324671369221 (0.188 rounded),scripts/week9/t0_provenance.py,reports/week9/t0_metrics.csv,2
+Frozen Validation disagreement,15/69,scripts/week9/t0_provenance.py,reports/week9/t0_metrics.csv,1
+Validation large errors below median,36/69; median D=0.13398965515499994,scripts/week9/t1_analysis.py,reports/week9/t1_quadrants.csv,1
+"Validation both wrong, same direction",50/69,scripts/week9/t1_analysis.py,reports/week9/t1_categories.csv,1
+Validation signed-error correlations,V=0.956277117218718; G=0.951854189994445,scripts/week9/t1_analysis.py,reports/week9/t1_correlations.csv,3-4
+Validation D versus RF error magnitude,-0.00478127282758114,scripts/week9/t1_analysis.py,reports/week9/t1_correlations.csv,1
+Validation AUROC Disagreement,"0.510676119371772; CI [0.432336289152627, 0.585208476579814]",scripts/week9/t1_analysis.py,reports/week9/t1_auroc.csv,1
+Validation AUROC Ridge Extremity,"0.516364472886212; CI [0.445977573758215, 0.578892042777683]",scripts/week9/t1_analysis.py,reports/week9/t1_auroc.csv,2
+Validation AUROC Shortest-first,"0.511334880900098; CI [0.437914589985434, 0.582646097231079]",scripts/week9/t1_analysis.py,reports/week9/t1_auroc.csv,3
+Validation A1_RF disagreement,15/69; p=0.409805547270715,scripts/week9/t2_analysis.py,reports/week9/t2_anchor.csv,2
+Validation A2_Ridge disagreement,19/77; p=0.179714082645364,scripts/week9/t2_analysis.py,reports/week9/t2_anchor.csv,6
+Validation A3_Both_wrong disagreement,9/51; p=0.728938261414719,scripts/week9/t2_analysis.py,reports/week9/t2_anchor.csv,10
+Pooled MAE Ridge V,prompt-disjoint=0.37342443714543; ordinary KFold=0.372304940106959,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,"1,4"
+Pooled MAE Ridge G,prompt-disjoint=0.463036537712484; ordinary KFold=0.461471100957794,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,"1,4"
+Pooled MAE RF V,prompt-disjoint=0.372165069040496; ordinary KFold=0.371663177019517,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,"1,4"
+Pooled MAE RF G,prompt-disjoint=0.455403719595917; ordinary KFold=0.454390747998969,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,"1,4"
+prompt_disjoint A1_RF pooled disagreement,88/386; expected=77.362908429581; joint p=0.105,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,1
+prompt_disjoint A2_Ridge pooled disagreement,93/384; expected=76.9621199683931; joint p=0.022,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,2
+prompt_disjoint A3_Both_wrong pooled disagreement,44/276; expected=55.3218568770231; joint p=0.97,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,3
+ordinary_KFold A1_RF pooled disagreement,86/376; expected=75.4544844738444; joint p=0.087,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,4
+ordinary_KFold A2_Ridge pooled disagreement,93/383; expected=76.8607857504051; joint p=0.013,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,5
+ordinary_KFold A3_Both_wrong pooled disagreement,40/271; expected=54.384438757082; joint p=0.993,scripts/week9/t3_evaluate.py,reports/week9/t3_summary.csv,6

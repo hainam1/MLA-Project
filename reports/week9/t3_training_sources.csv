@@ -1,0 +1,10 @@
+task_label,path,sha256
+Exploratory extension designed after Official Test was used.,reports/week9/t3_eligible_development.csv,f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+Exploratory extension designed after Official Test was used.,reports/week9/t3_eligibility_checks.csv,87ee7f2afd9b418c117c17df4295e08408e244d53548b6e95394aa2ed406f46b
+Exploratory extension designed after Official Test was used.,outputs/phase6/selected_parameters.json,6ac78f0481606ddfcb852ac666969fb17b7ddb4a93e7a389c700b7bdb78147f2
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,48514edeedc14b2acd074b4abb85a69b74065c53fd1da654ab85afb87c521f28
+Exploratory extension designed after Official Test was used.,src/mla_project/models/train_ridge.py,9736263890223f21c1a3d7a0c5ede26ae7a185fe8297f2773aa08d68bb85e82b
+Exploratory extension designed after Official Test was used.,src/mla_project/models/train_random_forest.py,f2781915be7ae6cbd67e916772b79050ed1df611fa9527ec3fe7489e83a62872
+Exploratory extension designed after Official Test was used.,src/mla_project/features/build_features.py,30d4736ae0f1f048f7348f66d540379a0a9dac111c30009153680259f6a0da4c
+Exploratory extension designed after Official Test was used.,scripts/week9/t3_evaluate.py,b99b47724fa6efa0dd3f6db53bae98e5f0d25f422b332572856eb62edf6479d7
+Exploratory extension designed after Official Test was used.,scripts/week9/t3_evidence.py,81e6535a5e553bb5c421789da6c031617aab2eb378dc97053bb68e0e43e1fdc1

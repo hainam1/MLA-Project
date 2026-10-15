@@ -1,0 +1,53 @@
+task_label,path,line,code
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,72,"    if eligible_status != ""not_flagged"":"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,73,"        raise ValueError(""The frozen privacy gate permits only not_flagged rows."")"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,101,    manifest_metadata = manifest[
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,102,"        [""essay_id"", ""source_partition"", ""split"", ""cv_fold"", ""privacy_review_status""]"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,103,    ].rename(
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,104,        columns={
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,105,"            ""source_partition"": ""manifest_source_partition"","
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,106,"            ""split"": ""manifest_split"","
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,107,"            ""cv_fold"": ""manifest_cv_fold"","
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,108,        }
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,109,    )
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,110,"    merged = development.merge(manifest_metadata, on=""essay_id"", how=""left"", validate=""one_to_one"")"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,111,"    if merged[""privacy_review_status""].isna().any():"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,112,"        raise ValueError(""Every development essay must have a privacy status in the manifest."")"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,113,    metadata_matches = (
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,114,"        _metadata_equal(merged[""source_partition""], merged[""manifest_source_partition""])"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,115,"        and _metadata_equal(merged[""split""], merged[""manifest_split""])"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,116,"        and _metadata_equal(merged[""cv_fold""], merged[""manifest_cv_fold""], numeric=True)"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,117,    )
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,118,    if not metadata_matches:
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,119,"        raise ValueError(""Development metadata does not match the frozen split manifest."")"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,127,"    eligible = merged.loc[merged[""privacy_review_status""].eq(eligible_status)].copy()"
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,128,    eligible = eligible.drop(
+Exploratory extension designed after Official Test was used.,src/mla_project/pipelines/training_pipeline.py,129,"        columns=[""manifest_source_partition"", ""manifest_split"", ""manifest_cv_fold""]"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,60,"def _load_validation_inputs() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, object]]:"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,61,"    development = pd.read_csv(DEVELOPMENT_PATH, dtype={""essay_id"": ""string""})"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,62,"    manifest = pd.read_csv(MANIFEST_PATH, dtype={""essay_id"": ""string""})"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,63,"    prepared = prepare_training_data(development, manifest, eligible_status=""not_flagged"")"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,64,    if (
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,65,        len(prepared.train) != EXPECTED_TRAIN_ROWS
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,66,        or len(prepared.validation) != EXPECTED_VALIDATION_ROWS
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,67,    ):
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,68,        raise ValueError(
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,69,"            ""Phase 8 population does not match the frozen 3,050/762 development split."""
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,85,"        raise ValueError(""Phase 6 validation predictions contain duplicate essay IDs."")"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,86,"    expected_ids = set(prepared.validation[""essay_id""].astype(str))"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,87,"    if set(predictions[""essay_id""].astype(str)) != expected_ids:"
+Exploratory extension designed after Official Test was used.,scripts/phase8_evaluate_review_prioritization.py,88,"        raise ValueError(""Phase 6 predictions do not exactly match eligible validation IDs."")"
+Exploratory extension designed after Official Test was used.,configs/phase6_training.yaml,1,privacy:
+Exploratory extension designed after Official Test was used.,configs/phase6_training.yaml,2,  eligible_status: not_flagged
+Exploratory extension designed after Official Test was used.,configs/phase6_training.yaml,3,"  excluded_statuses: [flagged_by_rater, unresolved_raw_id_link]"
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,54,- Shortest-first: rank recomputed `word_count` ascending.
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,55,- Ridge extremity: first compute the median of Ridge Vocabulary predictions and the median of
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,56,"  Ridge Grammar predictions over the 3,050 eligible model-train essays. For validation essay (i),"
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,57,  \[
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,58,  E_i=\max\left(
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,59,"  |\hat y^{Ridge}_{i,V}-\operatorname{median}(\hat y^{Ridge}_{train,V})|,"
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,60,"  |\hat y^{Ridge}_{i,G}-\operatorname{median}(\hat y^{Ridge}_{train,G})|"
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,61,  \right).
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,62,  \]
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,63,  Rank raw rubric-point distance descending; do not standardize the primary baseline.
+Exploratory extension designed after Official Test was used.,docs/evaluation_protocol_freeze.md,64,- Ridge-RF disagreement:

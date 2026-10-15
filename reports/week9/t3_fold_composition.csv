@@ -1,0 +1,265 @@
+task_label,split_type,fold,train_essays,heldout_essays,train_prompt_count,heldout_prompt_count,overlap_prompt_count,disjoint,heldout_prompt,heldout_prompt_essays,train_same_prompt_essays,k
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,curfews for teenagers,54,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,distance learning,280,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,enjoyable educational activities,57,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,honesty,29,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,individuality,143,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,influences of character,90,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,learning from the experience of others,30,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,letter to employer,44,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,1,3043,769,35,9,0,True,mandatory extracurricular activities,42,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,career commitment,222,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,creative arts requirement,51,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,future accomplishments,33,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,influencing behavior,62,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,places to visit,42,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,setting our aim,26,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,spending time outdoors,54,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,three-year high school program,147,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,2,3044,768,35,9,0,True,working with a group or alone,131,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,benefits of a problem,33,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,cell phones at school,43,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,controlling extracurricular involvement,52,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,extended school day,88,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,internships and shadowing,55,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,lunch menus,92,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,success and failure,212,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,summer projects,19,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,3,3051,761,35,9,0,True,trying something beyond what you have mastered,167,0,153
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,being busy,204,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,cell phones in classrooms,59,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,first impressions,168,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,grades for extracurricular activities,37,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,imagination,55,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,seeking multiple opinions,50,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,self-reliance,130,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,4,3067,745,36,8,0,True,talents and skills,42,0,149
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,afterschool homework club,54,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,benefits of a good attitude,30,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,community service,43,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,four-day work week,134,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,impact of technology,174,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,lessons with elementary school students,38,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,positive attitudes,175,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,praising student work,56,0,154
+Exploratory extension designed after Official Test was used.,prompt_disjoint,5,3043,769,35,9,0,True,year-round school,65,0,154
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,afterschool homework club,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,being busy,44,160,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,benefits of a good attitude,3,27,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,benefits of a problem,11,22,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,career commitment,52,170,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,cell phones at school,10,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,cell phones in classrooms,11,48,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,community service,11,32,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,controlling extracurricular involvement,7,45,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,creative arts requirement,13,38,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,curfews for teenagers,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,distance learning,41,239,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,enjoyable educational activities,11,46,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,extended school day,17,71,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,first impressions,29,139,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,four-day work week,23,111,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,future accomplishments,6,27,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,grades for extracurricular activities,5,32,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,honesty,6,23,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,imagination,13,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,impact of technology,29,145,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,individuality,31,112,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,influences of character,22,68,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,influencing behavior,16,46,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,internships and shadowing,13,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,learning from the experience of others,3,27,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,lessons with elementary school students,12,26,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,letter to employer,6,38,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,lunch menus,20,72,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,mandatory extracurricular activities,9,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,places to visit,9,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,positive attitudes,39,136,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,praising student work,11,45,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,seeking multiple opinions,11,39,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,self-reliance,22,108,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,setting our aim,6,20,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,spending time outdoors,15,39,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,success and failure,40,172,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,summer projects,1,18,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,talents and skills,9,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,three-year high school program,31,116,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,trying something beyond what you have mastered,29,138,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,working with a group or alone,25,106,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,1,3049,763,44,44,44,False,year-round school,21,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,afterschool homework club,8,46,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,being busy,40,164,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,benefits of a good attitude,9,21,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,benefits of a problem,7,26,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,career commitment,47,175,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,cell phones at school,8,35,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,cell phones in classrooms,15,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,community service,6,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,controlling extracurricular involvement,10,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,creative arts requirement,9,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,curfews for teenagers,15,39,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,distance learning,55,225,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,enjoyable educational activities,10,47,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,extended school day,14,74,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,first impressions,37,131,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,four-day work week,27,107,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,future accomplishments,3,30,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,grades for extracurricular activities,10,27,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,honesty,9,20,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,imagination,4,51,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,impact of technology,46,128,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,individuality,27,116,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,influences of character,15,75,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,influencing behavior,11,51,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,internships and shadowing,7,48,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,learning from the experience of others,10,20,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,lessons with elementary school students,7,31,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,letter to employer,6,38,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,lunch menus,22,70,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,mandatory extracurricular activities,10,32,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,places to visit,8,34,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,positive attitudes,33,142,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,praising student work,17,39,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,seeking multiple opinions,10,40,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,self-reliance,33,97,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,setting our aim,8,18,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,spending time outdoors,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,success and failure,42,170,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,summer projects,7,12,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,talents and skills,8,34,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,three-year high school program,27,120,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,trying something beyond what you have mastered,34,133,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,working with a group or alone,13,118,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,2,3049,763,44,44,44,False,year-round school,9,56,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,afterschool homework club,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,being busy,37,167,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,benefits of a good attitude,9,21,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,benefits of a problem,8,25,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,career commitment,45,177,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,cell phones at school,14,29,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,cell phones in classrooms,9,50,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,community service,6,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,controlling extracurricular involvement,15,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,creative arts requirement,8,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,curfews for teenagers,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,distance learning,60,220,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,enjoyable educational activities,5,52,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,extended school day,15,73,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,first impressions,43,125,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,four-day work week,24,110,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,future accomplishments,9,24,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,grades for extracurricular activities,10,27,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,honesty,5,24,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,imagination,13,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,impact of technology,29,145,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,individuality,33,110,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,influences of character,14,76,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,influencing behavior,12,50,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,internships and shadowing,11,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,learning from the experience of others,2,28,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,lessons with elementary school students,7,31,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,letter to employer,11,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,lunch menus,21,71,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,mandatory extracurricular activities,8,34,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,places to visit,11,31,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,positive attitudes,38,137,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,praising student work,8,48,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,seeking multiple opinions,10,40,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,self-reliance,24,106,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,setting our aim,3,23,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,spending time outdoors,10,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,success and failure,50,162,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,summer projects,3,16,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,talents and skills,5,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,three-year high school program,33,114,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,trying something beyond what you have mastered,27,140,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,working with a group or alone,31,100,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,3,3050,762,44,44,44,False,year-round school,6,59,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,afterschool homework club,8,46,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,being busy,39,165,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,benefits of a good attitude,5,25,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,benefits of a problem,3,30,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,career commitment,35,187,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,cell phones at school,6,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,cell phones in classrooms,10,49,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,community service,9,34,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,controlling extracurricular involvement,8,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,creative arts requirement,8,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,curfews for teenagers,12,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,distance learning,68,212,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,enjoyable educational activities,14,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,extended school day,16,72,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,first impressions,26,142,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,four-day work week,30,104,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,future accomplishments,7,26,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,grades for extracurricular activities,7,30,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,honesty,3,26,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,imagination,11,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,impact of technology,39,135,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,individuality,27,116,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,influences of character,19,71,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,influencing behavior,14,48,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,internships and shadowing,12,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,learning from the experience of others,8,22,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,lessons with elementary school students,8,30,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,letter to employer,7,37,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,lunch menus,10,82,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,mandatory extracurricular activities,6,36,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,places to visit,7,35,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,positive attitudes,41,134,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,praising student work,8,48,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,seeking multiple opinions,11,39,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,self-reliance,32,98,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,setting our aim,7,19,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,spending time outdoors,8,46,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,success and failure,40,172,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,summer projects,6,13,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,talents and skills,9,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,three-year high school program,26,121,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,trying something beyond what you have mastered,46,121,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,working with a group or alone,30,101,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,4,3050,762,44,44,44,False,year-round school,16,49,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,afterschool homework club,18,36,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,being busy,44,160,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,benefits of a good attitude,4,26,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,benefits of a problem,4,29,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,career commitment,43,179,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,cell phones at school,5,38,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,cell phones in classrooms,14,45,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,community service,11,32,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,controlling extracurricular involvement,12,40,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,creative arts requirement,13,38,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,curfews for teenagers,7,47,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,distance learning,56,224,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,enjoyable educational activities,17,40,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,extended school day,26,62,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,first impressions,33,135,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,four-day work week,30,104,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,future accomplishments,8,25,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,grades for extracurricular activities,5,32,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,honesty,6,23,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,imagination,14,41,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,impact of technology,31,143,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,individuality,25,118,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,influences of character,20,70,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,influencing behavior,9,53,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,internships and shadowing,12,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,learning from the experience of others,7,23,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,lessons with elementary school students,4,34,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,letter to employer,14,30,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,lunch menus,19,73,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,mandatory extracurricular activities,9,33,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,places to visit,7,35,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,positive attitudes,24,151,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,praising student work,12,44,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,seeking multiple opinions,8,42,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,self-reliance,19,111,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,setting our aim,2,24,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,spending time outdoors,11,43,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,success and failure,40,172,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,summer projects,2,17,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,talents and skills,11,31,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,three-year high school program,30,117,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,trying something beyond what you have mastered,31,136,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,working with a group or alone,32,99,153
+Exploratory extension designed after Official Test was used.,ordinary_KFold,5,3050,762,44,44,44,False,year-round school,13,52,153

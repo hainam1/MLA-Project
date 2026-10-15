@@ -1,0 +1,3 @@
+split,N,K,k,shortest,ridge_extremity,disagreement,random_mean,random_first_draw,random_p2_5,random_p97_5,tail_draws,draws,seed,hypergeom_p,expected_random
+Validation,762,69,153,15,10,15,13.946,16,8,20,415,1000,42,0.40980554727071455,13.854330708661417
+Test,2518,208,504,37,43,47,41.427,41,32,52.024999999999977,165,1000,42,0.18832467136922115,41.633042096902301

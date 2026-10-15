@@ -1,0 +1,4 @@
+task_label,check,source,eligible_n,saved_n,missing,extra,passed
+Exploratory extension designed after Official Test was used.,eligible Validation ID equality,outputs/phase6/validation_predictions.csv,762,762,0,0,True
+Exploratory extension designed after Official Test was used.,eligible Validation ID equality,reports/week9/t1_essay_level.csv,762,762,0,0,True
+Exploratory extension designed after Official Test was used.,eligible train ID equality with saved OOF,outputs/improvement_study/train_oof_predictions.csv,3050,3050,0,0,True

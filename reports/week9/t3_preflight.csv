@@ -1,0 +1,2 @@
+task_label,status,source,observed_essays,expected_essays,observed_prompt_groups,expected_prompt_groups,model_train_essays,validation_essays,normalisation,population_filter
+Exploratory extension designed after Official Test was used.,PARTIAL_STOP_POPULATION_MISMATCH,data/05_model_features/development_features_with_targets.csv,3911,3812,44,44,3128,783,lowercase + whitespace collapse; no merging,none; source table as supplied

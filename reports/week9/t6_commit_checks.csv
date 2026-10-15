@@ -1,0 +1,8 @@
+path,first_commit,first_author_date,first_committer_date,last_commit
+docs/evaluation_protocol_freeze.md,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+scripts/phase8_evaluate_review_prioritization.py,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+scripts/phase9_official_test_evaluation.py,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+docs/data/phase9_tables/artifact_manifest.json,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+docs/data/phase9_tables/large_error_labels.csv,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+docs/data/phase9_tables/random_reference_distribution.csv,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d
+docs/data/phase9_tables/review_strategy_comparison.csv,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d,2026-10-03T19:24:28+07:00,2026-10-03T19:24:28+07:00,2c7982ed5d1183f40ea5db2a8daab4ea7ba4279d

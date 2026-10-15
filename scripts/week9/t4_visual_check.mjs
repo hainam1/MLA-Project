@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {FileBlob,SpreadsheetFile} from '@oai/artifact-tool';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const p=path.join(root,'reports/week9');
+const book=await SpreadsheetFile.importXlsx(await FileBlob.load(path.join(p,'t4_reading_sheet.xlsx')));
+const preview=await book.render({sheetName:'reading_sheet',range:'AU1:AU3',scale:1,format:'png'});
+await fs.writeFile(path.join(p,'t4_private/essay_text_preview.png'),new Uint8Array(await preview.arrayBuffer()));
+console.log('RENDER_CHECK exported workbook essay_text column rendered privately; no essay text printed to logs');

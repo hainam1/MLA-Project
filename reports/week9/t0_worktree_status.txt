@@ -1,0 +1,64 @@
+ M README.md
+ M configs/paths.yaml
+ M data/DATA_DICTIONARY.md
+ M docs/data/data_dictionary.md
+ M docs/data/dataset_acceptance_checklist.md
+ M docs/decision_log.md
+ M docs/instructor_requirements.md
+ M docs/methodology.md
+ M docs/oral_defense.md
+ M docs/phase1_problem_definition.md
+ M docs/phase6_training_readiness.md
+ M docs/responsible_use.md
+ M report/final_report.md
+ M report/final_results_summary.md
+ M src/mla_project/pipelines/inference_pipeline.py
+ M tests/test_inference.py
+?? MLA-Project/
+?? docs/data/error_analysis/README.md
+?? docs/data/error_analysis/manual_error_review.csv
+?? docs/data/finalization_tables/disagreement_extremity.csv
+?? docs/data/finalization_tables/manual_analysis_sample.csv
+?? docs/data/finalization_tables/prompt_crosstab_all.csv
+?? docs/data/finalization_tables/prompt_crosstab_eligible.csv
+?? docs/data/finalization_tables/prompt_evidence.json
+?? docs/data/finalization_tables/supplement_summary.json
+?? docs/data/finalization_tables/teacher_heuristics_validation.csv
+?? docs/data/post_midterm/analysis_summary.json
+?? docs/data/post_midterm/feature_error_comparison_validation.csv
+?? docs/data/post_midterm/frozen_integrity_before.json
+?? docs/data/post_midterm/length_by_operational_prompt_development.csv
+?? docs/data/post_midterm/max_vs_mean_validation.csv
+?? docs/data/post_midterm/progress_report_checks.csv
+?? docs/data/post_midterm/prompt_reconciliation_inventory.csv
+?? docs/data/post_midterm/rater_threshold_context_validation.csv
+?? docs/data/post_midterm/real_feature_example.csv
+?? docs/data/post_midterm/subgroup_audit_validation.csv
+?? docs/finalization_changelog.md
+?? docs/finalization_evidence.md
+?? docs/post_midterm/prompt_reconciliation.md
+?? docs/post_midterm/teacher_feedback_results.md
+?? docs/post_midterm/transformer_future_plan.md
+?? docs/post_midterm/unseen_prompt_design.md
+?? docs/project_freeze_status.md
+?? docs/setup.md
+?? docs/weekly_reports/Nhom03_BaoCao_SauGopY_GiuaKy.docx
+?? docs/weekly_reports/teacher_evidence_output.txt
+?? docs/weekly_reports/week_next_teacher_feedback.md
+?? reports/week9/t0_committed_changes.csv
+?? reports/week9/t0_git_since_freeze.txt
+?? reports/week9/t0_inventory.csv
+?? reports/week9/t0_metrics.csv
+?? reports/week9/t0_test_draws.csv
+?? reports/week9/t0_validation_draws.csv
+?? reports/week9/t0_worktree_status.txt
+?? scratch_prompt.txt
+?? scratch_slide_script.txt
+?? scratch_step_151.txt
+?? scripts/finalization_smoke.py
+?? scripts/finalization_supplement.py
+?? scripts/post_midterm_teacher_analysis.py
+?? scripts/progress_report_checks.py
+?? scripts/show_teacher_evidence.py
+?? scripts/week9/t0_provenance.py
+?? tests/test_post_midterm.py

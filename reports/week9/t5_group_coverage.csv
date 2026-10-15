@@ -1,0 +1,16 @@
+attribute,group,N,K,reported,reason
+Gender,Female,327,31,True,N >= 20
+Gender,Male,435,38,True,N >= 20
+Grade,10,34,3,True,N >= 20
+Grade,11,266,23,True,N >= 20
+Grade,12,266,26,True,N >= 20
+Grade,8,192,17,True,N >= 20
+Grade,9,4,0,False,N < 20
+Race/Ethnicity,American Indian/Alaskan Native,2,0,False,N < 20
+Race/Ethnicity,Asian/Pacific Islander,98,14,True,N >= 20
+Race/Ethnicity,Black/African American,70,4,True,N >= 20
+Race/Ethnicity,Hispanic/Latino,527,42,True,N >= 20
+Race/Ethnicity,Two or more races/Other,6,2,False,N < 20
+Race/Ethnicity,White,59,7,True,N >= 20
+SES,Economically disadvantaged,512,50,True,N >= 20
+SES,Not economically disadvantaged,250,19,True,N >= 20

@@ -1,0 +1,6 @@
+sample_group,quadrant,n
+highest_rf_error,large_error=yes; D at-or-above median,6
+highest_rf_error,large_error=yes; D below median,6
+low_rf_error_comparison,large_error=no; D at-or-above median,7
+low_rf_error_comparison,large_error=no; D below median,3
+shared_blind_spot,large_error=yes; D below median,10

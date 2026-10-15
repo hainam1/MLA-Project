@@ -1,0 +1,4 @@
+task_label,path,sha256
+Exploratory extension designed after Official Test was used.,data/05_model_features/development_features_with_targets.csv,cafb1bca27423e0a8b6fb2d282fb7bd87fb703fc637a3a15778855caf0817a5b
+Exploratory extension designed after Official Test was used.,data/03_clean_ready_to_use/model_train_3128.csv,a56c0f3d195a3708f8ec74ca8dfabe125325050af14868a59ea571290658884e
+Exploratory extension designed after Official Test was used.,data/03_clean_ready_to_use/validation_783.csv,7b80be5447dd8adadbecf6f492a4320f3e74c7290f91a99e11d43f5951a80e8e

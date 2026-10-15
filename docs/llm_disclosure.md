@@ -22,3 +22,9 @@
 
 Add every material use before submission and describe how generated suggestions were independently
 checked.
+
+## Week 9
+
+Reading notes for the fixed 32-essay sample were organised with support tools (an AI coding agent) following a two-pass protocol (pass 1 blind: prompt name and essay text only; pass 2: scores, predictions, errors and D revealed) and a 7-criterion rubric agreed before reading. The team re-read the essays and adopted these notes as its reading results; t4_reading_summary.csv is the text-free export. Support tools were also used to write analysis scripts and compute summary tables.
+
+See the [text-free reading summary](../reports/week9/t4_reading_summary.csv) and [Week 9 evidence log](../reports/week9/RESULTS_week9.md). The full reading sheet stays private and gitignored.
