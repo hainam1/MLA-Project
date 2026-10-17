@@ -1332,6 +1332,74 @@ IDENTICAL_RAW_OUTPUT=True
 [src: reports/week9/logs/t6.log hash lines]
 
 
+## Week 9b — exploratory development/Validation diagnosis
+
+Producer: `scripts/week9b/diagnose.py`; command: `.venv/Scripts/python.exe -u scripts/week9b/diagnose.py --append`. No Test input is used. The error-model results have the second-stage cross-fitting limitation printed below. Existing report bytes are preserved by opening in append-only mode.
+
+```text
+EXPLORATORY ONLY; development and Validation; seed=42; no search; no frozen-model fitting.
+L=max(abs(y_V-RF_V),abs(y_G-RF_G))>=1; D=max(abs(RF_V-Ridge_V),abs(RF_G-Ridge_G)); k=ceil(.20*N); ties=essay_id string ascending.
+FROZEN_MODEL_VALIDATION max_abs_saved_prediction_difference={"random_forest_grammar": 4.999112235282155e-12, "random_forest_vocabulary": 4.988454094245753e-12, "ridge_grammar": 4.988010005035903e-12, "ridge_vocabulary": 4.998668146072305e-12}
+RIDGE_TRAIN_CENTERS n=3050; recomputed from frozen Ridge predictions={"grammar": 3.124225726952784, "vocabulary": 3.26941940240918}
+STEP1A anchors
+anchor,count,share_of_RF_K
+A1 RF,69,69/69=1
+A2 Ridge,77,77/69=1.1159420289855073
+A3 both,51,51/69=0.73913043478260865
+union,95,95/69=1.3768115942028984
+STEP1B D population median=0.13398965515499994; below means strict <; all shares within group unless labelled /K.
+STEP1AB partition
+group,count,share_of_RF_K,median_D,D_below_population_median,D_below_0_1
+RF-only (A1 minus A2),18,18/69=0.2608695652173913,0.18241118549500013,6/18=0.33333333333333331,3/18=0.16666666666666666
+Ridge-only (A2 minus A1; outside K),26,26/69=0.37681159420289856,0.18070331967000008,7/26=0.26923076923076922,3/26=0.11538461538461539
+both (A3),51,51/69=0.73913043478260865,0.11270482242000002,30/51=0.58823529411764708,24/51=0.47058823529411764
+PARTITION RF_K=18+51=69; union=18+26+51=95; Ridge-only is not part of RF K.
+STEP1C direction (strict above/below; between/equality retained)
+target,scope,n,above_both,below_both,between_or_equal,true_mean_group,true_mean_overall,group_mean_arithmetic,overall_mean_arithmetic
+vocabulary,RF-large essays (either target),69,31/69=0.44927536231884058,36/69=0.52173913043478259,2/69=0.028985507246376812,3.1956521739130435,3.2178477690288716,220.5/69,2452/762
+vocabulary,RF-large on this target,34,15/34=0.44117647058823528,19/34=0.55882352941176472,0/34=0,3.1617647058823528,3.2178477690288716,107.5/34,2452/762
+grammar,RF-large essays (either target),69,31/69=0.44927536231884058,37/69=0.53623188405797106,1/69=0.014492753623188406,3.0652173913043477,3.0203412073490812,211.5/69,2301.5/762
+grammar,RF-large on this target,47,23/47=0.48936170212765956,23/47=0.48936170212765956,1/47=0.021276595744680851,3.0957446808510638,3.0203412073490812,145.5/47,2301.5/762
+STEP1D fixed D cutoff
+N,K,k,kth_D,caught_by_D,below_cutoff,large_equal_cutoff,large_above_cutoff,eligible_large_at_or_above,optimistic_cap_within_cutoff,capture
+762,69,153,0.20932248053000002,15,54/69=0.78260869565217395,0,15,15,15,15/69=0.21739130434782608
+CUTOFF arithmetic: 69-54=15 large errors at/above cutoff; upper bound=min(153,15)=15; fixed D ranking caught=15; excluded=54/69=0.78260869565217395. Below-cutoff exclusion applies to this fixed ranking/budget, not an arbitrary replacement signal.
+STEP2 Validation signals
+signal,N,K,k,caught,capture,expected_random,expected_arithmetic,p,p_formula
+Disagreement,762,69,153,15,15/69=0.21739130434782608,13.854330708661417,153*69/762=13.854330708661417,0.40980554727071455,"hypergeom.sf(14,762,69,153)"
+RF tree std (ddof=0; max targets),762,69,153,25,25/69=0.36231884057971014,13.854330708661417,153*69/762=13.854330708661417,0.00077659032543159505,"hypergeom.sf(24,762,69,153)"
+RF extremity vs Ridge-train medians,762,69,153,11,11/69=0.15942028985507245,13.854330708661417,153*69/762=13.854330708661417,0.85573731111227214,"hypergeom.sf(10,762,69,153)"
+Shortest-first,762,69,153,15,15/69=0.21739130434782608,13.854330708661417,153*69/762=13.854330708661417,0.40980554727071455,"hypergeom.sf(14,762,69,153)"
+Longest-first,762,69,153,12,12/69=0.17391304347826086,13.854330708661417,153*69/762=13.854330708661417,0.76723165097323176,"hypergeom.sf(11,762,69,153)"
+STEP3 GroupKFold(5) error-model folds
+fold,training_n,heldout_n,overlapping_prompts
+1,3043,769,0
+2,3044,768,0
+3,3051,761,0
+4,3067,745,0
+5,3043,769,0
+STEP3 saved-base-OOF exploratory error model
+signal,N,K,k,caught,capture,expected_random,expected_arithmetic,p,p_formula,AUROC,CI_low,CI_high,bootstrap_resamples,valid_resamples,skipped_resamples
+Error-model OOF; pooled global top20%,3812,386,763,91,91/386=0.23575129533678757,77.260755508919203,763*386/3812=77.260755508919203,0.039586256097498329,"hypergeom.sf(90,3812,386,763)",0.57458886479194449,0.54682217212938722,0.60245139101102596,2000,2000,0
+STEP3 BUDGET: concatenate 5 meta-heldout score sets, then global k=ceil(.20*3812)=763; hypergeometric p uses that global uniform-selection reference.
+STEP3 LIMITATION: this is second-stage GroupKFold on existing base OOF predictions, not fully nested cross-fitting. Base models generating meta-training rows can have seen the meta-heldout groups. Therefore this error-model result is potentially optimistic and is not an unbiased estimate for unseen prompts. Fully nested evaluation would require refitting base models and was not performed.
+BOOTSTRAP: 2000 ordinary essay resamples with replacement, seed=42, percentile 95% CI; does not account for prompt clustering or cross-fitting dependence.
+STEP2 p<0.05 (uncorrected multiple exploratory comparisons): ['RF tree std (ddof=0; max targets)']
+STEP3 nominal p<0.05=True; subject to the nested-cross-fitting limitation above.
+READ_AUDIT data/05_model_features/development_features_with_targets.csv SHA256=cafb1bca27423e0a8b6fb2d282fb7bd87fb703fc637a3a15778855caf0817a5b
+READ_AUDIT outputs/phase6/artifact_manifest.json SHA256=41b7a59e78636eb52c3e0ea3a0a5d9e91a399adaa93126ef366a5fbcdfd3ea25
+READ_AUDIT outputs/phase6/feature_schema.json SHA256=77204d8b647522a497e459ce797fc1a433e0e5547993a9ddf83af5d8273ab620
+READ_AUDIT outputs/phase6/random_forest_grammar.joblib SHA256=bc285a202de126247240982696ca94c16dbee82bf15906d8e75ebdf4405a8f91
+READ_AUDIT outputs/phase6/random_forest_vocabulary.joblib SHA256=899e9283e2eb01b4df6913eadd6cf8a4a823df0298ddfe820d14ba5912ffe7be
+READ_AUDIT outputs/phase6/ridge_grammar.joblib SHA256=812885caab21dac6508835c83dc91de75b23d622577ba15a8e37e207e59b085f
+READ_AUDIT outputs/phase6/ridge_vocabulary.joblib SHA256=14591a1822ffa4fc7c9006a5abd270928401721739bea3f9fe5a76852780ef64
+READ_AUDIT outputs/phase6/validation_predictions.csv SHA256=6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab
+READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+READ_AUDIT reports/week9/t3_heldout_predictions.csv SHA256=15cedfabd362b0b956084fcf3cbda1ef1c502ed6979755c19274cf22d55c64c9
+READ_GUARD artifact_reads=10; allowlisted_only=True; blocked_attempts=0; source_hashes_unchanged=True; no Test file opened.
+```
+
+
 ## Week 9b — RF tree spread on held-out development prompts
 
 Exploratory development-only GroupKFold(5) evaluation. Producer: `scripts/week9b/tree_spread_oof.py`; command: `.venv/Scripts/python.exe -u scripts/week9b/tree_spread_oof.py --append`. No Test prediction or label file was opened.
