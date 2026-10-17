@@ -1,6 +1,8 @@
 """Task 0 only: reproduce frozen primary rankings from saved predictions; no models.
 
-Run --capture to execute twice in fresh Python processes and preserve raw stdout/stderr.
+Default: read-only reproduction from tracked predictions and saved human targets.
+Run --capture to repeat in fresh processes without writing reports.
+Legacy external-data inventory/reproduction remains available with --external-data.
 """
 from pathlib import Path
 import csv
@@ -8,6 +10,7 @@ import hashlib
 import io
 import json
 import math
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -188,5 +191,91 @@ def capture():
     md += ["", "SHA256 values for all listed sources are in the same inventory. Validation's Phase 6 file is the prediction source used by the original ranking script; the Phase 7 copy is inventoried for discovery completeness. Saved large-error tables supply human target means; error flags are recomputed directly from the saved RF predictions. Saved manifest medians supply the frozen Ridge extremity centers.", "", "## Changes since freeze and chronology", "", "Full requested Git stat output is preserved in `t0_git_since_freeze.txt` and printed verbatim in both raw runs. Every committed changed path is enumerated in `t0_committed_changes.csv`, with classification UNKNOWN because first Test access is undated. The Test report's first/last commit evidence is in the CHRONOLOGY section of the raw log. A commit containing an existing Test report establishes report presence at that commit; it does not date first Test access or order edits within that commit. The protocol's stated freeze date is a document assertion rather than independently timestamped execution evidence.", "", "`t0_worktree_status.txt` separately records current tracked edits and untracked paths, including pre-existing work. Git log cannot date those changes; filesystem mtimes cannot prove whether they precede Test access. No before/after labels have been guessed. No existing result, protocol, README or manual sample was modified; no commit or push was performed.", "", "## Fresh-process repeat proof", "", "```text", proof.rstrip(), "```", "", "[src: reports/week9/logs/t0.log final hash lines]", "", "Missing for full completion: independent evidence of the first Test evaluation timestamp and a defensible before/after classification of each change. All numerical checks and frozen saved-output comparisons passed, as shown by the raw logs.", ""]
     (OUT / "t0_provenance.md").write_text("\n".join(md),encoding="utf-8")
 
+PREDICTION_HASHES = {
+    "outputs/phase6/validation_predictions.csv": "6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab",
+    "outputs/predictions/phase7_validation_regression_predictions.csv": "da86cf4be3b05790db65ceb6381d75ad77fce695694e8c62a9a03dcf7493c1d0",
+    "outputs/predictions/official_test_predictions.csv": "48eb85d8bda27dd6261179d839fd5377d694741c5740f94ac88029b0593393e8",
+}
+
+
+def prediction_only():
+    """Recompute the existing primary results; never write artifacts or fit models."""
+    print("COMMAND: python scripts/week9/t0_provenance.py")
+    print(f"Python={sys.version.split()[0]}; numpy={np.__version__}; pandas={pd.__version__}; scipy={scipy.__version__}")
+    print("SKIPPED: requires external ELLIPSE data (not distributed)")
+    print("External dataset/feature inventory, shortest-first and original source checks remain in --external-data; no fitting or prediction is run.")
+    print("INPUTS: three tracked prediction CSVs; tracked Phase 8/9 label tables (human Vocabulary/Grammar only); reports/week9/RESULTS_week9.md (expected values).")
+    print("DEPENDENCY: finalization_supplement.py was inventoried only, never imported/called; not needed or published.")
+    paths = [*PREDICTION_HASHES, "docs/data/phase8_tables/large_error_labels.csv",
+             "docs/data/phase9_tables/large_error_labels.csv", "reports/week9/RESULTS_week9.md"]
+    before = {path: digest((ROOT / path).read_bytes()) for path in paths}
+
+    def check(name, actual, expected, close=False):
+        ok = math.isclose(actual, expected, rel_tol=1e-13, abs_tol=1e-15) if close else actual == expected
+        print(f"{'PASS' if ok else 'FAIL'} | {name} | actual={actual} | expected={expected}")
+        if not ok:
+            raise SystemExit(1)
+
+    for path, expected in PREDICTION_HASHES.items():
+        check("SHA256 " + path, before[path], expected)
+    report = (ROOT / "reports/week9/RESULTS_week9.md").read_text(encoding="utf-8")
+    rounded = float(re.search(r"rounded to one decimal place `([0-9.]+)`", report).group(1))
+    print("FORMULAS: L_i = max(abs(y_V-RF_V),abs(y_G-RF_G)) >= 1; D_i = max(abs(Ridge_V-RF_V),abs(Ridge_G-RF_G)); top ceil(.20*N), D descending, essay_id string ascending.")
+    for split, phase, path in [("Validation", 8, PATHS[1]), ("Test", 9, PATHS[3])]:
+        cells = next(line for line in report.splitlines() if line.startswith(f"| {split} |" )).strip("| ").split("|")
+        cells = [cell.strip() for cell in cells]
+        n0, K0, k0 = map(int, cells[1:4])
+        d0, mean0, p0 = int(cells[6]), float(cells[7]), float(cells[10])
+        labels = read(f"docs/data/phase{phase}_tables/large_error_labels.csv", ["essay_id", "Vocabulary", "Grammar"])
+        pred = read(path)
+        assert set(pred.essay_id) == set(labels.essay_id), split
+        frame = pred.merge(labels, on="essay_id", validate="one_to_one", sort=False)
+        large = np.maximum(abs(frame.Vocabulary-frame.random_forest_vocabulary), abs(frame.Grammar-frame.random_forest_grammar)) >= 1.0
+        frame["L"] = large
+        frame["D"] = np.maximum(abs(frame.ridge_vocabulary-frame.random_forest_vocabulary), abs(frame.ridge_grammar-frame.random_forest_grammar))
+        n, K = len(frame), int(large.sum())
+        k = math.ceil(.20*n)
+        caught = int(frame.sort_values(["D", "essay_id"], ascending=[False, True], kind="stable").head(k).L.sum())
+        rng = np.random.default_rng(SEED)
+        draws = np.array([int(large.iloc[rng.choice(n, size=k, replace=False)].sum()) for _ in range(1000)])
+        mean = float(draws.mean())
+        p = float(hypergeom.sf(caught-1, n, K, k))
+        print(f"ARITHMETIC {split}: N={n}; K=sum(L_i)={K}; k=ceil(0.20*{n})={k}; caught=sum(L_i in top {k})={caught}; capture={caught}/{K}={caught/K:.12g}")
+        print(f"ARITHMETIC {split}: random_mean={int(draws.sum())}/1000={mean}; rounded_1dp={mean:.1f}; expected_random={k}*{K}/{n}={k*K/n}; empirical_tail={int((draws>=caught).sum())}/1000={float((draws>=caught).mean())}")
+        print(f"ARITHMETIC {split}: exact_p=sum(comb({K},x)*comb({n-K},{k}-x)/comb({n},{k}), x={caught}..{min(K,k)})=hypergeom.sf({caught-1},{n},{K},{k})={p!r}")
+        check(split + " N,K,k", (n,K,k), (n0,K0,k0))
+        check(split + " caught count", caught, d0)
+        check(split + " caught/K", f"{caught}/{K}", f"{d0}/{K0}")
+        check(split + " random mean", mean, mean0)
+        if split == "Test":
+            check("Test rounded random mean", float(f"{mean:.1f}"), rounded)
+        check(split + " exact hypergeometric p", p, p0, close=True)
+    check("all input hashes unchanged", all(digest((ROOT/path).read_bytes()) == before[path] for path in paths), True)
+    print("CHRONOLOGY: first Test evaluation date cannot be determined from available Git history; file mtimes are not execution timestamps.")
+    print("STATUS: PASS numerical reproduction; chronology unresolved; public repo is not an independent replication")
+
+
+def repeat_read_only():
+    outputs = []
+    for _ in range(2):
+        proc = subprocess.run([sys.executable, str(Path(__file__).resolve())], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        sys.stdout.buffer.write(proc.stdout)
+        sys.stdout.buffer.flush()
+        if proc.returncode:
+            raise SystemExit(proc.returncode)
+        outputs.append(proc.stdout)
+    print(f"RUN1_SHA256={digest(outputs[0])}\nRUN2_SHA256={digest(outputs[1])}\nIDENTICAL_RAW_OUTPUT={outputs[0] == outputs[1]}")
+    if outputs[0] != outputs[1]:
+        raise SystemExit(1)
+
+
 if __name__ == "__main__":
-    capture() if "--capture" in sys.argv else main()
+    if "--external-data" in sys.argv:
+        if not all((ROOT / path).is_file() for path in PATHS):
+            print("SKIPPED: requires external ELLIPSE data (not distributed)")
+        else:
+            main()
+    elif "--capture" in sys.argv:
+        repeat_read_only()
+    else:
+        prediction_only()

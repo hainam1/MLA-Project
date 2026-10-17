@@ -108,15 +108,11 @@ The three prediction CSVs below are tracked in Git from this Week 9 report commi
 | `outputs/predictions/phase7_validation_regression_predictions.csv` | `da86cf4be3b05790db65ceb6381d75ad77fce695694e8c62a9a03dcf7493c1d0` |
 | `outputs/predictions/official_test_predictions.csv` | `48eb85d8bda27dd6261179d839fd5377d694741c5740f94ac88029b0593393e8` |
 
-Source: [Task 0 artifact inventory](reports/week9/t0_inventory.csv); current tracking status was checked with `git ls-files`. Tracking the three prediction CSVs alone will not make the current `scripts/week9/t0_provenance.py` self-contained. Static inspection of its `PATHS` and reads shows additional requirements: the protocol, Phase 9 artifact manifest, saved Phase 8/9 label/reference/strategy tables, original source scripts, and these currently untracked inputs:
+From a fresh clone, install `python -m pip install -r scripts/week9/requirements.txt`, then run `python scripts/week9/t0_provenance.py` (or `--capture` for two fresh-process runs). The read-only command verifies all three prediction hashes and recomputes the frozen primary Validation/Test disagreement catches, random means and exact hypergeometric p values against `reports/week9/RESULTS_week9.md`. It creates no report files.
 
-- `scripts/finalization_supplement.py`
-- `data/05_model_features/development_features_with_targets.csv`
-- `data/05_model_features/official_test_features.csv`
-- `data/03_clean_ready_to_use/official_test_2571.csv`
-- `data/02_split_manifest/essay_split_manifest.csv`
+The prediction CSVs alone do not contain the Test human targets: reproduction also reads the already tracked Phase 8/9 label tables for `Vocabulary` and `Grammar`, recalculating error flags. `scripts/finalization_supplement.py` was only inventoried, never imported or called, and is not required. Original ELLIPSE data, feature tables, dataset inventory and shortest-first reproduction remain external. The legacy code is retained under `--external-data`; unavailable external steps print `SKIPPED: requires external ELLIPSE data (not distributed)`.
 
-This is a static dependency check, not a fresh-clone execution. The Step 4 fresh-clone check is pending and must report missing inputs without copying private data into the clone; any claim of reproduction using only the three CSVs and one script must wait for that check. No extra dependency has been staged or approved for publication. An identical rerun of local artifacts checks reproducibility within this environment; a public repository is **not an independent replication**. Independent replication requires a separate execution and audit of the data, split, code and provenance.
+The public repo is not an independent replication. Independent replication requires a separate execution and audit of the data, split, code and provenance; first Test execution chronology remains unresolved.
 
 The student-text reading workbook and its private intermediates/previews are excluded by `.gitignore`. The original manual sample remains unchanged.
 
