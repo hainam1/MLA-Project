@@ -1330,3 +1330,82 @@ IDENTICAL_RAW_OUTPUT=True
 ```
 
 [src: reports/week9/logs/t6.log hash lines]
+
+
+## Week 9b — RF tree spread on held-out development prompts
+
+Exploratory development-only GroupKFold(5) evaluation. Producer: `scripts/week9b/tree_spread_oof.py`; command: `.venv/Scripts/python.exe -u scripts/week9b/tree_spread_oof.py --append`. No Test prediction or label file was opened.
+
+```text
+EXPLORATORY development only; seed=42; no search; models refitted within folds; no frozen artifacts changed.
+VERSIONS Python=3.14.5; numpy=2.4.6; pandas=2.3.3; scipy=1.18.1; sklearn=1.9.1
+PARAMETERS RF trees=300; max_features=sqrt; max_depth=10; min_samples_leaf V=2,G=5; random_state=42; n_jobs=1. Ridge alpha V=100,G=0.1; train-only median imputation; Ridge train-only StandardScaler.
+DEFINITIONS tree_std=max(target population tree std,ddof=0); D=max(abs(RF-Ridge)); RF_error=max(abs(y-RF)); L=RF_error>=1; k=ceil(.20*n_fold); score descending, essay_id string ascending.
+FIT_COMPLETE fold=1; training_n=3043; heldout_n=769; K=73; k=ceil(.20*769)=154; matching_saved_prompt_composition=True
+FIT_COMPLETE fold=2; training_n=3044; heldout_n=768; K=88; k=ceil(.20*768)=154; matching_saved_prompt_composition=True
+FIT_COMPLETE fold=3; training_n=3051; heldout_n=761; K=75; k=ceil(.20*761)=153; matching_saved_prompt_composition=True
+FIT_COMPLETE fold=4; training_n=3067; heldout_n=745; K=76; k=ceil(.20*745)=149; matching_saved_prompt_composition=True
+FIT_COMPLETE fold=5; training_n=3043; heldout_n=769; K=74; k=ceil(.20*769)=154; matching_saved_prompt_composition=True
+FOLD_CHECKS
+fold,train_n,n,heldout_prompts,overlapping_prompts,matches_t3_fold_composition,heldout_id_sha256
+1,3043,769,9,0,True,5cedcbd4b839308e20e09e066bcf38a53c82f98d43c5ab0490ee2f1273f866f9
+2,3044,768,9,0,True,7ecc3d39eeae833ab6e1b0e645e7f464d2237d67f646f4a536510945b8a757ea
+3,3051,761,9,0,True,4f8ea16e980b6ef933a1782cea40427d41b622692972bad93a9e9b8d25a7f105
+4,3067,745,8,0,True,ee91755ec2a43b3de0af4962883212bda66beec7a0317eba003439f4e7692593
+5,3043,769,9,0,True,49ac62d22682d6b16b7e5f0c76ae4fcd0bf3a8783bf7df0d0c66c2f2ef0b5d5e
+CAPTURE_METRICS (pooled selections sum fold queues; no global reranking)
+scope,signal,n,K,k,caught,capture,expected,expected_arithmetic,exact_p,p_formula,global_formula_p,global_formula,global_expected
+fold1,tree_std,769,73,154,21,21/73=0.28767123287671231,14.618985695708712,154*73/769=14.618985695708712,0.039028039750596738,"hypergeom.sf(20,769,73,154)",,,
+fold1,D,769,73,154,15,15/73=0.20547945205479451,14.618985695708712,154*73/769=14.618985695708712,0.50454768821846441,"hypergeom.sf(14,769,73,154)",,,
+fold2,tree_std,768,88,154,20,20/88=0.22727272727272727,17.645833333333332,154*88/768=17.645833333333332,0.29455430308993114,"hypergeom.sf(19,768,88,154)",,,
+fold2,D,768,88,154,22,22/88=0.25,17.645833333333332,154*88/768=17.645833333333332,0.13838981922873914,"hypergeom.sf(21,768,88,154)",,,
+fold3,tree_std,761,75,153,22,22/75=0.29333333333333333,15.078843626806833,153*75/761=15.078843626806833,0.029135245039491456,"hypergeom.sf(21,761,75,153)",,,
+fold3,D,761,75,153,20,20/75=0.26666666666666666,15.078843626806833,153*75/761=15.078843626806833,0.092467509248828822,"hypergeom.sf(19,761,75,153)",,,
+fold4,tree_std,745,76,149,19,19/76=0.25,15.199999999999999,149*76/745=15.199999999999999,0.15874981948373659,"hypergeom.sf(18,745,76,149)",,,
+fold4,D,745,76,149,17,17/76=0.22368421052631579,15.199999999999999,149*76/745=15.199999999999999,0.33962947986356462,"hypergeom.sf(16,745,76,149)",,,
+fold5,tree_std,769,74,154,14,14/74=0.1891891891891892,14.819245773732119,154*74/769=14.819245773732119,0.64862117609057512,"hypergeom.sf(13,769,74,154)",,,
+fold5,D,769,74,154,14,14/74=0.1891891891891892,14.819245773732119,154*74/769=14.819245773732119,0.64862117609057512,"hypergeom.sf(13,769,74,154)",,,
+pooled,tree_std,3812,386,764,96,96/386=0.24870466321243523,77.362908429580997,154*73/769+154*88/768+153*75/761+149*76/745+154*74/769=77.362908429580997,0.0085360709265048448,P(sum independent fold Hypergeom>= 96); exact PMF convolution,0.0085190843457175168,"hypergeom.sf(95,3812,386,764); different global-uniform null",77.362014690451204
+pooled,D,3812,386,764,88,88/386=0.22797927461139897,77.362908429580997,154*73/769+154*88/768+153*75/761+149*76/745+154*74/769=77.362908429580997,0.088356842158423293,P(sum independent fold Hypergeom>= 88); exact PMF convolution,0.088283926658051945,"hypergeom.sf(87,3812,386,764); different global-uniform null",77.362014690451204
+AUROC (ordinary essay bootstrap, 2000 resamples, seed=42, percentile 95% CI)
+scope,signal,AUROC,CI_low,CI_high,arithmetic,bootstrap_resamples,valid_resamples,skipped_resamples
+fold1,tree_std,0.55176350181073852,0.47405735724222359,0.62404246494249382,28034/(73*696)=0.55176350181073852,2000,2000,0
+fold1,D,0.49584711069122972,0.42262485265270316,0.56788093410242457,25193/(73*696)=0.49584711069122972,2000,2000,0
+fold2,tree_std,0.53892045454545456,0.47592265794361727,0.60711056187477375,32249/(88*680)=0.53892045454545456,2000,2000,0
+fold2,D,0.50132018716577542,0.4328475091811928,0.56992016939351497,29999/(88*680)=0.50132018716577542,2000,2000,0
+fold3,tree_std,0.58573372206025265,0.51635548512559026,0.65081841549861774,30136/(75*686)=0.58573372206025265,2000,2000,0
+fold3,D,0.55317784256559765,0.47966248145149076,0.62607292304551942,28461/(75*686)=0.55317784256559765,2000,2000,0
+fold4,tree_std,0.53361261899142476,0.45878115078236625,0.60862206375758909,27131/(76*669)=0.53361261899142476,2000,2000,0
+fold4,D,0.53221619070096771,0.46144934998056508,0.60419087950505967,27060/(76*669)=0.53221619070096771,2000,2000,0
+fold5,tree_std,0.53799338907252581,0.46908624021854195,0.60484568515497839,27669/(74*695)=0.53799338907252581,2000,2000,0
+fold5,D,0.50056387322574369,0.43159797066155786,0.56938176754458847,25744/(74*695)=0.50056387322574369,2000,2000,0
+pooled,tree_std,0.54705558529864584,0.5152834023276035,0.57783614919452653,723446/(386*3426)=0.54705558529864584,2000,2000,0
+pooled,D,0.51630929587518792,0.48505673888990986,0.54778324074339224,682786/(386*3426)=0.51630929587518792,2000,2000,0
+SPEARMAN (average ranks; RF_error=max target absolute RF error)
+scope,n,x,y,spearman_rho
+fold1,769,tree_std,RF_error,0.07805731532771519
+fold1,769,tree_std,D,0.1975448011838617
+fold1,769,tree_std,word_count,-0.093797300507328665
+fold2,768,tree_std,RF_error,0.087713310815278472
+fold2,768,tree_std,D,0.12891775371594527
+fold2,768,tree_std,word_count,-0.070108370449256135
+fold3,761,tree_std,RF_error,0.050422345453585017
+fold3,761,tree_std,D,0.28339693066411514
+fold3,761,tree_std,word_count,-0.15636512761796706
+fold4,745,tree_std,RF_error,0.032361263391040736
+fold4,745,tree_std,D,0.12107030234716495
+fold4,745,tree_std,word_count,-0.24256257905075004
+fold5,769,tree_std,RF_error,0.012511373135966767
+fold5,769,tree_std,D,0.12595705862732848
+fold5,769,tree_std,word_count,-0.11242632132124583
+pooled,3812,tree_std,RF_error,0.050255134725666006
+pooled,3812,tree_std,D,0.17213548243066826
+pooled,3812,tree_std,word_count,-0.13436664407050286
+POOLING: k=sum ceil(.20*n_fold), expected=sum(k_fold*K_fold/n_fold). Pooled exact p is the convolution of the five fold-specific hypergeometric distributions. The additional pooled global-formula p ignores the fixed fold quotas and is labelled separately.
+LIMITATIONS: exploratory unadjusted comparisons; OOF models share training rows, so fold independence is a reference-null assumption. Essay bootstrap does not account for prompt clustering or training dependence. Marginal length correlation cannot establish signal independence from length.
+READ_AUDIT outputs/phase6/feature_schema.json SHA256=77204d8b647522a497e459ce797fc1a433e0e5547993a9ddf83af5d8273ab620
+READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+READ_AUDIT reports/week9/t3_fold_composition.csv SHA256=de596a84028e42b8aa0c605c523ee98eef87b6b74127a63b0c8e822d0e0629ea
+READ_GUARD artifact_reads=3; allowlisted_only=True; blocked_attempts=0; no Test prediction/label file opened; inputs_unchanged=True
+ALL_NUMBERS_PRINTED=True
+```
