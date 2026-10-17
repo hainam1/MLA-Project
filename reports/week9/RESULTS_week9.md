@@ -1477,3 +1477,62 @@ READ_AUDIT reports/week9/t3_fold_composition.csv SHA256=de596a84028e42b8aa0c605c
 READ_GUARD artifact_reads=3; allowlisted_only=True; blocked_attempts=0; no Test prediction/label file opened; inputs_unchanged=True
 ALL_NUMBERS_PRINTED=True
 ```
+
+
+## Week 9b - paired tree-spread versus disagreement on held-out prompts
+
+Producer: `scripts/week9b/paired_tree_spread.py`; command: `.venv/Scripts/python.exe -u scripts/week9b/paired_tree_spread.py --append`. Exploratory development only.
+
+```text
+EXPLORATORY DEVELOPMENT ONLY; same GroupKFold(5), 14 features and frozen RF/Ridge parameters as tree_spread_oof.py; seed=42; n_jobs=1; no search.
+PARAMETERS RF trees=300,max_features=sqrt,max_depth=10,min_samples_leaf V=2/G=5; Ridge alpha V=100/G=0.1; train-only median imputation and Ridge StandardScaler.
+DEFINITIONS tree_std=max target population std(ddof=0); D=max(abs(RF-Ridge)); A1=max(abs(y-RF))>=1; A2=max(abs(y-Ridge))>=1; A3=A1&A2; per-fold k=ceil(.20*n); scores descending, essay_id string ascending.
+FIT_COMPLETE fold=1; n=769; k=154; matching_t3_prompt_composition=True; overlapping_prompts=0
+FIT_COMPLETE fold=2; n=768; k=154; matching_t3_prompt_composition=True; overlapping_prompts=0
+FIT_COMPLETE fold=3; n=761; k=153; matching_t3_prompt_composition=True; overlapping_prompts=0
+FIT_COMPLETE fold=4; n=745; k=149; matching_t3_prompt_composition=True; overlapping_prompts=0
+FIT_COMPLETE fold=5; n=769; k=154; matching_t3_prompt_composition=True; overlapping_prompts=0
+PAIRED_CAUGHT_AND_OVERLAP (A1)
+scope,n,K,k,caught_tree,caught_D,difference,both,only_tree,only_D,neither,arithmetic
+fold1,769,73,154,21,15,6,10,11,5,47,21-15=6; 11-5=6; K=10+11+5+47=73
+fold2,768,88,154,20,22,-2,9,11,13,55,20-22=-2; 11-13=-2; K=9+11+13+55=88
+fold3,761,75,153,22,20,2,9,13,11,42,22-20=2; 13-11=2; K=9+13+11+42=75
+fold4,745,76,149,19,17,2,7,12,10,47,19-17=2; 12-10=2; K=7+12+10+47=76
+fold5,769,74,154,14,14,0,8,6,6,54,14-14=0; 6-6=0; K=8+6+6+54=74
+pooled,3812,386,764,96,88,8,43,53,45,245,96-88=8; 53-45=8; K=43+53+45+245=386
+FOLD_SIGN_CHECK: report fold differences only; an exact paired permutation/sign check on five fold differences is not meaningful here (n=5); no sign-test p value computed.
+BOOTSTRAP_CHOICE: 44 normalised-prompt clusters sampled with replacement, 44 draws per resample, 2000 resamples, default_rng(42). Keep fold queues and scores fixed; duplicate all essays of each sampled prompt. No reranking, refitting or budget recomputation. Resampled N and caught totals can vary.
+PAIRED_PROMPT_CLUSTER_BOOTSTRAP (95% percentile CI; linear interpolation)
+metric,observed,arithmetic,CI_low,CI_high,positive_resamples,valid_resamples,skipped,share_positive,share_arithmetic,zero_resamples,negative_resamples
+caught_tree-caught_D,8,96-88=8,-11,27,1571,2000,0,0.78549999999999998,1571/2000=0.78549999999999998,66,363
+AUROC_tree-AUROC_D,0.030746289423457918,0.54705558529864584-0.51630929587518792=0.030746289423457918,-0.010705059404945169,0.077289787514988426,1845,2000,0,0.92249999999999999,1845/2000=0.92249999999999999,0,155
+A3_INTERPRETATION: evaluate the same whole-fold fixed queues against A3 labels (K=276); do not rank only the already-known positives, which would make capture tautological. N and per-fold budgets remain unchanged.
+A3_CAPTURE (same queues; pooled exact p respects fold budgets)
+scope,signal,n,K,k,caught,capture,expected,expected_arithmetic,exact_p,p_formula,global_formula_p,global_formula
+fold1,tree_std,769,52,154,16,16/52=0.30769230769230771,10.413524057217165,154*52/769=10.413524057217165,0.038462141517799482,"hypergeom.sf(15,769,52,154)",,
+fold1,D,769,52,154,10,10/52=0.19230769230769232,10.413524057217165,154*52/769=10.413524057217165,0.61749888441481582,"hypergeom.sf(9,769,52,154)",,
+fold2,tree_std,768,71,154,17,17/71=0.23943661971830985,14.236979166666666,154*71/768=14.236979166666666,0.23676089580477322,"hypergeom.sf(16,768,71,154)",,
+fold2,D,768,71,154,12,12/71=0.16901408450704225,14.236979166666666,154*71/768=14.236979166666666,0.80079949848094367,"hypergeom.sf(11,768,71,154)",,
+fold3,tree_std,761,56,153,16,16/56=0.2857142857142857,11.258869908015768,153*56/761=11.258869908015768,0.074656028198244836,"hypergeom.sf(15,761,56,153)",,
+fold3,D,761,56,153,9,9/56=0.16071428571428573,11.258869908015768,153*56/761=11.258869908015768,0.82989644813375862,"hypergeom.sf(8,761,56,153)",,
+fold4,tree_std,745,49,149,9,9/49=0.18367346938775511,9.8000000000000007,149*49/745=9.8000000000000007,0.67515080181585552,"hypergeom.sf(8,745,49,149)",,
+fold4,D,745,49,149,7,7/49=0.14285714285714285,9.8000000000000007,149*49/745=9.8000000000000007,0.89248187962259462,"hypergeom.sf(6,745,49,149)",,
+fold5,tree_std,769,48,154,7,7/48=0.14583333333333334,9.6124837451235372,154*48/769=9.6124837451235372,0.87986500917562971,"hypergeom.sf(6,769,48,154)",,
+fold5,D,769,48,154,6,6/48=0.125,9.6124837451235372,154*48/769=9.6124837451235372,0.94412003186099236,"hypergeom.sf(5,769,48,154)",,
+pooled,tree_std,3812,276,764,65,65/276=0.23550724637681159,55.321856877023137,154*52/769+154*71/768+153*56/761+149*49/745+154*48/769=55.321856877023137,0.077702897957475925,P(sum fold Hypergeom >= 65); exact convolution,0.077631873891110828,"hypergeom.sf(64,3812,276,764); global-uniform reference"
+pooled,D,3812,276,764,44,44/276=0.15942028985507245,55.321856877023137,154*52/769+154*71/768+153*56/761+149*49/745+154*48/769=55.321856877023137,0.97012334566057801,P(sum fold Hypergeom >= 44); exact convolution,0.97001982421249178,"hypergeom.sf(43,3812,276,764); global-uniform reference"
+A3_ONLY_SPEARMAN (RF_error=max target abs RF error)
+scope,A3_n,spearman_tree_std_RF_error
+fold1,52,0.071373687355929305
+fold2,71,0.16817572099262237
+fold3,56,0.13561175666438827
+fold4,49,-0.036530612244897953
+fold5,48,0.032132001736864958
+pooled,276,0.073057176695538018
+CAVEATS: exploratory comparisons; fixed-score prompt bootstrap conditions on fitted OOF models and queues, without modeling retraining variability. Shared training data induces cross-fold dependence. Share of bootstrap differences >0 is not a permutation p value. A3 membership may arise from different triggering targets for the two models.
+READ_AUDIT outputs/phase6/feature_schema.json SHA256=77204d8b647522a497e459ce797fc1a433e0e5547993a9ddf83af5d8273ab620
+READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+READ_AUDIT reports/week9/t3_fold_composition.csv SHA256=de596a84028e42b8aa0c605c523ee98eef87b6b74127a63b0c8e822d0e0629ea
+READ_GUARD artifact_reads=3; allowlisted_only=True; blocked_attempts=0; no Test prediction/label file opened; inputs_unchanged=True
+ALL_NUMBERS_PRINTED=True
+```
