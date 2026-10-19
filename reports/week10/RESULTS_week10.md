@@ -901,3 +901,34 @@ READ_AUDIT reports/week10/reading_sheet_da_danh_gia.xlsx
 READ_AUDIT reports/week10/reading_sheet_random.xlsx
 SOURCE_WORKBOOKS_UNCHANGED=True; ESSAY_TEXT_PRINTED=False; TEST_FILES_OPENED=0
 ```
+
+
+## Week 10 five unexplained cases source clarification
+
+CHỜ NHÓM LÀM RÕ. Exploratory preparation stopped at source identification as instructed; no candidate set chosen.
+
+```text
+PROMPT C SOURCE CHECK RAW OUTPUT
+SYSTEM_DATETIME=2026-10-19T16:12:34+07:00
+SOURCE reports/week9/t4_reading_summary.csv; SHA256=1f3bd89eeb30d8162d1d10a745dda2f8b86af959e1590afce95095562dda016c
+SOURCE_ROWS=32
+LARGE_RF_RULE=max(abs(RF_V-y_V),abs(RF_G-y_G))>=1; signed error=prediction-truth; trigger=max absolute RF error; V wins ties
+EXPLAINED_NO=15
+EXPLAINED_NO_AND_RF_LARGE=5
+EXPLAINED_NO_NOT_RF_LARGE=10
+essay_id,source_line,sample_group,y_V,y_G,RF_V,RF_G,Ridge_V,Ridge_G,RF_signed_V,RF_signed_G,trigger,trigger_signed,mean_truth,high_mean_gt4,high_either_target_gt4,explained
+51DA4BA94C7C,4,highest_rf_error,3.5,4,3.01225348978,2.5669831964399998,3.23126852603,2.6148320555,-0.48774651022000004,-1.4330168035600002,G,-1.4330168035600002,3.75,False,False,no
+D1D770AF6855,18,highest_rf_error,5,3.5,3.5343874468999998,3.5128343057800002,3.59028900774,3.5667329045799998,-1.4656125531000002,0.012834305780000221,V,-1.4656125531000002,4.25,True,True,no
+4032ED0063E4,21,shared_blind_spot,3,4,3.04078723731,2.8419105870100001,3.0125597119999998,2.7765458791199999,0.040787237310000002,-1.1580894129899999,G,-1.1580894129899999,3.5,False,False,no
+0FFB44B5D0C2,23,shared_blind_spot,4,3.5,2.9713847067699999,2.5657520150300002,2.9810489813699999,2.6484073114300002,-1.0286152932300001,-0.93424798496999983,V,-1.0286152932300001,3.75,False,False,no
+277A95AC0190,33,highest_rf_error,3.5,4,2.9582428651999999,2.60996335329,3.0398102801400002,2.6681186127099998,-0.5417571348000001,-1.39003664671,G,-1.39003664671,3.75,False,False,no
+ARITHMETIC unexplained entries=5 RF-large candidates + 10 non-large controls =15; not all 15 are large-error cases
+ARITHMETIC RF-large unexplained candidates=5; underpredicted at trigger=5/5
+ARITHMETIC high mean truth >4.0=1/5; high at either target >4.0=1/5
+STATUS=CHỜ NHÓM LÀM RÕ
+REASON=The source uniquely identifies five unexplained RF-large underpredictions, but it does not identify five high-score cases under the existing >4.0 band definition: only one candidate is high by either mean truth or either target. No source statement establishes that the requested five high-score cases are this exact set. Selecting these five would silently relax the high-score condition.
+GROUP_CLARIFICATION=Confirm whether the requested set is exactly the five candidate IDs printed above, including the four mean-truth mid-band essays; otherwise provide the source or IDs of the intended five high-score essays. No set selected.
+C_STEPS_2_TO_5=STOPPED after source ambiguity; no essay text read; no tree calculation or percentile; no workbook or summary script created; no self-test or real run command exists
+READ_AUDIT reports/week9/t4_reading_summary.csv
+READ_GUARD_TEST_FILES_OPENED=0; ESSAY_TEXT_PRINTED=0; HUMAN_CAUSES_FILLED=0
+```
