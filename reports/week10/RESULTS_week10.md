@@ -160,3 +160,66 @@ READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b2594
 READ_AUDIT reports/week9/t3_fold_composition.csv SHA256=de596a84028e42b8aa0c605c523ee98eef87b6b74127a63b0c8e822d0e0629ea
 READ_GUARD artifact_reads=4; allowlisted_only=True; blocked_attempts=0; no Test prediction/label file opened; inputs_unchanged=True
 ```
+
+
+## Part C: random Validation reading sample
+
+Command: `.venv/Scripts/python.exe -B -u scripts/week10/random_reading.py`; the completed export was resumed with `--resume-export` following a console encoding failure.
+
+```text
+PART C: RANDOM VALIDATION READING SAMPLE; exploratory; seed=2026; no errors, predictions, or tool counts used for selection.
+VALIDATION_BAND_AND_DRAW_COUNTS (mean truth; 2.5 and 4 included in middle)
+band,Validation_n,old_sample_excluded_from_pool,available_after_exclusion,sampled
+<2.5,63,6,57,12
+2.5-4.0,672,19,653,12
+>4.0,27,7,20,12
+VALIDATION_ARITHMETIC 63+672+27=762
+EXCLUDED_EXISTING_IDS=32; final_overlap_with_existing_32=0; no_fallback_needed=True
+SELECTION_FIXED_BEFORE_PREDICTIONS_AND_TOOL_COUNTS=True; random_sample_ids.csv SHA256=8472794fb01eae511da497577b312bfdc0e4181c7b67eb860b610f83fcae0818
+RANDOMIZATION default_rng(2026), choice without replacement per band in <2.5,2.5-4.0,>4.0 order from essay_id-sorted pools; separate default_rng(2026).permutation(36) for reading order.
+TOOL_COUNT_METHOD restore phase4 %.12g rate tokens from Week 9 %.17g reserialization; recover unique integer c consistent with rate=100*c/word_count. Decimal rounding-interval, unique-integer and producer-format round-trip checks passed for all 36 selected records. No count estimated and no tool rerun.
+RESUMED_COMPLETED_EXPORT=True; same fixed sample; no resampling or second authoring operation. Initial recovery corrected %.12g/%.17g rate-token representation; export then completed before console encoding failure. Full exported cell verification follows.
+SHEET reading_sheet HEADERS=["essay_id", "band", "reading_order", "essay_text", "prompt_name", "reader_errors_first150", "reader_low_mid_high_V", "reader_low_mid_high_G"]
+SHEET unblind_after HEADERS=["essay_id", "y_V", "y_G", "Ridge_V", "Ridge_G", "RF_V", "RF_G", "word_count", "detected_grammar_errors_per_100_words", "tool_grammar_error_count_recovered", "detected_error_free_sentence_ratio"]
+WORKBOOK_VERIFIED row counts, IDs, all source values, shuffled order, blank reader fields, frozen headers and ID column, no formulas, and hidden unblind_after sheet.
+HEADER_PREVIEWS_TEMP_DIR=C:\Users\LEGION\AppData\Local\Temp\mla-week10-reading-av9ioe85
+FINAL_SAMPLE_COUNTS
+band,essays
+<2.5,12
+2.5-4.0,12
+>4.0,12
+FINAL_SAMPLE_ARITHMETIC 12+12+12=36
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv SHA256=7b80be5447dd8adadbecf6f492a4320f3e74c7290f91a99e11d43f5951a80e8e
+READ_AUDIT outputs/phase6/validation_predictions.csv SHA256=6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab
+READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+READ_AUDIT reports/week9/t4_manifest.csv SHA256=a0815d53c4a584825992dc274722045294b5e755cdb326e81c302f53a85de192
+READ_GUARD artifact_reads=4; allowlisted_only=True; blocked_attempts=0; no Test prediction/label file opened
+SHA256 reports/week10/random_sample_ids.csv 8472794fb01eae511da497577b312bfdc0e4181c7b67eb860b610f83fcae0818
+SHA256 reports/week10/reading_sheet_random.xlsx 6f3b16689fbd8c61a74b25a22b6460328f7b7ab5fb9d3161d79d5a1ea3a48e4c
+FILE_LIST reports/week10/reading_sheet_random.xlsx (internal; git-ignored); reports/week10/random_sample_ids.csv (IDs and band only; committed); scripts/week10/random_reading.py; scripts/week10/reading_workbook.cjs; reports/week10/RESULTS_week10.md (append only); .gitignore (requested path appended)
+```
+
+### Final integrity and access audit
+
+```text
+PART_A_LOCK_UNCHANGED=True; SHA256=d2eabcb7468373d0d0b7c7cfec7c6de6e5c95396c95707ddf7cbc155702a8eca
+PART_B_REPORT_PREFIX_UNCHANGED=True; SHA256=8bf063d9bd71f8cc0aa4714d09ed0b0d4e91c101ce03c0be2b6f57d54eff91ce
+SOURCE_UNCHANGED scripts/week9b/tree_spread_oof.py SHA256=ccc8524cccc50b7d78b2680428bd188cd84587c31ab6bddb9af9f006aef9546d
+SOURCE_UNCHANGED reports/week9/RESULTS_week9.md SHA256=03921a62b35e96499336c9119c3b0fb4dfa27b73788f61ad42daf73a05243f1d
+COMMAND: grep -n '^READ_AUDIT ' reports/week10/RESULTS_week10.md
+157:READ_AUDIT outputs/phase6/feature_schema.json SHA256=77204d8b647522a497e459ce797fc1a433e0e5547993a9ddf83af5d8273ab620
+158:READ_AUDIT outputs/phase6/validation_predictions.csv SHA256=6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab
+159:READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+160:READ_AUDIT reports/week9/t3_fold_composition.csv SHA256=de596a84028e42b8aa0c605c523ee98eef87b6b74127a63b0c8e822d0e0629ea
+192:READ_AUDIT data/03_clean_ready_to_use/validation_783.csv SHA256=7b80be5447dd8adadbecf6f492a4320f3e74c7290f91a99e11d43f5951a80e8e
+193:READ_AUDIT outputs/phase6/validation_predictions.csv SHA256=6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab
+194:READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+195:READ_AUDIT reports/week9/t4_manifest.csv SHA256=a0815d53c4a584825992dc274722045294b5e755cdb326e81c302f53a85de192
+COMMAND: grep -Eic '^READ_AUDIT .*test' reports/week10/RESULTS_week10.md
+0
+GREP_NO_TEST_PATH_MATCHES=True; both analysis runs enforced explicit read allowlists with blocked_attempts=0. File-name discovery did not open data files. One-time header inspection of phase4_feature_checkpoint.csv read feature column names only, not Test predictions or labels.
+COMMAND: git check-ignore -v -- reports/week10/reading_sheet_random.xlsx
+.gitignore:148:/reports/week10/reading_sheet_random.xlsx	reports/week10/reading_sheet_random.xlsx
+GITIGNORE_EXISTING_CONTENT_PRESERVED=True
+VISUAL_QA both sheets header previews inspected; no essay text or unblinding values printed. All 36 exported essay-text and source-value cells were checked in memory against the selected source records. unblind_after is natively hidden in the exported XLSX.
+```

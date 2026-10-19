@@ -143,3 +143,6 @@ scratch/
 /scripts/week9/node_modules/
 
 
+
+# Internal Week 10 blinded reading workbook
+/reports/week10/reading_sheet_random.xlsx
