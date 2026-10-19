@@ -833,3 +833,71 @@ GIT_IGNORE_VERIFIED=True; reader2_sheet.xlsx and reader2_id_map.csv both ignored
 VISUAL_QA header-only preview checked; no essay text printed.
 STATUS chờ người đếm thứ hai điền; all six reader2 counts remain blank.
 ```
+
+
+## Provenance of blind reading
+
+Exploratory provenance audit. Human chronology remains unconfirmed.
+
+```text
+PROMPT B RAW OUTPUT
+SYSTEM_DATETIME=2026-10-19T16:11:24+07:00
+SEARCH_SCOPE=workspace; exact workbook filenames; located both; working copies in temporary directory; originals unchanged
+FILE_METADATA {"path": "D:\\03_Education\\học trên trường\\mla project\\reports\\week10\\reading_sheet_random.xlsx", "bytes": 40835, "modified": "2026-10-19T12:46:42.691106+07:00", "sha256": "6f3b16689fbd8c61a74b25a22b6460328f7b7ab5fb9d3161d79d5a1ea3a48e4c", "properties": {}, "cell_edit_history_available": false, "same_sheet_reader_and_answers": false}
+SHEET reading_sheet; state=visible
+column,header,hidden,kind
+A,essay_id,False,other
+B,band,False,other
+C,reading_order,False,other
+D,essay_text,False,other
+E,prompt_name,False,other
+F,reader_errors_first150,False,reader
+G,reader_low_mid_high_V,False,reader
+H,reader_low_mid_high_G,False,reader
+SHEET unblind_after; state=hidden
+column,header,hidden,kind
+A,essay_id,False,other
+B,y_V,False,truth
+C,y_G,False,truth
+D,Ridge_V,False,prediction
+E,Ridge_G,False,prediction
+F,RF_V,False,prediction
+G,RF_G,False,prediction
+H,word_count,False,other
+I,detected_grammar_errors_per_100_words,False,tool
+J,tool_grammar_error_count_recovered,False,tool
+K,detected_error_free_sentence_ratio,False,other
+FILE_METADATA {"path": "D:\\03_Education\\học trên trường\\mla project\\reports\\week10\\reading_sheet_da_danh_gia.xlsx", "bytes": 41131, "modified": "2026-10-19T13:02:27.338917+07:00", "sha256": "b9141f072b6a5f843e9d9e5fa3c9fb2b7b27c0212cf84d8cf988e00806201b27", "properties": {}, "cell_edit_history_available": false, "same_sheet_reader_and_answers": false}
+SHEET reading_sheet; state=visible
+column,header,hidden,kind
+A,essay_id,False,other
+B,band,False,other
+C,reading_order,False,other
+D,essay_text,False,other
+E,prompt_name,False,other
+F,Số lỗi ngữ pháp (150 từ đầu),False,reader
+G,Vocabulary,False,reader
+H,Grammar,False,reader
+SHEET unblind_after; state=visible
+column,header,hidden,kind
+A,essay_id,False,other
+B,y_V,False,truth
+C,y_G,False,truth
+D,Ridge_V,False,prediction
+E,Ridge_G,False,prediction
+F,RF_V,False,prediction
+G,RF_G,False,prediction
+H,word_count,False,other
+I,detected_grammar_errors_per_100_words,False,tool
+J,tool_grammar_error_count_recovered,False,tool
+K,detected_error_free_sentence_ratio,False,other
+CELL_CHRONOLOGY=KHÔNG có bằng chứng thời gian về thứ tự điền hoặc xem ô; document properties do not establish first access
+CONCLUSION (a) File chứng minh được cấu trúc hiện tại: hai workbook có các sheet và cột như bảng metadata; unblind_after ở bản đã điền hiện đang hiển thị. SHA256 nhận diện chính xác các bản đã kiểm tra; thời gian file và thuộc tính tài liệu chỉ là metadata hiện có.
+CONCLUSION (b) File không chứng minh được thứ tự đọc, điền hay xem đáp án. Không có bằng chứng thời gian ở mức ô để xác minh người đọc chưa nhìn điểm thật, dự đoán hoặc số lỗi công cụ trước lượt đầu. Sheet từng bị ẩn và thời gian sửa file không xác nhận đọc mù.
+CONCLUSION (c) Nếu nhóm không thể xác nhận việc đọc trước khi xem đáp án, phải bỏ khẳng định lượt đầu đọc mù ở Phụ lục B và ghi không xác nhận được; chỉ dùng phương án có xác nhận khi người đọc tự ký, ghi ngày giờ ký thực tế, phạm vi và căn cứ. Agent không xác nhận thay nhóm.
+PROPOSED_WORDING_CONFIRMED Theo xác nhận của [họ tên người đọc], ký ngày [ngày giờ múi giờ], lượt đánh giá đầu của [phạm vi bài được xác nhận] đã hoàn tất trước khi người đọc xem điểm thật, dự đoán mô hình và số lỗi công cụ. [Nêu căn cứ nếu có.] File hiện tại không đủ để độc lập xác minh thứ tự xem thông tin; phát biểu đọc mù dựa trên xác nhận của người đọc.
+PROPOSED_WORDING_UNCONFIRMED Nhóm đã đánh giá 36 bài Validation, nhưng chưa có đủ bằng chứng để xác nhận lượt đầu hoàn tất trước khi xem điểm thật, dự đoán và số lỗi công cụ. Báo cáo không khẳng định lượt này là đọc mù. [Nêu phần xác nhận được và điều còn không rõ.] Nhận xét được sử dụng theo tính chất khám phá.
+READ_AUDIT reports/week10/reading_sheet_da_danh_gia.xlsx
+READ_AUDIT reports/week10/reading_sheet_random.xlsx
+SOURCE_WORKBOOKS_UNCHANGED=True; ESSAY_TEXT_PRINTED=False; TEST_FILES_OPENED=0
+```
