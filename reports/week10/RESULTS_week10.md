@@ -227,3 +227,174 @@ VISUAL_QA both sheets header previews inspected; no essay text or unblinding val
 ### Part C export housekeeping
 
 The spreadsheet runtime generated `reading_sheet_random.xlsx.inspect.ndjson` as an export sidecar. It was deleted without opening its contents; the builder now removes that automatic sidecar after saving. Only the requested workbook, IDs CSV, and results document remain under reports/week10. The workbook and sample IDs did not change.
+
+
+## Week 10 filled random reading audit and purposive comparison
+
+User-selected input: `reports/week10/reading_sheet_da_danh_gia.xlsx`; the originally named workbook still has blank reader cells. Exploratory annotations and descriptive comparisons; no confirmatory claim. Producer: `scripts/week10/reading_compare.py`. Command: `.venv/Scripts/python.exe -B -u scripts/week10/reading_compare.py --workbook reports/week10/reading_sheet_da_danh_gia.xlsx --append`.
+
+```text
+EXPLORATORY READING AUDIT; saved Validation values and human annotations only; no model refit/predict; no essay text printed; no Test artifacts opened.
+VERSIONS Python=3.14.5; numpy=2.4.6; pandas=2.3.3; scipy=1.18.1
+EXPECTED_VALUE_COMPARISON counts exact; hand-reported decimals rounded to their supplied decimal places with ROUND_HALF_UP; all computed values printed at 17 significant digits.
+INPUT_RESOLUTION requested reading_sheet_random.xlsx is the original blank workbook; user explicitly selected reading_sheet_da_danh_gia.xlsx after clarification. Neither workbook is modified.
+ORIGINAL_WORKBOOK_METADATA (only selected non-text fields)
+sheet,state,n,selected_headers
+reading_sheet,visible,36,"[""essay_id"", ""band"", ""reader_errors_first150"", ""reader_low_mid_high_V"", ""reader_low_mid_high_G""]"
+unblind_after,hidden,36,"[""essay_id"", ""y_V"", ""y_G"", ""Ridge_V"", ""Ridge_G"", ""RF_V"", ""RF_G"", ""word_count"", ""detected_grammar_errors_per_100_words""]"
+MISMATCH original_requested_workbook.reader.nonempty: actual=0; expected=36; exact
+MISMATCH original_requested_workbook.reader_V.nonempty: actual=0; expected=36; exact
+MISMATCH original_requested_workbook.reader_G.nonempty: actual=0; expected=36; exact
+SELECTED_WORKBOOK_METADATA (only selected non-text fields)
+sheet,state,n,selected_headers
+reading_sheet,visible,36,"[""essay_id"", ""band"", ""Số lỗi ngữ pháp (150 từ đầu)"", ""Vocabulary"", ""Grammar""]"
+unblind_after,visible,36,"[""essay_id"", ""y_V"", ""y_G"", ""Ridge_V"", ""Ridge_G"", ""RF_V"", ""RF_G"", ""word_count"", ""detected_grammar_errors_per_100_words""]"
+JOIN_AUDIT reading_ids=36; unblind_ids=36; missing_in_unblind=0; extra_in_unblind=0
+UNBLIND_SOURCE_PRESERVATION max_absolute_numeric_difference_from_original=0; tolerance=1e-12; same_ID_set=True
+PASS selected_workbook.reader.nonempty: actual=36; expected=36; exact
+PASS selected_workbook.reader_V.nonempty: actual=36; expected=36; exact
+PASS selected_workbook.reader_G.nonempty: actual=36; expected=36; exact
+READER_LEVEL_MAPPING {"thấp": "low", "trung bình": "mid", "cao": "high", "low": "low", "mid": "mid", "middle": "mid", "high": "high"}
+BOOTSTRAP_PRIMARY_ORDER physical reading_sheet row order; ordered_ID_SHA256=2b6f7409b0ade09f4ca45bccc3f4dcc97e90c75663129da16fb1a9028a25e7cb
+PASS joined_n: actual=36; expected=36; exact
+BAND_DEFINITION mean truth=(y_V+y_G)/2; <2.5 low, 2.5<=mean<=4 middle, >4 high; saved band and fixed IDs CSV match recomputed bands.
+TOOL_FORMULA tool_estimate=detected_grammar_errors_per_100_words*min(150,word_count)/100. This is the specified estimate for the reading window, not an observed tool count in the first 150 words.
+TOOL_FORMULA_ARITHMETIC max_abs_difference_between_rate*window/100_and_rate/100*window=4.4408920985006262e-16
+PASS tool_estimate_formula: all 36 rows verified; shorter_than_150_words=1
+RF_GROUP_DEFINITION large=max(abs(RF_V-y_V),abs(RF_G-y_G))>=1; signed_error=RF-truth at larger abs error; exact ties use V; above=signed_error>0 among large; below=signed_error<0 among large; not_large otherwise.
+TARGET_TIES n=0
+RANDOM_SAMPLE_PER_BAND
+scope,n,median_reader,mean_reader,mean_tool_estimate,mean_reader_minus_tool,tool_estimate_lt_0_5,Spearman_reader_tool,median_arithmetic,mean_reader_arithmetic,mean_tool_arithmetic,mean_diff_arithmetic,Spearman_arithmetic
+<2.5,12,11.5,10.75,2.589405095144,8.1605949048559996,0,0.41476850661831122,(11+12)/2=11.5,129/12=10.75,31.072861141727998/12=2.589405095144,97.927138858272002/12=8.1605949048559996,59/sqrt(141.5*143)=0.41476850661831122
+2.5-4.0,12,6.5,7,0.88904430559249981,6.1109556944075001,2,0.57804689508361007,(6+7)/2=6.5,84/12=7,10.668531667109997/12=0.88904430559249981,73.331468332889997/12=6.1109556944075001,81.5/sqrt(139.5*142.5)=0.57804689508361007
+>4.0,12,4.5,4.25,0.23191808529174998,4.01808191470825,11,0.011483385035264292,(4+5)/2=4.5,51/12=4.25,2.7830170235009999/12=0.23191808529174998,48.216982976499004/12=4.01808191470825,1.5/sqrt(136.5*125)=0.011483385035264292
+RANDOM_SAMPLE_PER_RF_GROUP
+scope,n,median_reader,mean_reader,mean_tool_estimate,mean_reader_minus_tool,tool_estimate_lt_0_5,Spearman_reader_tool,median_arithmetic,mean_reader_arithmetic,mean_tool_arithmetic,mean_diff_arithmetic,Spearman_arithmetic
+above,6,9,9,1.7852949139154999,7.2147050860844999,1,0.17393131069573453,(9+9)/2=9,54/6=9,10.711769483492999/6=1.7852949139154999,43.288230516506999/6=7.2147050860844999,3/sqrt(17*17.5)=0.17393131069573453
+below,6,5,4.5,0.34810939301574995,4.1518906069842503,5,-0.3126526997403612,(5+5)/2=5,27/6=4.5,2.0886563580944997/6=0.34810939301574995,24.9113436419055/6=4.1518906069842503,-5/sqrt(15.5*16.5)=-0.3126526997403612
+not_large,24,6.5,7.625,1.3218326662813125,6.3031673337186875,7,0.79842072550237675,(6+7)/2=6.5,183/24=7.625,31.723983990751499/24=1.3218326662813125,151.27601600924851/24=6.3031673337186875,910/sqrt(1139.5*1140)=0.79842072550237675
+RANDOM_SAMPLE_OVERALL
+scope,n,median_reader,mean_reader,mean_tool_estimate,mean_reader_minus_tool,tool_estimate_lt_0_5,Spearman_reader_tool,median_arithmetic,mean_reader_arithmetic,mean_tool_arithmetic,mean_diff_arithmetic,Spearman_arithmetic
+overall,36,6.5,7.333333333333333,1.2367891620094167,6.0965441713239166,13,0.73191211210102969,(6+7)/2=6.5,264/36=7.333333333333333,44.524409832339003/36=1.2367891620094167,219.47559016766101/36=6.0965441713239166,2814.75/sqrt(3849*3842.5)=0.73191211210102969
+PASS band[<2.5].n: actual=12; expected=12; exact
+PASS band[<2.5].median_reader: actual=11.5; expected=11.5; rounded_HALF_UP(1)=11.5
+PASS band[<2.5].mean_tool_estimate: actual=2.589405095144; expected=2.59; rounded_HALF_UP(2)=2.59
+PASS band[<2.5].mean_reader_minus_tool: actual=8.1605949048559996; expected=8.16; rounded_HALF_UP(2)=8.16
+PASS band[<2.5].tool_estimate_lt_0_5: actual=0; expected=0; exact
+PASS band[<2.5].Spearman_reader_tool: actual=0.41476850661831122; expected=0.41; rounded_HALF_UP(2)=0.41
+PASS band[2.5-4.0].n: actual=12; expected=12; exact
+PASS band[2.5-4.0].median_reader: actual=6.5; expected=6.5; rounded_HALF_UP(1)=6.5
+PASS band[2.5-4.0].mean_tool_estimate: actual=0.88904430559249981; expected=0.89; rounded_HALF_UP(2)=0.89
+PASS band[2.5-4.0].mean_reader_minus_tool: actual=6.1109556944075001; expected=6.11; rounded_HALF_UP(2)=6.11
+PASS band[2.5-4.0].tool_estimate_lt_0_5: actual=2; expected=2; exact
+PASS band[2.5-4.0].Spearman_reader_tool: actual=0.57804689508361007; expected=0.58; rounded_HALF_UP(2)=0.58
+PASS band[>4.0].n: actual=12; expected=12; exact
+PASS band[>4.0].median_reader: actual=4.5; expected=4.5; rounded_HALF_UP(1)=4.5
+PASS band[>4.0].mean_tool_estimate: actual=0.23191808529174998; expected=0.23; rounded_HALF_UP(2)=0.23
+PASS band[>4.0].mean_reader_minus_tool: actual=4.01808191470825; expected=4.02; rounded_HALF_UP(2)=4.02
+PASS band[>4.0].tool_estimate_lt_0_5: actual=11; expected=11; exact
+PASS band[>4.0].Spearman_reader_tool: actual=0.011483385035264292; expected=0.01; rounded_HALF_UP(2)=0.01
+PASS group[above].n: actual=6; expected=6; exact
+PASS group[below].n: actual=6; expected=6; exact
+PASS group[not_large].n: actual=24; expected=24; exact
+PASS overall.n: actual=36; expected=36; exact
+PASS overall.mean_reader: actual=7.333333333333333; expected=7.33; rounded_HALF_UP(2)=7.33
+PASS overall.mean_tool_estimate: actual=1.2367891620094167; expected=1.24; rounded_HALF_UP(2)=1.24
+PASS overall.Spearman_reader_tool: actual=0.73191211210102969; expected=0.73; rounded_HALF_UP(2)=0.73
+PASS recognition[V,low].correct: actual=4; expected=4; exact
+PASS recognition[V,low].n: actual=7; expected=7; exact
+PASS recognition[V,mid].correct: actual=13; expected=13; exact
+PASS recognition[V,mid].n: actual=23; expected=23; exact
+PASS recognition[V,high].correct: actual=3; expected=3; exact
+PASS recognition[V,high].n: actual=6; expected=6; exact
+PASS recognition[G,low].correct: actual=10; expected=10; exact
+PASS recognition[G,low].n: actual=13; expected=13; exact
+PASS recognition[G,mid].correct: actual=7; expected=7; exact
+PASS recognition[G,mid].n: actual=11; expected=11; exact
+PASS recognition[G,high].correct: actual=6; expected=6; exact
+PASS recognition[G,high].n: actual=12; expected=12; exact
+BLIND_RECOGNITION_PER_TRUE_TARGET_LEVEL
+target,truth_level,n,correct,share,arithmetic
+V,low,7,4,0.5714285714285714,4/7=0.5714285714285714
+V,mid,23,13,0.56521739130434778,13/23=0.56521739130434778
+V,high,6,3,0.5,3/6=0.5
+G,low,13,10,0.76923076923076927,10/13=0.76923076923076927
+G,mid,11,7,0.63636363636363635,7/11=0.63636363636363635
+G,high,12,6,0.5,6/12=0.5
+BLIND_RECOGNITION_CONFUSION_COUNTS
+target,truth_level,reader_level,n
+V,low,low,4
+V,low,mid,2
+V,low,high,1
+V,mid,low,7
+V,mid,mid,13
+V,mid,high,3
+V,high,low,0
+V,high,mid,3
+V,high,high,3
+G,low,low,10
+G,low,mid,2
+G,low,high,1
+G,mid,low,3
+G,mid,mid,7
+G,mid,high,1
+G,high,low,0
+G,high,mid,6
+G,high,high,6
+OLS_METHOD signed error=RF-truth at larger absolute-error target; V on ties; intercept included. Band reference=<2.5, dummies=2.5-4.0 and >4.0. Coefficient order: diff_only=[intercept,diff]; band_only=[intercept,mid,high]; band_plus_diff=[intercept,mid,high,diff].
+BOOTSTRAP_METHOD primary order=reading_sheet physical row order, preserved by the one-to-one left merge; ordinary paired essay rows, n=36 with replacement, 2000 resamples, default_rng(42), identical draws for both models; percentile 95% CI [2.5,97.5], linear interpolation; rank-deficient replicates skipped and counted. Bands are not stratified; no refit of RF or Ridge.
+OLS_SIGNED_RF_ERROR_ON_READER_MINUS_TOOL
+model,n,rank,coefficients,slope_diff,CI_low,CI_high,R2,slope_arithmetic,R2_arithmetic,bootstrap_resamples,bootstrap_valid,bootstrap_skipped
+diff_only,36,2,"[-1.0545264273562112, 0.1724781851589315]",0.17247818515893151,0.086382337627726777,0.25691329625556447,0.29814919583257971,46.783481097798187/271.24288822200396=0.1724781851589316,1-18.994937430823633/27.064067345989045=0.29814919583257971,2000,2000,0
+band_only,36,3,"[0.8675099775400003, -0.7534420421116674, -1.8581045493433344]",,,,0.7745334971274076,not included,1-6.1020406180084743/27.064067345989045=0.7745334971274076,,,
+band_plus_diff,36,4,"[0.8398785340423669, -0.746502046842408, -1.844078168306167, 0.0033859594575868994]",0.0033859594575868994,-0.053183306767282917,0.08219139940154517,0.77460478150175205,0.5697779705108319/168.27666652479027=0.0033859594575870269,1-6.100111372900499/27.064067345989045=0.77460478150175205,2000,2000,0
+BOOTSTRAP_INDEPENDENT_SLOPE_CHECK (lstsq vs covariance or within-band FWL)
+model,valid,max_absolute_difference
+diff_only,2000,3.3306690738754696e-16
+band_plus_diff,2000,2.5539466375068542e-15
+PASS diff_only.slope: actual=0.17247818515893151; expected=0.172; rounded_HALF_UP(3)=0.172
+PASS diff_only.CI_low: actual=0.086382337627726777; expected=0.086; rounded_HALF_UP(3)=0.086
+PASS diff_only.CI_high: actual=0.25691329625556447; expected=0.257; rounded_HALF_UP(3)=0.257
+PASS diff_only.R2: actual=0.29814919583257971; expected=0.298; rounded_HALF_UP(3)=0.298
+PASS band_plus_diff.slope: actual=0.0033859594575868994; expected=0.003; rounded_HALF_UP(3)=0.003
+PASS band_plus_diff.CI_low: actual=-0.053183306767282917; expected=-0.053; rounded_HALF_UP(3)=-0.053
+PASS band_plus_diff.CI_high: actual=0.08219139940154517; expected=0.082; rounded_HALF_UP(3)=0.082
+PASS band_plus_diff.R2: actual=0.77460478150175205; expected=0.7746; rounded_HALF_UP(4)=0.7746
+PASS band_only.R2: actual=0.7745334971274076; expected=0.7745; rounded_HALF_UP(4)=0.7745
+BOOTSTRAP_ROW_ORDER_SENSITIVITY (same finite RNG draws map to different essays after reordering)
+model,row_order,seed,resamples,valid,CI_low,CI_high,primary_sheet_order_CI_low,primary_sheet_order_CI_high
+diff_only,essay_id ascending,42,2000,2000,0.086827820173436904,0.25221024119916874,0.086382337627726777,0.25691329625556447
+band_plus_diff,essay_id ascending,42,2000,2000,-0.054498964598173445,0.072971624179440517,-0.053183306767282917,0.08219139940154517
+PURPOSIVE_PROVENANCE 32 IDs and reader counts from text-free t4_reading_summary.csv, verified against t4_manifest.csv; tool_estimate independently recomputed with the same window formula from saved eligible-development rates and matching word_count. The CSV approx_tool_count is also reported separately.
+PURPOSIVE_SAVED_TOOL_ESTIMATE_CHECK exact_equal_rows=23/32; max_absolute_difference=4.4408920985006262e-16
+PURPOSIVE_SAMPLE_PER_RF_GROUP
+scope,n,median_reader,mean_reader,mean_tool_estimate,mean_reader_minus_tool,tool_estimate_lt_0_5,Spearman_reader_tool,median_arithmetic,mean_reader_arithmetic,mean_tool_arithmetic,mean_diff_arithmetic,Spearman_arithmetic
+above,11,12,12.454545454545455,0.9680864243374091,11.486459030208046,4,0.15632555673600285,sorted[5]=12 (zero based),137/11=12.454545454545455,10.6489506677115/11=0.9680864243374091,126.3510493322885/11=11.486459030208046,17/sqrt(109.5*108)=0.15632555673600285
+below,11,5,6.3636363636363633,1.0946721953738181,5.2689641682625457,6,0.69451271784082691,sorted[5]=5 (zero based),70/11=6.3636363636363633,12.041394149112/11=1.0946721953738181,57.958605850888006/11=5.2689641682625457,72.75/sqrt(104.5*105)=0.69451271784082691
+not_large,10,9,9.5,2.2783547731049998,7.2216452268950011,2,0.65023270994496629,(9+9)/2=9,95/10=9.5,22.78354773105/10=2.2783547731049998,72.216452268950007/10=7.2216452268950011,52.5/sqrt(79.5*82)=0.65023270994496629
+RANDOM_VS_32_PURPOSIVE_SIDE_BY_SIDE
+group,random_n,random_median_reader,random_mean_tool,purposive_n,purposive_median_reader,purposive_mean_tool,purposive_mean_saved_approx_tool
+above,6,9,1.7852949139154999,11,12,0.9680864243374091,0.96808642433740921
+below,6,5,0.34810939301574995,11,5,1.0946721953738181,1.0946721953738181
+control_not_large,24,6.5,1.3218326662813125,10,9,2.2783547731049998,2.2783547731049998
+PURPOSIVE_SELECTION_GROUP_VS_RF_GROUP
+sample_group,group,n
+highest_rf_error,above,5
+highest_rf_error,below,7
+low_rf_error_comparison,not_large,10
+shared_blind_spot,above,6
+shared_blind_spot,below,4
+RANDOM_PURPOSIVE_ID_OVERLAP=0
+READ_AUDIT reports/week10/random_sample_ids.csv SHA256=8472794fb01eae511da497577b312bfdc0e4181c7b67eb860b610f83fcae0818
+READ_AUDIT reports/week10/reading_sheet_da_danh_gia.xlsx SHA256=b9141f072b6a5f843e9d9e5fa3c9fb2b7b27c0212cf84d8cf988e00806201b27
+READ_AUDIT reports/week10/reading_sheet_random.xlsx SHA256=6f3b16689fbd8c61a74b25a22b6460328f7b7ab5fb9d3161d79d5a1ea3a48e4c
+READ_AUDIT reports/week9/t3_eligible_development.csv SHA256=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+READ_AUDIT reports/week9/t4_manifest.csv SHA256=a0815d53c4a584825992dc274722045294b5e755cdb326e81c302f53a85de192
+READ_AUDIT reports/week9/t4_reading_summary.csv SHA256=1f3bd89eeb30d8162d1d10a745dda2f8b86af959e1590afce95095562dda016c
+READ_GUARD artifact_reads=6; allowlisted_only=True; blocked_attempts=0; no Test file opened; inputs_unchanged=True; essay_text_values_not_resolved_or_printed=True
+EXPECTED_VALUE_CHECK_TOTAL pass=50; mismatch=3
+MISMATCH_LINES
+MISMATCH original_requested_workbook.reader.nonempty: actual=0; expected=36; exact
+MISMATCH original_requested_workbook.reader_V.nonempty: actual=0; expected=36; exact
+MISMATCH original_requested_workbook.reader_G.nonempty: actual=0; expected=36; exact
+```
