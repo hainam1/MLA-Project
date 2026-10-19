@@ -741,3 +741,95 @@ APPEND_ONLY_PREVIOUS_BYTES_UNCHANGED=True; previous_report_SHA256=f39ccc10cadb12
 SCRIPT_UNCHANGED_SINCE_BEFORE_FIRST_FIT=True; SHA256=28a1063e6ab2111318bf275876a98f5b28d63d073d0320c0ee9ebe4f22da44ac
 GREP ^READ_AUDIT .*test matches=0; five-file read allowlist; blocked_attempts=0.
 ```
+
+
+## Week 10 second-reader agreement preparation
+
+Trạng thái: **chờ người đếm thứ hai điền**. Hai bài mỗi vùng từ 36 ID Validation, seed 2026; chỉ ID và vùng điểm được dùng để chọn. Danh sách và hash được ghi trước khi mở bài viết; script chuẩn bị không mở workbook người đếm thứ nhất. Bảng ánh xạ riêng nội bộ: `reports/week10/reader2_id_map.csv`; chỉ gửi `reader2_sheet.xlsx` cho người đếm thứ hai.
+
+```text
+selection_index,essay_id,band
+1,34317A7F1262,<2.5
+2,F075F9AD2AA4,<2.5
+3,97A0FFE91A3E,2.5-4.0
+4,B7626C8D1FAB,2.5-4.0
+5,0E03218FDD2F,>4.0
+6,5BE99F2E4030,>4.0
+seed=2026; within-band pools sorted by essay_id; 2 per band without replacement; all-six reading order independently shuffled with seed 2026.
+canonical_ID_list=ASCII IDs in selection_index order, LF-separated, final LF included
+SELECTED_ID_LIST_SHA256=ed32d7048ec960e90fd2b0bb52b5985eedf899286eed15827aa26f56e3f47ce1
+PRIVATE_MAPPING_SHA256=65996df055b728e2966a58348dcb3a3d4fb5e98f9534f3a43d1a8c8f44aa7d1c
+```
+
+Preparation command: `.venv/Scripts/python.exe -B -u scripts/week10/prepare_reader2.py`. Future agreement command (only after human counts are complete): `.venv/Scripts/python.exe -B scripts/week10/reader2_agreement.py`.
+
+```text
+SELECTION_INPUT reports/week10/random_sample_ids.csv; only essay_id and band; no reader1 workbook opened.
+SELECTION_RULE default_rng(2026); bands in <2.5,2.5-4.0,>4.0 order; essay_id-sorted pool within each band; choice(size=2,replace=False). Separate default_rng(2026).permutation(6) shuffles all six before assigning r2_01..r2_06.
+SELECTED_IDS selection_index,essay_id,band
+1,34317A7F1262,<2.5
+2,F075F9AD2AA4,<2.5
+3,97A0FFE91A3E,2.5-4.0
+4,B7626C8D1FAB,2.5-4.0
+5,0E03218FDD2F,>4.0
+6,5BE99F2E4030,>4.0
+SELECTION_ARITHMETIC source=12+12+12=36; selected=2+2+2=6; unique_selected=6
+SELECTED_ID_HASH_ENCODING ASCII essay IDs in selection_index order, one ID per line, including final LF
+SELECTED_ID_LIST_SHA256=ed32d7048ec960e90fd2b0bb52b5985eedf899286eed15827aa26f56e3f47ce1
+SELECTION_LOCK_PERSISTED_BEFORE_TEXT_AND_ANY_READER1_DATA=True; private_mapping_SHA256=65996df055b728e2966a58348dcb3a3d4fb5e98f9534f3a43d1a8c8f44aa7d1c
+SHEET_CHECK sheets=[reader2]; rows=6; headers=["essay_id", "first150_words", "reader2_errors_first150", "notes"]
+PASS banned_columns_absent=True; extra_sheets=0; hidden_rows_or_columns=0; formulas=0; external_links_or_comments=0; real_essay_IDs_in_package=0
+PASS reader1_counts_absent=True; truth_absent=True; predictions_absent=True; tool_counts_absent=True; bands_absent=True
+PASS reader2_count_cells_blank=6/6; notes_blank=6/6; no counts generated or filled by agent
+FIRST150_TOKEN_RULE whitespace-delimited tokens from original Validation essay_text, first min(150,N), whitespace normalized to one space; no text printed.
+FIRST150_CHECK anonymous_id,words_in_sheet,exact_source_prefix_match
+r2_01,150,True
+r2_02,150,True
+r2_03,150,True
+r2_04,150,True
+r2_05,150,True
+r2_06,150,True
+HEADER_PREVIEW_TEMP_DIR=C:\Users\LEGION\AppData\Local\Temp\mla-reader2-4c4yowdy
+SYNTHETIC_SCRIPT_TEST_COMMAND .venv/Scripts/python.exe -B scripts/week10/reader2_agreement.py --self-test
+SYNTHETIC SELF-TEST ONLY: fixed artificial numbers; no real essay, reader sheet, mapping or reader1 count is read. These are not human results.
+SYNTHETIC_PAIRS
+PAIR_DIFFERENCE_DEFINITION reader2-reader1
+anonymous_id,reader1,reader2,difference,absolute_difference
+synthetic_01,2,3,1,1
+synthetic_02,5,3,-2,2
+synthetic_03,8,8,0,0
+synthetic_04,11,14,3,3
+synthetic_05,14,13,-1,1
+synthetic_06,17,19,2,2
+N=6; mean_absolute_difference=1.5; arithmetic=9/6=1.5
+BIAS_reader2_minus_reader1=0.5; arithmetic=3/6=0.5
+ABS_DIFFERENCE_GE_2=3; arithmetic=3/6=0.5
+Pearson=0.96134063899110411; arithmetic=174/sqrt(157.5*208)=0.96134063899110411; n=6, reference only (chi de tham khao)
+Spearman=0.92763365704391754; arithmetic=16/sqrt(17.5*17)=0.92763365704391754; n=6, reference only (chi de tham khao)
+PASS synthetic_expected_arithmetic: sum_abs=9; mean_abs=9/6=1.5; sum_difference=3; bias=3/6=0.5; abs_difference_ge_2=3/6=0.5
+PASS synthetic_blank_count_rejected=True
+PASS synthetic_negative_count_rejected=True
+PASS synthetic_fractional_count_rejected=True
+READ_GUARD artifact_reads=0; allowlisted_only=True; no Test file opened; read_only=True; reader1_not_opened=True; no essay text printed.
+EMPTY_REAL_SHEET_GUARD_TEST (no reader1 data may be read)
+ERROR WAITING_FOR_READER2: blank reader2_errors_first150 for r2_01,r2_02,r2_03,r2_04,r2_05,r2_06; reader1 workbook not opened
+READ_AUDIT reports/week10/reader2_sheet.xlsx
+READ_GUARD artifact_reads=1; allowlisted_only=True; no Test file opened; read_only=True; reader1_not_opened=True; no essay text printed.
+PASS actual_empty_sheet_rejected=True; exit_code=2; reader1_workbook_not_opened=True
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv SHA256=7b80be5447dd8adadbecf6f492a4320f3e74c7290f91a99e11d43f5951a80e8e
+READ_AUDIT reports/week10/random_sample_ids.csv SHA256=8472794fb01eae511da497577b312bfdc0e4181c7b67eb860b610f83fcae0818
+READ_AUDIT reports/week10/reader2_id_map.csv SHA256=65996df055b728e2966a58348dcb3a3d4fb5e98f9534f3a43d1a8c8f44aa7d1c
+READ_AUDIT reports/week10/reader2_sheet.xlsx SHA256=a4bd98444384f584d28c5d1f5f883bfb7817218ec37a410e04660be1dec7c10b
+READ_GUARD prepare_artifact_reads=4; allowlisted_only=True; blocked_attempts=0; no Test file opened; reader1_workbook_never_opened=True; no essay text printed.
+STATUS chờ người đếm thứ hai điền; no real agreement statistic computed; no reader2 count filled.
+OUTPUT_SHEET reports/week10/reader2_sheet.xlsx SHA256=a4bd98444384f584d28c5d1f5f883bfb7817218ec37a410e04660be1dec7c10b
+PRIVATE_MAPPING reports/week10/reader2_id_map.csv SHA256=65996df055b728e2966a58348dcb3a3d4fb5e98f9534f3a43d1a8c8f44aa7d1c
+```
+
+```text
+APPEND_ONLY_PREVIOUS_REPORT_BYTES_UNCHANGED=True; previous_SHA256=39b1d5ebca6b429f42e6c4157ae4dc1917769cbeea17c380d6af8485a3a68279
+GREP ^READ_AUDIT .*test matches=0; no Test file opened.
+GIT_IGNORE_VERIFIED=True; reader2_sheet.xlsx and reader2_id_map.csv both ignored; neither will be committed.
+VISUAL_QA header-only preview checked; no essay text printed.
+STATUS chờ người đếm thứ hai điền; all six reader2 counts remain blank.
+```

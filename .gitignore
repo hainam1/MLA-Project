@@ -149,3 +149,7 @@ scratch/
 
 # Filled internal Week 10 reader annotations
 /reports/week10/reading_sheet_da_danh_gia.xlsx
+
+# Internal second-reader sheet and separate unblinding map
+/reports/week10/reader2_sheet.xlsx
+/reports/week10/reader2_id_map.csv
