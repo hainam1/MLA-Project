@@ -223,3 +223,7 @@ COMMAND: git check-ignore -v -- reports/week10/reading_sheet_random.xlsx
 GITIGNORE_EXISTING_CONTENT_PRESERVED=True
 VISUAL_QA both sheets header previews inspected; no essay text or unblinding values printed. All 36 exported essay-text and source-value cells were checked in memory against the selected source records. unblind_after is natively hidden in the exported XLSX.
 ```
+
+### Part C export housekeeping
+
+The spreadsheet runtime generated `reading_sheet_random.xlsx.inspect.ndjson` as an export sidecar. It was deleted without opening its contents; the builder now removes that automatic sidecar after saving. Only the requested workbook, IDs CSV, and results document remain under reports/week10. The workbook and sample IDs did not change.

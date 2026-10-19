@@ -63,5 +63,7 @@ async function main() {
   }
   const exported=await SpreadsheetFile.exportXlsx(wb);
   await exported.save(process.env.W10_XLSX);
+  // Export may generate an inspection sidecar; only the requested XLSX may remain.
+  await fs.rm(process.env.W10_XLSX+'.inspect.ndjson',{force:true});
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});
