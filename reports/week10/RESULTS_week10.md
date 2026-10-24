@@ -1428,3 +1428,290 @@ READ_GUARD allowlisted development inputs only; offline inference; no Test or co
 Part A evidence-only interpretation: the pre-registered pooled criterion is met: Spearman(new, reader)=0.7984514865 > Spearman(LT estimate, reader)=0.6077028837, and |mean(new)-mean(reader)|=|974/68-566/68|=6 < |89.9983023802125/68-566/68|=7.000024965. The new counter overcounts the reader mean (14.323529 vs 8.323529), while LT undercounts (1.323504). The random36 subset does not meet both conditions: Spearman is higher (0.760366 vs 0.731912), but its mean gap is worse (7 vs 6.096544). The week9_32 subset meets both (Spearman 0.877230 vs 0.489694; gap 4.875 vs 8.016441). This is an exploratory, pooled point-estimate criterion, not evidence that improvement holds on every sample or is statistically significant. Bootstrap intervals use essays, not prompt clusters. No OOF models were fitted; the limitation that downstream CIs condition on fitted OOF models remains applicable to any later Part B. Part B and full-development counting were not executed.
 
 Verification: 68/68 essays, 36 random + 32 week9, unique IDs, zero failures, text-free records; 2,000/2,000 valid bootstrap draws for each reported correlation; correlations independently checked with SciPy. The previous report prefix is byte-for-byte preserved (SHA256 02f00bd847dd1e74c7d607e1d410065119c3cbf541c0c11a73c688b93b723b76). Restricted audit grep command: `rg -n -i "^READ_AUDIT .*(test|full_clean_corpus|combined)" reports/week10/gec_part_a_run.log reports/week10/gec_part_a_analysis.log`; zero matches. This corroborates the Python read guard and is not a universal OS access proof. Additional READ_AUDIT for verification: RESULTS_week10.md; gec_part_a_report_prefix.json; gec_part_a_statistics.json; gec_part_a_counts.jsonl; gec_part_a_run.log; gec_part_a_analysis.log; gec_part_a_68.csv (all under reports/week10). Preflight code reads were scripts/week10/gec_compare.py, scripts/week10/gec_part_a.py and the authorized supporting scripts/week10/reading_compare.py.
+
+
+## Exploratory B2: frozen all-MiniLM-L6-v2 + fold-local Ridge
+
+2026-10-24 (Asia/Saigon). Exploratory development only. Original b6398ea encoder/Ridge parameters unchanged; user confirmed normalize_embeddings=False. Native model Normalize produces L2 vectors.
+
+```text
+EXPLORATORY FIXED_CONFIGURATION_BEFORE_ENCODE_OR_FIT {"B1_Ridge": {"alpha": 10.0, "fit_intercept": true, "max_iter": 10000, "solver": "lsqr", "tol": 1e-06}, "B1_TFIDF": {"analyzer": "word", "dtype": "float64", "input": "essay_text only; no prompt name or engineered features", "lowercase": true, "max_df": 1.0, "max_features": null, "min_df": 5, "ngram_range": [1, 2], "norm": "l2", "smooth_idf": true, "stop_words": null, "strip_accents": null, "sublinear_tf": true, "token_pattern": "(?u)\\b\\w\\w+\\b", "use_idf": true}, "B2_Ridge_if_offline": {"alpha": 10.0, "fit_intercept": true, "max_iter": 10000, "solver": "lsqr", "tol": 1e-06}, "B2_dimension": 384, "B2_dtype": "float32", "B2_encoder_if_offline": {"batch_size": 32, "device": "cpu", "local_files_only": true, "model": "sentence-transformers/all-MiniLM-L6-v2", "normalize_embeddings": false, "trust_remote_code": false}, "B2_max_seq_length": 256, "B2_modules": "Transformer -> attention-mask mean pooling -> model-native Normalize; encode normalize_embeddings=False unchanged", "B2_no_training": "eval; requires_grad=False on every parameter; torch.inference_mode; no optimizer/backward", "B2_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41", "anchors": "A1=RF max target abs error>=1; A3_B2=A1 & B2 max target abs error>=1; compare all three queues on identical labels", "benchmark": "50 IDs without replacement, default_rng(42), from essay_id ascending; batch_size=32; exclude loading; stop if projected >7200 seconds", "bootstrap": "paired ordinary essay bootstrap, percentile [2.5,97.5], linear; no tuning/refitting/reranking", "bootstrap_addendum": "B2 vs RF/Ridge/B1 signed errors; same paired 2000 essay draws; pooled AUROC CIs and paired fixed-queue caught/AUC deltas; no prompt clustering", "bootstrap_resamples": 2000, "caches": "git-ignored embeddings and aligned ID manifest; no essay strings persisted", "encoder_threads": 1, "exact_p": "per-fold hypergeom upper tail; pooled PMF convolution; independent-fold reference draws", "feature_RF": {"max_depth": 10, "max_features": "sqrt", "min_samples_leaf": {"G": 5, "V": 2}, "n_estimators": 300, "n_jobs": 1, "preprocessing": "train-only median imputation", "random_state": 42}, "feature_Ridge": {"alpha": {"G": 0.1, "V": 100.0}, "preprocessing": "train-only median imputation and StandardScaler"}, "folds": "GroupKFold(5), normalised_prompt, input sorted by essay_id string ascending", "large_error": "max target absolute error >= 1.0", "queue": "score descending, essay_id string ascending; ceil(0.20*n_fold)", "seed": 42, "status": "exploratory development only; no hyperparameter search"}
+CONFIG_SHA256=946c7c542af5eef7fb730a2a9e27a669e9722f4669b606b0429e8d6742168dfc
+READ_AUDIT D:\03_Education\học trên trường\mla project\scripts\week10\gec_b2.py
+PRODUCER_SHA256=3bb3d3fa6df9a2c1c5d4126f85f181fcef857224efc6862c844fd29a5c2c1ba2
+PACKAGE torch=NOT_INSTALLED
+PACKAGE transformers=NOT_INSTALLED
+PACKAGE sentence-transformers=NOT_INSTALLED
+PACKAGE numpy=2.4.6
+PACKAGE scipy=1.18.1
+PACKAGE scikit-learn=1.9.1
+PACKAGE pandas=2.3.3
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_download.log
+READ_AUDIT reports/week10/b2_download.log
+SETUP_LOG b2_download.log
+DOWNLOAD command=snapshot_download(sentence-transformers/all-MiniLM-L6-v2, revision=1110a243fdf4706b3f48f1d95db1a4f5529b4d41, local_dir=reports/week10/b2_assets/model, allow_patterns=[*.json,*.txt,*.safetensors,README.md]) source=HuggingFace why=registered frozen B2 encoder; weights 90868376 bytes (90.87 MB); Apache-2.0; no essay data uploaded
+python.exe : 
+At line:11 char:6
++ '@ | & ./.venv_gec/Scripts/python.exe -B -u - 2>&1 | Tee-Object -File ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Xet Storage is enabled for this repo, but the 'hf_xet' 
+package is not installed. Falling back to regular HTTP download. For better performance, install the package with: 
+`pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+
+Fetching 12 files:  67%|######6   | 8/12 [00:00<00:00, 14.06it/s]
+Fetching 12 files: 100%|##########| 12/12 [00:09<00:00,  1.32it/s]
+MODEL_DOWNLOAD_SUCCESS=True
+
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_encode.log
+READ_AUDIT reports/week10/b2_encode.log
+SETUP_LOG b2_encode.log
+READ_AUDIT scripts/week10/information_sources_oof.py (import; git blob matched b6398ea)
+EXPLORATORY FIXED_CONFIGURATION_BEFORE_ENCODE_OR_FIT {"B1_Ridge": {"alpha": 10.0, "fit_intercept": true, "max_iter": 10000, "solver": "lsqr", "tol": 1e-06}, "B1_TFIDF": {"analyzer": "word", "dtype": "float64", "input": "essay_text only; no prompt name or engineered features", "lowercase": true, "max_df": 1.0, "max_features": null, "min_df": 5, "ngram_range": [1, 2], "norm": "l2", "smooth_idf": true, "stop_words": null, "strip_accents": null, "sublinear_tf": true, "token_pattern": "(?u)\\b\\w\\w+\\b", "use_idf": true}, "B2_Ridge_if_offline": {"alpha": 10.0, "fit_intercept": true, "max_iter": 10000, "solver": "lsqr", "tol": 1e-06}, "B2_dimension": 384, "B2_dtype": "float32", "B2_encoder_if_offline": {"batch_size": 32, "device": "cpu", "local_files_only": true, "model": "sentence-transformers/all-MiniLM-L6-v2", "normalize_embeddings": false, "trust_remote_code": false}, "B2_max_seq_length": 256, "B2_modules": "Transformer -> attention-mask mean pooling -> model-native Normalize; encode normalize_embeddings=False unchanged", "B2_no_training": "eval; requires_grad=False on every parameter; torch.inference_mode; no optimizer/backward", "B2_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41", "anchors": "A1=RF max target abs error>=1; A3_B2=A1 & B2 max target abs error>=1; compare all three queues on identical labels", "benchmark": "50 IDs without replacement, default_rng(42), from essay_id ascending; batch_size=32; exclude loading; stop if projected >7200 seconds", "bootstrap": "paired ordinary essay bootstrap, percentile [2.5,97.5], linear; no tuning/refitting/reranking", "bootstrap_addendum": "B2 vs RF/Ridge/B1 signed errors; same paired 2000 essay draws; pooled AUROC CIs and paired fixed-queue caught/AUC deltas; no prompt clustering", "bootstrap_resamples": 2000, "caches": "git-ignored embeddings and aligned ID manifest; no essay strings persisted", "encoder_threads": 1, "exact_p": "per-fold hypergeom upper tail; pooled PMF convolution; independent-fold reference draws", "feature_RF": {"max_depth": 10, "max_features": "sqrt", "min_samples_leaf": {"G": 5, "V": 2}, "n_estimators": 300, "n_jobs": 1, "preprocessing": "train-only median imputation", "random_state": 42}, "feature_Ridge": {"alpha": {"G": 0.1, "V": 100.0}, "preprocessing": "train-only median imputation and StandardScaler"}, "folds": "GroupKFold(5), normalised_prompt, input sorted by essay_id string ascending", "large_error": "max target absolute error >= 1.0", "queue": "score descending, essay_id string ascending; ceil(0.20*n_fold)", "seed": 42, "status": "exploratory development only; no hyperparameter search"}
+CONFIG_SHA256=946c7c542af5eef7fb730a2a9e27a669e9722f4669b606b0429e8d6742168dfc
+READ_AUDIT D:\03_Education\học trên trường\mla project\scripts\week10\gec_b2.py
+PRODUCER_SHA256=2faf1dc1a62a5560af443cf9d9db6ac2b2206349b69b132a7702180d149a8337
+PACKAGE torch=2.6.0
+PACKAGE transformers=4.51.3
+PACKAGE sentence-transformers=4.1.0
+PACKAGE numpy=2.5.4
+PACKAGE scipy=1.18.1
+PACKAGE scikit-learn=1.9.1
+PACKAGE pandas=NOT_INSTALLED
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\validation_783.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+READ_AUDIT reports/week10/b2_assets/model/config_sentence_transformers.json
+READ_AUDIT reports/week10/b2_assets/model/README.md
+READ_AUDIT reports/week10/b2_assets/model/modules.json
+READ_AUDIT reports/week10/b2_assets/model/sentence_bert_config.json
+READ_AUDIT reports/week10/b2_assets/model/config.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/b2_assets/model/special_tokens_map.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer.json
+READ_AUDIT reports/week10/b2_assets/model/1_Pooling/config.json
+FROZEN_ENCODER_PARAMETER_SHA256_BEFORE=c8b0fbe0d4535cb57f3b5904e2b3d547ed1c3d6312415cc9737d7c3212b3d61b parameters=22713216
+ENCODE_BENCHMARK {"config_sha256": "946c7c542af5eef7fb730a2a9e27a669e9722f4669b606b0429e8d6742168dfc", "benchmark_n": 50, "benchmark_seconds": 3.3306576999893878, "seconds_per_essay": 0.06661315399978776, "projected_seconds": 253.92934304719094, "projected_minutes": 4.232155717453183, "stop": false, "arithmetic": "3.3306576999893878/50=0.066613153999787761; 0.066613153999787761*3812=253.92934304719094; 253.92934304719094/60=4.2321557174531828"}
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_embeddings_minilm.npy
+READ_AUDIT reports/week10/b2_embeddings_minilm.npy
+FULL_ENCODE {"config_sha256": "946c7c542af5eef7fb730a2a9e27a669e9722f4669b606b0429e8d6742168dfc", "benchmark_n": 50, "benchmark_seconds": 3.3306576999893878, "seconds_per_essay": 0.06661315399978776, "projected_seconds": 253.92934304719094, "projected_minutes": 4.232155717453183, "stop": false, "arithmetic": "3.3306576999893878/50=0.066613153999787761; 0.066613153999787761*3812=253.92934304719094; 253.92934304719094/60=4.2321557174531828", "full_encode_seconds": 266.8233873999998, "full_seconds_per_essay": 0.06999564202518357}
+VERIFY native L2 norms pass; 50 benchmark vectors match full-run rows; parameter SHA256 unchanged; gradients absent; full encode rows=3812
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+READ_AUDIT reports/week10/b2_assets/model/1_Pooling/config.json
+READ_AUDIT reports/week10/b2_assets/model/README.md
+READ_AUDIT reports/week10/b2_assets/model/config.json
+READ_AUDIT reports/week10/b2_assets/model/config_sentence_transformers.json
+READ_AUDIT reports/week10/b2_assets/model/modules.json
+READ_AUDIT reports/week10/b2_assets/model/sentence_bert_config.json
+READ_AUDIT reports/week10/b2_assets/model/special_tokens_map.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer.json
+READ_AUDIT reports/week10/b2_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/b2_embeddings_minilm.npy
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_GUARD allowlisted artifact reads only; network disabled during encode/analysis; no Test/combined corpus; no essay strings printed or persisted
+
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_timing.json
+READ_AUDIT reports/week10/b2_timing.json
+ENCODE_TIMING {"arithmetic": "3.3306576999893878/50=0.066613153999787761; 0.066613153999787761*3812=253.92934304719094; 253.92934304719094/60=4.2321557174531828", "benchmark_n": 50, "benchmark_seconds": 3.3306576999893878, "config_sha256": "946c7c542af5eef7fb730a2a9e27a669e9722f4669b606b0429e8d6742168dfc", "full_encode_seconds": 266.8233873999998, "full_seconds_per_essay": 0.06999564202518357, "projected_minutes": 4.232155717453183, "projected_seconds": 253.92934304719094, "seconds_per_essay": 0.06661315399978776, "stop": false}
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_fold_composition.csv
+READ_AUDIT reports/week9/t3_fold_composition.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\outputs\phase6\feature_schema.json
+READ_AUDIT outputs/phase6/feature_schema.json
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\validation_783.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+INPUT_SHA256 reports/week9/t3_eligible_development.csv=f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307
+INPUT_SHA256 reports/week9/t3_fold_composition.csv=de596a84028e42b8aa0c605c523ee98eef87b6b74127a63b0c8e822d0e0629ea
+INPUT_SHA256 outputs/phase6/feature_schema.json=77204d8b647522a497e459ce797fc1a433e0e5547993a9ddf83af5d8273ab620
+INPUT_SHA256 data/03_clean_ready_to_use/model_train_3128.csv=a56c0f3d195a3708f8ec74ca8dfabe125325050af14868a59ea571290658884e
+INPUT_SHA256 data/03_clean_ready_to_use/validation_783.csv=7b80be5447dd8adadbecf6f492a4320f3e74c7290f91a99e11d43f5951a80e8e
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_fold_composition.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\outputs\phase6\feature_schema.json
+READ_AUDIT outputs/phase6/feature_schema.json
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_embedding_manifest.json
+READ_AUDIT reports/week10/b2_embedding_manifest.json
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\b2_embeddings_minilm.npy
+READ_AUDIT reports/week10/b2_embeddings_minilm.npy
+READ_AUDIT reports/week10/b2_embeddings_minilm.npy
+FOLD_COMPLETE fold=1 train=3043 held=769 k=154; saved prompt composition matches; no train-held prompt overlap
+FOLD_COMPLETE fold=2 train=3044 held=768 k=154; saved prompt composition matches; no train-held prompt overlap
+FOLD_COMPLETE fold=3 train=3051 held=761 k=153; saved prompt composition matches; no train-held prompt overlap
+FOLD_COMPLETE fold=4 train=3067 held=745 k=149; saved prompt composition matches; no train-held prompt overlap
+FOLD_COMPLETE fold=5 train=3043 held=769 k=154; saved prompt composition matches; no train-held prompt overlap
+OOF_REGRESSION
+model,target,n,MAE,R2,arithmetic
+RF,V,3812,0.37216506904049595,0.34208547212760032,MAE=1418.6932431823707/3812=0.37216506904049595; R2=1-855.88928501791725/1300.9125786988459=0.34208547212760032
+RF,G,3812,0.45540371959591663,0.34298623301972808,MAE=1735.9989790996342/3812=0.45540371959591663; R2=1-1231.2422050457576/1873.9975734522593=0.34298623301972808
+Ridge,V,3812,0.37342443714543022,0.34221220019923604,MAE=1423.4939543983801/3812=0.37342443714543022; R2=1-855.72442287545198/1300.9125786988459=0.34221220019923604
+Ridge,G,3812,0.46303653771248415,0.32661704194151464,MAE=1765.0952817599896/3812=0.46303653771248415; R2=1-1261.918029405706/1873.9975734522593=0.32661704194151464
+B1,V,3812,0.40662621823241968,0.22227921561866248,MAE=1550.0591439019838/3812=0.40662621823241968; R2=1-1011.7467511172149/1300.9125786988459=0.22227921561866248
+B1,G,3812,0.50684121395714821,0.21578498887911601,MAE=1932.078707604649/3812=0.50684121395714821; R2=1-1469.6170279053731/1873.9975734522593=0.21578498887911601
+B2,V,3812,0.40444803588162687,0.21149990489374515,MAE=1541.7559127807617/3812=0.40444803588162687; R2=1-1025.7696920289632/1300.9125786988459=0.21149990489374515
+B2,G,3812,0.50749980021123497,0.20462892977931291,MAE=1934.5892384052277/3812=0.50749980021123497; R2=1-1490.5234555876941/1873.9975734522593=0.20462892977931291
+SIGNED_ERROR_CORRELATIONS_ESSAY_BOOTSTRAP_95CI
+model_a,model_b,target,method,correlation,CI_low,CI_high,below_095,entire_CI_below_095,valid,skipped,arithmetic
+RF,Ridge,V,Spearman,0.94734621400416741,0.94171243106803337,0.95239166356040861,True,False,2000,0,4373066925/sqrt(4616123293*4616123293)=0.94734621400416741
+RF,Ridge,V,Pearson,0.95236815626875215,0.94746120955999857,0.95662804638694066,False,False,2000,0,815.02987928069138/sqrt(855.86146940949493*855.72427930348226)=0.95236815626875215
+RF,Ridge,G,Spearman,0.94714901411538188,0.94114830307990061,0.9522580426599061,True,False,2000,0,4372156626/sqrt(4616123293*4616123293)=0.94714901411538188
+RF,Ridge,G,Pearson,0.94911635818182327,0.94309066982127543,0.95440985557091795,True,False,2000,0,1183.0504561844584/sqrt(1231.2269367195481*1261.913275141181)=0.94911635818182327
+B1,RF,V,Spearman,0.88738393929202186,0.87863230310549434,0.89538796399246612,True,True,2000,0,4096273672/sqrt(4616123293*4616123293)=0.88738393929202186
+B1,RF,V,Pearson,0.89955820257966845,0.8932413375798246,0.90559885606120549,True,True,2000,0,836.80619085756541/sqrt(1011.0852108896599*855.86146940949493)=0.89955820257966845
+B1,RF,G,Spearman,0.864747977389,0.85620172666431948,0.87292505190964087,True,True,2000,0,3991783281/sqrt(4616123293*4616123293)=0.864747977389
+B1,RF,G,Pearson,0.86770863128358211,0.86051930503074681,0.87468174154330591,True,True,2000,0,1167.080409085557/sqrt(1469.3173758143989*1231.2269367195481)=0.86770863128358211
+B1,Ridge,V,Spearman,0.86310834765651911,0.85183633475184728,0.87400106236587949,True,True,2000,0,3984214548/sqrt(4616123293*4616123293)=0.86310834765651911
+B1,Ridge,V,Pearson,0.87580249884195915,0.86528321295442268,0.88515226552269144,True,True,2000,0,814.64235485540371/sqrt(1011.0852108896599*855.72427930348226)=0.87580249884195915
+B1,Ridge,G,Spearman,0.85026391863316286,0.83731803381198155,0.86179285373573344,True,True,2000,0,3924923080/sqrt(4616123293*4616123293)=0.85026391863316286
+B1,Ridge,G,Pearson,0.85770796057177867,0.84547678230589596,0.86859900104119292,True,True,2000,0,1167.9170609636024/sqrt(1469.3173758143989*1261.913275141181)=0.85770796057177867
+B2,RF,V,Spearman,0.84401599468088639,0.83288477921904502,0.85508759643423848,True,True,2000,0,3896081892.5/sqrt(4616123292.5*4616123293)=0.84401599468088639
+B2,RF,V,Pearson,0.86362606285907917,0.85520534407165083,0.87150097446944852,True,True,2000,0,809.14088958292302/sqrt(1025.6362021237831*855.86146940949493)=0.86362606285907917
+B2,RF,G,Spearman,0.83073864292471788,0.82052981803954705,0.84101375380228149,True,True,2000,0,3834792000/sqrt(4616123293*4616123293)=0.83073864292471788
+B2,RF,G,Pearson,0.83274369431103645,0.82395372901865793,0.84146816149822357,True,True,2000,0,1127.8762084910963/sqrt(1489.9169378800136*1231.2269367195481)=0.83274369431103645
+B2,Ridge,V,Spearman,0.83384132255421983,0.82171534094317722,0.84583030846161611,True,True,2000,0,3849114351.5/sqrt(4616123292.5*4616123293)=0.83384132255421983
+B2,Ridge,V,Pearson,0.85416058676425333,0.84401961807584258,0.86398928595559354,True,True,2000,0,800.2084371495057/sqrt(1025.6362021237831*855.72427930348226)=0.85416058676425333
+B2,Ridge,G,Spearman,0.8344875174459514,0.82268056173676685,0.84561694301934132,True,True,2000,0,3852097267/sqrt(4616123293*4616123293)=0.8344875174459514
+B2,Ridge,G,Pearson,0.84102557221666185,0.8294789593193167,0.85096092567439208,True,True,2000,0,1153.2009311656041/sqrt(1489.9169378800136*1261.913275141181)=0.84102557221666185
+B2,B1,V,Spearman,0.94003806740068574,0.9349104713876103,0.94427883670961132,True,True,2000,0,4339331619/sqrt(4616123292.5*4616123293)=0.94003806740068574
+B2,B1,V,Pearson,0.95428908566712467,0.95117249216921274,0.95716971705763099,False,False,2000,0,971.78570592947869/sqrt(1025.6362021237831*1011.0852108896599)=0.95428908566712467
+B2,B1,G,Spearman,0.94965982811759353,0.94583418840308409,0.95291986039693055,True,False,2000,0,4383746853/sqrt(4616123293*4616123293)=0.94965982811759353
+B2,B1,G,Pearson,0.95211648830708595,0.94907420211074955,0.95490216983080334,False,False,2000,0,1408.7337586114738/sqrt(1489.9169378800136*1469.3173758143989)=0.95211648830708595
+BASELINE_REPRODUCED A1=386; A3_old=276; D_old caught_A1=88
+QUEUE_CAPTURE_EXACT_P_FOLD_AND_POOLED
+anchor,signal,fold,n,K,k,caught,expected,exact_p,capture,arithmetic
+A1_RF,D_old,1,769,73,154,15,14.618985695708712,0.50454768821846441,0.20547945205479451,"154*73/769=14.618985695708712; hypergeom.sf(14,769,73,154)=0.50454768821846441"
+A1_RF,D_old,2,768,88,154,22,17.645833333333332,0.13838981922873914,0.25,"154*88/768=17.645833333333332; hypergeom.sf(21,768,88,154)=0.13838981922873914"
+A1_RF,D_old,3,761,75,153,20,15.078843626806833,0.092467509248828822,0.26666666666666666,"153*75/761=15.078843626806833; hypergeom.sf(19,761,75,153)=0.092467509248828822"
+A1_RF,D_old,4,745,76,149,17,15.199999999999999,0.33962947986356462,0.22368421052631579,"149*76/745=15.199999999999999; hypergeom.sf(16,745,76,149)=0.33962947986356462"
+A1_RF,D_old,5,769,74,154,14,14.819245773732119,0.64862117609057512,0.1891891891891892,"154*74/769=14.819245773732119; hypergeom.sf(13,769,74,154)=0.64862117609057512"
+A1_RF,D_old,pooled,3812,386,764,88,77.362908429580997,0.088356842158423293,0.22797927461139897,154*73/769+154*88/768+153*75/761+149*76/745+154*74/769=77.362908429580997; sum(convolved_PMF[88:])=0.088356842158423293
+A1_RF,D_B1,1,769,73,154,15,14.618985695708712,0.50454768821846441,0.20547945205479451,"154*73/769=14.618985695708712; hypergeom.sf(14,769,73,154)=0.50454768821846441"
+A1_RF,D_B1,2,768,88,154,18,17.645833333333332,0.50768829623842204,0.20454545454545456,"154*88/768=17.645833333333332; hypergeom.sf(17,768,88,154)=0.50768829623842204"
+A1_RF,D_B1,3,761,75,153,14,15.078843626806833,0.67707655193591809,0.18666666666666668,"153*75/761=15.078843626806833; hypergeom.sf(13,761,75,153)=0.67707655193591809"
+A1_RF,D_B1,4,745,76,149,18,15.199999999999999,0.23937543733161318,0.23684210526315788,"149*76/745=15.199999999999999; hypergeom.sf(17,745,76,149)=0.23937543733161318"
+A1_RF,D_B1,5,769,74,154,16,14.819245773732119,0.40846767773698267,0.21621621621621623,"154*74/769=14.819245773732119; hypergeom.sf(15,769,74,154)=0.40846767773698267"
+A1_RF,D_B1,pooled,3812,386,764,81,77.362908429580997,0.33383425043706638,0.20984455958549222,154*73/769+154*88/768+153*75/761+149*76/745+154*74/769=77.362908429580997; sum(convolved_PMF[81:])=0.33383425043706638
+A1_RF,D_B2,1,769,73,154,21,14.618985695708712,0.039028039750596738,0.28767123287671231,"154*73/769=14.618985695708712; hypergeom.sf(20,769,73,154)=0.039028039750596738"
+A1_RF,D_B2,2,768,88,154,22,17.645833333333332,0.13838981922873914,0.25,"154*88/768=17.645833333333332; hypergeom.sf(21,768,88,154)=0.13838981922873914"
+A1_RF,D_B2,3,761,75,153,19,15.078843626806833,0.14977746592663466,0.25333333333333335,"153*75/761=15.078843626806833; hypergeom.sf(18,761,75,153)=0.14977746592663466"
+A1_RF,D_B2,4,745,76,149,18,15.199999999999999,0.23937543733161318,0.23684210526315788,"149*76/745=15.199999999999999; hypergeom.sf(17,745,76,149)=0.23937543733161318"
+A1_RF,D_B2,5,769,74,154,13,14.819245773732119,0.75670770884217664,0.17567567567567569,"154*74/769=14.819245773732119; hypergeom.sf(12,769,74,154)=0.75670770884217664"
+A1_RF,D_B2,pooled,3812,386,764,93,77.362908429580997,0.022775018186967106,0.24093264248704663,154*73/769+154*88/768+153*75/761+149*76/745+154*74/769=77.362908429580997; sum(convolved_PMF[93:])=0.022775018186967106
+A3_RF_B2,D_old,1,769,39,154,8,7.8101430429128742,0.53582633337418917,0.20512820512820512,"154*39/769=7.8101430429128742; hypergeom.sf(7,769,39,154)=0.53582633337418917"
+A3_RF_B2,D_old,2,768,58,154,9,11.630208333333334,0.85846219659598355,0.15517241379310345,"154*58/768=11.630208333333334; hypergeom.sf(8,768,58,154)=0.85846219659598355"
+A3_RF_B2,D_old,3,761,43,153,10,8.645203679369251,0.35746402260697546,0.23255813953488372,"153*43/761=8.645203679369251; hypergeom.sf(9,761,43,153)=0.35746402260697546"
+A3_RF_B2,D_old,4,745,40,149,9,8,0.40597679968096467,0.22500000000000001,"149*40/745=8; hypergeom.sf(8,745,40,149)=0.40597679968096467"
+A3_RF_B2,D_old,5,769,37,154,6,7.4096228868660594,0.78514974169005636,0.16216216216216217,"154*37/769=7.4096228868660594; hypergeom.sf(5,769,37,154)=0.78514974169005636"
+A3_RF_B2,D_old,pooled,3812,217,764,42,43.495177942481519,0.6310810064993535,0.19354838709677419,154*39/769+154*58/768+153*43/761+149*40/745+154*37/769=43.495177942481519; sum(convolved_PMF[42:])=0.6310810064993535
+A3_RF_B2,D_B1,1,769,39,154,4,7.8101430429128742,0.97021868061285566,0.10256410256410256,"154*39/769=7.8101430429128742; hypergeom.sf(3,769,39,154)=0.97021868061285566"
+A3_RF_B2,D_B1,2,768,58,154,10,11.630208333333334,0.76180796412101259,0.17241379310344829,"154*58/768=11.630208333333334; hypergeom.sf(9,768,58,154)=0.76180796412101259"
+A3_RF_B2,D_B1,3,761,43,153,5,8.645203679369251,0.95561529494762554,0.11627906976744186,"153*43/761=8.645203679369251; hypergeom.sf(4,761,43,153)=0.95561529494762554"
+A3_RF_B2,D_B1,4,745,40,149,10,8,0.26370475008671762,0.25,"149*40/745=8; hypergeom.sf(9,745,40,149)=0.26370475008671762"
+A3_RF_B2,D_B1,5,769,37,154,8,7.4096228868660594,0.46946914816892554,0.21621621621621623,"154*37/769=7.4096228868660594; hypergeom.sf(7,769,37,154)=0.46946914816892554"
+A3_RF_B2,D_B1,pooled,3812,217,764,37,43.495177942481519,0.89076439093851711,0.17050691244239632,154*39/769+154*58/768+153*43/761+149*40/745+154*37/769=43.495177942481519; sum(convolved_PMF[37:])=0.89076439093851711
+A3_RF_B2,D_B2,1,769,39,154,7,7.8101430429128742,0.69492930064437197,0.17948717948717949,"154*39/769=7.8101430429128742; hypergeom.sf(6,769,39,154)=0.69492930064437197"
+A3_RF_B2,D_B2,2,768,58,154,10,11.630208333333334,0.76180796412101259,0.17241379310344829,"154*58/768=11.630208333333334; hypergeom.sf(9,768,58,154)=0.76180796412101259"
+A3_RF_B2,D_B2,3,761,43,153,7,8.645203679369251,0.79665566538181198,0.16279069767441862,"153*43/761=8.645203679369251; hypergeom.sf(6,761,43,153)=0.79665566538181198"
+A3_RF_B2,D_B2,4,745,40,149,6,8,0.84584380044006358,0.14999999999999999,"149*40/745=8; hypergeom.sf(5,745,40,149)=0.84584380044006358"
+A3_RF_B2,D_B2,5,769,37,154,6,7.4096228868660594,0.78514974169005636,0.16216216216216217,"154*37/769=7.4096228868660594; hypergeom.sf(5,769,37,154)=0.78514974169005636"
+A3_RF_B2,D_B2,pooled,3812,217,764,36,43.495177942481519,0.92120569590385748,0.16589861751152074,154*39/769+154*58/768+153*43/761+149*40/745+154*37/769=43.495177942481519; sum(convolved_PMF[36:])=0.92120569590385748
+QUEUE_AUROC_POOLED_95CI
+anchor,signal,AUROC,CI_low,CI_high,valid,skipped,arithmetic
+A1_RF,D_old,0.51630929587518792,0.48432591186512125,0.54650602561085737,2000,0,682786/(386*3426)=0.51630929587518792
+A1_RF,D_B1,0.51234010568375332,0.48240820631542469,0.54340708629504686,2000,0,677537/(386*3426)=0.51234010568375332
+A1_RF,D_B2,0.54632435898599252,0.51590933121419813,0.57659021721251957,2000,0,722479/(386*3426)=0.54632435898599252
+A3_RF_B2,D_old,0.47148433243816618,0.4313890593580097,0.5120795009705571,2000,0,367812/(217*3595)=0.47148433243816618
+A3_RF_B2,D_B1,0.46749133140626703,0.42820157562135702,0.50639833536127965,2000,0,364697/(217*3595)=0.46749133140626703
+A3_RF_B2,D_B2,0.46233568127776031,0.42287074586795587,0.50178859766446982,2000,0,360675/(217*3595)=0.46233568127776031
+PAIRED_QUEUE_DIFFERENCES_95CI
+anchor,comparison,metric,delta,CI_low,CI_high,valid,arithmetic
+A1_RF,D_B2-D_old,caught,5,-16.024999999999999,27,2000,93-88=5
+A1_RF,D_B2-D_old,auc,0.030015063110804596,-0.01145546974529062,0.071975371506225988,2000,0.54632435898599252-0.51630929587518792=0.030015063110804596
+A1_RF,D_B2-D_B1,caught,12,-5,29,2000,93-81=12
+A1_RF,D_B2-D_B1,auc,0.033984253302239198,0.0045092178533406631,0.063762817364924645,2000,0.54632435898599252-0.51234010568375332=0.033984253302239198
+A1_RF,D_B2-random_expectation,caught,15.637091570419003,-0.37498003061637136,31.636714138065944,2000,93-77.362908429580997=15.637091570419003
+A3_RF_B2,D_B2-D_old,caught,-6,-21,9,2000,36-42=-6
+A3_RF_B2,D_B2-D_old,auc,-0.0091486511604058629,-0.063771961837573304,0.046842048442986756,2000,0.46233568127776031-0.47148433243816618=-0.0091486511604058629
+A3_RF_B2,D_B2-D_B1,caught,-1,-14,10,2000,36-37=-1
+A3_RF_B2,D_B2-D_B1,auc,-0.0051556501285067169,-0.041337839517297303,0.033195730821189443,2000,0.46233568127776031-0.46749133140626703=-0.0051556501285067169
+A3_RF_B2,D_B2-random_expectation,caught,-7.4951779424815186,-17.706267592762085,3.5152273932528537,2000,36-43.495177942481519=-7.4951779424815186
+OLD_SHARED_ERRORS_REMAIN_OR_FIXED
+model,A3_old,remain_wrong,fixed_both_targets_lt1,arithmetic
+B1,276,203,73,203+73=276; fixed share=73/276=0.26449275362318841
+B2,276,191,85,191+85=276; fixed share=85/276=0.3079710144927536
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_fold_composition.csv
+READ_AUDIT reports/week9/t3_fold_composition.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\outputs\phase6\feature_schema.json
+READ_AUDIT outputs/phase6/feature_schema.json
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\validation_783.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+VERIFY inputs unchanged; fixed configuration hash unchanged; eligible rows=3812; every row held out exactly once
+LIMITATIONS exploratory reused development; CIs condition on fitted OOF models and fixed fold queues, no refit or prompt clustering; pooled exact reference assumes independent fold reference draws despite overlapping OOF training sets; no claim of independent information from correlation alone.
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+READ_AUDIT outputs/phase6/feature_schema.json
+READ_AUDIT reports/week10/RESULTS_week10.md
+READ_AUDIT reports/week10/b2_download.log
+READ_AUDIT reports/week10/b2_embedding_manifest.json
+READ_AUDIT reports/week10/b2_embeddings_minilm.npy
+READ_AUDIT reports/week10/b2_encode.log
+READ_AUDIT reports/week10/b2_timing.json
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_fold_composition.csv
+READ_GUARD allowlisted artifact reads only; network disabled during encode/analysis; no Test/combined corpus; no essay strings printed or persisted
+```
+
+
+B2 concise result tables (raw outputs and arithmetic above):
+
+| Model | V MAE | V R2 | G MAE | G R2 |
+|---|---:|---:|---:|---:|
+| RF | 0.372165 | 0.342085 | 0.455404 | 0.342986 |
+| Ridge | 0.373424 | 0.342212 | 0.463037 | 0.326617 |
+| B1 | 0.406626 | 0.222279 | 0.506841 | 0.215785 |
+| B2 | 0.404448 | 0.211500 | 0.507500 | 0.204629 |
+
+| B2 vs | Target | Spearman [95% CI] | Pearson [95% CI] |
+|---|---|---|---|
+| RF | V | 0.844016 [0.832885, 0.855088] | 0.863626 [0.855205, 0.871501] |
+| RF | G | 0.830739 [0.820530, 0.841014] | 0.832744 [0.823954, 0.841468] |
+| Ridge | V | 0.833841 [0.821715, 0.845830] | 0.854161 [0.844020, 0.863989] |
+| Ridge | G | 0.834488 [0.822681, 0.845617] | 0.841026 [0.829479, 0.850961] |
+| B1 | V | 0.940038 [0.934910, 0.944279] | 0.954289 [0.951172, 0.957170] |
+| B1 | G | 0.949660 [0.945834, 0.952920] | 0.952116 [0.949074, 0.954902] |
+
+| Anchor | Signal | K | k | Caught | Expected | Exact p | AUROC [95% CI] |
+|---|---|---:|---:|---:|---:|---:|---|
+| A1_RF | D_old | 386 | 764 | 88 | 77.362908 | 0.08835684 | 0.516309 [0.484326, 0.546506] |
+| A1_RF | D_B1 | 386 | 764 | 81 | 77.362908 | 0.33383425 | 0.512340 [0.482408, 0.543407] |
+| A1_RF | D_B2 | 386 | 764 | 93 | 77.362908 | 0.02277502 | 0.546324 [0.515909, 0.576590] |
+| A3_RF_B2 | D_old | 217 | 764 | 42 | 43.495178 | 0.63108101 | 0.471484 [0.431389, 0.512080] |
+| A3_RF_B2 | D_B1 | 217 | 764 | 37 | 43.495178 | 0.89076439 | 0.467491 [0.428202, 0.506398] |
+| A3_RF_B2 | D_B2 | 217 | 764 | 36 | 43.495178 | 0.92120570 | 0.462336 [0.422871, 0.501789] |
+
+| Source | Old shared-error set | Remain wrong | Both source targets error <1 |
+|---|---:|---:|---:|
+| B1 | 276 | 203 | 73 |
+| B2 | 276 | 191 | 85 |
+
+Evidence-only interpretation: B2 errors are less correlated with RF and feature Ridge than 0.95 on both targets under both Pearson and Spearman; all corresponding 95% CIs lie below 0.95. B2 is not uniformly below 0.95 versus B1: Vocabulary Pearson=0.954289 [0.951172,0.957170], Grammar Pearson=0.952116 [0.949074,0.954902]; Grammar Spearman=0.949660 has CI [0.945834,0.952920]. B2 does not improve MAE/R2 over feature baselines; compared with B1, V MAE is slightly lower but both R2 values and G MAE are worse. On A1, D_B2 catches 93 versus exact random-queue expectation 77.362908, p=0.022775, AUROC=0.546324 [0.515909,0.576590]. The paired count difference versus D_old is 93-88=5, CI [-16.025,27], and paired AUC difference is 0.030015 [-0.011455,0.071975]; superiority over D_old is not established. The paired AUC difference versus D_B1 is 0.033984 [0.004509,0.063763], while the count difference 93-81=12 has CI [-5,29]. The A1 D_B2 excess-count essay-bootstrap CI [-0.374980,31.636714] includes zero despite the conditional exact random-queue p; these quantify different reference uncertainties. On the same 217 A3_RF_B2 labels, D_B2 catches only 36 versus 43.495178 expected, p=0.921206, AUROC=0.462336 [0.422871,0.501789]; it does not improve detection of these shared errors. Of the old 276 RF/Ridge shared errors, B2 remains wrong on 191 and fixes its own two targets on 85 (191+85=276), versus B1 203+73=276; B2 fixes 85-73=12 more by count. RF is still wrong on those old cases; "fixed" here refers only to the replacement source. Encoder uses native 256-token truncation and mean pooling followed by native L2 normalization; normalize_embeddings=False remains unchanged. All results are exploratory reused development; 2000 seed-42 essay-bootstrap draws condition on fitted OOF models and fixed queues, with no prompt clustering. Pooled exact p uses independent fold reference draws; OOF training sets overlap.
+
+Environment/download: installed sentence-transformers==4.1.0 into .venv_gec from PyPI with torch==2.6.0 and transformers==4.51.3 pinned; no main-venv installation. Command printed before installation: `uv pip install --python .venv_gec/Scripts/python.exe --index-url https://pypi.org/simple sentence-transformers==4.1.0 torch==2.6.0 transformers==4.51.3`. Raw console: Resolved 33 packages in 575ms; Prepared 2 packages in 322ms; Installed 8 packages in 2.17s. Model source https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2; revision 1110a243fdf4706b3f48f1d95db1a4f5529b4d41; Apache-2.0; model.safetensors=90,868,376 bytes; 22,713,216 parameters. MODEL_DOWNLOAD_SUCCESS=True; no download retry or alternative encoder. Native stderr progress made PowerShell report pipeline exit 1; offline loading and encoding succeeded. Encoding benchmark 3.3306577/50=0.066613154 seconds/essay; projected 253.929343 seconds; actual full encode 266.8233874 seconds. Parameter SHA256 before/after: c8b0fbe0d4535cb57f3b5904e2b3d547ed1c3d6312415cc9737d7c3212b3d61b. Verified no gradients, unchanged parameters, unit L2 norms, and benchmark/full-vector alignment.
+
+Verification: independently checked MAE/R2 and pooled AUROCs with sklearn from saved text-free OOF rows; exact cohort/ID alignment and checksum; 2000/2000 valid correlation/AUC draws; fixed per-fold queues sum to 764 reviews. Restricted audit grep: `rg -n -i "^READ_AUDIT .*(test|full_clean_corpus|combined)" reports/week10/b2_encode.log reports/week10/b2_analysis.log` -> zero matches. The process read guard blocks non-allowlisted artifacts and network connections; grep corroborates this rather than providing a universal OS access proof. Additional READ_AUDIT during verification: reports/week10/b2_results.json; b2_embedding_manifest.json; b2_oof.csv; b2_embeddings_minilm.npy; b2_encode.log; b2_analysis.log; RESULTS_week10.md. Preflight READ_AUDIT: git:b6398ea:scripts/week10/information_sources_oof.py; current scripts/week10/information_sources_oof.py; scripts/week10/gec_b2.py; reports/week10/b2_assets/model/modules.json; reports/week10/b2_assets/model/1_Pooling/config.json; reports/week10/b2_timing.json.
