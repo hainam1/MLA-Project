@@ -932,3 +932,350 @@ C_STEPS_2_TO_5=STOPPED after source ambiguity; no essay text read; no tree calcu
 READ_AUDIT reports/week9/t4_reading_summary.csv
 READ_GUARD_TEST_FILES_OPENED=0; ESSAY_TEXT_PRINTED=0; HUMAN_CAUSES_FILLED=0
 ```
+
+
+## Exploratory GECToR + ERRANT: environment and mandatory CPU timing stop
+
+2026-10-24 (Asia/Saigon). Exploratory development only. Stopped at Step 0d because the fixed twenty-essay CPU projection exceeds four hours. No reader alignment outcome or downstream effect can be inferred from this timing benchmark.
+
+Pre-registration before counts: `68c050d3716197293713e753f4a1391ff922e3028932a950bd230921a2fa0240`. Producer SHA256: `5c8158dde64646cade9f3f54cf44912f254966d02aab04fbe884ae3a358d956b`.
+
+The first printed configuration (`20a31b1d353d8fbc47529e3f94e5fcbc0de946e602333d3813c565dbdf3368e9`) was supplemented with resource revisions before any essay count. The final configuration below was printed before the benchmark and has not changed since. GECToR code is MIT; the selected checkpoint is non-commercial, used for coursework. Sources: https://pypi.org/project/gector/ and https://huggingface.co/gotutiyan/gector-roberta-base-5k.
+
+```json
+{
+  "D": "max(abs(RF_V-Ridge_V),abs(RF_G-Ridge_G))",
+  "RF": {
+    "leaf_G": 5,
+    "leaf_V": 2,
+    "max_depth": 10,
+    "max_features": "sqrt",
+    "n_estimators": 300,
+    "n_jobs": 1,
+    "preprocessing": "training-only median imputation",
+    "random_state": 42
+  },
+  "acceptance": "on pooled 36 random + 32 week9: Spearman(new_grammar,reader)>Spearman(LT_estimate,reader) AND abs(mean(new_grammar)-mean(reader))<abs(mean(LT_estimate)-mean(reader)); no selection using sensitivities",
+  "bands": "mean(Vocabulary,Grammar): <2.5; [2.5,4.0]; >4.0",
+  "benchmark": "20 eligible IDs drawn without replacement using random.Random(42) from sorted IDs; full essays, loading excluded; projected seconds/essay*3812; stop if >14400 seconds",
+  "bootstrap": {
+    "CI": "paired percentile 2.5,97.5 linear; recompute tied ranks; skip undefined draws",
+    "draws": 2000,
+    "limitations": "condition on fitted OOF models; no refits, reranking, budget recomputation or prompt clustering",
+    "seed": 42,
+    "unit": "essay"
+  },
+  "counts": {
+    "LT_reader_reference": "historical estimate: saved LT full-essay rate * min(150,saved word_count)/100; not an observed first150 LT count",
+    "primary": "edits_grammar: exclude ERRANT main types SPELL,PUNCT,ORTH",
+    "rates": "100*edits/N whitespace words; zero if N=0",
+    "reader_window": "first min(150,N) whitespace tokens; separately corrected",
+    "sensitivity": "edits_all and each full ERRANT type",
+    "sentence_ratio": "sentences with zero grammar edits / spaCy sentences; zero if no sentences"
+  },
+  "exact_p": "one-sided hypergeom per fold; pooled exact PMF convolution, independent-fold reference draws",
+  "features": {
+    "C0": "frozen 14 features",
+    "C1": {
+      "detected_error_free_sentence_ratio": "gec_grammar_error_free_sentence_ratio",
+      "detected_grammar_errors_per_100_words": "gec_grammar_per_100_whitespace_words"
+    },
+    "C2": "frozen 14 plus the same two new features; 16 total"
+  },
+  "folds": "GroupKFold(5) by normalised_prompt; essay_id string ascending; assert match saved composition",
+  "inference": {
+    "batch_size": 16,
+    "device": "cpu",
+    "eval": true,
+    "keep_confidence": 0.0,
+    "min_error_prob": 0.0,
+    "n_iteration": 5,
+    "torch_threads": 1
+  },
+  "labels": "A1=max(abs(RF-truth))>=1; A3=A1 & max(abs(Ridge-truth))>=1; fixed requires all four absolute errors<1",
+  "license": "GECToR code MIT; checkpoint non-commercial; coursework only",
+  "model": "gotutiyan/gector-roberta-base-5k",
+  "packages": {
+    "errant": "3.0.2",
+    "gector": "1.2.0",
+    "torch": "2.6.0",
+    "transformers": "4.51.3"
+  },
+  "pipeline": "en_core_web_sm sentence split; spaCy-tokenized sentences joined with spaces; GECToR; ERRANT original/corrected tokenized pairs",
+  "queues": "per fold ceil(.20*N), descending score then essay_id ascending; no global reranking",
+  "reader_ratio": "mean(tool)/mean(reader), not mean individual ratios; avoids division by zero reader rows",
+  "resources": {
+    "base_encoder": "FacebookAI/roberta-base",
+    "base_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+    "base_use": "constructor dependency only; overwritten by selected GEC weights",
+    "max_length": "unchanged checkpoint config; printed before count; tokenizer truncation enabled by upstream",
+    "verb_revision": "4ad259f25c6bb408a99788d468cd8958845e647e",
+    "verb_sha256": "5906804ec8a1acd8cbfc2918522bf429ce5edded8bbc46ffc2be861d280d3abf"
+  },
+  "revision": "adaac6fb919431fb5a038b1e449055ae638613a4",
+  "ridge": {
+    "alpha_G": 0.1,
+    "alpha_V": 100.0,
+    "preprocessing": "training-only median imputation then StandardScaler"
+  },
+  "seed": 42,
+  "status": "exploratory; development only; no Test or combined corpus",
+  "tree_spread": "max(population std of 300 RF tree predictions V,G); ddof=0"
+}
+```
+
+```text
+TIMING {"arithmetic": "123.50634420001006/20=6.1753172100005029; 6.1753172100005029*3812=23540.309204521916; 23540.309204521916/3600=6.5389747790338655", "config_sha256": "68c050d3716197293713e753f4a1391ff922e3028932a950bd230921a2fa0240", "n": 20, "projected_3812_seconds": 23540.309204521916, "projected_hours": 6.5389747790338655, "seconds_per_essay": 6.175317210000503, "stop": true, "total_seconds": 123.50634420001006}
+```
+
+| Requested result | Status |
+|---|---|
+| Part A: 68 reader essays, tables, bootstrap CIs, acceptance | Not run: mandatory timing stop |
+| Full development coverage, distributions and correlations | Not run: mandatory timing stop |
+| Part B C0/C1/C2 metrics, deltas and error correlations | Not run; C0 reproduction not tested |
+| Shared-error persistence and low-end overprediction | Not run |
+| D and locked tree-spread capture, exact p and AUROC | Not run |
+
+Options: authorize a background run retaining this exact checkpoint and configuration, or choose a smaller checkpoint and record a new pre-registration before its evaluation. Neither option was executed. The full-development count command writes one text-free JSONL record per completed essay and resumes by ID with configuration-hash checks. Its four-hour guard currently refuses execution. The benchmark is not a replacement for Part A or Part B.
+
+Method limitations: checkpoint max_length=80 subword tokens with upstream tokenizer truncation; longer sentences may be undercounted. Historical LT first-150 comparisons used rate-scaled full-essay estimates, not actual counts on the window. No fitted OOF models or CIs were produced here. Any later essay-bootstrap CIs condition on fitted OOF models and do not account for prompt clustering; exact pooled queue p-values assume independent fold reference draws although OOF training sets overlap.
+
+Installation command history (commands printed before execution; package lists and download console output below):
+
+```text
+uv venv --python 3.12 .venv_gec
+uv pip install --python .venv_gec/Scripts/python.exe --index-url https://pypi.org/simple gector==1.2.0 errant==3.0.2 transformers==4.51.3 torch==2.6.0
+uv pip install --python .venv_gec/Scripts/python.exe https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+Using CPython 3.12.13
+Creating virtual environment at: .venv_gec
+Resolved 64 packages in 40.22s
+Prepared 32 packages in 32.40s
+Installed 64 packages in 14.55s
+Resolved 1 package in 393ms
+Installed 1 package in 91ms
++ en-core-web-sm==3.8.0 (from official spaCy release)
+```
+
+The isolated environment was chosen to preserve main Python 3.14.5 and avoid changing its dependency set; no installation into the main environment was attempted. ERRANT installs spaCy but its PyPI dependencies do not install en_core_web_sm, so that official model was installed explicitly. The nonfatal uv hardlink warning fell back to copying. Download processes printed DOWNLOAD_COMPLETE and BASE_DOWNLOAD_COMPLETE; PowerShell reported pipeline exit 1 after native progress messages on stderr, but local offline model loading and all benchmark counts succeeded. No install/network block occurred, so the conditional Colab fallback was not triggered.
+
+### gec_environment.log
+
+```text
+EXPLORATORY ENVIRONMENT CAPTURE
+COMMAND .venv/Scripts/python.exe --version
+Python 3.14.5
+COMMAND uv pip list --python .venv/Scripts/python.exe (requested package entries)
+
+en-core-web-sm            3.8.0
+language-tool-python      2.9.5
+spacy                     3.8.16
+MAIN_ABSENT torch transformers gector errant
+COMMAND .venv_gec/Scripts/python.exe --version
+Python 3.12.13
+COMMAND uv pip list --python .venv_gec/Scripts/python.exe
+Package            Version
+------------------ ----------
+accelerate         1.15.0
+annotated-doc      0.0.5
+annotated-types    0.8.0
+anyio              4.15.1
+blis               1.3.3
+catalogue          2.0.10
+certifi            2026.10.23
+charset-normalizer 3.5.2
+click              8.5.0
+cloudpathlib       0.26.0
+colorama           0.4.6
+confection         1.3.3
+cymem              2.0.13
+en-core-web-sm     3.8.0
+errant             3.0.2
+filelock           4.2.4
+fsspec             2026.9.0
+gector             1.2.0
+h11                0.16.0
+httpcore           1.0.9
+httpx              0.28.1
+huggingface-hub    0.36.2
+idna               3.20
+jinja2             3.1.6
+levenshtein        0.27.5
+markdown-it-py     4.2.0
+markupsafe         3.0.4
+mdurl              0.1.2
+mpmath             1.3.0
+murmurhash         1.0.15
+networkx           3.7
+numpy              2.5.4
+packaging          26.3
+preshed            3.0.13
+psutil             7.2.2
+pydantic           2.14.1
+pydantic-core      2.50.1
+pygments           2.21.0
+python-levenshtein 0.27.5
+pyyaml             6.0.3
+rapidfuzz          3.14.6
+regex              2026.9.29
+requests           2.34.2
+rich               15.0.0
+safetensors        0.8.0
+setuptools         84.2.1
+shellingham        1.5.4
+smart-open         8.0.4
+spacy              3.8.16
+spacy-legacy       3.0.12
+spacy-loggers      1.0.5
+srsly              2.5.4
+sympy              1.13.1
+thinc              8.3.13
+tokenizers         0.21.4
+torch              2.6.0
+tqdm               4.70.1
+transformers       4.51.3
+typer              0.27.3
+typing-extensions  4.16.0
+typing-inspection  0.4.4
+urllib3            2.8.0
+wasabi             1.1.3
+weasel             1.0.0
+wrapt              2.5.1
+
+
+
+```
+
+### gec_download.log
+
+```text
+DOWNLOAD command=urllib.request.urlopen('https://api.github.com/repos/grammarly/gector/commits?path=data/verb-form-vocab.txt&per_page=1') source=GitHub API why=pin verb dictionary revision
+DOWNLOAD command=urllib.request.urlretrieve('https://raw.githubusercontent.com/grammarly/gector/4ad259f25c6bb408a99788d468cd8958845e647e/data/verb-form-vocab.txt', reports/week10/gec_assets/verb-form-vocab.txt) source=https://raw.githubusercontent.com/grammarly/gector/4ad259f25c6bb408a99788d468cd8958845e647e/data/verb-form-vocab.txt why=GECToR verb transformations
+VERB_REVISION=4ad259f25c6bb408a99788d468cd8958845e647e SHA256=5906804ec8a1acd8cbfc2918522bf429ce5edded8bbc46ffc2be861d280d3abf
+DOWNLOAD command=snapshot_download(repo_id=gotutiyan/gector-roberta-base-5k, revision=adaac6fb919431fb5a038b1e449055ae638613a4, local_dir=reports/week10/gec_assets/model, allow_patterns=[*.json,*.txt,*.safetensors,*.bin]) source=HuggingFace model repository why=single preregistered checkpoint and tokenizer; model input text never uploaded
+python.exe : 
+At line:18 char:6
++ '@ | & ./.venv_gec/Scripts/python.exe -u - 2>&1 | Tee-Object -FilePat ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Xet Storage is enabled for this repo, but the 'hf_xet' package 
+is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip 
+install huggingface_hub[hf_xet]` or `pip install hf_xet`
+Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP 
+download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install 
+hf_xet`
+
+Fetching 9 files:  78%|#######7  | 7/9 [00:10<00:02,  1.43s/it]
+Fetching 9 files:  89%|########8 | 8/9 [00:38<00:04,  4.87s/it]
+Fetching 9 files: 100%|##########| 9/9 [01:39<00:00, 11.03s/it]
+Fetching 9 files: 100%|##########| 9/9 [01:39<00:00, 11.03s/it]
+DOWNLOAD_COMPLETE
+
+```
+
+### gec_base_download.log
+
+```text
+DOWNLOAD_METADATA command=urllib.request.urlopen(https://huggingface.co/api/models/FacebookAI/roberta-base) source=HuggingFace why=GECToR constructor requires base encoder initialization, overwritten by selected GEC checkpoint
+BASE_ENCODER_REVISION=e2da8e2f811d1448a5b465c236feacd80ffbac7b
+DOWNLOAD command=snapshot_download(FacebookAI/roberta-base, revision=e2da8e2f811d1448a5b465c236feacd80ffbac7b, local_dir=reports/week10/gec_assets/roberta-base, allow_patterns=[config.json,tokenizer.json,tokenizer_config.json,vocab.json,merges.txt,model.safetensors]) source=HuggingFace why=required constructor dependency; selected GEC weights will overwrite base encoder; no alternative GEC checkpoint
+python.exe : 
+At line:11 char:6
++ '@ | & ./.venv_gec/Scripts/python.exe -u - 2>&1 | Tee-Object -FilePat ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]
+Fetching 6 files:  17%|#6        | 1/6 [00:00<00:01,  3.10it/s]Xet Storage is enabled for this repo, but the 'hf_xet' 
+package is not installed. Falling back to regular HTTP download. For better performance, install the package with: 
+`pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+
+Fetching 6 files:  83%|########3 | 5/6 [00:00<00:00, 11.14it/s]
+Fetching 6 files:  83%|########3 | 5/6 [00:20<00:04,  4.00s/it]
+Fetching 6 files: 100%|##########| 6/6 [01:11<00:00, 11.89s/it]
+Fetching 6 files: 100%|##########| 6/6 [01:11<00:00, 11.89s/it]
+BASE_DOWNLOAD_COMPLETE
+
+```
+
+### gec_benchmark.log
+
+```text
+EXPLORATORY PRE_REGISTRATION BEFORE ANY FIT OR COUNT
+{"D":"max(abs(RF_V-Ridge_V),abs(RF_G-Ridge_G))","RF":{"leaf_G":5,"leaf_V":2,"max_depth":10,"max_features":"sqrt","n_estimators":300,"n_jobs":1,"preprocessing":"training-only median imputation","random_state":42},"acceptance":"on pooled 36 random + 32 week9: Spearman(new_grammar,reader)>Spearman(LT_estimate,reader) AND abs(mean(new_grammar)-mean(reader))<abs(mean(LT_estimate)-mean(reader)); no selection using sensitivities","bands":"mean(Vocabulary,Grammar): <2.5; [2.5,4.0]; >4.0","benchmark":"20 eligible IDs drawn without replacement using random.Random(42) from sorted IDs; full essays, loading excluded; projected seconds/essay*3812; stop if >14400 seconds","bootstrap":{"CI":"paired percentile 2.5,97.5 linear; recompute tied ranks; skip undefined draws","draws":2000,"limitations":"condition on fitted OOF models; no refits, reranking, budget recomputation or prompt clustering","seed":42,"unit":"essay"},"counts":{"LT_reader_reference":"historical estimate: saved LT full-essay rate * min(150,saved word_count)/100; not an observed first150 LT count","primary":"edits_grammar: exclude ERRANT main types SPELL,PUNCT,ORTH","rates":"100*edits/N whitespace words; zero if N=0","reader_window":"first min(150,N) whitespace tokens; separately corrected","sensitivity":"edits_all and each full ERRANT type","sentence_ratio":"sentences with zero grammar edits / spaCy sentences; zero if no sentences"},"exact_p":"one-sided hypergeom per fold; pooled exact PMF convolution, independent-fold reference draws","features":{"C0":"frozen 14 features","C1":{"detected_error_free_sentence_ratio":"gec_grammar_error_free_sentence_ratio","detected_grammar_errors_per_100_words":"gec_grammar_per_100_whitespace_words"},"C2":"frozen 14 plus the same two new features; 16 total"},"folds":"GroupKFold(5) by normalised_prompt; essay_id string ascending; assert match saved composition","inference":{"batch_size":16,"device":"cpu","eval":true,"keep_confidence":0.0,"min_error_prob":0.0,"n_iteration":5,"torch_threads":1},"labels":"A1=max(abs(RF-truth))>=1; A3=A1 & max(abs(Ridge-truth))>=1; fixed requires all four absolute errors<1","license":"GECToR code MIT; checkpoint non-commercial; coursework only","model":"gotutiyan/gector-roberta-base-5k","packages":{"errant":"3.0.2","gector":"1.2.0","torch":"2.6.0","transformers":"4.51.3"},"pipeline":"en_core_web_sm sentence split; spaCy-tokenized sentences joined with spaces; GECToR; ERRANT original/corrected tokenized pairs","queues":"per fold ceil(.20*N), descending score then essay_id ascending; no global reranking","reader_ratio":"mean(tool)/mean(reader), not mean individual ratios; avoids division by zero reader rows","resources":{"base_encoder":"FacebookAI/roberta-base","base_revision":"e2da8e2f811d1448a5b465c236feacd80ffbac7b","base_use":"constructor dependency only; overwritten by selected GEC weights","max_length":"unchanged checkpoint config; printed before count; tokenizer truncation enabled by upstream","verb_revision":"4ad259f25c6bb408a99788d468cd8958845e647e","verb_sha256":"5906804ec8a1acd8cbfc2918522bf429ce5edded8bbc46ffc2be861d280d3abf"},"revision":"adaac6fb919431fb5a038b1e449055ae638613a4","ridge":{"alpha_G":0.1,"alpha_V":100.0,"preprocessing":"training-only median imputation then StandardScaler"},"seed":42,"status":"exploratory; development only; no Test or combined corpus","tree_spread":"max(population std of 300 RF tree predictions V,G); ddof=0"}
+CONFIG_SHA256=68c050d3716197293713e753f4a1391ff922e3028932a950bd230921a2fa0240
+PACKAGE torch=2.6.0
+PACKAGE transformers=4.51.3
+PACKAGE gector=1.2.0
+PACKAGE errant=3.0.2
+PACKAGE spacy=3.8.16
+PACKAGE en_core_web_sm=3.8.0
+PYTHON=3.12.13 (main, May 10 2026, 19:35:37) [MSC v.1944 64 bit (AMD64)]
+READ_AUDIT reports/week10/gec_assets/model/config.json
+CHECKPOINT_MAX_LENGTH=80
+READ_AUDIT reports/week10/gec_assets/roberta-base/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/config.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/config.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/tokenizer.json
+READ_AUDIT reports/week10/gec_assets/roberta-base/config.json
+READ_AUDIT reports/week10/gec_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/model/tokenizer_config.json
+READ_AUDIT reports/week10/gec_assets/model/special_tokens_map.json
+READ_AUDIT reports/week10/gec_assets/model/added_tokens.json
+READ_AUDIT reports/week10/gec_assets/model/tokenizer.json
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\gec_assets\verb-form-vocab.txt
+READ_AUDIT reports/week10/gec_assets/verb-form-vocab.txt
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week9\t3_eligible_development.csv
+READ_AUDIT reports/week9/t3_eligible_development.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\model_train_3128.csv
+READ_AUDIT data/03_clean_ready_to_use/model_train_3128.csv
+READ_AUDIT D:\03_Education\học trên trường\mla project\data\03_clean_ready_to_use\validation_783.csv
+READ_AUDIT data/03_clean_ready_to_use/validation_783.csv
+BENCHMARK_PROGRESS completed=1/20 elapsed_seconds=7.027029
+BENCHMARK_PROGRESS completed=2/20 elapsed_seconds=10.178498
+BENCHMARK_PROGRESS completed=3/20 elapsed_seconds=18.567228
+BENCHMARK_PROGRESS completed=4/20 elapsed_seconds=22.111598
+BENCHMARK_PROGRESS completed=5/20 elapsed_seconds=25.359624
+BENCHMARK_PROGRESS completed=6/20 elapsed_seconds=32.134070
+BENCHMARK_PROGRESS completed=7/20 elapsed_seconds=34.886423
+BENCHMARK_PROGRESS completed=8/20 elapsed_seconds=43.112260
+BENCHMARK_PROGRESS completed=9/20 elapsed_seconds=50.752331
+BENCHMARK_PROGRESS completed=10/20 elapsed_seconds=58.113592
+BENCHMARK_PROGRESS completed=11/20 elapsed_seconds=67.446537
+BENCHMARK_PROGRESS completed=12/20 elapsed_seconds=75.232420
+BENCHMARK_PROGRESS completed=13/20 elapsed_seconds=84.565695
+BENCHMARK_PROGRESS completed=14/20 elapsed_seconds=87.339535
+BENCHMARK_PROGRESS completed=15/20 elapsed_seconds=91.985144
+BENCHMARK_PROGRESS completed=16/20 elapsed_seconds=99.487715
+BENCHMARK_PROGRESS completed=17/20 elapsed_seconds=107.814153
+BENCHMARK_PROGRESS completed=18/20 elapsed_seconds=111.574993
+BENCHMARK_PROGRESS completed=19/20 elapsed_seconds=118.314270
+BENCHMARK_PROGRESS completed=20/20 elapsed_seconds=123.506305
+TIMING {"arithmetic": "123.50634420001006/20=6.1753172100005029; 6.1753172100005029*3812=23540.309204521916; 23540.309204521916/3600=6.5389747790338655", "config_sha256": "68c050d3716197293713e753f4a1391ff922e3028932a950bd230921a2fa0240", "n": 20, "projected_3812_seconds": 23540.309204521916, "projected_hours": 6.5389747790338655, "seconds_per_essay": 6.175317210000503, "stop": true, "total_seconds": 123.50634420001006}
+STOP_FOUR_HOUR_GATE: full run not started. Options requiring a new explicit decision: background run retaining this exact configuration; or smaller checkpoint with a new preregistration. No checkpoint substituted.
+READ_GUARD no Test or combined corpus opened by this process; per-essay counts only in git-ignored reports/week10/gec_*; essay text not emitted
+
+```
+
+### gec_verification.log
+
+```text
+READ_AUDIT scripts/week10/gec_compare.py (import and syntax validation)
+READ_AUDIT reports\week10\gec_benchmark_counts.jsonl
+VERIFY twenty unique essays; fixed config hash; text-free output schema; edit arithmetic and sentence ratios PASS
+READ_AUDIT D:\03_Education\học trên trường\mla project\reports\week10\gec_timing.json
+VERIFY four-hour guard refuses full run before data access: Four-hour gate has not passed
+READ_AUDIT reports\week10\gec_benchmark.log
+VERIFY forbidden artifact path matches among benchmark READ_AUDIT lines: 0
+GREP_PROOF_COMMAND rg -n -i "^READ_AUDIT .*(test|full_clean_corpus|combined)" reports/week10/gec_benchmark.log
+Read guard is scoped to this Python process; log grep corroborates it and is not a universal OS access proof.
+Producer SHA256=5c8158dde64646cade9f3f54cf44912f254966d02aab04fbe884ae3a358d956b
+
+```
+
+READ_AUDIT additional supporting reads during setup: docs/signal_lock_tree_spread.md; scripts/week9/t3_evaluate.py; scripts/week9/validation_common.py; scripts/week10/information_sources_oof.py; scripts/week10/reading_compare.py; scripts/week10/random_reading.py; scripts/week9/t4_reading_sheet.py. These supporting reads were explicitly authorized in chat. Workbook reader counts were not opened. Input headers only were inspected for the other allowlisted CSVs and feature_schema.json was read. Instruction reads: .agents/skills/using-superpowers/SKILL.md, its references/codex-tools.md, the pasted request attachment and the system spreadsheets skill. Installed GECToR predict.py and modeling.py were inspected. No Test or combined corpus content was opened or searched. No frozen files, existing scripts, models, features, configs/paths.yaml or docx report were modified.
