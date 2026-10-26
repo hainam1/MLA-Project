@@ -41,8 +41,11 @@ INPUT_HASHES = {
     LABEL_PATH: "e234f6bd38ab9e708cf88db1176fe695c81fd192d91ace80fb09534e50827a44",
 }
 LOG_PATH = "reports/week9/tree_spread_official_test_second_use_log.json"
-# CSV float round-trip allowance, fixed before Test access; no relative tolerance.
-PREDICTION_ATOL = 1e-12
+# Revised using only 762 development/Validation rows after the stopped invocation.
+# Both RF predictions repeat exactly; %.12g reproduces every saved prediction.
+# Max observed CSV rounding error: 4.999112235282155e-12. See RESULTS incident section.
+# Shared by Vocabulary and Grammar; no relative tolerance or error-label relaxation.
+PREDICTION_ATOL = 1e-11
 
 
 class GateError(RuntimeError):
