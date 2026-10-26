@@ -1,8 +1,41 @@
-# RESULTS — Official Test lần dùng thứ hai: DỪNG trước tính tín hiệu
+# RESULTS — Official Test lần dùng thứ hai: hoàn thành tín hiệu đã khóa
 
 Official Test lần dùng thứ hai, cho tín hiệu đã khóa, dùng lại RF đã lưu từ tuần 9; không phải xác nhận độc lập sạch; không có tín hiệu nào khác được thử
 
-## Cho phép và nhận diện bản chạy
+## Kết quả hoàn thành sau sửa chốt chặn log
+
+Ngày thầy cho phép: **26/10/2026**, nguồn **nhận xét tuần 10 của thầy Khánh**, theo xác nhận của người phụ trách. Trước chạy, hash script và cả hai RF khớp các giá trị đã chốt; nháp có ngày cho phép, còn mục Sự cố nằm trong RESULTS thật này. Log `_attempt2` chưa tồn tại; log STOPPED cũ được giữ nguyên.
+
+Đã gọi script **đúng một lần trong lần cho phép chạy hiện tại**, mã thoát **0**; thời điểm bắt đầu do script ghi là `2026-10-26T07:27:32.910903+00:00`, tức **14:27:32 ngày 26/10/2026, UTC+07:00**. Không gọi lại hoặc tính thêm tín hiệu, không huấn luyện lại.
+
+```text
+.venv/Scripts/python.exe scripts/tree_spread_official_test_second_use.py --i-have-permission
+```
+
+| Trường | Kết quả do script ghi |
+|---|---:|
+| Số bài đủ điều kiện N | **2.518** |
+| Số bài RF sai lớn K | **208** |
+| Ngân sách ceil(20% × N) | **504** |
+| Số bài tín hiệu cây bắt được C | **55** |
+| Kỳ vọng ngẫu nhiên kK/N | **41,6330420969023 ≈ 41,63** |
+| p chính xác một phía, hypergeom.sf(C−1,N,K,k) | **0,011585706847145556** |
+
+Tín hiệu duy nhất là max(std của 300 cây Vocabulary, std của 300 cây Grammar), ddof=0; xếp giảm dần, hòa thì essay_id dạng chuỗi tăng dần. Dung sai khớp dự đoán là `atol=1e-11, rtol=0` cho cả hai RF. Log xác nhận `pre_signal_checks=PASS`: hash mô hình khớp, dự đoán hai đích khớp bảng cũ theo dung sai, tập ID sai lớn khớp, N=2.518 và K=208 trước khi tính tín hiệu.
+
+So với **D đã có 47/208** tại cùng ngân sách 504, tín hiệu cây bắt **55/208**, cao hơn **8 bài**. Mốc D chỉ trích từ hồ sơ tuần 9; không tính lại D trên Test. Đây là so sánh số đếm, không có kiểm định trực tiếp sự hơn kém với D trong lần chạy này. p trên là kiểm định một phía so với hàng đợi ngẫu nhiên cùng ngân sách, không phải p so với D. Nguồn D: [RESULTS_week9.md, Task 0](RESULTS_week9.md).
+
+Nguồn kết quả mới: [tree_spread_official_test_second_use_log_attempt2.json](tree_spread_official_test_second_use_log_attempt2.json), `status=COMPLETED`, `pre_signal_checks` và `result`.
+
+- Commit lúc chạy: `cdc0a6a871d1f7ae9458f920157853159d6f9318`.
+- SHA256 script: `cc7bdd6efd8c0cf23a4f6dbd5673e17a5c8501aaf72e77fb0b99e96090b31e05`.
+- SHA256 file khóa: `d2eabcb7468373d0d0b7c7cfec7c6de6e5c95396c95707ddf7cbc155702a8eca`; commit khóa `4e381150edf08d49a134505e669058f1e0d27b48`.
+- SHA256 nháp ngày cho phép: `f70341b9787982396eabb267a62b18a3fe8875c086bfffedae555fec77222189`.
+- Log cũ không sửa, xóa hoặc đổi tên: SHA256 `132a4ca1a6ab15943d6cbb16bf3043978c233332bcd0a6f460ba1d9c93e0c624`.
+
+Sau hoàn thành chỉ điền ngày cho phép, nguồn và hash nháp vào log `_attempt2`; `operator_annotation` ghi SHA256 log do script tạo trước bổ sung. Các trường thực thi và kết quả giữ nguyên. Chỉ đọc log tổng hợp để viết báo cáo; không đọc lại nguồn Test, không mở CSV bài luận gốc hoặc corpus gộp, không in nội dung bài luận. Các mục dưới giữ lịch sử các lần dừng trước kết quả hoàn thành này.
+
+## Hồ sơ lần dừng đầu — cho phép và nhận diện bản chạy
 
 - Ngày thầy cho phép: **26/10/2026**. Nguồn: **nhận xét tuần 10 của thầy Khánh**, theo xác nhận của người phụ trách trong cuộc trao đổi.
 - Commit điền ngày, chỉ chứa file nháp: `b32ad4e35d0fc9546dc07d090526a59518641536`.
