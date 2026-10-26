@@ -22,6 +22,7 @@ Các nhãn này được ghi ngay sau số liệu, kèm tên mục để tra c�
 `e88d82c:tên_file` nghĩa là đọc file tại commit `e88d82c`, tức một bản lưu trong lịch sử Git; giống như tra đúng bản sách đã xuất bản.
 Các nguồn lịch sử được dùng ở đây là `e88d82c:docs/data_card.md`, `e88d82c:docs/feature_specification.md` và `e88d82c:docs/split_and_leakage_protocol.md`.
 Lần hiệu chỉnh còn đối chiếu trực tiếp `docs/split_and_leakage_protocol.md` và bảng đếm không chứa văn bản bài luận `reports/week10/gec_part_a_68.csv` theo yêu cầu người dùng.
+**Cập nhật ngày 26/10/2026:** bổ sung [kết quả tín hiệu cây trên Test dùng lại](../reports/week9/RESULTS_tree_spread_second_use.md) và [bộ phiếu hai người đọc độc lập](independent_readers_README.md), chỉ từ hồ sơ đã lưu; không chạy lại hoặc đọc lại dữ liệu Test khi sửa sổ tay.
 Số thập phân được làm tròn; số thứ tự câu, tên tuần, mã file và mã commit là nhãn tra cứu, không phải kết quả đo.
 
 <a id="phan-a"></a>
@@ -258,6 +259,10 @@ Trên development chia theo đề bài, cùng ngân sách tổng 764 bài, nó t
 Chưa thể coi là xác nhận vì development đã được dùng trước; kết quả đáng quan tâm không biến một bộ dữ liệu cũ thành bài thi mới.
 Nguồn: [Khóa, Signal definition và Status](signal_lock_tree_spread.md); [W9, Week 9b, RF tree spread, CAPTURE_METRICS](../reports/week9/RESULTS_week9.md).
 
+**Kết quả mới đã lưu ngày 26/10/2026:** trên Official Test dùng lại, tín hiệu cây đã khóa chọn đọc 504 trong 2.518 bài, bắt được **55/208** bài RF sai lớn; kỳ vọng ngẫu nhiên **41,633042 ≈ 41,63**, p chính xác một phía **0,01158570685**. Hai RF đã lưu được dùng nguyên trạng, không huấn luyện lại; nhãn sai lớn và tập ID 208 bài khớp hồ sơ cũ trước khi tính tín hiệu.
+So với D đã có **47/208**, số bắt được cao hơn **8 bài**, nhưng p trên là so với ngẫu nhiên, **không phải kiểm định tín hiệu cây tốt hơn D**. Không tính lại D hoặc thử tín hiệu khác trong lần chạy này. Đây là **Test lần dùng thứ hai, không phải xác nhận độc lập sạch**, vì Test đã được xem trong đánh giá chính.
+Nguồn: [RESULTS_tree_spread_second_use.md, Kết quả hoàn thành sau sửa chốt chặn log](../reports/week9/RESULTS_tree_spread_second_use.md), cùng log `_attempt2` được dẫn trong báo cáo; commit lưu kết quả **`97159a6`**.
+
 <a id="phan-f"></a>
 ## Phần F. Trung thực và kiểm soát
 
@@ -277,18 +282,40 @@ Nguồn: [Khóa, Future confirmation protocol, Status và Provenance](signal_loc
 Thăm dò là tìm ý tưởng trên dữ liệu đã biết, giống làm nháp rồi đổi cách giải.
 Xác nhận là chốt cách làm trước và thử trên dữ liệu độc lập chưa dùng để chọn cách, giống làm đề thi mới sau khi đã nộp bản nháp.
 Official Test đã được dùng một lần cho đánh giá chính được báo cáo ở tuần chín; tuần chín còn kiểm tra lại các số đánh giá đã chốt từ dự đoán lưu sẵn.
-Mọi phân tích mở rộng sau đánh giá chính đều chạy trên development và Validation, gắn nhãn thăm dò: chia theo đề bài, chẩn đoán lỗi, độ phân tán cây, độ nén điểm, đọc mẫu, TF-IDF, MiniLM và so đếm GECToR.
-Hiện đang chuẩn bị dùng Official Test lần hai cho đúng một tín hiệu độ lệch chuẩn giữa 300 cây RF đã khóa, dùng lại RF đã lưu; script `scripts/tree_spread_official_test_second_use.py` và nháp RESULTS đã được lưu tại commit **`c7c42b9`**, nhưng **script chưa chạy trên Test**. Lần dùng thứ hai đang chuẩn bị này không phải xác nhận độc lập sạch; chưa có kết quả mới trên Test.
-Ngày chạy Test đầu tiên và toàn bộ thứ tự thay đổi chưa được xác minh độc lập trong hồ sơ hiện có; **ngày thầy cho phép lần hai: ____________________** (để người phụ trách điền).
-Nguồn: [W9, Task 0, kiểm tra lại dự đoán lưu sẵn và giới hạn lịch sử; Task 3–6 và Week 9b](../reports/week9/RESULTS_week9.md); [W10, các mục Exploratory](../reports/week10/RESULTS_week10.md); [nháp RESULTS, T0 và Lịch sử dùng Test](../reports/week9/RESULTS_tree_spread_second_use_DRAFT.md), cùng hai file được lưu tại commit `c7c42b9`.
+Các phân tích mở rộng trước lần dùng Test thứ hai chạy trên development và Validation, gắn nhãn thăm dò: chia theo đề bài, chẩn đoán lỗi, độ phân tán cây, độ nén điểm, đọc mẫu, TF-IDF, MiniLM và so đếm GECToR.
+**Ngày thầy cho phép lần hai: 26/10/2026**, nguồn nhận xét tuần 10 của thầy Khánh, theo xác nhận của người phụ trách đã ghi trong nháp và RESULTS. Ngày chạy Test đầu tiên và toàn bộ thứ tự thay đổi trước đó vẫn chưa được xác minh độc lập trong hồ sơ hiện có.
+Lần dùng Test thứ hai đã hoàn thành cho đúng một tín hiệu độ lệch chuẩn giữa 300 cây RF khóa tại commit **`4e38115`**, dùng lại RF đã lưu tuần 9. Kết quả **55/208**, ngân sách **504**, được lưu tại commit **`97159a6`**; đây không phải xác nhận độc lập sạch. Việc sửa sổ tay hiện tại chỉ trích hồ sơ này, không truy cập lại dữ liệu Test.
+
+Lịch sử các lần gọi script cần phân biệt với lần đánh giá tín hiệu:
+
+1. Lần gọi đầu ngày 26/10/2026 dừng ở kiểm tra khớp dự đoán Vocabulary: 2.015 dòng vượt dung sai cũ `1e-12`, lệch lớn nhất `4,995115432393504e-12`; chưa tính tín hiệu, chưa kiểm tra số sai lớn 208.
+2. Chẩn đoán chỉ trên 762 bài Validation cho thấy hai lần dự đoán RF khớp tuyệt đối; làm tròn `%.12g` tái tạo đúng bản lưu. Dung sai được đổi thành `atol=1e-11, rtol=0` cho cả hai đích, dựa trên development, không dựa trên số liệu Test.
+3. Lần gọi tiếp theo bị chặn vì log STOPPED cũ tồn tại; không mở Test. Sau đó chỉ sửa quản lý log: giữ log cũ, cho ghi file thử tiếp mới khi chưa có kết quả; vẫn chặn khi đã hoàn thành.
+4. Sau chỉ dẫn chạy tiếp, script được gọi đúng một lần trong lượt cho phép đó và hoàn thành lúc **14:27:32 ngày 26/10/2026 (UTC+07:00)**, ghi log `_attempt2` với `status=COMPLETED`. Không có tín hiệu nào khác được thử. Log STOPPED cũ được giữ nguyên.
+
+Nguồn: [W9, Task 0 và giới hạn lịch sử](../reports/week9/RESULTS_week9.md); [W10, các mục Exploratory](../reports/week10/RESULTS_week10.md); [RESULTS lần dùng Test thứ hai, Kết quả hoàn thành và Sự cố lần chạy đầu](../reports/week9/RESULTS_tree_spread_second_use.md). Nháp chuẩn bị ban đầu ở commit `c7c42b9` là hồ sơ lịch sử, không còn là trạng thái chạy hiện tại.
 
 ### 23. Nhóm còn thiếu hoặc chưa chắc những gì?
 
 - **Mới có một người đếm lỗi cho phép đối chiếu chính;** bộ chuẩn bị cho người thứ hai còn chờ điền, nên chưa biết người khác có đếm giống vậy không. Nguồn: [W10, second-reader agreement preparation](../reports/week10/RESULTS_week10.md).
 - **Chưa xác nhận thứ tự đọc trước hay sau khi xem đáp án;** bảng tính hiện tại không chứng minh lịch sử nhìn từng ô, nên chưa thể khẳng định lượt đầu là đọc mù, tức đọc khi chưa biết điểm và dự đoán. Nguồn: [W10, Provenance of blind reading](../reports/week10/RESULTS_week10.md).
-- **Nhóm “5 bài điểm cao chưa giải thích được” chưa rõ danh tính;** nguồn tìm thấy 5 bài RF sai lớn chưa giải thích, nhưng chỉ 1 bài thuộc vùng cao trên 4,0, nên chưa có nguồn để gọi cả nhóm là năm bài điểm cao hay gán nguyên nhân cho chúng. Nguồn: [W10, five unexplained cases source clarification](../reports/week10/RESULTS_week10.md).
+- **Năm bài đã được chốt, nhưng chưa có kết quả đọc độc lập mới;** người phụ trách đã xác nhận năm mã ở bảng dưới. Tên nhóm là **“điểm từ 4,0 trở lên ở đích bị sai”**: điểm thật ≥4,0 tại đích đó và RF dự đoán thấp hơn ít nhất 1,0. Không dùng điều kiện điểm trung bình >4,0 để gọi tên nhóm. Hồ sơ tuần 10 ban đầu ghi chưa chốt; quyết định xác nhận và bộ phiếu mới lưu tại commit **`aa13e83`**. Nguồn: [README bộ phiếu](independent_readers_README.md), đối chiếu danh sách ứng viên trong [W10, five unexplained cases source clarification](../reports/week10/RESULTS_week10.md).
 - **GECToR chưa chạy toàn development hay thử chấm điểm;** kết quả đếm trên mẫu nhỏ chưa cho biết đặc trưng mới có giúp chấm hoặc chọn bài toàn tập không. Nguồn: [W10, Exploratory Part A, interpretation](../reports/week10/RESULTS_week10.md).
 - **Repo này chưa phải bằng chứng tái lập độc lập;** kiểm tra lại số và chạy lặp trong cùng dự án giống tự kiểm bài của mình, còn bằng chứng một bên khác dựng lại trọn quy trình từ đầu thì **chưa có nguồn** trong phạm vi đã tra. Nguồn về phạm vi kiểm tra hiện có: [W9, Task 0, Task 3 Artifact verification](../reports/week9/RESULTS_week9.md).
+
+**Bộ phiếu A/B đang ở bước chờ hai thành viên đọc và nộp:**
+
+| Mã bài đã chốt | Đích bị sai | Điểm thật ở đích đó |
+|---|---|---:|
+| `51DA4BA94C7C` | Ngữ pháp | 4,0 |
+| `D1D770AF6855` | Từ vựng | 5,0 |
+| `4032ED0063E4` | Ngữ pháp | 4,0 |
+| `0FFB44B5D0C2` | Từ vựng | 4,0 |
+| `277A95AC0190` | Ngữ pháp | 4,0 |
+
+Hai phiếu tại `outputs/independent_readers_20261026/doc_reader_A.xlsx` và `doc_reader_B.xlsx` có thứ tự khác nhau, seed 42, dùng mã tạm R1–R5 riêng theo từng người; ánh xạ nằm ở `reader_id_map.json` trong cùng thư mục. Mỗi phiếu có 46 ô người đọc để trống khi tạo. Phiếu có văn bản và file ánh xạ đều được Git bỏ qua, không commit; mẫu không có bài luận và các công cụ được commit.
+Người đọc phải nộp Phần A trước khi xem thông tin mô hình, sau đó tự điền Phần B, thời gian, xác nhận độc lập và chữ ký; không trao đổi trước khi cả hai nộp. `scripts/week10/compare_readers.py` chỉ ghép hai bản theo ánh xạ và so tập mã nguyên nhân thành “giống nhau hoàn toàn / một phần / khác”; thiếu ô hoặc thiếu xác nhận thì dừng. Kiểm tra công cụ bằng dữ liệu giả đã đạt và file giả đã được dọn. **Chưa có kết quả so sánh hai bản đọc thật trong hồ sơ đã lưu**, không gán nguyên nhân hoặc mức tự tin thay người đọc.
+Nguồn cho bảng, đường dẫn và trạng thái tạo phiếu: [docs/independent_readers_README.md](independent_readers_README.md), commit `aa13e83`; nguồn số ban đầu là `reports/week9/t4_reading_summary.csv`. Các phiếu hiện điểm thật nên không gọi quy trình này là chấm mù hoàn toàn; thứ tự xem sheet dựa trên nộp bài và người đọc tự xác nhận.
 
 <a id="phan-g"></a>
 ## Phần G. Tổng kết và hướng đi
@@ -301,8 +328,9 @@ Dự án chưa chứng minh được rằng hai máy bất đồng là cách đ�
 Một điểm yếu được quan sát là hai máy thường cùng sai và cùng cho điểm về phía giữa thang.
 Đổi sang nguồn đọc văn bản khác làm thay đổi một phần lỗi, nhưng không tự bảo đảm tìm được bài sai tốt hơn.
 MiniLM và độ phân tán cây có kết quả thăm dò đáng theo dõi; công cụ đếm lỗi mới cũng có mặt được và mặt chưa được.
-Kết quả âm vẫn có ích: nó chỉ ra “hai người đồng ý” chưa phải “hai người đúng”, và giúp tránh khẳng định quá sớm.
-Nguồn tổng hợp: [W9](../reports/week9/RESULTS_week9.md), [W10](../reports/week10/RESULTS_week10.md) và [Khóa](signal_lock_tree_spread.md).
+Tín hiệu cây đã có thêm kết quả **55/208** trên Test dùng lại, so với **47/208** của D đã lưu và kỳ vọng ngẫu nhiên khoảng **41,63**; p so với ngẫu nhiên là **0,0115857**, nhưng chưa có kiểm định trực tiếp hơn D và đây không phải xác nhận độc lập sạch.
+Kết quả âm của giả thuyết bất đồng vẫn có ích: nó chỉ ra “hai người đồng ý” chưa phải “hai người đúng”, và giúp tránh khẳng định quá sớm.
+Nguồn tổng hợp: [W9](../reports/week9/RESULTS_week9.md), [W10](../reports/week10/RESULTS_week10.md), [Khóa](signal_lock_tree_spread.md) và [RESULTS lần dùng Test thứ hai](../reports/week9/RESULTS_tree_spread_second_use.md).
 
 ### 25. Kịch bản giải thích cho thầy trong khoảng một phút
 
@@ -311,18 +339,19 @@ Ban đầu nhóm so điểm của Ridge và rừng cây quyết định, nghĩ h
 Trên Validation, cách này tìm 15 trong 69 bài sai lớn, trong khi chọn ngẫu nhiên trung bình tìm gần 14 bài, nên chưa chứng minh được lợi ích.
 Nhóm thấy hai máy thường cùng sai, giống hai đồng hồ cùng chạy chậm, nên nhìn mức khác nhau giữa chúng chưa đủ.
 Nguồn đọc văn bản và độ phân tán giữa các cây có vài dấu hiệu mới, còn công cụ đếm lỗi ngữ pháp cũng có thể đếm thiếu hoặc đếm dư.
+Tín hiệu cây vừa tìm 55 trong 208 bài sai lớn trên Test dùng lại, cao hơn số 47 của bất đồng, nhưng chưa kiểm định trực tiếp hơn bất đồng và không phải xác nhận độc lập sạch.
 Nhóm muốn chốt cách đánh giá, kiểm tra người đếm và thử trên dữ liệu mới trước khi nói đã có cách hỗ trợ giáo viên đáng tin.”
 
-Nguồn số trong lời thoại: [W9, Task 0](../reports/week9/RESULTS_week9.md); các nhận xét tổng hợp từ [W9](../reports/week9/RESULTS_week9.md), [W10](../reports/week10/RESULTS_week10.md) và [Khóa](signal_lock_tree_spread.md); thời lượng là mục tiêu trình bày do người dùng yêu cầu, chưa đo bằng đọc thành tiếng.
+Nguồn số trong lời thoại: [W9, Task 0](../reports/week9/RESULTS_week9.md) và [RESULTS lần dùng Test thứ hai](../reports/week9/RESULTS_tree_spread_second_use.md); các nhận xét tổng hợp từ [W9](../reports/week9/RESULTS_week9.md), [W10](../reports/week10/RESULTS_week10.md) và [Khóa](signal_lock_tree_spread.md); thời lượng là mục tiêu trình bày do người dùng yêu cầu, chưa đo bằng đọc thành tiếng.
 
 ### 26. Nên làm gì tiếp, và hỏi thầy điều gì?
 
-**Đề xuất của người viết, chưa kiểm chứng hiệu quả:** trước hết hoàn tất đối chiếu người đếm thứ hai, làm rõ thứ tự đọc và danh tính nhóm bài chưa giải thích để biết nền bằng chứng có đáng tin không.
+**Đề xuất của người viết, chưa kiểm chứng hiệu quả:** trước hết để hai thành viên hoàn thành phiếu A/B của năm bài đã chốt, giữ bản nộp Phần A rồi mới xem thông tin mô hình, và chỉ chạy công cụ so sau khi cả hai nộp đủ. Đồng thời hoàn tất đối chiếu người đếm thứ hai của mẫu đếm lỗi trước đây; đây là hai việc khác nhau.
 Tiếp theo, giữ nguyên khóa độ phân tán cây và xin một bộ bài mới độc lập, đủ điều kiện riêng tư, để kiểm tra lời hứa hỗ trợ giáo viên.
 Sau đó mới cân nhắc chạy GECToR toàn development và thử tác dụng của đặc trưng mới lên điểm số, vì đếm lỗi gần người hơn chưa chắc chấm điểm tốt hơn.
 Với MiniLM, có thể thiết kế riêng thử nghiệm đọc thêm phần cuối bài; **đây là suy đoán** về một hướng cải tiến, chưa phải kết quả đã có.
 Nên hỏi thầy: mục tiêu chính là chấm chính xác hay chọn bài cần đọc lại; điều kiện nào đủ gọi là xác nhận; có dữ liệu mới phù hợp không; và tiêu chí đếm lỗi giữa người đọc cần thống nhất thế nào?
-Căn cứ đề xuất: các giới hạn trong [W10, second-reader preparation, Provenance, Part A và B2](../reports/week10/RESULTS_week10.md), cùng [Khóa, Future confirmation protocol](signal_lock_tree_spread.md).
+Căn cứ đề xuất: các giới hạn trong [W10, second-reader preparation, Provenance, Part A và B2](../reports/week10/RESULTS_week10.md), [README bộ phiếu](independent_readers_README.md), [RESULTS Test dùng lại](../reports/week9/RESULTS_tree_spread_second_use.md), cùng [Khóa, Future confirmation protocol](signal_lock_tree_spread.md).
 
 ### 27. Sơ đồ từ đầu đến cuối
 
@@ -365,6 +394,16 @@ Nhánh độ phân tán cây:
   → scripts/week9b/paired_tree_spread.py
   → reports/week9/RESULTS_week9.md
   → docs/signal_lock_tree_spread.md cho quy trình xác nhận tương lai
+
+Kết quả Test dùng lại đã lưu (không phải lệnh chạy tiếp):
+  scripts/tree_spread_official_test_second_use.py
+  → reports/week9/RESULTS_tree_spread_second_use.md
+
+Nhánh đọc độc lập năm bài development/Validation:
+  scripts/week10/create_reader_packets.py + reader_packets.mjs
+  → phiếu A/B và ánh xạ riêng tư (git-ignored), chờ người đọc tự điền
+  → scripts/week10/compare_readers.py (chỉ dùng sau khi cả hai nộp đủ)
+  → docs/independent_readers_README.md
 ```
 
 <a id="tu-kho"></a>
@@ -456,13 +495,17 @@ Số thứ tự câu và nhãn kỹ thuật trong đường dẫn không mang ng
 | 217; 36; 43,50 | Số lỗi chung RF/MiniLM, số tìm được, kỳ vọng ngẫu nhiên làm tròn | [W10, B2 A3_RF_B2 và interpretation](../reports/week10/RESULTS_week10.md) |
 | 256 token, không phải 256 từ | Giới hạn đoạn đầu vào MiniLM | [W10, B2 Evidence-only interpretation](../reports/week10/RESULTS_week10.md) |
 | 300 cây; 25/69; 96/386 | Số cây, kết quả Validation và development của độ phân tán cây | [Khóa, Signal definition và Status](signal_lock_tree_spread.md); [W9, Week 9b tree spread](../reports/week9/RESULTS_week9.md) |
+| 2.518; 208; 504; 55/208; 41,633042 ≈ 41,63; p=0,01158570685; 47/208; hơn 8 bài | Tín hiệu cây trên Test dùng lại; p so với ngẫu nhiên, chỉ so số đếm với D đã lưu | [RESULTS lần dùng Test thứ hai, Kết quả hoàn thành](../reports/week9/RESULTS_tree_spread_second_use.md), commit 97159a6 |
+| 26/10/2026; 14:27:32 UTC+07:00 | Ngày cho phép theo nguồn người phụ trách cung cấp; thời điểm bắt đầu lượt hoàn thành | [RESULTS lần dùng Test thứ hai](../reports/week9/RESULTS_tree_spread_second_use.md), ngày cho phép và started_utc trong log được dẫn |
+| 2.015 dòng; 4,995115432393504e-12; dung sai 1e-12 → 1e-11; 762 bài Validation | Sự cố kiểm tra dự đoán và chẩn đoán CSV chỉ trên development; không có tín hiệu ở lần dừng | [RESULTS, Sự cố lần chạy đầu và Bước 1–2](../reports/week9/RESULTS_tree_spread_second_use.md) |
 | 19/10/2026, 05:41:03 UTC | Thời điểm ghi trong bản khóa | [Khóa, Provenance](signal_lock_tree_spread.md) |
-| Một người đếm; người thứ hai chờ điền | Trạng thái đối chiếu người đọc trong báo cáo | [W10, second-reader agreement preparation](../reports/week10/RESULTS_week10.md) |
-| 5 bài chưa giải thích; chỉ 1 bài trên 4,0 | Giới hạn nhận diện nhóm bài ở câu 23; không xác nhận nhóm “năm bài điểm cao” | [W10, five unexplained cases source clarification](../reports/week10/RESULTS_week10.md) |
-| Một lần đánh giá chính; lần hai đang chuẩn bị, chưa chạy; commit c7c42b9 | Lịch sử dùng Test tại câu 22; ngày thầy cho phép chưa điền | [Nháp RESULTS](../reports/week9/RESULTS_tree_spread_second_use_DRAFT.md), lưu cùng script tại commit c7c42b9 |
+| Một người đếm; người thứ hai chờ điền | Trạng thái đối chiếu mẫu đếm lỗi trước đây, tách biệt với bộ phiếu A/B năm bài mới | [W10, second-reader agreement preparation](../reports/week10/RESULTS_week10.md) |
+| 5 bài đã chốt; điểm thật ≥4,0 ở đích sai; RF dự đoán thấp hơn ≥1,0 | Nhóm đọc độc lập ở câu 23; một bài có điểm trung bình >4,0 không phải tiêu chí chọn hiện tại | [README bộ phiếu, danh sách và nguồn nhận diện](independent_readers_README.md), xác nhận người phụ trách; hồ sơ ứng viên tại [W10](../reports/week10/RESULTS_week10.md) |
+| 2 phiếu; seed 42; R1–R5; 46 ô mỗi phiếu để trống; commit aa13e83 | Bộ phiếu A/B đã tạo, chưa có kết quả so sánh bản đọc thật trong hồ sơ | [README bộ phiếu, Cách đọc và nộp; Kiểm tra bằng dữ liệu giả](independent_readers_README.md) |
+| Một đánh giá chính; lần dùng Test thứ hai đã hoàn thành; commit 97159a6 | Lịch sử dùng Test tại câu 22; không coi lần dùng lại là xác nhận độc lập sạch | [RESULTS lần dùng Test thứ hai](../reports/week9/RESULTS_tree_spread_second_use.md); [W9, Task 0](../reports/week9/RESULTS_week9.md) |
 | 174/769; ngưỡng 154; 9 / 3,20; 88/386 | Bài thực hành và phép tính đã lưu dùng cho interview | [Phiếu luyện development](phieu_luyen_mot_bai_development.md), mục 2–3 |
 
-**Những chỗ chưa đủ bằng chứng:** câu 19 chưa đo riêng ảnh hưởng bỏ đoạn cuối; câu 22 thiếu mốc chạy Test đầu tiên có xác minh độc lập; câu 23 chưa xác nhận thứ tự đọc, chưa định danh nhóm “năm bài điểm cao” và chưa có bằng chứng tái lập độc lập.
+**Những chỗ chưa đủ bằng chứng:** câu 19 chưa đo riêng ảnh hưởng bỏ đoạn cuối; câu 20 chưa có kiểm định trực tiếp hơn D và Test dùng lại không phải xác nhận độc lập sạch; câu 22 thiếu mốc chạy Test đầu tiên có xác minh độc lập; câu 23 chưa có kết quả hai bản đọc thật, chưa xác nhận lịch sử xem đáp án của mẫu cũ và chưa có bằng chứng tái lập độc lập. Danh sách năm bài mới đã chốt, không còn là mục chưa rõ danh tính.
 **Những chỗ là suy luận hoặc đề xuất:** trực giác ở câu 4; diễn giải cơ chế ở câu 9; tác động có thể có của đoạn cuối ở câu 19; thứ tự ưu tiên và hướng thử tiếp ở câu 26.
 **Phạm vi lần hiệu chỉnh này:** chỉ sửa file sổ tay; không sửa code, không chạy lại phân tích hoặc mô hình, không mở hay tìm trong file Official Test, file corpus gộp hoặc `full_clean_corpus_6482.csv`, không in nội dung bài luận.
 **Về commit:** lần hiệu chỉnh này được người dùng yêu cầu rõ tạo một commit riêng chỉ chứa file sổ tay.
@@ -474,3 +517,6 @@ Số thứ tự câu và nhãn kỹ thuật trong đường dẫn không mang ng
 - **Con số đã kiểm tra:** D bắt được **88/386** bài RF sai lớn trên development chia theo đề; đây là kết quả đã tính lại và lưu trong phiếu, không phải lần chạy mới ở lần sửa sổ tay này.
 
 Nguồn cho cả hai ý: [docs/phieu_luyen_mot_bai_development.md, mục 2 và 3](phieu_luyen_mot_bai_development.md).
+
+- **Kết quả mới cần nói đúng phạm vi:** tín hiệu cây bắt **55/208** trên Test dùng lại, ngân sách **504**, kỳ vọng **41,63**, p so với ngẫu nhiên **0,0115857**. D đã có **47/208**; hơn **8 bài** về số đếm chưa chứng minh hơn D bằng kiểm định trực tiếp. Nguồn: [RESULTS lần dùng Test thứ hai](../reports/week9/RESULTS_tree_spread_second_use.md).
+- **Việc nhóm cần tự làm:** hai thành viên đọc độc lập năm bài đã chốt bằng phiếu A/B, nộp A trước khi xem mô hình, rồi nộp B và xác nhận. Phiếu đã tạo; chưa có kết quả đọc thật trong hồ sơ, nên không được trình bày nguyên nhân do người đọc chưa điền như một phát hiện. Nguồn: [README bộ phiếu](independent_readers_README.md).
