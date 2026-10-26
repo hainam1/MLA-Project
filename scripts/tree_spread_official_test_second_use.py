@@ -193,6 +193,31 @@ def evaluate(record, checkpoint):
     record["status"] = "COMPLETED"
 
 
+def next_log_path():
+    """Preserve stopped attempts; any completed result blocks all later attempts."""
+    base = ROOT / LOG_PATH
+    existing = ([base] if base.exists() else []) + sorted(
+        base.parent.glob(f"{base.stem}_attempt*{base.suffix}"))
+    for path in existing:
+        try:
+            previous = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            raise GateError("Existing attempt log is unreadable; no Test files opened.") from None
+        require(isinstance(previous, dict), "Invalid attempt log; no Test files opened.")
+        require(previous.get("status") != "COMPLETED" and "result" not in previous,
+                "second-use log already exists; no Test files opened.")
+        require(previous.get("status") == "STOPPED",
+                "Existing attempt is unfinished or has unknown status; no Test files opened.")
+    if not base.exists():
+        return base
+    attempt = 2
+    while True:
+        candidate = base.with_name(f"{base.stem}_attempt{attempt}{base.suffix}")
+        if not candidate.exists():
+            return candidate
+        attempt += 1
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--i-have-permission", action="store_true",
@@ -201,12 +226,15 @@ def main(argv=None):
     if not args.i_have_permission:
         print("NOT RUN: explicit --i-have-permission required; no Test files opened.")
         return 0
-    log_path = ROOT / LOG_PATH
-    # Exclusive creation: never overwrite a completed, failed or interrupted Test-use log.
     try:
+        log_path = next_log_path()
+        # Exclusive creation also blocks a concurrent invocation using the same filename.
         stream = log_path.open("x", encoding="utf-8")
+    except GateError as exc:
+        print("STOP: " + str(exc))
+        return 2
     except FileExistsError:
-        print("STOP: second-use log already exists; no Test files opened.")
+        print("STOP: attempt log already exists; no Test files opened.")
         return 2
     with stream:
         record = dict(status="STARTED", notice=NOTICE, teacher_permission_date="",
@@ -237,7 +265,7 @@ def main(argv=None):
         checkpoint()
     print(NOTICE)
     print(json.dumps(record["result"], ensure_ascii=False))
-    print("Log: " + LOG_PATH)
+    print("Log: " + log_path.relative_to(ROOT).as_posix())
     return 0
 
 

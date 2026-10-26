@@ -106,4 +106,38 @@ Chọn **atol = 1e-11, rtol = 0**, dùng chung cho bảo vệ (b) của **RF Voc
 - SHA256 script mới: `15bd8ee6c5d2611fd09bba32202e86cdb8398e3d433845bd55f89a1537e75ec6`.
 - Chỉ đổi hằng số dung sai chung và chú thích nguồn development. Giữ nguyên công thức tín hiệu, hash mô hình/file khóa/đầu vào, nhãn sai lớn, ngân sách, phá hòa, kiểm định và cờ bảo vệ.
 - **Giữ nguyên log STOPPED**, không sửa, không xóa: SHA256 `132a4ca1a6ab15943d6cbb16bf3043978c233332bcd0a6f460ba1d9c93e0c624`. Log vẫn ghi dung sai cũ và hash script cũ để phản ánh đúng lần dừng.
-- Không gọi script với cờ cho phép, không chạy lại trên Test, không mở lại đặc trưng/nhãn/dự đoán Test hoặc corpus; chờ lệnh tiếp theo của người phụ trách sau khi báo thầy. Cơ chế từ chối khi log đã tồn tại vẫn được giữ nguyên.
+- Tại bước hiệu chỉnh dung sai này, không gọi script với cờ cho phép, không chạy lại trên Test, không mở lại đặc trưng/nhãn/dự đoán Test hoặc corpus. Khi đó cơ chế từ chối khi log đã tồn tại vẫn được giữ nguyên; sự cố tiếp theo và cách sửa được ghi dưới đây.
+
+### Sự cố chốt chặn ở lần gọi thứ hai và sửa quản lý log
+
+Sau khi đổi dung sai, script được gọi thêm đúng một lần theo chỉ dẫn người phụ trách, nhưng chốt chặn từ chối ngay vì log STOPPED của lần đầu còn tồn tại. Mã thoát 2; thông báo nguyên văn:
+
+```text
+STOP: second-use log already exists; no Test files opened.
+```
+
+Lần gọi thứ hai này không mở dữ liệu Test, không chạy các kiểm tra dự đoán trên Test, không tính tín hiệu và không tạo log mới. Đây là lần gọi bị từ chối bởi bảo vệ file, không phải một lượt đánh giá tín hiệu.
+
+Theo chỉ dẫn tiếp theo, chỉ sửa phần chọn file log:
+
+- Đọc metadata của log gốc và các file cùng tên có hậu tố `_attempt*`. Nếu bất kỳ log nào có `status=COMPLETED` hoặc có trường `result`, từ chối trước truy cập Test, giữ thông báo chặn hoàn thành như trước.
+- Nếu các log đã có đều là `STOPPED` và không có trường `result`, cho phép thử tiếp, ghi vào file chưa tồn tại: `_attempt2.json`, rồi `_attempt3.json`, v.v. Không xóa, đổi tên hoặc ghi đè bất kỳ log cũ nào.
+- Log không đọc được, không hợp lệ, đang chạy hoặc trạng thái không rõ vẫn bị chặn. Tạo file mới bằng chế độ độc quyền `x` để hai tiến trình không cùng chiếm một file log. Dòng thông báo đường dẫn cuối cùng dùng đúng tên log vừa tạo.
+- Không sửa các phép kiểm tra còn lại, dung sai chung `atol=1e-11, rtol=0`, hash mô hình/đầu vào/file khóa, định nghĩa tín hiệu, ngân sách, nhãn sai lớn, phá hòa hoặc kiểm định.
+
+SHA256 script trước sửa log: `15bd8ee6c5d2611fd09bba32202e86cdb8398e3d433845bd55f89a1537e75ec6`.
+
+SHA256 script sau sửa log: `cc7bdd6efd8c0cf23a4f6dbd5673e17a5c8501aaf72e77fb0b99e96090b31e05`.
+
+Kiểm tra chỉ bằng dữ liệu giả trong thư mục tạm, thay hàm đánh giá thật bằng hàm giả:
+
+| Trường hợp giả | Kết quả |
+|---|---|
+| Có log STOPPED chưa có kết quả | Hàm đánh giá giả được gọi, ghi `_attempt2`; byte của log gốc không đổi |
+| Có thêm log COMPLETED tại `_attempt3` | Từ chối; không gọi hàm đánh giá, không tạo/sửa file log |
+| File mô hình giả có hash sai | Kiểm tra hash cũ vẫn dừng |
+| Dự đoán giả lệch 5e-12 / 2e-11 | Chấp nhận / dừng tương ứng, cho cả Vocabulary và Grammar |
+| Số bài giả sai N hoặc sai K | Kiểm tra 2.518/208 cũ vẫn dừng |
+| Không có cờ cho phép | Thoát, kiểm tra xác nhận không mở file |
+
+Log thật `tree_spread_official_test_second_use_log.json` giữ nguyên SHA256 `132a4ca1a6ab15943d6cbb16bf3043978c233332bcd0a6f460ba1d9c93e0c624`. Bước sửa quản lý log này chưa chạy trên Test, chưa mở lại dữ liệu Test hoặc corpus; chưa tạo file log thử tiếp trong repo và chưa có kết quả tín hiệu thật.
