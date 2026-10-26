@@ -15,6 +15,7 @@ Không có nội dung bài luận nào được đưa vào sổ tay.
 - [Phần G. Tổng kết và hướng đi](#phan-g)
 - [Từ khó → nghĩa dễ hiểu](#tu-kho)
 - [Số liệu và nguồn](#so-lieu)
+- [Chuẩn bị interview](#chuan-bi-interview)
 
 **Cách đọc nguồn:** [W9](../reports/week9/RESULTS_week9.md) là báo cáo tuần chín; [W10](../reports/week10/RESULTS_week10.md) là báo cáo tuần mười; [Khóa](signal_lock_tree_spread.md) là bản chốt cách chọn bài.
 Các nhãn này được ghi ngay sau số liệu, kèm tên mục để tra cứu.
@@ -68,9 +69,9 @@ Nguồn cách tính: [Khóa, Future confirmation protocol](signal_lock_tree_spre
 Giáo viên chỉ đọc lại khoảng 20% bài, tức khoảng một phần năm chồng bài; số bài được làm tròn lên.
 Ta đếm bao nhiêu bài sai lớn lọt vào danh sách đó rồi so với bốc ngẫu nhiên cùng số bài.
 Trên Validation, tức tập bài tập dượt để chọn cách làm, có 762 bài đủ điều kiện và 69 bài máy sai lớn: đọc 153 bài theo bất đồng tìm được 15 bài sai.
-Bốc ngẫu nhiên nhiều lượt tìm được trung bình 13,946 bài, tức khoảng 13,9 bài, nên chưa có bằng chứng đáng tin rằng cách bất đồng tốt hơn.
-Số bài trung bình có phần lẻ vì đó là trung bình của nhiều lượt bốc, không phải một lượt tìm được một mẩu bài.
-Nguồn: [W9, Task 0, bảng Validation](../reports/week9/RESULTS_week9.md).
+Kỳ vọng ngẫu nhiên là 69 × 153 / 762 = 13,854330… ≈ 13,85 bài; chưa có bằng chứng đáng tin rằng cách bất đồng tốt hơn.
+Số 13,946 là trung bình của 1.000 lượt bốc mô phỏng đã lưu, còn 13,85 là kỳ vọng theo công thức; cả hai có phần lẻ vì diễn tả mức trung bình, không phải số bài của một lượt.
+Nguồn: [W9, Task 0, dòng 23 và 32, Random mean và Expected random caught](../reports/week9/RESULTS_week9.md).
 
 <a id="phan-b"></a>
 ## Phần B. Dữ liệu và cách chia
@@ -93,7 +94,7 @@ Fold là một phần dữ liệu được giữ lại để thử máy; trong c
 Kết quả gọi là dự đoán ngoài phần học: mỗi bài được đoán khi máy chưa học bài đó.
 Chia theo đề bài còn giữ toàn bộ bài cùng đề về cùng phía, nên đề trong phần thử không xuất hiện trong phần học.
 Như vậy ta hỏi “máy gặp đề mới thì sao”; cách chia ban đầu của repo chia theo tỷ lệ trong từng đề, giữ các đề ở cả hai phía và nhóm theo mã băm văn bản trùng, nên không tách riêng đề bài để thử đề mới.
-Nguồn xác nhận cách chia ban đầu: [docs/split_and_leakage_protocol.md, dòng 54–59, 97 và 108](split_and_leakage_protocol.md), ghi mỗi đề có ở cả hai phần và mọi phần thử đều có đủ các đề; nguồn cách thử đề mới: [W9, Task 3](../reports/week9/RESULTS_week9.md) và [Khóa](signal_lock_tree_spread.md).
+Nguồn xác nhận cách chia ban đầu: [docs/split_and_leakage_protocol.md, Reproducible split procedure, bước 5–6; Distribution checks, Prompt coverage và Cross-validation folds](split_and_leakage_protocol.md), ghi phân tầng theo đề, nhóm theo mã băm văn bản, mỗi đề có ở cả hai phần và mỗi fold thử đều có đủ 44 đề; vì vậy đây không phải chia tách theo đề. Nguồn cách thử đề mới: [W9, Task 3](../reports/week9/RESULTS_week9.md) và [Khóa](signal_lock_tree_spread.md).
 
 <a id="phan-c"></a>
 ## Phần C. Mô hình chấm điểm — mốc so sánh ban đầu
@@ -148,7 +149,9 @@ Nguồn tất cả số trong bảng: [W10, B2 concise result tables](../reports
 | Ridge với đặc trưng ban đầu | 0,373424 | 0,463037 |
 | RF với đặc trưng ban đầu | 0,372165 | 0,455404 |
 | TF-IDF + Ridge, tên trong báo cáo là B1 | 0,406626 | 0,506841 |
-| MiniLM + Ridge, tên trong báo cáo là B2 | 0,404448 | 0,508 |
+| MiniLM + Ridge, tên trong báo cáo là B2 | 0,404448 | 0,507 |
+
+Điểm Ngữ pháp MiniLM được làm tròn trực tiếp đến ba chữ số thập phân từ 0,50749980021123497 thành **0,507**, thống nhất trong sổ tay; không làm tròn qua số trung gian 0,5075. Nguồn số gốc: [W10, dòng 1564, B2,G,3812](../reports/week10/RESULTS_week10.md).
 
 <a id="phan-d"></a>
 ## Phần D. Lỗi ngữ pháp và công cụ
@@ -178,7 +181,7 @@ GECToR đề xuất sửa câu; ERRANT so câu trước và sau để phân lo�
 Cách đếm mới chỉ giữ nhóm sửa được quy định là ngữ pháp, loại các nhóm chính tả, dấu câu và kiểu chữ; một đề xuất sửa vẫn có thể không phải lỗi thật.
 Trên 68 đoạn đã có người đếm, trung bình người đọc là 8,32 lỗi, LanguageTool ước lượng 1,32, còn cách mới đếm 14,32: cách mới đếm dư khoảng 6,00, cách cũ đếm thiếu khoảng 7,00 lỗi.
 Trên riêng 36 bài ngẫu nhiên, cách mới là 14,33 so với người đọc 7,33, chênh 7,00 lỗi và kém hơn khoảng cách 6,10 của công cụ cũ; trên mẫu 32 bài chọn có chủ đích, cách mới là 14,31 so với người đọc 9,44, chênh 4,875 lỗi và gần hơn khoảng cách 8,016 của cách cũ.
-Ví dụ từng bài trong bảng dưới cho thấy cách mới có lúc khớp người đọc, có lúc đếm dư nhiều; theo nhóm bài, vùng thấp có người đọc 10,75, cách cũ 2,59, cách mới 26,50, còn vùng cao tương ứng 4,25, 0,23 và 5,58 lỗi.
+Ví dụ từng bài trong bảng dưới cho thấy cách mới có lúc khớp người đọc, có lúc đếm dư nhiều; trong riêng 36 bài ngẫu nhiên, mỗi vùng có 12 bài, vùng thấp có người đọc 10,75, cách cũ 2,59, cách mới 26,50, còn vùng cao tương ứng 4,25, 0,23 và 5,58 lỗi.
 Nguồn: [W10, Exploratory Part A, bảng Sample/Tool và interpretation; dòng 1420 và 1422 cho vùng thấp/cao](../reports/week10/RESULTS_week10.md), cùng bảng đếm từng bài dẫn dưới; kết quả gộp đạt tiêu chí thăm dò đã đặt nhưng không chứng minh tốt hơn trên mọi mẫu hay mọi bài.
 
 | Mã bài | Người đọc | LanguageTool ước lượng | GECToR + ERRANT đếm ngữ pháp | Nguồn |
@@ -186,6 +189,8 @@ Nguồn: [W10, Exploratory Part A, bảng Sample/Tool và interpretation; dòng 
 | `0AFC8CE27321` | 5 | 0 | 5 | [gec_part_a_68.csv, dòng 38](../reports/week10/gec_part_a_68.csv) |
 | `0514D25768A0` | 9 | 3,20 | 12 | [gec_part_a_68.csv, dòng 2](../reports/week10/gec_part_a_68.csv) |
 | `A4DA4201903F` | 15 | 3,57 | 48 | [gec_part_a_68.csv, dòng 19](../reports/week10/gec_part_a_68.csv) |
+
+Đã đối chiếu ba mã bài với các cột `reader`, `LT_estimate`, `edits_grammar` của bảng đã lưu; cách cũ là ước lượng trên tối đa 150 từ đầu, không phải số đếm trực tiếp trên đoạn đó. Hai số theo vùng có nguồn `RANDOM_BAND`: 318/12 = 26,50 và 67/12 = 5,583333… ≈ 5,58, tại [W10, dòng 1420 và 1422](../reports/week10/RESULTS_week10.md).
 
 ### 14. Đã dùng GECToR để thử dự đoán điểm chưa?
 
@@ -202,10 +207,10 @@ Nói gọn là: hai máy cùng sai là điểm yếu lớn của cách chọn b�
 
 ### 15. Cách bất đồng tìm được bao nhiêu bài sai?
 
-Trên Validation có 69 bài sai lớn: chọn đọc 153 bài tìm được 15 bài sai, so với trung bình ngẫu nhiên 13,946 bài.
+Trên Validation có 69 bài sai lớn: chọn đọc 153 bài tìm được 15 bài sai, so với kỳ vọng ngẫu nhiên 13,85 bài, tính từ 69 × 153 / 762; nguồn là [W9, dòng 23 và 32](../reports/week9/RESULTS_week9.md).
 Báo cáo Test đã lưu ghi 208 bài sai lớn: đọc 504 bài tìm được 47, so với kỳ vọng ngẫu nhiên 41,63 bài, tính từ 208 × 504 / 2.518; nguồn chính xác là [W9, dòng 24 và 33](../reports/week9/RESULTS_week9.md).
 Trong thử nghiệm thăm dò chia theo đề bài trên development, có 386 bài RF sai lớn: đọc tổng 764 bài tìm được 88, so với kỳ vọng ngẫu nhiên 77,362908 bài.
-“Kỳ vọng” là mức trung bình tính theo cách bốc, giống tính trước số viên bi đỏ thường bốc được; số 41,427 trong cùng nguồn là trung bình của các lượt bốc mô phỏng đã lưu, nên khác kỳ vọng theo công thức 41,633042… đã làm tròn thành 41,63.
+Trung bình mô phỏng 1.000 lượt là 41,427 trên Test và 13,946 trên Validation, khác kỳ vọng theo công thức tương ứng 41,633042… ≈ 41,63 và 13,854330… ≈ 13,85 do chỉ lấy hữu hạn lượt bốc; các số mô phỏng được giữ đúng nhãn, không dùng thay kỳ vọng. Nguồn: [W9, Task 0, dòng 23–24 và 32–33](../reports/week9/RESULTS_week9.md).
 Cách bất đồng tìm nhiều hơn về số đếm trong các ví dụ này, nhưng kết quả chưa đủ để kết luận nó đáng tin cậy hơn ngẫu nhiên.
 Nguồn: [W9, Task 0; Task 3; Week 9b, CAPTURE_METRICS](../reports/week9/RESULTS_week9.md).
 
@@ -271,10 +276,11 @@ Nguồn: [Khóa, Future confirmation protocol, Status và Provenance](signal_loc
 
 Thăm dò là tìm ý tưởng trên dữ liệu đã biết, giống làm nháp rồi đổi cách giải.
 Xác nhận là chốt cách làm trước và thử trên dữ liệu độc lập chưa dùng để chọn cách, giống làm đề thi mới sau khi đã nộp bản nháp.
-Official Test chỉ dùng một lần cho đánh giá chính; ở tuần chín, nhóm báo cáo và kiểm tra lại các số của đánh giá đã chốt từ dự đoán lưu sẵn, không dùng Test để làm thử nghiệm chia theo đề bài.
-Mọi phân tích sau đó chạy trên development và Validation, gắn nhãn thăm dò: gồm chia theo đề bài, chẩn đoán lỗi, độ phân tán cây, độ nén điểm, đọc mẫu, TF-IDF, MiniLM và so đếm GECToR.
-“Một lần” là quy định của đánh giá chính, không phải bằng chứng về lịch sử thực thi: ngày chạy Test đầu tiên và toàn bộ thứ tự thay đổi vẫn chưa được xác minh độc lập trong hồ sơ hiện có.
-Nguồn: [docs/split_and_leakage_protocol.md, dòng 179, quy định đánh giá một lần](split_and_leakage_protocol.md); [W9, dòng 5, kiểm tra lại dự đoán lưu sẵn; Task 0, giới hạn lịch sử; Task 3–6 và Week 9b](../reports/week9/RESULTS_week9.md); [W10, các mục Exploratory](../reports/week10/RESULTS_week10.md).
+Official Test đã được dùng một lần cho đánh giá chính được báo cáo ở tuần chín; tuần chín còn kiểm tra lại các số đánh giá đã chốt từ dự đoán lưu sẵn.
+Mọi phân tích mở rộng sau đánh giá chính đều chạy trên development và Validation, gắn nhãn thăm dò: chia theo đề bài, chẩn đoán lỗi, độ phân tán cây, độ nén điểm, đọc mẫu, TF-IDF, MiniLM và so đếm GECToR.
+Hiện đang chuẩn bị dùng Official Test lần hai cho đúng một tín hiệu độ lệch chuẩn giữa 300 cây RF đã khóa, dùng lại RF đã lưu; script `scripts/tree_spread_official_test_second_use.py` và nháp RESULTS đã được lưu tại commit **`c7c42b9`**, nhưng **script chưa chạy trên Test**. Lần dùng thứ hai đang chuẩn bị này không phải xác nhận độc lập sạch; chưa có kết quả mới trên Test.
+Ngày chạy Test đầu tiên và toàn bộ thứ tự thay đổi chưa được xác minh độc lập trong hồ sơ hiện có; **ngày thầy cho phép lần hai: ____________________** (để người phụ trách điền).
+Nguồn: [W9, Task 0, kiểm tra lại dự đoán lưu sẵn và giới hạn lịch sử; Task 3–6 và Week 9b](../reports/week9/RESULTS_week9.md); [W10, các mục Exploratory](../reports/week10/RESULTS_week10.md); [nháp RESULTS, T0 và Lịch sử dùng Test](../reports/week9/RESULTS_tree_spread_second_use_DRAFT.md), cùng hai file được lưu tại commit `c7c42b9`.
 
 ### 23. Nhóm còn thiếu hoặc chưa chắc những gì?
 
@@ -429,7 +435,7 @@ Số thứ tự câu và nhãn kỹ thuật trong đường dẫn không mang ng
 | 0,373424 / 0,463037 | Ridge: Từ vựng / Ngữ pháp | [W10, B2 concise result tables](../reports/week10/RESULTS_week10.md) |
 | 0,372165 / 0,455404; khoảng 0,372, gần bốn phần mười | RF: Từ vựng / Ngữ pháp và lời diễn giải làm tròn | [W10, B2 concise result tables](../reports/week10/RESULTS_week10.md) |
 | 0,406626 / 0,506841 | TF-IDF + Ridge: Từ vựng / Ngữ pháp | [W10, B2 concise result tables](../reports/week10/RESULTS_week10.md) |
-| 0,404448 / 0,508 | MiniLM + Ridge: Từ vựng / Ngữ pháp; Ngữ pháp làm tròn đến ba chữ số thập phân | [W10, B2 concise result tables](../reports/week10/RESULTS_week10.md) |
+| 0,404448 / 0,507 | MiniLM + Ridge: Từ vựng / Ngữ pháp; Ngữ pháp làm tròn trực tiếp số gốc 0,50749980021123497 đến ba chữ số thập phân | [W10, dòng 1564, B2,G,3812](../reports/week10/RESULTS_week10.md) |
 | 36; 12 mỗi vùng; tối đa 150 từ đầu | Thiết kế mẫu đọc ngẫu nhiên trong từng vùng điểm | [W10, filled random reading audit, RANDOM_SAMPLE_PER_BAND và TOOL_FORMULA](../reports/week10/RESULTS_week10.md) |
 | 7,33 / 1,24 / 6,10 | Người đọc / LanguageTool ước lượng / chênh lệch trung bình trên mẫu ngẫu nhiên; gốc 7,333333 / 1,236789 / 6,096544 | [W10, RANDOM_SAMPLE_OVERALL](../reports/week10/RESULTS_week10.md) |
 | 10,75 / 2,59; 7,00 / 0,89; 4,25 / 0,23 | Người đọc / công cụ cũ ở vùng thấp, giữa, cao | [W10, RANDOM_SAMPLE_PER_BAND](../reports/week10/RESULTS_week10.md) |
@@ -439,7 +445,7 @@ Số thứ tự câu và nhãn kỹ thuật trong đường dẫn không mang ng
 | 14,31 / 9,44; chênh 4,875 / 8,016 | Công cụ mới / người đọc trên mẫu có chủ đích; khoảng cách mới / cũ | [W10, Exploratory Part A, week9_32 table](../reports/week10/RESULTS_week10.md) |
 | 26,50; 5,58 | Công cụ mới ở vùng thấp / cao; đối chiếu số người và công cụ cũ ở dòng trên | [W10, dòng 1420 và 1422, RANDOM_BAND](../reports/week10/RESULTS_week10.md) |
 | 5 / 0 / 5; 9 / 3,20 / 12; 15 / 3,57 / 48 | Người đọc / công cụ cũ ước lượng / công cụ mới cho ba mã bài trong câu 13 | [gec_part_a_68.csv, dòng 38, 2 và 19 tương ứng](../reports/week10/gec_part_a_68.csv) |
-| 762; 69; 153; 15; 13,946 ≈ 13,9 ≈ 14 | Validation: số bài, số sai lớn, số đọc, số tìm được, trung bình ngẫu nhiên | [W9, Task 0, bảng Validation](../reports/week9/RESULTS_week9.md) |
+| 762; 69; 153; 15; 13,854330… ≈ 13,85; 13,946 ≈ 14 | Validation: số bài, số sai lớn, số đọc, số tìm được; kỳ vọng theo công thức; trung bình mô phỏng đã lưu | [W9, Task 0, dòng 23 và 32](../reports/week9/RESULTS_week9.md); kỳ vọng bằng 69 × 153 / 762 |
 | 208; 504; 47; 2.518; 41,633042… ≈ 41,63; 41,427 | Test: số sai lớn, số đọc, số tìm được, tổng số đủ điều kiện; kỳ vọng theo công thức; trung bình mô phỏng đã lưu | [W9, dòng 24 và 33](../reports/week9/RESULTS_week9.md), chỉ trích báo cáo; kỳ vọng bằng 208 × 504 / 2.518 |
 | 386; 764; 88; 77,362908 ≈ 77,36 | Development chia theo đề: số RF sai lớn, tổng số đọc, bất đồng tìm được, kỳ vọng ngẫu nhiên | [W9, Week 9b, CAPTURE_METRICS pooled](../reports/week9/RESULTS_week9.md); [W10, B2 concise result tables](../reports/week10/RESULTS_week10.md) |
 | 276/386 ≈ 71,5%; 44; 55,32 | Lỗi chung RF/Ridge; số tìm bằng bất đồng / kỳ vọng ngẫu nhiên trên lỗi chung | [W9, Task 3, Prompt-disjoint A1 và A3](../reports/week9/RESULTS_week9.md); phần trăm là phép chia làm tròn |
@@ -453,8 +459,18 @@ Số thứ tự câu và nhãn kỹ thuật trong đường dẫn không mang ng
 | 19/10/2026, 05:41:03 UTC | Thời điểm ghi trong bản khóa | [Khóa, Provenance](signal_lock_tree_spread.md) |
 | Một người đếm; người thứ hai chờ điền | Trạng thái đối chiếu người đọc trong báo cáo | [W10, second-reader agreement preparation](../reports/week10/RESULTS_week10.md) |
 | 5 bài chưa giải thích; chỉ 1 bài trên 4,0 | Giới hạn nhận diện nhóm bài ở câu 23; không xác nhận nhóm “năm bài điểm cao” | [W10, five unexplained cases source clarification](../reports/week10/RESULTS_week10.md) |
+| Một lần đánh giá chính; lần hai đang chuẩn bị, chưa chạy; commit c7c42b9 | Lịch sử dùng Test tại câu 22; ngày thầy cho phép chưa điền | [Nháp RESULTS](../reports/week9/RESULTS_tree_spread_second_use_DRAFT.md), lưu cùng script tại commit c7c42b9 |
+| 174/769; ngưỡng 154; 9 / 3,20; 88/386 | Bài thực hành và phép tính đã lưu dùng cho interview | [Phiếu luyện development](phieu_luyen_mot_bai_development.md), mục 2–3 |
 
 **Những chỗ chưa đủ bằng chứng:** câu 19 chưa đo riêng ảnh hưởng bỏ đoạn cuối; câu 22 thiếu mốc chạy Test đầu tiên có xác minh độc lập; câu 23 chưa xác nhận thứ tự đọc, chưa định danh nhóm “năm bài điểm cao” và chưa có bằng chứng tái lập độc lập.
 **Những chỗ là suy luận hoặc đề xuất:** trực giác ở câu 4; diễn giải cơ chế ở câu 9; tác động có thể có của đoạn cuối ở câu 19; thứ tự ưu tiên và hướng thử tiếp ở câu 26.
-**Phạm vi lần biên soạn này:** chỉ tạo file sổ tay; không sửa code, không chạy lại mô hình, không mở hay tìm trong file Official Test, file corpus gộp hoặc `full_clean_corpus_6482.csv`, không in nội dung bài luận.
+**Phạm vi lần hiệu chỉnh này:** chỉ sửa file sổ tay; không sửa code, không chạy lại phân tích hoặc mô hình, không mở hay tìm trong file Official Test, file corpus gộp hoặc `full_clean_corpus_6482.csv`, không in nội dung bài luận.
 **Về commit:** lần hiệu chỉnh này được người dùng yêu cầu rõ tạo một commit riêng chỉ chứa file sổ tay.
+
+<a id="chuan-bi-interview"></a>
+## Chuẩn bị interview
+
+- **Một bài cụ thể:** `0514D25768A0` có hạng D **174/769** trong fold 5, trong khi ngân sách chỉ lấy **154** bài đầu, nên không được chọn đọc lại; người đọc đếm **9 lỗi**, công cụ cũ ước lượng **3,20 lỗi** trên 150 từ đầu. Cần nói rõ số công cụ cũ là ước lượng từ tỷ lệ toàn bài.
+- **Con số đã kiểm tra:** D bắt được **88/386** bài RF sai lớn trên development chia theo đề; đây là kết quả đã tính lại và lưu trong phiếu, không phải lần chạy mới ở lần sửa sổ tay này.
+
+Nguồn cho cả hai ý: [docs/phieu_luyen_mot_bai_development.md, mục 2 và 3](phieu_luyen_mot_bai_development.md).
