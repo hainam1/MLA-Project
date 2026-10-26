@@ -1,6 +1,6 @@
 # Nháp RESULTS — Official Test lần dùng thứ hai
 
-**CHƯA CHẠY.** Ngày thầy cho phép: ____________________ (người phụ trách tự điền).
+**CHƯA CHẠY.** Ngày thầy cho phép: **26/10/2026**. Nguồn: **nhận xét tuần 10 của thầy Khánh**, theo xác nhận của người phụ trách trong cuộc trao đổi này.
 
 Official Test lần dùng thứ hai, cho tín hiệu đã khóa, dùng lại RF đã lưu từ tuần 9; không phải xác nhận độc lập sạch; không có tín hiệu nào khác được thử
 
@@ -37,7 +37,7 @@ Lần dùng đầu: kết quả Phase 9 đã lưu; tuần 9 tái tính từ dự
 
 | Trường sau khi được phép chạy | Kết quả thực chạy |
 |---|---|
-| Ngày thầy cho phép | |
+| Ngày thầy cho phép | 26/10/2026; nguồn: nhận xét tuần 10 của thầy Khánh, theo xác nhận của người phụ trách |
 | Ngày giờ thực chạy / commit / hash file khóa | |
 | Số bài đủ điều kiện N / ngân sách k | |
 | Số bài sai lớn K / số bắt được C | |
