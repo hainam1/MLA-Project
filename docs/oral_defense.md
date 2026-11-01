@@ -19,7 +19,7 @@ replacement for human scoring.
 7. How do Ridge and Random Forest inductive biases differ?
 8. Why does Ridge need scaling while Random Forest does not?
 9. Why is disagreement useful for triage but not a calibrated confidence score?
-10. How will the review threshold be selected without using the test set?
+10. How does ceil(N * budget) select a review-first queue, with deterministic string-ID ties?
 11. Which metrics describe score prediction and which describe review-queue utility?
 12. Why must error analysis have human reference scores?
 13. How might essay length, prompt, or demographic variables expose shortcuts or bias?
@@ -32,3 +32,14 @@ replacement for human scoring.
 - [ ] No demographic field is used as a predictor.
 - [ ] Example errors contain no identifying information.
 - [ ] Limitations and LLM assistance are disclosed.
+
+
+## Final freeze interpretation
+
+The system has two supervised regression targets implemented with independently trained single-target models. No test target labels or test evaluation metrics were used for model selection or hyperparameter tuning; test input text was processed by deterministic feature extraction before final evaluation. Official evaluation is complete.
+
+Current evaluation primarily measures generalization to new essays under prompt categories represented during development, rather than generalization to completely unseen prompts. The operational 29-vs-44 terminology discrepancy remains explicitly unresolved; see [finalization evidence](finalization_evidence.md).
+
+Disagreement produced the highest observed capture rate among the tested strategies, but the evidence was insufficient to establish statistical superiority over random selection (empirical one-sided p=.165). Large errors refer to the frozen RF predictor. Top-20% means review-first; remaining essays still require teacher grading and teachers retain 100% of official grading authority. Consensus remains auxiliary, without test-driven promotion.
+
+The subgroup results are a descriptive subgroup performance audit, with small groups flagged, and do not establish fairness or causal effects. Aggregate labels reduce rater variance, so model-to-aggregate error is not directly comparable with human-to-human disagreement. The qualitative causes of the 97 shared blind spots have not been established. HANU use requires local validation/domain adaptation. Validation-only teacher heuristics and saved-prediction overlap are supplementary; see [evidence](finalization_evidence.md).

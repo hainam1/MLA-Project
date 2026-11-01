@@ -1,0 +1,4 @@
+﻿comparison,shared_of_386,caught_of_386,random_of_386,shared_caught,shared_K,shared_per_100,random_shared_per_100,old276_remain,old276_fixed,source
+RF – Ridge,276,88,77.362908429581,44,276,15.942028985507246,20.044151042399687,,,reports/week10/RESULTS_week10.md; B1 POOLED A1 (D_old); 276/44: week9/t3_pooled.csv A3
+RF – TF-IDF,233,81,77.362908429581,35,233,15.021459227467812,20.042076447833683,203,73,reports/week10/RESULTS_week10.md; B1 POOLED_EVIDENCE A1/A3_new; OLD_SHARED_ERROR_SET_UNDER_NEW_SOURCE
+RF – MiniLM,217,93,77.362908429581,36,217,16.589861751152075,20.043860802986874,191,85,"reports/week10/RESULTS_week10.md; B2 concise result tables, A1_RF/A3_RF_B2; old shared-error set"

@@ -1,0 +1,12 @@
+DEVELOPMENT ONLY | saved predictions | no model / no network
+fold N K_large budget caught expected_random
+   1 769      73    154     15 14.618986
+   2 768      88    154     22 17.645833
+   3 761      75    153     20 15.078844
+   4 745      76    149     17 15.200000
+   5 769      74    154     14 14.819246
+PASS: D caught=88/386; budget=764; expected_random=77.362908 (77.36)
+Rules: max-target absolute RF error >= 1; D descending; essay_id string ascending.
+Source: reports/week9/t3_heldout_predictions.csv; prompt_disjoint; sanitized numeric copy.
+Input SHA256: ae66aed7481bff705bbd684f3dfe1235ccbb8ad63a492a66fbc5b05482a4521c
+Elapsed: 0.0194 seconds

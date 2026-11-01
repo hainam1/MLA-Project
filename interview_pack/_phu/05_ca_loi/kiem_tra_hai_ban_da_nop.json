@@ -1,0 +1,78 @@
+{
+  "scope": "Only selected answer/confirmation and numeric model cells; no essay cells resolved or exported. Reader names, signatures and times omitted.",
+  "readers": {
+    "A": {
+      "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+      "part_A_fields_filled": 20,
+      "part_B_fields_filled": 20,
+      "confirmation_fields_filled": 6,
+      "self_confirmation_present": true,
+      "independence_status": "Có nội dung tự xác nhận; chưa kiểm chứng quy trình thực hiện",
+      "mapped_cases": [
+        {
+          "essay_id": "51DA4BA94C7C",
+          "temporary_code": "R1",
+          "reader_error_count": 14
+        },
+        {
+          "essay_id": "277A95AC0190",
+          "temporary_code": "R2",
+          "reader_error_count": 12
+        },
+        {
+          "essay_id": "4032ED0063E4",
+          "temporary_code": "R3",
+          "reader_error_count": 11
+        },
+        {
+          "essay_id": "D1D770AF6855",
+          "temporary_code": "R4",
+          "reader_error_count": 8
+        },
+        {
+          "essay_id": "0FFB44B5D0C2",
+          "temporary_code": "R5",
+          "reader_error_count": 13
+        }
+      ]
+    },
+    "B": {
+      "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+      "part_A_fields_filled": 20,
+      "part_B_fields_filled": 20,
+      "confirmation_fields_filled": 6,
+      "self_confirmation_present": true,
+      "independence_status": "Có nội dung tự xác nhận; chưa kiểm chứng quy trình thực hiện",
+      "mapped_cases": [
+        {
+          "essay_id": "51DA4BA94C7C",
+          "temporary_code": "R1",
+          "reader_error_count": 8
+        },
+        {
+          "essay_id": "4032ED0063E4",
+          "temporary_code": "R2",
+          "reader_error_count": 8
+        },
+        {
+          "essay_id": "0FFB44B5D0C2",
+          "temporary_code": "R3",
+          "reader_error_count": 10
+        },
+        {
+          "essay_id": "D1D770AF6855",
+          "temporary_code": "R4",
+          "reader_error_count": 5
+        },
+        {
+          "essay_id": "277A95AC0190",
+          "temporary_code": "R5",
+          "reader_error_count": 6
+        }
+      ]
+    }
+  },
+  "reader_identities_different": true,
+  "mapping_method": "Match all six saved truth/RF/Ridge numeric columns to the text-free 32-case export; never assume matching R1..R5 order between readers.",
+  "validation_limit": "Filled fields verified; original comparator requires exact checkbox and fixed role header, but submitted files use free-text confirmations/custom headers. Do not declare complete procedural validation or independence from file presence alone."
+}

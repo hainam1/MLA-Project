@@ -1,0 +1,423 @@
+{
+  "text_files_and_pdfs_scanned": 74,
+  "png_files_decoded": 25,
+  "png_hashes_matching_prior_manifest": 8,
+  "raw_10_digit_runs_by_context": {
+    "decimal_value": 36,
+    "essay_id_hex": 28,
+    "essay_id_numeric_10": 1,
+    "hash_or_commit": 15
+  },
+  "ten_digit_locations_no_values": [
+    {
+      "file": "02_mau_truy_vet/0514D25768A0.csv",
+      "line": 2,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 4,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 6,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 6,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 18,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 19,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 19,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 20,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 22,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 25,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 27,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 27,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 31,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "line": 33,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/5_ca_cho_hai_ban.csv",
+      "line": 2,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "05_ca_loi/5_ca_cho_hai_ban.csv",
+      "line": 3,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "06_lich_su_dung_test.md",
+      "line": 6,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 184,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 303,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 306,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 412,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 472,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 587,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 644,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 777,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 836,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1212,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1372,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1556,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1563,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1639,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 1751,
+      "kind": "essay_id_numeric_10"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2022,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2133,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2282,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2342,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2658,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2667,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2701,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2786,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 2953,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 3106,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 3140,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 3270,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 3639,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "07_kiem_tra_offline/development_predictions.csv",
+      "line": 3805,
+      "kind": "essay_id_hex"
+    },
+    {
+      "file": "08_tai_lap/build_pack.py",
+      "line": 146,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "08_tai_lap/nguon/bo_sung_tuan10.md",
+      "line": 2,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week10.md",
+      "line": 2,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week10.md",
+      "line": 24,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week10.md",
+      "line": 24,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week9.md",
+      "line": 8,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week9.md",
+      "line": 9,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "08_tai_lap/nguon/RESULTS_week9.md",
+      "line": 29,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/SOURCES.sha256",
+      "line": 11,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/SOURCES.sha256",
+      "line": 13,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/SOURCES.sha256",
+      "line": 14,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/SOURCES.sha256",
+      "line": 19,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "08_tai_lap/SUPPLEMENT_SOURCES.sha256",
+      "line": 1,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 14,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 15,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 32,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 32,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 33,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 33,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 39,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "line": 39,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 32,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 32,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 33,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 33,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 39,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "line": 39,
+      "kind": "decimal_value"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 10,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 35,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 44,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 59,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 69,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 81,
+      "kind": "hash_or_commit"
+    },
+    {
+      "file": "MANIFEST.sha256",
+      "line": 99,
+      "kind": "hash_or_commit"
+    }
+  ],
+  "full_name_pattern_hits": [],
+  "payload_field_hits": [],
+  "long_english_prose_candidates": [],
+  "unknown_formats": [],
+  "limitations": [
+    "No corpus/text fingerprint comparison performed because Test/corpus access is prohibited.",
+    "No OCR engine available; PNGs decoded and checked against prior manifest/visual QA.",
+    "Only first-name labels Nam/Giang/Linh were supplied; arbitrary full names cannot be exhaustively identified without a reference list.",
+    "Regex matches are candidates, not proof of student IDs. Numeric decimal/hash/essay-ID matches are classified separately."
+  ]
+}

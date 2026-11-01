@@ -1,0 +1,21 @@
+{
+  "completed": {
+    "status": "COMPLETED",
+    "run_commit": "cdc0a6a871d1f7ae9458f920157853159d6f9318",
+    "result": {
+      "eligible_count": 2518,
+      "budget_ceil_20pct": 504,
+      "large_error_count": 208,
+      "caught": 55,
+      "expected_random": 41.6330420969023,
+      "exact_one_sided_p": 0.011585706847145556
+    }
+  },
+  "stopped": {
+    "status": "STOPPED",
+    "run_commit": "b32ad4e35d0fc9546dc07d090526a59518641536",
+    "failure": "RF prediction mismatch: vocabulary; mismatched_rows=2015; max_absolute_difference=4.995115432393504e-12; atol=1e-12; rtol=0"
+  },
+  "source_completed": "reports/week9/tree_spread_official_test_second_use_log_attempt2.json",
+  "source_stopped": "reports/week9/tree_spread_official_test_second_use_log.json"
+}

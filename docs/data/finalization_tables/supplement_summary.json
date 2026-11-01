@@ -1,0 +1,14 @@
+{
+  "empirical_one_sided_p": 0.165,
+  "draws": 1000,
+  "tail_draws": 165,
+  "shared_blind_spots": 97,
+  "top20_overlap_count": 179,
+  "top20_overlap_fraction": 0.3551587301587302,
+  "jaccard": 0.21592279855247287,
+  "large_errors_both": 18,
+  "large_errors_only_disagreement": 29,
+  "large_errors_only_extremity": 25,
+  "large_errors_neither": 136,
+  "spearman_disagreement_extremity": 0.10700940294575914
+}

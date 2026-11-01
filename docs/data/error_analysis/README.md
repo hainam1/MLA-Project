@@ -1,0 +1,7 @@
+# Post-midterm manual error review
+
+`manual_error_review.csv` contains 32 unique privacy-eligible Validation essays: 12 highest RF-error cases, 10 low-disagreement large errors not already sampled, and 10 low-RF-error comparison essays. Error is the frozen maximum target RF-to-aggregate absolute deviation. Shared-blind-spot threshold is the frozen Validation median .133989655155; comparison maximum RF error is <.5. Highest cases sort by descending RF error then ascending ID; shared cases sort ascending ID; comparisons sort ascending RF error then ID. Selection is reproducible in `scripts/post_midterm_teacher_analysis.py`.
+
+This is a numerical coding sheet, not completed qualitative analysis. Reviewer/categorical fields and manual notes are blank. Low-error cases mean close to the aggregate reference, not objectively perfect essays. Human group members must privately look up eligible texts by essay ID in the clean development corpus, inspect writing and rubric, and annotate observations. Do not publish original learner text.
+
+Suggested fields allow task-response issues, unusual vocabulary, grammar-tool mismatch, coherence/content, length, syntax and rater ambiguity. Blank does not mean absent. Record observed evidence and reviewer identity; distinguish uncertainty from a confirmed observation. Task-response/off-topic judgments require the full authoritative assignment, not merely its short name. Do not infer causes or use this coding to retune models. Independent second review and disagreement notes are recommended before reporting thematic counts.

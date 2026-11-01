@@ -1,0 +1,139 @@
+{
+  "total": 26,
+  "broken": [],
+  "external": [],
+  "results": [
+    {
+      "url": "01_trinh_chieu.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "10_so_tay_so_lieu.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "03_so_do_chia.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "02_mau_truy_vet/0514D25768A0.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "04_bang_ket_qua/bang_mo_hinh.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "01_trinh_chieu.pdf#page=4",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "04_bang_ket_qua/bang_chinh.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "02_mau_truy_vet/0514D25768A0.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "09_dong_gop_va_ai/",
+      "status": "OK",
+      "target_kind": "directory"
+    },
+    {
+      "url": "01_trinh_chieu.pdf#page=6",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "04_bang_ket_qua/bang_chinh.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "11_ba_cau_giai_thich/nen_ve_giua.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "11_ba_cau_giai_thich/dung_chung_dac_trung.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "11_ba_cau_giai_thich/cau_lich_su_dung_test.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "12_mang_theo/bang_3_4.pdf",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "12_mang_theo/kiem_tra_ma_bam.txt",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "13_cau_truc_bao_cao_cuoi.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "14_luot_di_qua/0514D25768A0.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "14_luot_di_qua/684166ED2438.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "15_review_tuan10_mau/README.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "08_tai_lap/THIEU_VA_DOI_CHIEU.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "06_lich_su_dung_test.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "07_kiem_tra_offline/check_d_88_of_386_output.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "07_kiem_tra_offline/check_synthetic_ranking_output.png",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "08_tai_lap/REPRODUCE.md",
+      "status": "OK",
+      "target_kind": "file"
+    },
+    {
+      "url": "FILE_LIST.md",
+      "status": "OK",
+      "target_kind": "file"
+    }
+  ],
+  "browser_open": "BLOCKED: CUA could not confidently determine Windows browser URL; no successful UI open claimed",
+  "css_or_script_dependencies": []
+}

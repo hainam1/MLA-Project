@@ -1,0 +1,16 @@
+[
+  {
+    "script": "check_d_88_of_386.py",
+    "wall_seconds": 0.085871,
+    "exit_code": 0,
+    "network": "denied by audit hook",
+    "repo_reads_outside_pack": "denied by audit hook"
+  },
+  {
+    "script": "check_synthetic_ranking.py",
+    "wall_seconds": 0.052556,
+    "exit_code": 0,
+    "network": "denied by audit hook",
+    "repo_reads_outside_pack": "denied by audit hook"
+  }
+]

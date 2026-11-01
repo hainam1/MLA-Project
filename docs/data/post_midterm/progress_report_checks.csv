@@ -1,0 +1,13 @@
+check,target,group,count,n
+per_target_large_error_by_band,Vocabulary,<=2.0,15,29.0
+per_target_large_error_by_band,Vocabulary,2.5-4.0,6,708.0
+per_target_large_error_by_band,Vocabulary,>=4.5,13,25.0
+rf_prediction_min,Vocabulary,,,2.3498
+rf_prediction_max,Vocabulary,,,4.1914
+per_target_large_error_by_band,Grammar,<=2.0,20,113.0
+per_target_large_error_by_band,Grammar,2.5-4.0,16,622.0
+per_target_large_error_by_band,Grammar,>=4.5,11,27.0
+rf_prediction_min,Grammar,,,2.1731
+rf_prediction_max,Grammar,,,4.0458
+three_shortest_prompts_in_validation,,,24,762.0
+three_shortest_prompts_in_shortest_first_queue,,,20,153.0

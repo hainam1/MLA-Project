@@ -2,7 +2,7 @@
 
 > **Prepared:** 2026-09-24  
 > **Status:** Training run completed; evaluation is intentionally deferred to Task 7  
-> **Official test:** Locked and not loaded
+> **Phase 6 status at training time:** Official-test labels and evaluation were excluded from training. Deterministic test-text features existed separately. Phase 9 final evaluation is now complete; see `project_freeze_status.md`.
 
 ## Training contract
 

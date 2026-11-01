@@ -1,0 +1,15 @@
+﻿feature,nghia_tieng_viet,max_observed_development,definition_upper_bound,N,source_max,source_definition
+word_count,Số từ,1229.0,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+sentence_count,Số câu,99.0,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+mean_sentence_length,Số từ trung bình mỗi câu,385.333333333,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+mtld,Độ đa dạng từ vựng MTLD,120.5,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+mattr,Tỷ lệ từ khác nhau theo cửa sổ,0.923076923077,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+mean_word_frequency,Tần suất từ trung bình theo thang Zipf,6.43342298289,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+mean_word_length,Độ dài từ trung bình tính bằng ký tự,5.54545454545,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+lexical_density,Tỷ lệ từ mang nội dung,0.778301886792,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+noun_diversity,Tỷ lệ danh từ gốc khác nhau,1.0,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+detected_grammar_errors_per_100_words,Cảnh báo ngữ pháp trên 100 từ,8.35266821346,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+detected_error_free_sentence_ratio,Tỷ lệ câu không có cảnh báo ngữ pháp,1.0,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+complex_sentence_ratio,Tỷ lệ câu có mệnh đề phụ,1.0,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+estimated_clauses_per_sentence,Số mệnh đề ước lượng trung bình mỗi câu,68.0,,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md
+subordinate_clause_ratio,Tỷ lệ mệnh đề phụ,0.895833333333,1,3812,reports/week9/t3_eligible_development.csv,docs/feature_specification.md

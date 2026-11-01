@@ -1,0 +1,42 @@
+{
+  "source_hashes": {
+    "docs/feature_specification.md": "0a64779119aaba8f79828f8426c16339bf1491f2f6758f6d50d07acefe560c13",
+    "src/mla_project/features/extract_length.py": "3c2eb3fd68576b6d375661e505ee93186c23e1db4d7991125c14188ef7f14bf6",
+    "src/mla_project/features/extract_vocabulary.py": "e457625d2d1c062ae278c52bc06938b5acba5e83321dfd01372bea38c63b0caf",
+    ".venv/Lib/site-packages/wordfreq/__init__.py": "a50df96622a21a7bcab6a8fc8a8ce7abff8cb47e5dcf532341215640c337c1d0"
+  },
+  "scope": "Mathematical ranges from extractor definitions, including zero-value fallback policies; no observed cohort maxima",
+  "lower": {
+    "word_count": 0,
+    "sentence_count": 1,
+    "mean_sentence_length": 0,
+    "mtld": 0,
+    "mattr": 0,
+    "mean_word_frequency": 0,
+    "mean_word_length": 0,
+    "lexical_density": 0,
+    "noun_diversity": 0,
+    "detected_grammar_errors_per_100_words": 0,
+    "detected_error_free_sentence_ratio": 0,
+    "complex_sentence_ratio": 0,
+    "estimated_clauses_per_sentence": 0,
+    "subordinate_clause_ratio": 0
+  },
+  "upper": {
+    "word_count": null,
+    "sentence_count": null,
+    "mean_sentence_length": null,
+    "mtld": null,
+    "mattr": 1,
+    "mean_word_frequency": 9,
+    "mean_word_length": null,
+    "lexical_density": 1,
+    "noun_diversity": 1,
+    "detected_grammar_errors_per_100_words": null,
+    "detected_error_free_sentence_ratio": 1,
+    "complex_sentence_ratio": 1,
+    "estimated_clauses_per_sentence": null,
+    "subordinate_clause_ratio": 1
+  },
+  "Zipf_note": "0 floor by zipf_frequency default; theoretical 9 from log10(p)+9 with p<=1; typical 0-8 is not a hard maximum"
+}

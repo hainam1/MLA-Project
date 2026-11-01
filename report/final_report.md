@@ -6,8 +6,9 @@ This study examined whether interpretable linguistic features can support predic
 Vocabulary and Grammar scores and whether disagreement between Ridge Regression and Random Forest
 Regression can prioritize essays with large prediction errors for human review. The analysis used
 the ELLIPSE Corpus, which contains writing by English learners in US Grades 8–12. Models used a
-frozen set of 14 length, lexical, detected-grammar, and syntactic features. The official test was
-accessed once after the models and evaluation protocol were frozen; 2,518 of 2,571 test essays were
+frozen set of 14 length, lexical, detected-grammar, and syntactic features. Official-test labels and evaluation outcomes were
+used for final evaluation after the models and protocol were frozen; test input text had already
+been processed through deterministic feature extraction; 2,518 of 2,571 test essays were
 privacy-eligible.
 
 Random Forest had the lowest official-test mean absolute error (MAE) for both Vocabulary (0.364)
@@ -17,7 +18,7 @@ large errors: a 22.596% Capture Rate, 9.325% Precision, and 1.129 Lift. This was
 official-test point estimate among Random, Shortest-First, Ridge Extremity, and Disagreement, but
 the improvement was modest and the Capture Rate remained inside the empirical random-selection
 reference interval of 15.385%–25.012%. Moreover, 97 large-error essays had low model disagreement,
-representing 46.63% of all 208 large errors. The evidence is therefore **moderate/supportive**, not
+representing 46.63% of all 208 large errors. The evidence is therefore **limited/directional**, not
 statistically established superiority. Disagreement can be treated only as an imperfect triage
 signal: model agreement does not imply correctness or confidence.
 
@@ -216,9 +217,9 @@ Disagreement had the highest frozen official-test point estimate. It captured fo
 Ridge Extremity, ten more than Shortest-First, and 5.573 more than the random mean. However, its
 22.596% Capture Rate lies inside the empirical random-selection reference interval of
 15.385%–25.012%. That interval describes the middle 95% of the 1,000 frozen random draws; it is not
-a bootstrap confidence interval. The observed advantage is modest, and no inferential analysis
-establishes superiority over random selection. The evidence for added prioritization value is
-therefore **moderate/supportive**.
+a bootstrap confidence interval. The observed advantage is modest, and the empirical one-sided tail proportion is p=.165 (165/1000 saved random draws) and
+does not establish superiority over random selection at alpha=.05. The evidence for added prioritization value is
+therefore **limited/directional**.
 
 Validation and official-test results also differed in the relative ordering of the non-random
 baselines: Shortest-First tied Disagreement on validation, whereas Ridge Extremity was second on
@@ -334,7 +335,7 @@ families.
 Yes at the level of the frozen official-test point estimates: Disagreement captured 47 large errors
 (22.596%), compared with 43 for Ridge Extremity, 37 for Shortest-First, and a random mean of 41.427.
 However, Disagreement's Capture Rate remained inside the random empirical interval. The result is
-moderate/supportive evidence, not statistically established superiority.
+limited/directional evidence, not statistically established superiority.
 
 ### RQ3: Remaining failure modes
 
@@ -458,3 +459,24 @@ Crossley, S. A., Tian, Y., Baffour, P., Franklin, A., Kim, Y., Morris, W., Benne
 and Boser, U. (2023). Measuring second language proficiency using the English Language Learner
 Insight, Proficiency and Skills Evaluation (ELLIPSE) Corpus. *International Journal of Learner
 Corpus Research, 9*(2), 248–269.
+
+
+## Finalization interpretation and supplementary evidence (2026-10-03)
+
+No test target labels or test evaluation metrics were used for model selection or hyperparameter tuning. The development source had 3911 essays (3128 model_train + 783 Validation), with a separate 2571-row Official Test; privacy filtering leaves 3050/762/2518.
+
+Splitting was prompt-stratified across the prompt categories available in the dataset. Current evaluation primarily measures generalization to new essays under prompt categories represented during development, rather than generalization to completely unseen prompts. Operational prompt counts and the unresolved lecturer terminology discrepancy are documented separately in [finalization evidence](../docs/finalization_evidence.md); neither numerical count defines the study's generalization claim.
+
+There are two supervised regression targets implemented with independently trained single-target models. Large error is exactly `max(abs(true_Vocabulary - RF_Vocabulary), abs(true_Grammar - RF_Grammar)) >= 1.0` for the frozen Random Forest reference predictor selected on Validation. Triage evaluation therefore measures detection of large errors of that RF predictor. Auxiliary consensus inference is not a new confirmed winning model; any test-performance comparison of consensus would be exploratory/post-hoc.
+
+Disagreement produced the highest observed capture rate among the tested strategies, but the evidence was insufficient to establish statistical superiority over random selection. The empirical one-sided tail proportion from saved random draws is **p=.165**, not significant at alpha=.05.
+
+Random alone is an insufficient practical comparator. Shortest-first is a transparent teacher-observable comparator in the frozen study. A grammar-error-rate-first rule specified before supplementary execution captured 11/69 Validation large errors at 153 selected (15.942%), versus 15/69 (21.739%) for shortest-first and frozen disagreement. This is **exploratory validation-only analysis added after teacher feedback**, outside Phase 9. No heuristic was tuned or evaluated anew on Official Test.
+
+Saved-prediction supplementary overlap at Top-20% is 179/504 (35.516%), with Jaccard 0.215923. Of the 208 RF large errors, both rankings caught 18; disagreement alone caught 29, extremity alone 25, and neither 136. The two rankings provide partially different signals; these diagnostics do not prove independent superiority.
+
+One possible explanation is that both models share the same feature representation, but the project has not yet established the qualitative causes of these shared blind spots. A text-free reproducible sample with blank manual notes is available for future qualitative review.
+
+The preserved Gender, Race/Ethnicity and SES results constitute a **descriptive subgroup performance audit**; Grade is not covered by the frozen fairness table. Small subgroup estimates are unstable. Aggregate labels reduce rater variance, so model-to-aggregate error is not directly comparable with human-to-human disagreement.
+
+Top-20% is review-first, and the remaining 80% are also teacher graded. Teachers retain 100% of official grading authority. HANU deployment requires local validation/domain adaptation. Historical proposals preserve original hypotheses; final results supersede their assumptions.

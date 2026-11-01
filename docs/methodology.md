@@ -57,3 +57,21 @@ Ridge/RF disagreement. Ridge extremity is centered on the median Ridge predictio
 the 3,050 eligible model-train essays. All deterministic ties use ascending string essay ID. Model
 QWK rounds predictions half-up to the nearest 0.5 and clips to the fixed 1.0-5.0 ELLIPSE grid only
 for QWK; MAE and RMSE continue to use unmodified continuous predictions.
+
+
+## Final freeze interpretation
+
+The system has two supervised regression targets implemented with independently trained single-target models. No test target labels or test evaluation metrics were used for model selection or hyperparameter tuning; test input text was processed by deterministic feature extraction before final evaluation. Official evaluation is complete.
+
+Current evaluation primarily measures generalization to new essays under prompt categories represented during development, rather than generalization to completely unseen prompts. The operational 29-vs-44 terminology discrepancy remains explicitly unresolved; see [finalization evidence](finalization_evidence.md).
+
+Disagreement produced the highest observed capture rate among the tested strategies, but the evidence was insufficient to establish statistical superiority over random selection (empirical one-sided p=.165). Large errors refer to the frozen RF predictor. Top-20% means review-first; remaining essays still require teacher grading and teachers retain 100% of official grading authority. Consensus remains auxiliary, without test-driven promotion.
+
+The subgroup results are a descriptive subgroup performance audit, with small groups flagged, and do not establish fairness or causal effects. Aggregate labels reduce rater variance, so model-to-aggregate error is not directly comparable with human-to-human disagreement. The qualitative causes of the 97 shared blind spots have not been established. HANU use requires local validation/domain adaptation. Validation-only teacher heuristics and saved-prediction overlap are supplementary; see [evidence](finalization_evidence.md).
+
+
+## Instructor-requested post-midterm supplementary evaluation
+
+The frozen baseline is retained. New work is separated and documented in [post-midterm results](post_midterm/teacher_feedback_results.md). The evaluation narrative explicitly includes descriptive subgroup performance auditing by Gender, Grade, Race/Ethnicity and SES: subgroup N, per-target RF MAE, RF large-error rate and review selection/capture where available, with small-N and zero-denominator warnings. The newly added Grade results are Validation-only supplementary observations; the frozen Official Test subgroup table is unchanged. This does not establish fairness, absence of bias or demographic causation.
+
+Other instructor-requested additions are Validation-only max-versus-mean sensitivity, development length descriptions, saved-prediction error-feature comparisons and a blank human-coding sheet. Canonical unseen-prompt evaluation is designed but blocked by missing authoritative prompt mapping. Transformer work remains a later-course plan, without implementation.

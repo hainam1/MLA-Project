@@ -1,0 +1,6 @@
+﻿essay_id,fold,D,D_rank_in_fold,status,source
+767533E12569,4,0.8372433964445942,6,CHƯA ĐỌC; không phải phân tích lỗi hoàn tất,reports/week9/t3_heldout_predictions.csv; prompt_disjoint; A3 tự tính; D giảm dần rồi essay_id tăng dần
+79662DEC0A1B,1,0.6025500590993231,9,CHƯA ĐỌC; không phải phân tích lỗi hoàn tất,reports/week9/t3_heldout_predictions.csv; prompt_disjoint; A3 tự tính; D giảm dần rồi essay_id tăng dần
+89114CEF532E,1,0.4980150824567695,14,CHƯA ĐỌC; không phải phân tích lỗi hoàn tất,reports/week9/t3_heldout_predictions.csv; prompt_disjoint; A3 tự tính; D giảm dần rồi essay_id tăng dần
+E2C3F26AB94D,2,0.3906579877117018,26,CHƯA ĐỌC; không phải phân tích lỗi hoàn tất,reports/week9/t3_heldout_predictions.csv; prompt_disjoint; A3 tự tính; D giảm dần rồi essay_id tăng dần
+076262AA0CD5,1,0.3781956439404017,36,CHƯA ĐỌC; không phải phân tích lỗi hoàn tất,reports/week9/t3_heldout_predictions.csv; prompt_disjoint; A3 tự tính; D giảm dần rồi essay_id tăng dần

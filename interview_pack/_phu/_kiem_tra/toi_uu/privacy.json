@@ -1,0 +1,7 @@
+{
+  "text_or_office_files_scanned": 137,
+  "png_decoded": 59,
+  "forbidden_columns": [],
+  "member_full_name_pattern_hits": [],
+  "note": "10-digit numeric essay_id was already directly confirmed in eligible development; remaining long numeric fragments include decimal predictions and hashes. No corpus opened. No OCR; raster pages/PNGs visually checked against saved source assets; heuristics do not prove arbitrary-name absence."
+}

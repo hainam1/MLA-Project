@@ -1,0 +1,87 @@
+=== 1. LARGE ERROR DEFINITION ===
+
+Reference predictor: Random Forest
+Threshold: 1.0 point
+Formula: max(abs(y_vocab - rf_vocab), abs(y_grammar - rf_grammar)) >= 1.0
+Meaning: Vocabulary error >= threshold OR Grammar error >= threshold
+
+Validation: Total essays: 762; Large-error essays: 69
+Official Test (saved artifacts only): Total essays: 2518; Large-error essays: 208
+
+Ranking strategies using the same large-error mask (Validation + Official Test):
+[PASS] Random
+[PASS] Shortest-first
+[PASS] Ridge extremity
+[PASS] Ridge-RF disagreement
+
+Evidence sources:
+- configs/experiment.yaml (reference, threshold, budget)
+- docs/data/phase8_tables/large_error_labels.csv (Validation: formula, N, count)
+- docs/data/phase8_tables/review_strategy_comparison.csv (all four strategies: shared count)
+- docs/data/phase9_tables/large_error_labels.csv (Official Test (saved artifacts only): formula, N, count)
+- docs/data/phase9_tables/review_strategy_comparison.csv (all four strategies: shared count)
+- src/mla_project/evaluation/phase8.py (formula and common-mask metric helpers)
+- src/mla_project/evaluation/phase9.py (frozen formula and reference constants)
+- scripts/phase8_evaluate_review_prioritization.py (static verification of mask routing; not executed)
+- scripts/phase9_official_test_evaluation.py (static verification of mask routing; not executed)
+- data/02_split_manifest/essay_split_manifest.csv (eligible population IDs)
+
+=== 2. HUMAN-RATER DISAGREEMENT ===
+
+Number of essays: 762 (eligible Validation, two raters)
+
+Vocabulary
+Human-human MAE: 0.4160
+QWK: 0.5017
+ICC(A,1): 0.5021
+Agreement within 0.5 point: 59.32%
+Agreement within 1.0 point: 99.08%
+difference < 1.0: 452 (59.32%)
+difference = 1.0: 303 (39.76%)
+difference > 1.0: 7 (0.92%)
+
+Grammar
+Human-human MAE: 0.5367
+QWK: 0.5140
+ICC(A,1): 0.5143
+Agreement within 0.5 point: 48.82%
+Agreement within 1.0 point: 97.51%
+difference < 1.0: 372 (48.82%)
+difference = 1.0: 371 (48.69%)
+difference > 1.0: 19 (2.49%)
+
+Context: A one-point deviation is a practical flag, not proof the model is wrong.
+
+Evidence sources:
+- data/01_original_source/rater_scores/ellipsis_raw_rater_scores_anon_all_essay.csv (raw paired scores; all agreement metrics and difference counts)
+- outputs/predictions/phase7_validation_regression_predictions.csv (Validation ID allowlist)
+- data/02_split_manifest/essay_split_manifest.csv (Validation eligibility; exclude Official Test IDs)
+- src/mla_project/evaluation/rater_reliability.py (existing QWK/ICC/MAE definitions)
+
+=== 3. RIDGE VALIDATION RESULTS ===
+
+Validation N: 762
+
+Vocabulary
+MAE : 0.3748135
+RMSE: 0.4785379
+R2  : 0.3043423
+QWK : Not available in saved Validation artifact
+Alpha: 100
+
+Grammar
+MAE : 0.4562976
+RMSE: 0.5603300
+R2  : 0.3240423
+QWK : Not available in saved Validation artifact
+Alpha: 0.1
+
+Hyperparameter selection: 5-fold CV on model_train (3050 essays)
+Official Test used for tuning: NO
+
+Evidence sources:
+- outputs/predictions/phase7_validation_regression_predictions.csv (Validation targets; recomputed MAE/RMSE/R2)
+- outputs/phase6/validation_predictions.csv (exact cross-check of saved Validation predictions)
+- docs/data/phase7_tables/regression_metrics.csv (cross-check MAE/RMSE/R2; QWK availability)
+- outputs/phase6/training_summary.json (alpha, CV folds, fit population, Official Test exclusion)
+- data/02_split_manifest/essay_split_manifest.csv (model_train and Validation population IDs)

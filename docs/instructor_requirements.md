@@ -20,7 +20,7 @@ Tài liệu này giữ các tiêu chí môn **Machine Learning & Applications** 
 | Model families | Ít nhất hai họ mô hình đã học và so sánh công bằng | Active scope: Ridge Regression và Random Forest Regression; mean-score baseline chỉ là baseline. Xác nhận lại với giảng viên trước khi nộp. |
 | Dataset | Nguồn hợp pháp, citation/license rõ, bảo vệ riêng tư | Chỉ chấp nhận dataset vượt qua checklist về người viết, người chấm, rubric, license, PII và target |
 | Evaluation | Metric phù hợp; kết luận dựa trên thực nghiệm | MAE chính; RMSE và R² phụ; tùy điều kiện có bootstrap CI |
-| Comparison | Cùng dữ liệu, split, feature condition và protocol | So sánh ba model ở Surface-only, Linguistic-only và All; tuning chỉ trên development data |
+| Comparison | Cùng dữ liệu, split, feature condition và protocol | So sánh Ridge và Random Forest trên cùng 14 features; thêm mean/length baselines; tuning chỉ trên model_train CV |
 | Error analysis | Phân tích trường hợp sai và hạn chế | Slice theo score, độ dài, prompt, profile ngôn ngữ; phân tích over/underprediction và disagreement |
 | LLM | Chỉ là công cụ hỗ trợ và phải kê khai | Không tạo label, không thay model cốt lõi, không bịa kết quả; ghi tại `docs/llm_disclosure.md` |
 | Oral exam | Giải thích được toàn bộ quyết định và kết quả | Chuẩn bị theo `docs/oral_defense.md`; số liệu phải truy về artifact đã lưu |

@@ -1,0 +1,137 @@
+{
+  "scope": "Tóm lược nhận xét đã nộp; bỏ toàn bộ ví dụ trích bài và danh tính. Không suy luận nguyên nhân mới. Không đọc sheet bài luận.",
+  "codes": {
+    "1": "công cụ đếm lỗi thiếu",
+    "2": "bài ngắn",
+    "3": "từ vựng/ý hay nhưng đặc trưng không đo",
+    "4": "lỗi ngữ pháp không được tính",
+    "6": "nghi điểm người chấm lệch"
+  },
+  "cases": [
+    {
+      "essay_id": "51DA4BA94C7C",
+      "explanation": "A: Nhiều lỗi dạng động từ, cấu trúc và nối mệnh đề; có từ nâng cao nhưng dùng chưa tự nhiên. Chọn mã 4, 6.\nB: Lỗi động từ, hòa hợp chủ-vị, đại từ và nối câu; công cụ có thể đếm thiếu. Chọn mã 1, 4, 6.",
+      "conclusion": "Cả hai cho rằng điểm ngữ pháp 4,0 có vẻ cao, cùng chọn lỗi ngữ pháp chưa được tính và nghi điểm chấm lệch. A đề nghị đối chiếu tiêu chí chấm. Đây là nhận định người đọc, chưa xác nhận nhãn sai.",
+      "sources": {
+        "A": {
+          "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+          "part_A_answer_cells": "B6:B9",
+          "part_B_answer_cells": "B6:B9",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        },
+        "B": {
+          "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+          "part_A_answer_cells": "B6:B9",
+          "part_B_answer_cells": "B6:B9",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "essay_id": "D1D770AF6855",
+      "explanation": "A: Từ vựng phổ thông, lặp lại; có cụm phù hợp chủ đề nhưng dùng từ chưa chính xác. Chọn mã 3, 6.\nB: Có lập luận và từ đúng chủ đề, nhưng cách diễn đạt còn cơ bản, lặp lại và thiếu tự nhiên. Chọn mã 3, 6.",
+      "conclusion": "Cả hai cùng nêu đặc trưng có thể chưa phản ánh từ vựng phù hợp chủ đề và nghi điểm 5,0 cao. B lưu ý RF/Ridge gần nhau nên bất đồng không giúp phát hiện ca này. Cần kiểm chứng điểm và cách đo từ vựng.",
+      "sources": {
+        "A": {
+          "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+          "part_A_answer_cells": "B27:B30",
+          "part_B_answer_cells": "B27:B30",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        },
+        "B": {
+          "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+          "part_A_answer_cells": "B27:B30",
+          "part_B_answer_cells": "B27:B30",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "essay_id": "4032ED0063E4",
+      "explanation": "A: Thiếu trợ động từ, lỗi số ít/số nhiều, câu thiếu thành phần; từ vựng đơn giản và lặp. Chọn mã 4, 6.\nB: Bài ngắn, lỗi ngữ pháp cơ bản và nối câu; tín hiệu độ dài và ngữ pháp có thể góp phần vào sai số. Chọn mã 1, 2, 4, 6.",
+      "conclusion": "Hai người cùng cho rằng điểm ngữ pháp 4,0 chưa tương xứng, cùng chọn mã 4, 6. B bổ sung giả thuyết bài ngắn và công cụ đếm thiếu. Cần đối chiếu cách tính lỗi và tiêu chí chấm; chưa quy toàn bộ chênh lệch cho mô hình.",
+      "sources": {
+        "A": {
+          "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+          "part_A_answer_cells": "B20:B23",
+          "part_B_answer_cells": "B20:B23",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        },
+        "B": {
+          "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+          "part_A_answer_cells": "B13:B16",
+          "part_B_answer_cells": "B13:B16",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "essay_id": "0FFB44B5D0C2",
+      "explanation": "A: Từ lặp, lỗi dùng từ và chính tả; vốn từ hạn chế dù nội dung bám đề. Chọn mã 3, 6.\nB: Từ vựng phổ thông, lặp lại, có kết hợp từ thiếu tự nhiên; vẫn hiểu được ý tổng quát. Chọn mã 3, 6.",
+      "conclusion": "Cả hai cùng nghi điểm từ vựng 4,0 cao và đặc trưng chưa phản ánh đủ cách chấm. A đề nghị đối chiếu tiêu chí; B nhấn mạnh đánh giá độ phù hợp của điểm còn chủ quan. Chưa xác định nguyên nhân đã được kiểm chứng.",
+      "sources": {
+        "A": {
+          "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+          "part_A_answer_cells": "B34:B37",
+          "part_B_answer_cells": "B34:B37",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        },
+        "B": {
+          "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+          "part_A_answer_cells": "B20:B23",
+          "part_B_answer_cells": "B20:B23",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "essay_id": "277A95AC0190",
+      "explanation": "A: Câu dài thiếu dấu câu, lỗi hòa hợp chủ-vị và cấu trúc; từ phổ thông, lặp và sai chính tả. Chọn mã 4, 6.\nB: Lỗi chính tả, hòa hợp và cấu trúc lặp lại; công cụ có thể đếm thiếu. Chọn mã 1, 4, 6.",
+      "conclusion": "Cả hai cùng nghi điểm ngữ pháp 4,0 cao, chọn lỗi ngữ pháp chưa được tính và nghi điểm chấm lệch. A đề nghị kiểm tra lại điểm và cách tính lỗi; B nêu khả năng mô hình và người chấm dùng tín hiệu khác nhau. Chưa kết luận máy sai hoàn toàn.",
+      "sources": {
+        "A": {
+          "source_sha256": "427f1d9d6ad8ac122e768524216f71b187b034dd9c0ca8ee228552536d6705c9",
+          "part_A_answer_cells": "B13:B16",
+          "part_B_answer_cells": "B13:B16",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        },
+        "B": {
+          "source_sha256": "ab4c3739576af39df54e344cc9972a00aa707e2b1a3ed13b25ba3e52f6dc8681",
+          "part_A_answer_cells": "B34:B37",
+          "part_B_answer_cells": "B34:B37",
+          "sheet_indexes_zero_based": [
+            2,
+            4
+          ]
+        }
+      }
+    }
+  ]
+}

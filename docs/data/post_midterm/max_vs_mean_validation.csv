@@ -1,0 +1,3 @@
+strategy,analysis,selected_count,large_error_count,captured_count,large_error_prevalence,capture_rate,precision,lift
+D_max,Post-midterm validation sensitivity analysis requested by instructor,153,69,15,0.09055118110236221,0.21739130434782608,0.09803921568627451,1.0826939471440749
+D_mean,Post-midterm validation sensitivity analysis requested by instructor,153,69,17,0.09055118110236221,0.2463768115942029,0.1111111111111111,1.2270531400966183

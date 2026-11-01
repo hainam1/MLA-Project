@@ -13,6 +13,40 @@ RF Official Test MAE is 0.364197 for Vocabulary and 0.433587 for Grammar. At Top
 
 Top-20% means **review first**. The remaining essays also require teacher grading; the teacher retains all official grading authority. ELLIPSE results do not establish validity for HANU; local validation and domain adaptation would be required.
 
+## Repository Structure & Quick Navigation
+
+```text
+mla-project/
+├── configs/            # YAML configurations (paths, feature sets, model hyperparams)
+├── data/               # Standardized data pipeline (01_raw -> 02_splits -> 03_clean -> 05_features)
+│   ├── 01_original_source/    # Read-only original ELLIPSE dataset
+│   ├── 02_split_manifest/     # Stratified split manifest (train / val / test IDs)
+│   ├── 03_clean_ready_to_use/ # Canonical clean CSVs (3,128 train, 783 val, 2,571 test)
+│   ├── 04_intermediate_work/  # Error analysis exports & manual review samples
+│   └── 05_model_features/     # Pre-extracted 14 linguistic features
+├── docs/               # Full documentation suite (Index: docs/README.md)
+├── outputs/            # Serialized models, evaluation metrics, figures & tables
+│   ├── figures/               # Charts and regression plots
+│   ├── metrics/               # Evaluation JSONs & CSVs
+│   ├── models/                # Trained model checkpoints
+│   ├── phase6/                # Frozen Phase 6 model joblib artifacts
+│   └── predictions/           # Validation and Official Test prediction CSVs
+├── report/             # Final Project Report (final_report.md & summary)
+├── reports/            # Weekly progress assignments (week9, week10 GEC/ERRANT analyses)
+├── scripts/            # Sequential execution scripts (Phase 2 -> Phase 9 + weekly runners)
+├── src/mla_project/    # Production Python package (core data, features, models, pipelines)
+└── tests/              # Pytest test suite (93 unit & regression integrity tests)
+```
+
+| Component | Path | Description |
+| :--- | :--- | :--- |
+| **Final Project Report** | [`report/final_report.md`](report/final_report.md) | Official capstone technical report for submission. |
+| **Core Source Code** | [`src/mla_project/`](src/mla_project/) | Reusable package for feature extraction, training, and inference. |
+| **Phase Pipeline Scripts** | [`scripts/`](scripts/) | Step-by-step pipeline scripts (`phase2_...` to `phase9_...`). |
+| **Documentation Index** | [`docs/README.md`](docs/README.md) | Comprehensive index categorizing all 35 project specifications. |
+| **Weekly Submissions** | [`reports/`](reports/) | Weekly progress deliverables (`week9/`, `week10/`). |
+| **Unit & Pipeline Tests** | [`tests/`](tests/) | Full test coverage verifying pipeline integrity and zero data leakage. |
+
 ## Current status & result provenance
 
 Week 9 computational analyses are available. Task 0 remains PARTIAL because first Test access and edit chronology cannot be established. Tasks 1-3 and the descriptive Task 5 table are complete. Authoritative full assignment wording remains unavailable, so off-topic reading judgements remain unclear. No new commit has been made.

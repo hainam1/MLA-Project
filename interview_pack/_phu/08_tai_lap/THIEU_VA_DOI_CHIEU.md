@@ -1,0 +1,14 @@
+# Thiếu và đối chiếu nguồn
+- 88/386 và 77,362908: khớp phép tính từ dự đoán đã lưu; ngân sách tổng 764.
+- 44/276 và kỳ vọng 55,321857: khớp t3_pooled; 276 là nhãn cùng sai trong toàn bộ 3812 bài, không xếp hạng chỉ trên 276 bài đã biết là dương tính.
+- 96/386, +8 [-11,27]: đã có nguồn; CI lấy lại 44 cụm đề (2000 lượt seed 42), hàng đợi cố định, không refit/rerank. Không gán CI này cho Test.
+- 55/208, 47/208: khớp log/RESULTS; p 0,0116 so ngẫu nhiên, không phải so D. Ngày dùng Test đầu tiên: chưa xác định; tuần 9 là mốc báo cáo/tái kiểm.
+- 7,33 và 1,24: tái tính từ 36 dòng random36, kết quả 7.333333333 và 1.236789162. Công cụ cũ là ước lượng, không đếm đoạn trực tiếp.
+- ĐÃ CÓ NGUỒN cho 15,0 và 16,6 trên 100 bài trong nhóm cùng sai: 100*35/233 và 100*36/217. Nguồn reports/week10/RESULTS_week10.md / B1 A3_new và B2 A3_RF_B2; xem 12_mang_theo/bang_3_4.csv. Không phải trên 100 bài được đọc.
+- MAE mean baseline trong cùng GroupKFold: chưa có nguồn trong t3_regression; không lấy một bảng chia khác để thế vào.
+- “5 bài đọc hai bản”: nguồn hiện tại chỉ chứng minh ghi nhận cũ và hai phiếu mới còn trống. 0 cặp đủ điều kiện độc lập. Bản B cũ điền sẵn: chưa có nguồn được xác nhận. Không tạo so sánh giả.
+- Ghi nhận cũ: 32 ca, 22 RF sai lớn. Không tự xác nhận đủ rubric mới chỉ từ số đếm; mẫu 10 ca và danh sách ứng viên cần thành viên thực hiện.
+- Rubric gốc MLA Final Project Requirements and Rubric ngày 26/10/2026: chưa có nguồn gốc đã xác nhận trong nguồn được đọc. Gói dựng theo yêu cầu đính kèm; docs/instructor_requirements.md là tổng hợp có ghi cần xác minh đề gốc.
+- Điều kiện ELLIPSE theo data card: CC BY-NC-SA 4.0 và cho phép tái phân phối có điều kiện. Quyền trình chiếu văn bản từng bài chưa rõ; không kèm bài luận.
+- Phân rã đúng dự đoán OOF: thiếu mô hình riêng từng fold được xác nhận. Đã cung cấp phân rã từ bốn model Phase 6 có hash, ghi riêng scope; không coi là cùng mô hình.
+- Nhật ký quyết định/đóng góp/AI: mẫu trống; lịch sử chi tiết chưa đầy đủ, cần thành viên xác nhận.

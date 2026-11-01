@@ -1,3 +1,6 @@
 outputs/phase6/validation_predictions.csv -text
 outputs/predictions/*.csv -text
 reports/week9/** -text
+interview_pack/** -text
+docs/nguon_bao_cao_interview.md -text
+docs/nguon_bao_cao_interview/** -text

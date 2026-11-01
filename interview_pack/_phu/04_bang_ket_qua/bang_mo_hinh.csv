@@ -1,0 +1,4 @@
+﻿model,MAE_V,MAE_G,assumption,training_loss,why,source
+Mean,,,Điểm trung bình tập fit,Bình phương sai số,Mốc hằng số để kiểm tra giá trị của ML,Chưa có nguồn cho MAE mean baseline cùng GroupKFold; không điền
+Ridge,0.3734244371454302,0.46303653771248415,Quan hệ tuyến tính gần đúng trên đặc trưng chuẩn hóa,SSE + alpha * ||beta||²,"Giảm hệ số lớn, dễ phân rã","reports/week9/t3_regression.csv; prompt_disjoint, pooled"
+RF,0.37216506904049607,0.45540371959591663,Quan hệ phi tuyến; mẫu tương lai gần phân phối huấn luyện,Cây giảm bình phương sai số; lấy trung bình,Mô hình tương tác và ngưỡng đặc trưng,"reports/week9/t3_regression.csv; prompt_disjoint, pooled"

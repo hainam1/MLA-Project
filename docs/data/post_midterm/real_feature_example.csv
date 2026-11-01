@@ -1,0 +1,15 @@
+feature,actual_value
+word_count,400.0
+sentence_count,22.0
+mean_sentence_length,18.1818181818
+mtld,56.6471229888
+mattr,0.759772079772
+mean_word_frequency,6.098375
+mean_word_length,4.1425
+lexical_density,0.4925
+noun_diversity,0.285714285714
+detected_grammar_errors_per_100_words,0.25
+detected_error_free_sentence_ratio,0.954545454545
+complex_sentence_ratio,0.545454545455
+estimated_clauses_per_sentence,2.36363636364
+subordinate_clause_ratio,0.403846153846

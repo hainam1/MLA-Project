@@ -1,5 +1,7 @@
 # Phase 1: Chốt bài toán và tiêu chí thành công
 
+> Historical planning/decision record. Planned consensus-reference, bootstrap and feature-condition assumptions below were superseded by the frozen Phase 8/9 protocol. Current definitions and conclusions are in `evaluation_protocol_freeze.md`, `project_freeze_status.md` and `../report/final_report.md`.
+
 > **Trạng thái:** Hoàn thành và đóng băng phạm vi ngày 2026-09-23.  
 > **Lưu ý:** “Đóng băng” áp dụng cho câu hỏi, target, protocol và tiêu chí kết luận; không có nghĩa là thực nghiệm đã hoàn tất.  
 > **Dự án:** Prioritizing Teacher Review of English Learner Writing.  

@@ -9,4 +9,4 @@ maps only identifiers and text into the canonical in-memory schema.
 | `essay_text` | `full_text` | string | Yes | Original learner-written text | Non-empty | Reject row |
 | `Vocabulary` | `Vocabulary` | numeric | Yes | Human analytic vocabulary score | 1.0–5.0 | Reject row |
 | `Grammar` | `Grammar` | numeric | Yes | Human analytic grammar score | 1.0–5.0 | Reject row |
-| `prompt_id` | `prompt` | string | Preferred | Writing prompt/task identifier | Dataset-defined | Document absence |
+| `prompt_id` | `prompt` | string | Preferred | Operational prompt-name string; renamed from `prompt`, not a canonical ID | Dataset-defined | Document absence |

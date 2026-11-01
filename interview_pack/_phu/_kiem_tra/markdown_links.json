@@ -1,0 +1,545 @@
+{
+  "broken": [],
+  "links": [
+    {
+      "file": "FILE_LIST.md",
+      "url": "00_START_HERE.html",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "01_trinh_chieu.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "01_trinh_chieu_nguon.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/0514D25768A0.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/0514D25768A0.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/0514D25768A0_300_trees.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/0514D25768A0_ridge_terms.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/684166ED2438.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/684166ED2438.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/684166ED2438_300_trees.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/684166ED2438_ridge_terms.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "02_mau_truy_vet/saved_model_arithmetic.json",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "03_so_do_chia.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "03_so_do_chia.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "03_so_do_chia_ghi_chu.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "04_bang_ket_qua/bang_chinh.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "04_bang_ket_qua/bang_chinh.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "04_bang_ket_qua/bang_mo_hinh.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "04_bang_ket_qua/bang_mo_hinh.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "05_ca_loi/32_ca_da_co_ghi_nhan.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "05_ca_loi/5_ca_cho_hai_ban.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "05_ca_loi/5_ung_vien_chua_doc.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "05_ca_loi/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "05_ca_loi/mau_10_ca.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "06_lich_su_dung_test.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_d_88_of_386.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_d_88_of_386_output.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_d_88_of_386_output.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_synthetic_ranking.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_synthetic_ranking_output.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/check_synthetic_ranking_output.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "07_kiem_tra_offline/development_predictions.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/REPRODUCE.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/SOURCES.sha256",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/SUPPLEMENT_SOURCES.sha256",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/THIEU_VA_DOI_CHIEU.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/audit_pack.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/build_pack.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/extract_saved_models.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/finalize_pack.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/RESULTS_week10.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/RESULTS_week9.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/bo_sung_tuan10.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/data_card.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/du_lieu_interview.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/gec_part_a_68.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/llm_disclosure.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/signal_lock_tree_spread.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/split_and_leakage_protocol.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/t3_fold_composition.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/t3_pooled.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/t3_regression.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/nguon/test_log_summary.json",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "08_tai_lap/supplement_pack.py",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "09_dong_gop_va_ai/Giang/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "09_dong_gop_va_ai/Linh/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "09_dong_gop_va_ai/Nam/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "09_dong_gop_va_ai/khai_bao_ai.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "09_dong_gop_va_ai/mau_nhat_ky_dong_gop.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "10_so_tay_so_lieu.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "11_ba_cau_giai_thich/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "11_ba_cau_giai_thich/cau_lich_su_dung_test.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "11_ba_cau_giai_thich/dung_chung_dac_trung.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "11_ba_cau_giai_thich/nen_ve_giua.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "11_ba_cau_giai_thich/so_lieu_nen.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page02.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page03.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page04.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page05.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page06.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page07.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/01_trinh_chieu_page08.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/03_so_do_chia_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/04_bang_ket_qua__bang_chinh_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/04_bang_ket_qua__bang_mo_hinh_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/10_so_tay_so_lieu_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/12_mang_theo__bang_3_4_page01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/VERIFICATION.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/contact_01.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/contact_02.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/contact_03.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/contact_04_bo_sung.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/hien_thi/pdf_pages.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "12_mang_theo/bang_3_4.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "12_mang_theo/bang_3_4.pdf",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "12_mang_theo/bang_3_4.png",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "12_mang_theo/kiem_tra_ma_bam.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "12_mang_theo/signal_lock_tree_spread.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "13_cau_truc_bao_cao_cuoi.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "14_luot_di_qua/0514D25768A0.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "14_luot_di_qua/684166ED2438.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "15_review_tuan10_mau/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "15_review_tuan10_mau/ba_hanh_dong.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "15_review_tuan10_mau/moi_thanh_vien_mot_buoc.csv",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "FILE_LIST.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/KET_QUA_KIEM_TRA.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/README.md",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/TREE.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/check_d_88_of_386_audit_stdout.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/check_synthetic_ranking_audit_stdout.txt",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/links.json",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/manifest_before.json",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/offline_runs.json",
+      "status": "OK"
+    },
+    {
+      "file": "FILE_LIST.md",
+      "url": "_kiem_tra/privacy_scan.json",
+      "status": "OK"
+    },
+    {
+      "file": "14_luot_di_qua/0514D25768A0.md",
+      "url": "../07_kiem_tra_offline/check_d_88_of_386_output.png",
+      "status": "OK"
+    },
+    {
+      "file": "14_luot_di_qua/684166ED2438.md",
+      "url": "../07_kiem_tra_offline/check_d_88_of_386_output.png",
+      "status": "OK"
+    }
+  ]
+}

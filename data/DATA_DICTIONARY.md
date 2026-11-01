@@ -39,7 +39,7 @@ Tất cả các bảng trong `data/03_clean_ready_to_use/` đã được chuẩn
 | Tên Cột | Kiểu Dữ Liệu | Giá Trị Cho Phép / Dải Giá Trị | Ví Dụ | Giải Thích Chi Tiết |
 |---|---|---|---|---|
 | `essay_id` | `string` | Chuỗi 10-12 ký tự hex/số | `"5661280443"` | Mã định danh duy nhất của mỗi bài viết. |
-| `prompt` | `string` | Tên đề bài văn | `"Benefits of a problem"` | Đề bài văn học sinh được yêu cầu viết. |
+| `prompt` | `string` | Tên đề bài văn | `"Benefits of a problem"` | Chuỗi tên prompt operational; `prompt_id` trong manifest chỉ đổi tên field này, không phải canonical ID. Xem `docs/finalization_evidence.md` về 29-vs-44. |
 | `essay_text` | `string` | Văn bản tiếng Anh | `"Imagine if you..."` | Toàn văn bài viết gốc (đã trim khoảng trắng đầu/cuối). |
 | `clean_text` | `string` | Văn bản chuẩn hóa | `"Imagine if you..."` | Văn bản sau khi chuẩn hóa Unicode NFKC & thu gọn space. |
 | **`vocabulary`** | `float` | `1.0` – `5.0` (bước 0.5) | `3.5` | **Target cốt lõi 1:** Điểm Từ vựng (do người chấm gán). |

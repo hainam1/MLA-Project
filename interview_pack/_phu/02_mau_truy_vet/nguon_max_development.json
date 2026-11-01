@@ -1,0 +1,23 @@
+{
+  "source": "reports/week9/t3_eligible_development.csv",
+  "source_sha256": "f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307",
+  "feature_specification_sha256": "0a64779119aaba8f79828f8426c16339bf1491f2f6758f6d50d07acefe560c13",
+  "N": 3812,
+  "scope": "official_train development only; no text, Test, corpus, model or fit",
+  "maxima": {
+    "word_count": 1229.0,
+    "sentence_count": 99.0,
+    "mean_sentence_length": 385.333333333,
+    "mtld": 120.5,
+    "mattr": 0.923076923077,
+    "mean_word_frequency": 6.43342298289,
+    "mean_word_length": 5.54545454545,
+    "lexical_density": 0.778301886792,
+    "noun_diversity": 1.0,
+    "detected_grammar_errors_per_100_words": 8.35266821346,
+    "detected_error_free_sentence_ratio": 1.0,
+    "complex_sentence_ratio": 1.0,
+    "estimated_clauses_per_sentence": 68.0,
+    "subordinate_clause_ratio": 0.895833333333
+  }
+}

@@ -10,5 +10,5 @@ data:
 outputs:
   figures: outputs/figures
   metrics: outputs/metrics
-  models: outputs/models
+  models: outputs/phase6
   predictions: outputs/predictions

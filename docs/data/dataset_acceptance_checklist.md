@@ -37,7 +37,7 @@ conditional on resolving the Phase 2 identifying-information finding.
 
 1. Use only `Vocabulary` and `Grammar` as targets for the current project.
 2. Do not use prompt, demographics, source-provided scores, or other target-derived columns as features.
-3. Keep official test untouched until the frozen final evaluation.
+3. Keep test target labels and evaluation outcomes out of model selection/tuning until frozen final evaluation; deterministic test-text feature extraction is permitted.
 4. Report the approximate-continuity assumption and the absence of a stable learner grouping key.
 5. Audit near duplicates and cross-partition overlap before model fitting.
 6. Resolve the Phase 2 identifying-information finding before feature extraction or training.

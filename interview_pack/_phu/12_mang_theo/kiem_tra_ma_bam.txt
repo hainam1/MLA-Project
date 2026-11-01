@@ -1,0 +1,7 @@
+Nguồn: docs/signal_lock_tree_spread.md
+Bản mang theo được sao chép nguyên byte.
+SHA-256 hiện tính: d2eabcb7468373d0d0b7c7cfec7c6de6e5c95396c95707ddf7cbc155702a8eca
+SHA-256 kỳ vọng: d2eabcb7468373d0d0b7c7cfec7c6de6e5c95396c95707ddf7cbc155702a8eca
+Kết quả: KHỚP
+Commit khóa: 4e381150edf08d49a134505e669058f1e0d27b48 (nguồn: reports/week9/RESULTS_tree_spread_second_use.md).
+Dòng trạng thái Test trong file khóa là nguyên bản lịch sử; lịch sử mới xem 06_lich_su_dung_test.md.

@@ -1,0 +1,6 @@
+﻿scope,N,K,budget,caught,random,base_rate,source
+Dev - D,3812,386,764,88,77.362908429581,0.1012591815320042,"S1: reports/week9/t3_pooled.csv; prompt_disjoint, A1_RF, Disagreement"
+"Dev - D, cùng sai",3812,276,764,44,55.32185687702314,0.07240293809024134,"S1: reports/week9/t3_pooled.csv; prompt_disjoint, A3_Both_wrong, Disagreement"
+Dev - độ lệch cây,3812,386,764,96,77.362908429581,0.1012591815320042,S2: reports/week9/RESULTS_week9.md; Week 9b CAPTURE_METRICS
+Test - D đã lưu,2518,208,504,47,41.6330420969023,0.08260524225575853,S3: reports/week9/RESULTS_week9.md; Task 0
+"Test - cây, dùng lại",2518,208,504,55,41.6330420969023,0.08260524225575853,S4: reports/week9/tree_spread_official_test_second_use_log_attempt2.json; result

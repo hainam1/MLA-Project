@@ -1,0 +1,36 @@
+{
+  "entries": 106,
+  "matched": 78,
+  "mismatched": [
+    "08_tai_lap/audit_pack.py",
+    "08_tai_lap/build_pack.py",
+    "08_tai_lap/finalize_pack.py",
+    "08_tai_lap/nguon/du_lieu_interview.md",
+    "08_tai_lap/nguon/split_and_leakage_protocol.md",
+    "FILE_LIST.md",
+    "_kiem_tra/KET_QUA_KIEM_TRA.md",
+    "_kiem_tra/README.md",
+    "_kiem_tra/TREE.txt"
+  ],
+  "missing": [
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page01.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page02.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page03.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page04.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page05.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page06.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page07.png",
+    "11_kiem_dinh_hien_thi/01_trinh_chieu_page08.png",
+    "11_kiem_dinh_hien_thi/03_so_do_chia_page01.png",
+    "11_kiem_dinh_hien_thi/04_bang_ket_qua__bang_chinh_page01.png",
+    "11_kiem_dinh_hien_thi/04_bang_ket_qua__bang_mo_hinh_page01.png",
+    "11_kiem_dinh_hien_thi/10_so_tay_so_lieu_page01.png",
+    "11_kiem_dinh_hien_thi/12_mang_theo__bang_3_4_page01.png",
+    "11_kiem_dinh_hien_thi/VERIFICATION.md",
+    "11_kiem_dinh_hien_thi/contact_01.png",
+    "11_kiem_dinh_hien_thi/contact_02.png",
+    "11_kiem_dinh_hien_thi/contact_03.png",
+    "11_kiem_dinh_hien_thi/contact_04_bo_sung.png",
+    "11_kiem_dinh_hien_thi/pdf_pages.csv"
+  ]
+}

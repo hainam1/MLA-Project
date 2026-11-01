@@ -1,0 +1,69 @@
+{
+  "source": "reports/week9/t3_eligible_development.csv / essay_id",
+  "source_sha256": "f5649b7d2a85348b25945ec49592aed162bd3c1ab16422242696399dea9d1307",
+  "checked_pack_file": "07_kiem_tra_offline/development_predictions.csv",
+  "line": 1751,
+  "exact_matches": 1,
+  "target_length": 10,
+  "target_format": "numeric_only",
+  "target_value_not_printed": true,
+  "development_ids": 3812,
+  "length_distribution": {
+    "12": 3809,
+    "11": 2,
+    "10": 1
+  },
+  "formats": {
+    "hex_with_letters": 3809,
+    "numeric_only": 3
+  },
+  "numeric_lengths": {
+    "11": 2,
+    "10": 1
+  },
+  "moved_files": 19,
+  "moved_content_hashes_unchanged": true,
+  "moved_file_sha256": {
+    "01_trinh_chieu_page01.png": "98d5d7cbda1cc572671d55f6b48d4b30094de58a7eda69d7e94f38446224e74f",
+    "01_trinh_chieu_page02.png": "f4783737f543a62cbf08f9cb4e607a4ebb4673e72634271a74adf0bf800ca39a",
+    "01_trinh_chieu_page03.png": "401b0a3c2b5f5179a15ab84e62c455d94b32d3914595280e655eedb81eff5337",
+    "01_trinh_chieu_page04.png": "5d6bef5887b7206e6d55e5aea0b85d57fa64ff66121bcce6da2e9f590b667f03",
+    "01_trinh_chieu_page05.png": "ce3c81bc42cc46f078ccd9f7c60c720034d3832dffc39e57830adb7ab795a94e",
+    "01_trinh_chieu_page06.png": "8b9fb457ed77ebf8ea6efe2429e8fd84253c2881fdec58fe7e3d1459594f0e79",
+    "01_trinh_chieu_page07.png": "ccd46b57d4c611e3bbb9c6ee4e74183c4e168b3cda7d7ed493d51b9457fc1045",
+    "01_trinh_chieu_page08.png": "d430d9b2b899fa9f608782ccd1f2ed4658a2b2a8bdf581986dd5fd2d449b95c4",
+    "03_so_do_chia_page01.png": "8c7c2cae86a0209d27f133345350d4a1e9cdd533b339c763610859dd41194f8f",
+    "04_bang_ket_qua__bang_chinh_page01.png": "7f0c29acf02a196bee350293c874f58168222b94df44ac8212d69c141b35524b",
+    "04_bang_ket_qua__bang_mo_hinh_page01.png": "6cc6e5aaeb87acf8a1ce8708e24d3745c152edf45386cb527b23442c43bd464f",
+    "10_so_tay_so_lieu_page01.png": "260cdb7e9362d5fef69561fe564f66c5eff288aea94f3471821be068655698b2",
+    "12_mang_theo__bang_3_4_page01.png": "956b9a1c7964ce885ad16d6f578bb471bab0999b72e87518ad97ec17754b043d",
+    "contact_01.png": "e3361771287d956de8c4ac22b1d9f500a62bcf84cf43117a25d7afff12f16661",
+    "contact_02.png": "806f73de0a7086f1dbac7e3856edf77b078e83f19ce350208f8d866ae17d382e",
+    "contact_03.png": "5f4c644c3d63771c32d6c8c083c6fa4dcb464717d981dbc31145562ef5cd0885",
+    "contact_04_bo_sung.png": "5faa4393a9138e19a306401c51b7d3323a6662961677564a55ca1c9726a674b4",
+    "pdf_pages.csv": "c6a2ef9213764a4cb54df58bf7708dfdd5d939d791e3db5c08f0821f5d774193",
+    "VERIFICATION.md": "8cd684426da7f892859011329ec4f0506300d1cddd19784fc4a97626600ec3cb"
+  },
+  "source_reference_links_converted_to_text": [
+    {
+      "file": "08_tai_lap/nguon/du_lieu_interview.md",
+      "original_reference": "independent_readers_README.md"
+    },
+    {
+      "file": "08_tai_lap/nguon/du_lieu_interview.md",
+      "original_reference": "independent_readers_README.md"
+    },
+    {
+      "file": "08_tai_lap/nguon/split_and_leakage_protocol.md",
+      "original_reference": "../data/02_split_manifest/essay_split_manifest.csv"
+    },
+    {
+      "file": "08_tai_lap/nguon/split_and_leakage_protocol.md",
+      "original_reference": "../scripts/phase3_build_split.py"
+    },
+    {
+      "file": "08_tai_lap/nguon/split_and_leakage_protocol.md",
+      "original_reference": "data/phase3_tables/split_audit_summary.json"
+    }
+  ]
+}

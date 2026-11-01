@@ -1,0 +1,9 @@
+comparison,value
+top20_overlap_count,179.0
+top20_overlap_fraction,0.3551587301587302
+jaccard,0.21592279855247287
+large_errors_both,18.0
+large_errors_only_disagreement,29.0
+large_errors_only_extremity,25.0
+large_errors_neither,136.0
+spearman_disagreement_extremity,0.10700940294575914

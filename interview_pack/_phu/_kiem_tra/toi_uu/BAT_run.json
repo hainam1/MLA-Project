@@ -1,0 +1,6 @@
+{
+  "wall_seconds": 0.23275329999160022,
+  "returncode": 0,
+  "network": "socket/urllib/http events denied in Python by audit hook",
+  "stdin": "newline supplied only to exercise pause under test; double-click waits for user key"
+}

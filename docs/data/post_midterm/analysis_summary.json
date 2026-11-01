@@ -1,0 +1,58 @@
+{
+  "analysis": "post-midterm supplementary research",
+  "validation_n": 762,
+  "large_errors": 69,
+  "max_mean": [
+    {
+      "strategy": "D_max",
+      "analysis": "Post-midterm validation sensitivity analysis requested by instructor",
+      "selected_count": 153,
+      "large_error_count": 69,
+      "captured_count": 15,
+      "large_error_prevalence": 0.09055118110236221,
+      "capture_rate": 0.21739130434782608,
+      "precision": 0.09803921568627451,
+      "lift": 1.0826939471440749
+    },
+    {
+      "strategy": "D_mean",
+      "analysis": "Post-midterm validation sensitivity analysis requested by instructor",
+      "selected_count": 153,
+      "large_error_count": 69,
+      "captured_count": 17,
+      "large_error_prevalence": 0.09055118110236221,
+      "capture_rate": 0.2463768115942029,
+      "precision": 0.1111111111111111,
+      "lift": 1.2270531400966183
+    }
+  ],
+  "overlap": {
+    "selected_each": 153,
+    "intersection": 131,
+    "overlap_fraction": 0.8562091503267973,
+    "jaccard": 0.7485714285714286
+  },
+  "prompt_identity": "canonical mapping unresolved; operational categories only",
+  "unseen_prompt_experiment": "blocked_pending_authoritative_canonical_mapping",
+  "length_prompt_eta_squared_descriptive": 0.07826348151383473,
+  "prompt_mean_length_min": 169.0,
+  "prompt_mean_length_max": 523.3076923076923,
+  "feature_example": {
+    "essay_id": "1E4E4216EB39",
+    "split": "model_train",
+    "privacy_review_status": "not_flagged",
+    "Vocabulary": 4.0,
+    "Grammar": 3.5
+  },
+  "manual_review_status": "32 unique Validation essays, all human fields blank; coding pending",
+  "input_sha256": {
+    "manifest": "a998e6ed7edd1361de31739f4e3474a248a3eda7f705ee8e2a8eba36d396cc96",
+    "features": "cafb1bca27423e0a8b6fb2d282fb7bd87fb703fc637a3a15778855caf0817a5b",
+    "predictions": "6e86fe84b32219a6798a523c0e11c1e28b5f4036e31e182d3c349631c29ec3ab",
+    "clean": "a3da02147b51919271bfc4428ae7978f95eeca96bda4f5dffa923162865c5aa2",
+    "rater": "6972b8a960fc9f1986046aacef18792438bf90326ec55a89272932453e2f519b",
+    "rater_summary": "4e86b37ac5e7f825cbdbc1ff75f97255f153f2ad2c8c6fea274e6396531dfb67",
+    "ridge_metrics": "0e42fcb5d32b0091a026663da8607079ea95e8fea97b3a2448a36c977669e5e2",
+    "parameters": "6ac78f0481606ddfcb852ac666969fb17b7ddb4a93e7a389c700b7bdb78147f2"
+  }
+}

@@ -1,0 +1,5 @@
+﻿set,target,N,SD_pred_over_SD_true,Pearson,OLS_truth_on_prediction,source
+Development,Vocabulary,3812,0.53307411394889848,0.58741819225005643,1.1019446956420165,"reports/week10/RESULTS_week10.md / Part B, SMALL_SUMMARY_TABLE; OLS includes intercept"
+Development,Grammar,3812,0.56041925335356513,0.58622550535190632,1.0460481181613868,"reports/week10/RESULTS_week10.md / Part B, SMALL_SUMMARY_TABLE; OLS includes intercept"
+Validation,Vocabulary,762,0.53993490393011212,0.54779531590676678,1.0145580734259625,"reports/week10/RESULTS_week10.md / Part B, SMALL_SUMMARY_TABLE; OLS includes intercept"
+Validation,Grammar,762,0.56954577338188228,0.58177833047836458,1.0214777418570717,"reports/week10/RESULTS_week10.md / Part B, SMALL_SUMMARY_TABLE; OLS includes intercept"

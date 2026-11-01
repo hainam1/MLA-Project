@@ -1,5 +1,7 @@
 # Decision Log
 
+> Historical planning/decision record. Planned consensus-reference, bootstrap and feature-condition assumptions below were superseded by the frozen Phase 8/9 protocol. Current definitions and conclusions are in `evaluation_protocol_freeze.md`, `project_freeze_status.md` and `../report/final_report.md`.
+
 Record decisions before inspecting final-test performance.
 
 | Date | Decision | Alternatives considered | Reason | Consequences | Task/owner |
