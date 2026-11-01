@@ -1,0 +1,4 @@
+budget,total_k,large_errors,D_caught,tree_caught,expected,status,tree_status,command,tree_source
+0.1,383,386,50,KHÔNG CÓ NGUỒN OOF theo bài,38.781738193,TÍNH MỚI (dev),KHÔNG CÓ NGUỒN,.venv/Scripts/python.exe scripts/build_interview_sources.py,producer tree_spread_oof.py retains scores in memory only
+0.2,764,386,88,96,77.3629084296,TÍNH MỚI (dev),ĐÃ CÓ,.venv/Scripts/python.exe scripts/build_interview_sources.py,reports/week9/RESULTS_week9.md:1436
+0.3,1146,386,122,KHÔNG CÓ NGUỒN OOF theo bài,116.046092089,TÍNH MỚI (dev),KHÔNG CÓ NGUỒN,.venv/Scripts/python.exe scripts/build_interview_sources.py,producer tree_spread_oof.py retains scores in memory only

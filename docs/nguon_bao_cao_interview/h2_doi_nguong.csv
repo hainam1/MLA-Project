@@ -1,0 +1,4 @@
+threshold,large_errors,D_caught,expected,status,command
+0.75,965,200,193.40506801,TÍNH MỚI (dev),.venv/Scripts/python.exe scripts/build_interview_sources.py
+1,386,88,77.3629084296,TÍNH MỚI (dev),.venv/Scripts/python.exe scripts/build_interview_sources.py
+1.25,127,35,25.4588858024,TÍNH MỚI (dev),.venv/Scripts/python.exe scripts/build_interview_sources.py

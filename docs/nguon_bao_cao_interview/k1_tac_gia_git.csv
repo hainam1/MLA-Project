@@ -1,0 +1,4 @@
+git_author,commit_count,top_level_areas,status,source_commit,command
+CapyVocab Developer,11,.agents;.github;[root];artifacts;ci_workflows;configs;data;docs;logs;notebooks;outputs;report;reports;scripts;src;tests,ĐÃ CÓ,755929233dab6aee1983dfa028f2be1ed3e7f87c,git log 7559292 --format=%an --name-only (metadata only)
+hainam1,2,.github;[root];artifacts;ci_workflows;configs;data;docs;logs;reports;src;tests,ĐÃ CÓ,755929233dab6aee1983dfa028f2be1ed3e7f87c,git log 7559292 --format=%an --name-only (metadata only)
+Đào Hải Nam,30,[root];docs;outputs;reports;scripts,ĐÃ CÓ,755929233dab6aee1983dfa028f2be1ed3e7f87c,git log 7559292 --format=%an --name-only (metadata only)

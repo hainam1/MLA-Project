@@ -1,0 +1,6 @@
+fold,N,large_errors,k,D_caught,expected,status,source,command
+1,769,73,154,15,14.6189856957,TÍNH MỚI (dev),reports/week9/t3_heldout_predictions.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+2,768,88,154,22,17.6458333333,TÍNH MỚI (dev),reports/week9/t3_heldout_predictions.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+3,761,75,153,20,15.0788436268,TÍNH MỚI (dev),reports/week9/t3_heldout_predictions.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+4,745,76,149,17,15.2,TÍNH MỚI (dev),reports/week9/t3_heldout_predictions.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+5,769,74,154,14,14.8192457737,TÍNH MỚI (dev),reports/week9/t3_heldout_predictions.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py

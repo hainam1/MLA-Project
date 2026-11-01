@@ -1,0 +1,3 @@
+target,n,mae,evaluation,status,command
+Vocabulary,3812,0.474015445938,pooled OOF GroupKFold(5) by normalised_prompt,TÍNH MỚI (dev),.venv/Scripts/python.exe scripts/build_interview_sources.py
+Grammar,3812,0.564000740273,pooled OOF GroupKFold(5) by normalised_prompt,TÍNH MỚI (dev),.venv/Scripts/python.exe scripts/build_interview_sources.py

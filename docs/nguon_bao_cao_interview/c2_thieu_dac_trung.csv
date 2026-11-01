@@ -1,0 +1,15 @@
+feature,n,missing,missing_share,status,source,command
+word_count,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+sentence_count,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+mean_sentence_length,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+mtld,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+mattr,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+mean_word_frequency,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+mean_word_length,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+lexical_density,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+noun_diversity,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+detected_grammar_errors_per_100_words,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+detected_error_free_sentence_ratio,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+complex_sentence_ratio,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+estimated_clauses_per_sentence,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
+subordinate_clause_ratio,3812,0,0,TÍNH MỚI (dev),reports/week9/t3_eligible_development.csv,.venv/Scripts/python.exe scripts/build_interview_sources.py
