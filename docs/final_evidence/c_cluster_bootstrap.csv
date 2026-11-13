@@ -1,0 +1,5 @@
+metric,observed,CI_low_95,CI_high_95,CI_width,valid_resamples,skipped_resamples,positive_resamples,zero_resamples,negative_resamples,share_positive,share_positive_str,arithmetic,status,source
+D_MiniLM - D_cũ,5,-17.0,26.0,43.0,2000,0,1322,68,610,0.661,66.10%,1322/2000=0.661000,TÍNH MỚI (dev),reports/week10/b2_oof.csv + reports/week9/t3_heldout_predictions.csv
+D_TF-IDF - D_cũ,-7,-27.0,12.0,39.0,2000,0,486,66,1448,0.243,24.30%,486/2000=0.243000,TÍNH MỚI (dev),reports/week10/b2_oof.csv + reports/week9/t3_heldout_predictions.csv
+D_MiniLM - kỳ vọng ngẫu nhiên,15.637091570418988,0.6378571709396731,31.03155825630156,30.39370108536189,2000,0,1959,0,41,0.9795,97.95%,1959/2000=0.979500,TÍNH MỚI (dev),reports/week10/b2_oof.csv + reports/week9/t3_heldout_predictions.csv
+D_TF-IDF - kỳ vọng ngẫu nhiên,3.6370915704189883,-9.995414457319777,18.84106828075614,28.836482738075915,2000,0,1397,0,603,0.6985,69.85%,1397/2000=0.698500,TÍNH MỚI (dev),reports/week10/b2_oof.csv + reports/week9/t3_heldout_predictions.csv
