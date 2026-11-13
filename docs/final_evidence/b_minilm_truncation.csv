@@ -3,6 +3,6 @@ truncated_count_all_dev,all_dev_3812,3812,3378,0.8861490031479539,88.6149%,3378/
 median_token_count,all_dev_3812,3812,,459.0,,median=459.0,np.median(all_lens)=459.0,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
 p90_token_count,all_dev_3812,3812,,761.0,,p90=761.0,"np.percentile(all_lens, 90)=761.0",TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
 max_token_count,all_dev_3812,3812,,1435,,"max=1435, min=16",np.max(all_lens)=1435,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
-truncated_count_a1_rf,A1_RF_large_errors,386,334,0.8652849740932642,86.5285%,334/386 essays exceed 256 tokens,334/386=0.8652849741,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
-truncated_count_a3_rf_b2,A3_RF_B2_joint_large_errors,217,186,0.8571428571428571,85.7143%,186/217 essays exceed 256 tokens,186/217=0.8571428571,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
+truncated_count_rf_large_386,rf_large_errors_386,386,334,0.8652849740932642,86.5285%,334/386 essays exceed 256 tokens,334/386=0.8652849741,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
+truncated_count_rf_and_minilm_joint_large_217,rf_and_minilm_joint_large_errors_217,217,186,0.8571428571428571,85.7143%,186/217 essays exceed 256 tokens,186/217=0.8571428571,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
 mean_truncated_fraction_in_truncated,truncated_essays_only,3378,,0.4494621924033645,44.9462%,mean fraction of text cut = 44.9462%,sum((L-256)/L)/3378=0.4494621924,TÍNH MỚI (dev),SentenceTransformer tokenizer (reports/week10/b2_assets/model)
