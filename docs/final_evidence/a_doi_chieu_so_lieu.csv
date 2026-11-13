@@ -1,0 +1,11 @@
+essay_id,window,words_in_window,lt_grammar_matches_first150,lt_total_matches_first150,gector_edits_grammar_first150,gector_edits_all_first150,status,source,command
+0514D25768A0,first150_whitespace_words,150,2,3,12,13,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+2716F5E20A4F,first150_whitespace_words,150,0,15,41,49,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+2C38B62420C3,first150_whitespace_words,150,1,10,11,20,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+31D67F9A82BA,first150_whitespace_words,150,2,4,8,15,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+48EA282A4EAF,first150_whitespace_words,150,1,27,22,32,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+684166ED2438,first150_whitespace_words,54,0,6,11,17,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+7CAFF57E1775,first150_whitespace_words,150,1,6,6,7,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+9A36D8AB4818,first150_whitespace_words,150,0,1,8,12,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+D2EBEB5FDA90,first150_whitespace_words,150,1,7,21,33,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
+E70DD00622DB,first150_whitespace_words,150,1,1,8,10,TÍNH MỚI (dev),LanguageTool 6.6 (local) + GECToR roberta-base-5k + ERRANT 3.0.2,.venv/Scripts/python.exe scripts/build_a_reading_pack.py
