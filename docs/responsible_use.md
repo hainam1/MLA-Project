@@ -11,7 +11,8 @@ institutional privacy requirements.
 
 The Phase 2 audit found `Identifying_Info` flags in the raw-rater source and 138 exactly linkable
 final essays flagged by at least one rater. Raw learner text and qualitative examples must not be
-published. Beginning with Phase 5, only rows whose frozen manifest status is `not_flagged` may be
+published. The privacy gate also excludes 14 unresolved raw-ID links, for 152 exclusions overall
+(99 in Development and 53 in Official Test). Beginning with Phase 5, only rows whose frozen manifest status is `not_flagged` may be
 used for fitting or evaluation. Rows marked `flagged_by_rater` or `unresolved_raw_id_link` remain in
 the immutable manifest for auditability but are excluded before any learned preprocessing or model
 fit. This conservative rule applies consistently to model-train, validation, and final test.

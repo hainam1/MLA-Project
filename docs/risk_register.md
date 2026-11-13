@@ -7,5 +7,5 @@
 | Parser errors on learner language | Medium | Medium | Manually inspect a sample; log failures; remove unreliable features before test use | Feature QA report | Open |
 | Essay length becomes a shortcut | High | Medium | Compare Surface-only, Linguistic-only, and All conditions | Feature-condition experiment | Open |
 | Restricted data or PII is committed | Medium | High | Ignore data contents; document license and anonymization; audit before submission | Data license/privacy review | Open |
-| Identifying information may remain in learner text | Medium | High | Never publish raw examples; use raw-rater flags to define an approved exclusion/redaction policy before feature extraction | Phase 2 found 138 exactly linkable final rows flagged by either rater | Open; blocks training |
+| Identifying information may remain in learner text | Medium | High | Never publish raw examples; use raw-rater flags to define an approved exclusion/redaction policy before feature extraction | Phase 2 found 138 linkable rater-flagged rows; the privacy gate also excludes 14 unresolved IDs, 152 total | Open; blocks training |
 | Time or compute limits optional work | Medium | Low | Complete the core before generalization or ablation extensions | Milestone slippage | Open |

@@ -7,11 +7,11 @@ Tài liệu này cung cấp hướng dẫn chi tiết, minh bạch và khả thi
 
 ## 1. Nguyên tắc cốt lõi & Cảnh báo an toàn dữ liệu
 
-1. **Tuyệt đối không mở dữ liệu nhãn Official Test:** Mọi lệnh tái lập chỉ chạy trên tập Development (3.812 bài hợp lệ) và tập Validation (762 bài hợp lệ). Không có bất kỳ lệnh nào truy cập nhãn hay dự đoán Official Test.
+1. **Không chạy lại phân tích Official Test trong hướng dẫn này:** Các lệnh tái lập bên dưới dùng Development/Validation hoặc kết quả đã lưu. Phần tín hiệu độ lệch cây trên Official Test là kết quả lịch sử đã có log riêng; hướng dẫn này không mở lại dữ liệu Test.
 2. **Phân loại cấp độ thực thi minh bạch:**
-   - **[Loại 1] Tái lập nhanh từ dự đoán / số liệu đã lưu (Deterministic Verification):** Thời gian chạy `< 10 giây`, chỉ đọc ma trận dự đoán hoặc bảng số liệu đã chốt để tính toán số học, kiểm tra tính nhất quán, bootstrap và vẽ bảng.
-   - **[Loại 2] Huấn luyện lại mô hình từ ma trận đặc trưng (Retraining / Refitting):** Thời gian chạy `1 – 5 phút`, fit lại Ridge Regression hoặc Random Forest trên 5-fold GroupKFold hoặc 3.050 bài `model_train`.
-   - **[Loại 3] Chạy lại trích xuất đặc trưng / Mô hình nơ-ron sâu (Neural Inference / GEC Pipeline):** Thời gian chạy `nhiều phút đến hàng giờ`, yêu cầu môi trường chuyên dụng (`.venv_gec`), PyTorch và checkpoint mô hình nặng.
+   - **[Loại 1] Tái lập nhanh từ dự đoán / số liệu đã lưu (Deterministic Verification):** Chỉ đọc ma trận dự đoán hoặc bảng số liệu đã chốt để tính toán, kiểm tra tính nhất quán, bootstrap và lập bảng.
+   - **[Loại 2] Huấn luyện lại mô hình từ ma trận đặc trưng (Retraining / Refitting):** Fit lại Ridge Regression hoặc Random Forest trên 5-fold GroupKFold hoặc 3.050 bài `model_train`.
+   - **[Loại 3] Chạy lại trích xuất đặc trưng / Mô hình nơ-ron sâu (Neural Inference / GEC Pipeline):** Yêu cầu môi trường chuyên dụng (`.venv_gec`), PyTorch và checkpoint mô hình.
 3. **Bảo mật văn bản bài viết:** Các file chứa văn bản bài viết thô phục vụ kiểm toán đọc bài nằm hoàn toàn trong thư mục `local_only/` (đã cấu hình trong `.gitignore`) và không bao giờ được đưa lên kho chứa công khai.
 4. **Ghi chú về kiểm tra byte-level khi chạy lại:**
    - Khi chạy lại các script đánh giá như `scripts/phase7_evaluate_regression_models.py` hoặc `scripts/phase5_feature_audit_and_baselines.py`, các chỉ số MAE, RMSE, $R^2$ hoàn toàn **trùng khớp 100% đến từng chữ số thập phân**.
@@ -24,13 +24,13 @@ Tài liệu này cung cấp hướng dẫn chi tiết, minh bạch và khả thi
 Dự án sử dụng hai môi trường ảo Python tách biệt để đảm bảo tính cô lập phụ thuộc:
 
 ### Môi trường 1: `.venv` (Pipeline chính, Hồi quy, Ngữ pháp LanguageTool)
-- **Phiên bản Python:** Python 3.14.5 (hoặc Python 3.10+)
-- **Thư viện chính:** `numpy`, `pandas`, `scipy`, `scikit-learn`, `matplotlib`, `language_tool_python`
+- **Phiên bản đã chạy:** Python 3.14.5; NumPy 2.4.6; pandas 2.3.3; SciPy 1.18.1; scikit-learn 1.9.1; matplotlib 3.11.2; language-tool-python 2.9.5.
+- **Nguồn phiên bản:** [env_pip_freeze_venv.txt](docs/final_evidence/env_pip_freeze_venv.txt). Môi trường không cài `pip`; danh sách được lấy bằng `uv pip freeze --python .venv\Scripts\python.exe`.
 - **Mục đích:** Chạy toàn bộ pipeline từ Phase 2 đến Phase 8, cross-validation 5 fold tuần 9, và kiểm toán LanguageTool 6.6.
 
 ### Môi trường 2: `.venv_gec` (Neural Transformers, GECToR, Sentence Embeddings)
-- **Phiên bản Python:** Python 3.12.13
-- **Thư viện chính:** `torch==2.6.0`, `transformers==4.51.3`, `sentence-transformers==4.1.0`, `gector==1.2.0`, `errant==3.0.2`
+- **Phiên bản đã chạy:** Python 3.12.13; torch 2.6.0; transformers 4.51.3; sentence-transformers 4.1.0; gector 1.2.0; errant 3.0.2.
+- **Nguồn phiên bản:** [env_pip_freeze_venv_gec.txt](docs/final_evidence/env_pip_freeze_venv_gec.txt). Môi trường không cài `pip`; danh sách được lấy bằng `uv pip freeze --python .venv_gec\Scripts\python.exe`.
 - **Mục đích:** Trích xuất sentence embedding MiniLM L6 v2, đo lường độ dài cắt token, và suy luận sửa lỗi ngữ pháp GECToR RoBERTa.
 
 ---
@@ -44,33 +44,34 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 - **Lệnh:** `.venv\Scripts\python.exe scripts/phase2_dataset_audit.py`
 - **Môi trường:** `.venv`
 - **Đầu vào:** `data/01_original_source/official_corpus/`, `data/01_original_source/rater_scores/`
-- **Đầu ra:** `docs/data/phase2_tables/phase2_audit_summary.json`
-- **Thời gian chạy:** ~18 giây.
+- **Đầu ra:** `docs/data/phase2_tables/audit_summary.json`, stdout đã lưu tại `docs/final_evidence/phase2_dataset_audit_stdout.json`.
+- **Lần chạy hiện tại:** thoát mã 0; thời gian đo theo lượt chạy: khoảng 15,5 giây.
 - **Kết quả kiểm toán:**
   - Tổng số 6.482 bài (3.911 train official + 2.571 test official).
   - Không có bài trống (blank=0), không khuyết điểm (missing=0).
   - 44 prompt phân bố đồng đều.
-  - 138 bài bị gắn cờ quyền riêng tư rater được đánh dấu để lọc.
+  - Đầu ra `linkable_final_rows_flagged_by_either_rater=138`: 138 bài trong tập cuối có ID ghép được với bảng raw-rater và có ít nhất một cờ `Identifying_Info` bằng 1. Đây là số bài sau khi gộp hai cờ rater, không phải tổng 63 + 146 lượt gắn cờ riêng từng cột.
+  - Cổng quyền riêng tư loại thêm 14 bài có `unresolved_raw_id_link` (10 `model_train`, 4 `validation`). Tổng bị loại là 152: Development gồm 78 `model_train` và 21 `validation`; Official Test gồm 53. Chi tiết theo trạng thái ở `docs/data/phase3_tables/privacy_status_by_split.csv`.
 
 ### Phase 3: Phân hoạch chia tập Train/Val/Test cố định
 - **Script:** `scripts/phase3_build_split.py`
 - **Lệnh:** `.venv\Scripts\python.exe scripts/phase3_build_split.py`
 - **Môi trường:** `.venv`
-- **Đầu vào:** `data/01_original_source/official_corpus/train.csv`, manifest rater
+- **Đầu vào:** `data/01_original_source/official_corpus/ELLIPSE_Final_github_train.csv`, manifest rater
 - **Đầu ra:** `data/02_split_manifest/essay_split_manifest.csv`, `docs/data/phase3_tables/split_audit_summary.json`
-- **Thời gian chạy:** ~5 giây.
+- **Trạng thái lần này:** chưa chạy lại; thời gian chưa đo.
 - **Kết quả:**
   - 3.911 official train chia thành: 3.128 `model_train` và 783 `validation` (stratified theo prompt và hash text, seed 42).
   - Sau cổng quyền riêng tư (`privacy_review_status == not_flagged`): còn đúng **3.050 bài `model_train`** và **762 bài `validation`**. Tổng Development hợp lệ: **3.812 bài**.
+  - SHA-256 của manifest đã lưu: `A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96`.
 
 ### Phase 4: Trích xuất 14 đặc trưng ngôn ngữ giải thích được
 - **Script:** `scripts/phase4_extract_features.py`
 - **Lệnh:** `.venv\Scripts\python.exe scripts/phase4_extract_features.py`
 - **Môi trường:** `.venv` (spaCy `en_core_web_sm`, `language_tool_python`, `lexicalrichness`, `wordfreq`)
-- **Đầu vào:** `data/01_original_source/official_corpus/train.csv`, `data/02_split_manifest/essay_split_manifest.csv`
-- **Đầu ra:** `data/05_model_features/development_features_with_targets.csv` (SHA256: `cafb1bca2742...`)
-- **Thời gian chạy:** `[Loại 3]` ~30–45 phút trên CPU.
-- **Trạng thái:** Bảng đặc trưng đã trích xuất hoàn tất và được khóa hash.
+- **Đầu vào:** `data/01_original_source/official_corpus/ELLIPSE_Final_github_train.csv`, `data/02_split_manifest/essay_split_manifest.csv`
+- **Đầu ra:** `data/05_model_features/development_features_with_targets.csv` (SHA-256: `CAFB1BCA27423E0A8B6FB2D282FB7BD87FB703FC637A3A15778855CAF0817A5B`)
+- **Trạng thái:** Bảng đặc trưng đã trích xuất hoàn tất và được khóa hash; lần này chưa chạy lại, thời gian chưa đo.
 
 ### Phase 5: Kiểm toán đặc trưng & Đánh giá baseline độ dài
 - **Script:** `scripts/phase5_feature_audit_and_baselines.py`
@@ -89,7 +90,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
   ```powershell
   .venv\Scripts\python.exe scripts/phase6_train_models.py --preflight-only
   ```
-  *Kết quả preflight trong ~2s:* Xác nhận đầy đủ 3.050 bài `model_train`, 762 bài `validation`, 5 fold PredefinedSplit `{0: 609, 1: 610, 2: 610, 3: 611, 4: 610}`, `ready: true`.
+  *Kết quả preflight:* Xác nhận đầy đủ 3.050 bài `model_train`, 762 bài `validation`, 5 fold PredefinedSplit `{0: 609, 1: 610, 2: 610, 3: 611, 4: 610}`, `ready: true`.
 - **Lệnh huấn luyện lại đầy đủ:**
   ```powershell
   .venv\Scripts\python.exe scripts/phase6_train_models.py
@@ -97,13 +98,13 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 - **Môi trường:** `.venv`
 - **Đầu vào:** `data/05_model_features/development_features_with_targets.csv`, `configs/phase6_training.yaml`
 - **Đầu ra:** 4 artifact mô hình đã fit trong `outputs/phase6/` (`ridge_vocabulary.joblib`, `ridge_grammar.joblib`, `random_forest_vocabulary.joblib`, `random_forest_grammar.joblib`) và ma trận dự đoán `outputs/phase6/validation_predictions.csv`.
-- **Thời gian chạy:** ~2–3 phút.
+- **Trạng thái huấn luyện:** chưa chạy lại; thời gian chưa đo. Lượt này chỉ chạy preflight.
 
 ---
 
 ## 4. Hướng dẫn tái lập từng Bảng chính trong Báo cáo
 
-### Bảng 7: Baseline MAE & Hiệu năng hồi quy đơn đích (Regression Performance)
+### Bảng MAE (tham khảo số 7): Baseline và hiệu năng hồi quy đơn đích
 - **Mục tiêu:** Tái lập sai số tuyệt đối trung bình (MAE) của hai mô hình chính (Ridge, Random Forest) và các baseline (Mean, Text-length) trên tập Validation ($N=762$) và Development OOF ($N=3.812$).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu**
 - **Môi trường:** `.venv`
@@ -112,10 +113,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
   # 1. Đánh giá trên tập Validation (762 bài):
   .venv\Scripts\python.exe scripts/phase7_evaluate_regression_models.py
 
-  # 2. Đánh giá Mean Baseline trên Development OOF (3.812 bài):
-  .venv\Scripts\python.exe scripts/build_interview_sources.py
-
-  # 3. Đánh giá Ridge và Random Forest trên Development OOF (3.812 bài):
+  # 2. Đánh giá Ridge và Random Forest trên Development OOF (3.812 bài):
   .venv\Scripts\python.exe -c "
   import pandas as pd, numpy as np
   df = pd.read_csv('reports/week10/b2_oof.csv')
@@ -123,11 +121,16 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
   print('RF OOF MAE:   ', np.mean(np.abs(df['Vocabulary'] - df['RF_V'])), np.mean(np.abs(df['Grammar'] - df['RF_G'])))
   "
   ```
-- **File đầu vào:**
-  - `outputs/phase6/validation_predictions.csv` (SHA256: `6e86fe84b322...`)
-  - `data/05_model_features/development_features_with_targets.csv` (SHA256: `cafb1bca2742...`)
-  - `reports/week9/t3_heldout_predictions.csv` (SHA256: `15cedfabd362...`)
-  - `reports/week10/b2_oof.csv` (SHA256: `ed51bdded954...`)
+- **Nguồn Development OOF đã xác nhận:** `reports/week10/b2_oof.csv`; Ridge dùng các cột `Vocabulary`, `Grammar`, `Ridge_V`, `Ridge_G`; Random Forest dùng `Vocabulary`, `Grammar`, `RF_V`, `RF_G`. File `t3_heldout_predictions.csv` không được dùng làm nguồn MAE Ridge/RF: lần kiểm tra trước thoát mã 1 và lần này không chạy lại.
+- **Nguồn baseline Mean Development:** kết quả đã lưu tại `docs/nguon_bao_cao_interview/d1_mean_dev.csv` (SHA-256: `CCC46C6242ECBA18769F5C74524F102A3969824EFFACF2750D8043A61D65E7F1`).
+**Tệp đầu vào và SHA-256 đầy đủ:**
+
+| Tệp | SHA-256 |
+|---|---|
+| `outputs/phase6/validation_predictions.csv` | `6E86FE84B32219A6798A523C0E11C1E28B5F4036E31E182D3C349631C29EC3AB` |
+| `data/05_model_features/development_features_with_targets.csv` | `CAFB1BCA27423E0A8B6FB2D282FB7BD87FB703FC637A3A15778855CAF0817A5B` |
+| `data/02_split_manifest/essay_split_manifest.csv` | `A998E6ED7EDD1361DE31739F4E3474A248A3EDA7F705EE8E2A8EBA36D396CC96` |
+| `reports/week10/b2_oof.csv` | `ED51BDDED9544264AC45703E18FF7E3D1242D6208E043542437F318AC5A67B73` |
 - **File đầu ra:**
   - `docs/data/phase7_tables/regression_metrics.csv`
   - `docs/data/phase7_tables/baseline_comparisons.csv`
@@ -140,13 +143,13 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
   | **Validation (762)** | Length-only Ridge | 0.436107 | 0.542828 | `phase7_evaluate_regression_models.py` |
   | **Validation (762)** | Ridge (14 đặc trưng) | 0.374814 | 0.456298 | `phase7_evaluate_regression_models.py` |
   | **Validation (762)** | Random Forest (14 đặc trưng) | 0.372977 | 0.447710 | `phase7_evaluate_regression_models.py` (Point predictor) |
-  | **Dev OOF (3.812)** | Mean Baseline (CV Fold Mean) | 0.474015 | 0.564001 | `build_interview_sources.py` (`d1_mean_dev.csv`) |
-  | **Dev OOF (3.812)** | Ridge (14 đặc trưng) | 0.373424 | 0.463037 | `reports/week10/b2_oof.csv` (hoặc `t3_heldout_predictions.csv`) |
-  | **Dev OOF (3.812)** | Random Forest (14 đặc trưng) | 0.372165 | 0.455404 | `reports/week10/b2_oof.csv` (hoặc `t3_heldout_predictions.csv`) |
+  | **Dev OOF (3.812)** | Mean Baseline (CV Fold Mean) | 0.474015 | 0.564001 | Kết quả đã lưu: `d1_mean_dev.csv` |
+  | **Dev OOF (3.812)** | Ridge (14 đặc trưng) | 0.373424 | 0.463037 | `b2_oof.csv`: `Ridge_V`, `Ridge_G` |
+  | **Dev OOF (3.812)** | Random Forest (14 đặc trưng) | 0.372165 | 0.455404 | `b2_oof.csv`: `RF_V`, `RF_G` |
 
 ---
 
-### Bảng 8: Chiến lược chọn hàng đợi rà soát giáo viên (Review Prioritization)
+### Bảng chọn bài rà soát (tham khảo số 8)
 - **Mục tiêu:** Tái lập tỷ lệ thu giữ lỗi lớn ($L_i = 1[\max(|RF_V-y_V|, |RF_G-y_G|) \ge 1.0]$), độ chính xác và độ lợi (Lift) ở các ngân sách $k = \lceil 0.20 N \rceil$ giữa 4 chiến lược: Random, Shortest-first, Ridge extremity, và Ridge-RF Disagreement ($D$).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu**
 - **Môi trường:** `.venv`
@@ -172,7 +175,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng 9: Tính cực đoan và nén phương sai của Ridge (Extremity & Variance Shrinkage)
+### Bảng độ lệch và nén phương sai (tham khảo số 9)
 - **Mục tiêu:** Phân tích định lượng hiện tượng nén phương sai (shrinkage) của mô hình hồi quy Ridge và Random Forest trên cả hai tập: Validation ($N=762$) và Development OOF ($N=3.812$).
 - **Phân loại:** **[Loại 1] Đọc kết quả đã lưu, chưa chạy lại script**
 - **Môi trường:** `.venv`
@@ -213,14 +216,14 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng 10: Thay thế nguồn thông tin (B1 TF-IDF, B2 MiniLM L6 v2)
+### Bảng thay thế nguồn thông tin (tham khảo số 10): B1 TF-IDF và B2 MiniLM
 - **Mục tiêu:** Kiểm định xem tín hiệu bất đồng $D$ có phải là hệ quả riêng của 14 đặc trưng đóng băng hay không, bằng cách thay thế bằng:
   - **B1:** Văn bản n-gram thuần túy (TF-IDF unigram + bigram, $\min\_df=5$, Ridge $\alpha=10$).
   - **B2:** Mô hình biểu diễn câu nơ-ron trước huấn luyện (`all-MiniLM-L6-v2` 384-dim, encoder đóng băng, Ridge $\alpha=10$).
 - **Phân loại:**
   - One-liner đọc ma trận OOF: **[Loại 1] Đã chạy thử (thực thi trong 0.6s)**
-  - Huấn luyện lại B1 TF-IDF: **[Loại 2] Chưa chạy thử (đã có kết quả lưu, dự kiến ~45s)**
-  - Huấn luyện lại B2 MiniLM: **[Loại 3] Chưa chạy thử (đã có kết quả lưu, dự kiến ~3-5m, yêu cầu `.venv_gec`)**
+  - Huấn luyện lại B1 TF-IDF: **[Loại 2] Chưa chạy lại (đã có kết quả lưu; thời gian chưa đo)**
+  - Huấn luyện lại B2 MiniLM: **[Loại 3] Chưa chạy lại (đã có kết quả lưu; thời gian chưa đo; yêu cầu `.venv_gec`)**
 - **Lệnh thực thi:**
   ```powershell
   # [Loại 1 - ĐÃ CHẠY THẬT] Đọc ma trận OOF 3.812 bài từ file lưu:
@@ -241,7 +244,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng 18: Tỷ lệ bắt lỗi lớn $D$ theo từng fold (Fold-level D capture)
+### Bảng bắt lỗi lớn theo fold (tham khảo số 18)
 - **Mục tiêu:** Tái lập bảng chi tiết số bài bắt được theo từng fold của GroupKFold 5 fold theo cụm đề trên 3.812 bài Development, và tính khoảng tin cậy Bootstrap cụm đề (Prompt-cluster bootstrap 2.000 lượt).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu & Bootstrap**
 - **Môi trường:** `.venv`
@@ -270,7 +273,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng 20: Đối chiếu công cụ đếm lỗi ngữ pháp (LanguageTool 6.6 vs GECToR + ERRANT)
+### Bảng đối chiếu công cụ đếm lỗi (tham khảo số 20): LanguageTool và GECToR + ERRANT
 - **Mục tiêu:** So sánh số đếm lỗi trên cùng cửa sổ 150 từ đầu tiên giữa người đọc độc lập, LanguageTool 6.6 (`ruleIssueType=grammar`) và GECToR v1.2.0 + ERRANT v3.0.2 trên 68 bài Validation (36 bài ngẫu nhiên phân tầng + 32 bài ca lỗi tuần 9).
 - **Phân loại & Trạng thái chạy thực tế:**
   - **LanguageTool 6.6:** Được chạy lại thật 100% trên cả 10 bài sanity check và 68 bài Validation (mất ~65 giây).
@@ -330,26 +333,50 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
   - Thư mục đọc trước (`1_doc_truoc/`): `62cf4f28254259169a2ffeb02c125c29c7a62121a1f884c0cf68eaa2c3cf23bc`
 - **File bằng chứng đã commit:** `docs/final_evidence/a_reading_pack_hashes.txt`, `docs/final_evidence/a_doi_chieu_so_lieu.csv`.
 
+### Tín hiệu độ lệch cây trên Official Test (không chạy lại trong lần này)
+
+Lượt chỉnh sửa này không chạy lại bước dùng Official Test và không mở lại dữ liệu Test. Chỉ đối chiếu hồ sơ đã lưu:
+
+- Khóa tín hiệu: [`docs/signal_lock_tree_spread.md`](docs/signal_lock_tree_spread.md), commit `4e38115`.
+- Lần gọi đầu dừng trước khi tính tín hiệu: log [`tree_spread_official_test_second_use_log.json`](reports/week9/tree_spread_official_test_second_use_log.json), `status=STOPPED`, lưu tại commit `9405677`.
+- Lần gọi hoàn tất sau đó: log [`tree_spread_official_test_second_use_log_attempt2.json`](reports/week9/tree_spread_official_test_second_use_log_attempt2.json) và [báo cáo kết quả](reports/week9/RESULTS_tree_spread_second_use.md), kết quả lưu tại commit `97159a6`. Trường `run_commit` trong log ghi commit mã nguồn thực thi `cdc0a6a`.
+
+### Phụ lục B.1 — Ma trận thí nghiệm E0–E8
+
+Các mã dưới đây lập chỉ mục cho chín nhóm thí nghiệm và kết quả đang có trong hướng dẫn này. Mỗi dòng ghi lệnh hoặc đường dẫn kết quả đã lưu.
+
+| Mã | Thí nghiệm | Lệnh hoặc kết quả đã lưu |
+|---|---|---|
+| E0 | Baseline Mean và baseline độ dài | Lệnh: `.venv\Scripts\python.exe scripts/phase5_feature_audit_and_baselines.py`; kết quả: `docs/data/phase5_tables/baseline_regression_metrics.csv` |
+| E1 | Ridge với 14 đặc trưng | Kết quả đã lưu: `outputs/phase6/ridge_vocabulary.joblib`, `outputs/phase6/ridge_grammar.joblib`; OOF: `reports/week10/b2_oof.csv` (`Ridge_V`, `Ridge_G`) |
+| E2 | Random Forest với 14 đặc trưng | Kết quả đã lưu: `outputs/phase6/random_forest_vocabulary.joblib`, `outputs/phase6/random_forest_grammar.joblib`; OOF: `reports/week10/b2_oof.csv` (`RF_V`, `RF_G`) |
+| E3 | MAE trên Validation | Kết quả đã lưu: `docs/data/phase7_tables/regression_metrics.csv`, `docs/data/phase7_tables/baseline_comparisons.csv` |
+| E4 | Chiến lược chọn bài rà soát | Kết quả đã lưu: `docs/data/phase8_tables/review_strategy_comparison.csv` |
+| E5 | Độ lệch dự đoán và nén phương sai | Kết quả đã lưu: `reports/week10/RESULTS_week10.md`, Part B; dữ liệu OOF: `reports/week10/b2_oof.csv` |
+| E6 | B1 TF-IDF | Kết quả đã lưu: `reports/week10/b2_oof.csv` (`B1_V`, `B1_G`) |
+| E7 | B2 MiniLM | Kết quả đã lưu: `reports/week10/b2_oof.csv` (`B2_V`, `B2_G`), `reports/week10/b2_results.json` |
+| E8 | Tín hiệu độ lệch cây trên Official Test | Không chạy lại; log và kết quả lịch sử: [`tree_spread_official_test_second_use_log_attempt2.json`](reports/week9/tree_spread_official_test_second_use_log_attempt2.json), [`RESULTS_tree_spread_second_use.md`](reports/week9/RESULTS_tree_spread_second_use.md); lần dừng trước đó: [`tree_spread_official_test_second_use_log.json`](reports/week9/tree_spread_official_test_second_use_log.json) |
+
 ---
 
 ## 6. Bảng tổng hợp mức độ khả thi thực thi (Execution Matrix)
 
-| Bảng / Mục | Phân loại | Môi trường | Lệnh thực thi chính | Đầu vào chính | Đầu ra chính | Thời gian | Trạng thái xác nhận |
+| Tên bảng / bước | Phân loại | Môi trường | Lệnh thực thi chính | Đầu vào chính | Đầu ra chính | Thời gian | Trạng thái xác nhận |
 |---|---|---|---|---|---|---:|---|
-| **Phase 2 (Audit)** | Loại 1 | `.venv` | `phase2_dataset_audit.py` | `official_corpus/` | `phase2_audit_summary.json` | ~18s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Phase 3 (Split)** | Loại 1 | `.venv` | `phase3_build_split.py` | `train.csv` | `essay_split_manifest.csv` | ~5s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Phase 4 (Features)**| Loại 3 | `.venv` | `phase4_extract_features.py` | `train.csv` | `development_features_with_targets.csv`| ~35m | Chưa chạy lại (đã khóa hash) |
+| **Phase 2 (Audit)** | Loại 1 | `.venv` | `.venv\Scripts\python.exe scripts/phase2_dataset_audit.py` | `official_corpus/`, `rater_scores/` | `docs/data/phase2_tables/audit_summary.json`; stdout: `docs/final_evidence/phase2_dataset_audit_stdout.json` | ~15,5 giây (đo lượt hiện tại) | **Đã chạy, exit 0** |
+| **Phase 3 (Split)** | Loại 1 | `.venv` | `phase3_build_split.py` | `ELLIPSE_Final_github_train.csv`, manifest rater | `essay_split_manifest.csv`; audit summary | Chưa đo | **Chưa chạy lại; dùng manifest đã lưu** |
+| **Phase 4 (Features)**| Loại 3 | `.venv` | `phase4_extract_features.py` | `ELLIPSE_Final_github_train.csv`, manifest | `development_features_with_targets.csv` | Chưa đo | **Chưa chạy lại; bảng đặc trưng đã lưu và khóa SHA-256** |
 | **Phase 5 (Baseline)**| Loại 1 | `.venv` | `phase5_feature_audit_and_baselines.py`| `development_features_with_targets.csv`| `baseline_regression_metrics.csv` | ~7s | **ĐÃ CHẠY THỬ (PASS)** |
 | **Phase 6 (Preflight)**| Loại 1 | `.venv`| `phase6_train_models.py --preflight-only`| `configs/phase6_training.yaml`| Stdout JSON (ready: true) | ~2s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Phase 6 (Train)** | Loại 2 | `.venv` | `phase6_train_models.py` | `configs/phase6_training.yaml` | 4 mô hình `.joblib` | ~2.5m | Chưa chạy lại (đã có model lưu) |
-| **Bảng 7 (Val)** | Loại 1 | `.venv` | `phase7_evaluate_regression_models.py` | `validation_predictions.csv` | `regression_metrics.csv` | ~12s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Bảng 7 (Dev)** | Loại 1 | `.venv` | `build_interview_sources.py` & one-liner | `b2_oof.csv`, `t3_heldout_predictions.csv` | `d1_mean_dev.csv` | ~1.2s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Bảng 8** | Loại 1 | `.venv` | `phase8_evaluate_review_prioritization.py` | `validation_predictions.csv` | `review_strategy_comparison.csv` | ~3.5s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Bảng 9** | Loại 1 | `.venv` | Tra cứu `RESULTS_week10.md` Part B | `b2_oof.csv` / `RESULTS_week10.md` | `RESULTS_week10.md` | < 1s | **Đọc kết quả đã lưu, chưa chạy lại script** |
-| **Bảng 10 (OOF)** | Loại 1 | `.venv` | One-liner Python đọc `b2_oof.csv` | `b2_oof.csv` | In stdout bảng số liệu | < 1s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Bảng 10 (B1 Train)**| Loại 2 | `.venv` | `information_sources_oof.py` | `t3_eligible_development.csv` | `b1_oof.csv` | ~45s | Chưa chạy thử (đã có kết quả lưu) |
-| **Bảng 10 (B2 Train)**| Loại 3 | `.venv_gec` | `gec_b2.py` | `b2_assets/model` | `b2_oof.csv`, `b2_results.json` | ~3m | Chưa chạy thử (đã có kết quả lưu) |
-| **Bảng 18 (Fold)**| Loại 1 | `.venv` | `calculate_c_cluster_bootstrap.py` | `t3_heldout_predictions.csv` | `c_cluster_bootstrap.csv` | ~1.5s | **ĐÃ CHẠY THỬ (PASS)** |
-| **Bảng 20 (Agree)**| Loại 1/3 | `.venv` | `calculate_d_tool_agreement.py` | `gec_part_a_68.csv`, raw text | `d_tool_agreement.csv` | ~65s | **ĐÃ CHẠY THỬ (LT chạy thật, GECToR từ lưu)** |
+| **Phase 6 (Train)** | Loại 2 | `.venv` | `phase6_train_models.py` | `configs/phase6_training.yaml` | 4 mô hình `.joblib` | Chưa đo | **Chưa chạy lại; mô hình đã lưu** |
+| **Bảng MAE — Validation (tham khảo số 7)** | Loại 1 | `.venv` | `phase7_evaluate_regression_models.py` | `validation_predictions.csv` | `regression_metrics.csv` | ~12s | **ĐÃ CHẠY THỬ (PASS)** |
+| **Bảng MAE — Development OOF (tham khảo số 7)** | Loại 1 | `.venv` | One-liner từ mục Bảng MAE | `reports/week10/b2_oof.csv` | MAE từ `Ridge_V/Ridge_G`, `RF_V/RF_G`; baseline đã lưu ở `d1_mean_dev.csv` | ~0.4s (OOF check) | **ĐÃ CHẠY THỬ (PASS)** |
+| **Bảng chọn bài rà soát (tham khảo số 8)** | Loại 1 | `.venv` | `phase8_evaluate_review_prioritization.py` | `validation_predictions.csv` | `review_strategy_comparison.csv` | ~3.5s | **ĐÃ CHẠY THỬ (PASS)** |
+| **Bảng độ lệch và nén phương sai (tham khảo số 9)** | Loại 1 | `.venv` | Tra cứu `RESULTS_week10.md` Part B | `b2_oof.csv`, `RESULTS_week10.md` | `RESULTS_week10.md` | < 1s | **Đọc kết quả đã lưu, chưa chạy lại script** |
+| **Bảng thay thế nguồn thông tin — OOF (tham khảo số 10)** | Loại 1 | `.venv` | One-liner Python đọc `b2_oof.csv` | `b2_oof.csv` | Stdout bảng số liệu; B1/B2 đều có trong `b2_oof.csv`; `b2_results.json` đã lưu | < 1s | **ĐÃ CHẠY THỬ (PASS); huấn luyện lại chưa chạy** |
+| **Bảng thay thế nguồn thông tin — B1 TF-IDF (tham khảo số 10)** | Loại 2 | `.venv` | `information_sources_oof.py` | `t3_eligible_development.csv` | `reports/week10/b2_oof.csv` (`B1_V`, `B1_G`) | Chưa đo | **Chưa chạy lại; kết quả đã lưu** |
+| **Bảng thay thế nguồn thông tin — B2 MiniLM (tham khảo số 10)** | Loại 3 | `.venv_gec` | `gec_b2.py` | `b2_assets/model` | `reports/week10/b2_oof.csv`, `b2_results.json` | Chưa đo | **Chưa chạy lại; kết quả đã lưu** |
+| **Bảng bắt lỗi lớn theo fold (tham khảo số 18)**| Loại 1 | `.venv` | `calculate_c_cluster_bootstrap.py` | `t3_heldout_predictions.csv`, `b2_oof.csv` | `c_cluster_bootstrap.csv`, `e5_bat_theo_fold.csv` | ~1.5s | **ĐÃ CHẠY THỬ (PASS)** |
+| **Bảng đối chiếu công cụ đếm lỗi (tham khảo số 20)**| Loại 1/3 | `.venv` | `calculate_d_tool_agreement.py` | `gec_part_a_68.csv`, raw text | `d_tool_agreement.csv` | ~65s | **ĐÃ CHẠY THỬ (LT chạy thật, GECToR từ lưu)** |
 | **Mục B (Cut)** | Loại 3 | `.venv_gec` | `calculate_b_minilm_truncation.py` | `b2_assets/model`, raw text | `b_minilm_truncation.csv` | ~10s | **ĐÃ CHẠY THỬ (PASS)** |
 | **Mục A (Pack)** | Loại 1 | `.venv` | `build_a_reading_pack.py` | `t3_heldout_predictions.csv` | `phieu_doc_10_ca.xlsx` | ~2s | **ĐÃ CHẠY THỬ (PASS)** |

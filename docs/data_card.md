@@ -58,8 +58,10 @@ Required fields are mapped to ELLIPSE columns as follows:
 - Writing samples are drawn from standardized school prompt tasks (independent essays) and may not generalize to technical, creative, or conversational writing.
 - Rater variance exists; the final score is an aggregate/average of human ratings.
 - The raw-rater file contains `Identifying_Info` flags. The Phase 2 audit found 138 exactly linkable
-  final rows flagged by at least one rater; learner text therefore requires protected handling and
-  a documented exclusion/redaction decision before training or qualitative reporting.
+  final rows flagged by at least one rater. The privacy gate also excludes 14 unresolved raw-ID links,
+  so 152 rows are excluded overall: 99 in Development (78 model-train, 21 validation) and 53 in
+  Official Test. Learner text requires protected handling and a documented exclusion/redaction
+  decision before training or qualitative reporting.
 - No stable writer/learner identifier is available, so repeated-writer grouping cannot be verified.
 - Fourteen final IDs cannot be joined exactly to raw-rater IDs because the raw file stores the
   corresponding identifiers in lossy scientific notation.
