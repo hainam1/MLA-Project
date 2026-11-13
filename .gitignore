@@ -87,6 +87,7 @@ logs/runs/
 outputs/**/*
 !outputs/**/
 !outputs/**/.gitkeep
+!outputs/README.md
 report/*.pdf
 report/*.docx
 
@@ -159,3 +160,7 @@ scratch/
 /reports/week10/Bieu_mau_hoan_thien_tuan10_agent_da_dien.docx
 /reports/week10/five_unexplained_sheet.xlsx
 /reports/week10/week10_fill_log.md
+
+
+# Local only directory for unblinded text / reading packs
+local_only/
