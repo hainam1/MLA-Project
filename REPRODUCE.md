@@ -2,6 +2,9 @@
 **ELLIPSE Project — Nhóm 03**
 
 Tài liệu này cung cấp hướng dẫn chi tiết, minh bạch và khả thi để tái lập toàn bộ các kết quả, bảng số liệu và phát hiện thực nghiệm trong Báo cáo cuối kỳ của Nhóm 03.
+## Chuẩn bị dữ liệu
+
+Tải dữ liệu từ nguồn được ghi trong [SOURCE.md](data/01_original_source/documentation/SOURCE.md) theo giấy phép **CC BY-NC-SA 4.0**; đặt `ELLIPSE_Final_github_train.csv` và `ELLIPSE_Final_github_test.csv` trong `data/01_original_source/official_corpus/`, cùng `ellipsis_raw_rater_scores_anon_all_essay.csv` trong `data/01_original_source/rater_scores/`. Dữ liệu không được bao gồm trong repo; không commit dữ liệu thật.
 
 ---
 
