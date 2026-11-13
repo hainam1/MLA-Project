@@ -1,5 +1,11 @@
 # Bản đồ dữ liệu của dự án
 
+[Bản đồ toàn dự án: data → clean → features → train → model](../START_HERE.md).
+Script tạo CSV clean: [build_clean_dataset.py](../scripts/build_clean_dataset.py).
+Code chuẩn hóa text: [preprocessing.py](../src/mla_project/features/preprocessing.py).
+Train hiện đọc bảng features ở `05_model_features/`; Phase 4 tạo bảng này trực
+tiếp từ data gốc + manifest, dùng cùng hàm chuẩn hóa text với nhánh CSV clean.
+
 ## Kết luận ngắn gọn để trình bày
 
 Dự án chỉ sử dụng **một corpus chính: ELLIPSE** (English Language Learner

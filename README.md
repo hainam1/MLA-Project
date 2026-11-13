@@ -1,5 +1,9 @@
 # Prioritizing Teacher Review of English Learner Writing
 
+**Bắt đầu tại [START_HERE.md](START_HERE.md):** bản đồ tiếng Việt chỉ rõ data gốc,
+data clean, code làm sạch, features, code train và model đã train.
+Tra cứu nhanh: [scripts](scripts/README.md) · [source code](src/mla_project/README.md) · [model và outputs](outputs/README.md).
+
 An academic decision-support project for English writing teachers using ELLIPSE. Four independently trained single-target models (Ridge and Random Forest for Vocabulary and Grammar) use the same 14 linguistic features.
 
 ```text
@@ -28,14 +32,14 @@ mla-project/
 ├── outputs/            # Serialized models, evaluation metrics, figures & tables
 │   ├── figures/               # Charts and regression plots
 │   ├── metrics/               # Evaluation JSONs & CSVs
-│   ├── models/                # Trained model checkpoints
+│   ├── models/                # Placeholder; primary trained models are in phase6/
 │   ├── phase6/                # Frozen Phase 6 model joblib artifacts
 │   └── predictions/           # Validation and Official Test prediction CSVs
 ├── report/             # Final Project Report (final_report.md & summary)
 ├── reports/            # Weekly progress assignments (week9, week10 GEC/ERRANT analyses)
 ├── scripts/            # Sequential execution scripts (Phase 2 -> Phase 9 + weekly runners)
 ├── src/mla_project/    # Production Python package (core data, features, models, pipelines)
-└── tests/              # Pytest test suite (93 unit & regression integrity tests)
+└── tests/              # Pytest unit, regression and pipeline tests
 ```
 
 | Component | Path | Description |
@@ -45,7 +49,7 @@ mla-project/
 | **Phase Pipeline Scripts** | [`scripts/`](scripts/) | Step-by-step pipeline scripts (`phase2_...` to `phase9_...`). |
 | **Documentation Index** | [`docs/README.md`](docs/README.md) | Comprehensive index categorizing all 35 project specifications. |
 | **Weekly Submissions** | [`reports/`](reports/) | Weekly progress deliverables (`week9/`, `week10/`). |
-| **Unit & Pipeline Tests** | [`tests/`](tests/) | Full test coverage verifying pipeline integrity and zero data leakage. |
+| **Unit & Pipeline Tests** | [`tests/`](tests/) | Tests for data handling, models, evaluation and pipeline integrity. |
 
 ## Current status & result provenance
 

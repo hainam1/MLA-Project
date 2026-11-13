@@ -1,3 +1,5 @@
+> Bản nháp; đã được thay bằng báo cáo trong thư mục `submission/`.
+
 # Final Report: Interpretable Essay-Score Prediction and Review Prioritization
 
 ## Abstract

@@ -1,5 +1,9 @@
 # Master Documentation Index (`docs/`)
 
+Mới mở dự án? Đọc [bản đồ dự án bằng tiếng Việt](../START_HERE.md) trước để tìm
+data, code clean, model và điểm chạy train. Các CSV trong `docs/data/` là bảng
+kiểm toán/đánh giá phục vụ tài liệu; dữ liệu train nằm trong `data/` ở gốc repo.
+
 Tài liệu dự án được tổ chức thành các nhóm chuyên đề dưới đây để tiện tra cứu và đối chiếu:
 
 ---
