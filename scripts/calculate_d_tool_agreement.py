@@ -165,9 +165,74 @@ def main():
             print(f"  Mean tool: {tool_mean:.4f} vs Reader mean: {reader_mean:.4f} -> Signed bias: {signed_bias:+.4f} (Abs bias: {abs(signed_bias):.4f})")
             print(f"  MAE: {mae:.4f}")
 
+    # Compute paired delta Spearman bootstrap (GECToR - LT)
+    print("\n=== PAIRED DELTA SPEARMAN BOOTSTRAP (GECToR - LT) ===")
+    delta_rows = []
+    for grp_name, grp_df in groups:
+        reader = grp_df['reader_count'].to_numpy(dtype=float)
+        gec = grp_df['gector_grammar_first150'].to_numpy(dtype=float)
+        lt_real = grp_df['lt_real_grammar_first150'].to_numpy(dtype=float)
+        lt_est = grp_df['lt_historical_estimate'].to_numpy(dtype=float)
+        n = len(reader)
+        
+        r_gec, _ = spearmanr(gec, reader)
+        r_lt_real, _ = spearmanr(lt_real, reader)
+        r_lt_est, _ = spearmanr(lt_est, reader)
+        
+        rng = np.random.default_rng(42)
+        boot_diff_real = []
+        boot_diff_est = []
+        
+        for _ in range(2000):
+            idx = rng.integers(0, n, n)
+            if np.all(reader[idx] == reader[idx][0]):
+                continue
+            rg, _ = spearmanr(gec[idx], reader[idx])
+            rl_real, _ = spearmanr(lt_real[idx], reader[idx])
+            rl_est, _ = spearmanr(lt_est[idx], reader[idx])
+            if np.isfinite(rg) and np.isfinite(rl_real):
+                boot_diff_real.append(rg - rl_real)
+            if np.isfinite(rg) and np.isfinite(rl_est):
+                boot_diff_est.append(rg - rl_est)
+                
+        for comp_name, base_r, boot_arr, desc in [
+            ('GECToR_grammar - LT_real_first150', r_lt_real, np.asarray(boot_diff_real), 'Paired Spearman delta vs LT real on first 150 words'),
+            ('GECToR_grammar - LT_historical_estimate', r_lt_est, np.asarray(boot_diff_est), 'Paired Spearman delta vs historical scaled LT estimate')
+        ]:
+            delta_pt = r_gec - base_r
+            ci_low = float(np.percentile(boot_arr, 2.5))
+            ci_high = float(np.percentile(boot_arr, 97.5))
+            pos = int((boot_arr > 0).sum())
+            zero = int((boot_arr == 0).sum())
+            neg = int((boot_arr < 0).sum())
+            valid = len(boot_arr)
+            
+            row = {
+                'group': grp_name,
+                'n': n,
+                'tool': comp_name,
+                'tool_description': desc,
+                'spearman_r': delta_pt,
+                'spearman_p': np.nan,
+                'spearman_95ci_low': ci_low,
+                'spearman_95ci_high': ci_high,
+                'tool_mean': np.nan,
+                'reader_mean': float(np.mean(reader)),
+                'signed_bias': np.nan,
+                'abs_bias': np.nan,
+                'mae': np.nan,
+                'arithmetic': f"delta_r={r_gec:.4f}-{base_r:.4f}={delta_pt:+.4f}; pos={pos}/{valid}={pos/valid:.4f}",
+                'status': 'TÍNH MỚI (dev)',
+                'source': 'reports/week10/reading_sheet_da_danh_gia.xlsx + reports/week9/t4_reading_summary.csv'
+            }
+            agreement_rows.append(row)
+            print(f"[{grp_name}] {comp_name}:")
+            print(f"  Delta r: {delta_pt:+.4f} [95% CI: {ci_low:+.4f}; {ci_high:+.4f}]")
+            print(f"  Positive resamples: {pos}/{valid} ({pos/valid*100:.2f}%)")
+
     df_agreement = pd.DataFrame(agreement_rows)
     df_agreement.to_csv(OUT_AGREEMENT_CSV, index=False)
-    print(f"\nSaved agreement metrics to {OUT_AGREEMENT_CSV}")
+    print(f"\nSaved updated agreement metrics to {OUT_AGREEMENT_CSV}")
 
     # 6. Evaluation of old acceptance criterion on pooled 68 essays
     # Acceptance rule from config:
