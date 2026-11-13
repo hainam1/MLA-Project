@@ -107,7 +107,20 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ## 4. Hướng dẫn tái lập từng Bảng chính trong Báo cáo
 
-### Bảng MAE (tham khảo số 7): Baseline và hiệu năng hồi quy đơn đích
+Các bảng dưới đây theo tên mục trong `report/final_report.md`; số bảng được gán theo thứ tự xuất hiện trong phần Results (5.1–5.6), vì báo cáo Markdown không in số riêng.
+
+| Số | Tên bảng trong báo cáo cuối | Tệp kết quả |
+|---|---|---|
+| 1 | Validation results | `docs/data/phase7_tables/regression_metrics.csv`; `docs/data/phase7_tables/baseline_comparisons.csv` |
+| 2 | Official-test regression results — RQ1 | `docs/data/phase9_tables/regression_metrics.csv` |
+| 3 | Official-test primary review comparison — RQ2 | `docs/data/phase9_tables/review_strategy_comparison.csv` |
+| 4 | Failure modes and shared blind spots — RQ3 | `docs/data/phase9_tables/error_quadrants.csv` |
+| 5 | Predeclared sensitivity analyses | `docs/data/phase9_tables/sensitivity_analysis.csv` |
+| 6 | Descriptive fairness analysis — RQ4 | `docs/data/phase9_tables/fairness_audit.csv` |
+
+Bảng 2–6 được tạo bởi `.venv\Scripts\python.exe scripts/phase9_official_test_evaluation.py`.
+
+### Kết quả MAE Validation (Bảng 1) và phân tích Development OOF bổ sung
 - **Mục tiêu:** Tái lập sai số tuyệt đối trung bình (MAE) của hai mô hình chính (Ridge, Random Forest) và các baseline (Mean, Text-length) trên tập Validation ($N=762$) và Development OOF ($N=3.812$).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu**
 - **Môi trường:** `.venv`
@@ -152,7 +165,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng chọn bài rà soát (tham khảo số 8)
+### Chiến lược chọn bài rà soát trên Development (phân tích bổ sung)
 - **Mục tiêu:** Tái lập tỷ lệ thu giữ lỗi lớn ($L_i = 1[\max(|RF_V-y_V|, |RF_G-y_G|) \ge 1.0]$), độ chính xác và độ lợi (Lift) ở các ngân sách $k = \lceil 0.20 N \rceil$ giữa 4 chiến lược: Random, Shortest-first, Ridge extremity, và Ridge-RF Disagreement ($D$).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu**
 - **Môi trường:** `.venv`
@@ -178,7 +191,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng độ lệch và nén phương sai (tham khảo số 9)
+### Failure modes and shared blind spots (Bảng 4; đối chiếu Development bổ sung)
 - **Mục tiêu:** Phân tích định lượng hiện tượng nén phương sai (shrinkage) của mô hình hồi quy Ridge và Random Forest trên cả hai tập: Validation ($N=762$) và Development OOF ($N=3.812$).
 - **Phân loại:** **[Loại 1] Đọc kết quả đã lưu, chưa chạy lại script**
 - **Môi trường:** `.venv`
@@ -219,7 +232,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng thay thế nguồn thông tin (tham khảo số 10): B1 TF-IDF và B2 MiniLM
+### So sánh nguồn thông tin B1 TF-IDF và B2 MiniLM (phân tích bổ sung)
 - **Mục tiêu:** Kiểm định xem tín hiệu bất đồng $D$ có phải là hệ quả riêng của 14 đặc trưng đóng băng hay không, bằng cách thay thế bằng:
   - **B1:** Văn bản n-gram thuần túy (TF-IDF unigram + bigram, $\min\_df=5$, Ridge $\alpha=10$).
   - **B2:** Mô hình biểu diễn câu nơ-ron trước huấn luyện (`all-MiniLM-L6-v2` 384-dim, encoder đóng băng, Ridge $\alpha=10$).
@@ -247,7 +260,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng bắt lỗi lớn theo fold (tham khảo số 18)
+### Bắt lỗi lớn theo fold (phân tích bổ sung)
 - **Mục tiêu:** Tái lập bảng chi tiết số bài bắt được theo từng fold của GroupKFold 5 fold theo cụm đề trên 3.812 bài Development, và tính khoảng tin cậy Bootstrap cụm đề (Prompt-cluster bootstrap 2.000 lượt).
 - **Phân loại:** **[Loại 1] Tái lập nhanh từ dự đoán đã lưu & Bootstrap**
 - **Môi trường:** `.venv`
@@ -276,7 +289,7 @@ Dự án sử dụng hai môi trường ảo Python tách biệt để đảm b�
 
 ---
 
-### Bảng đối chiếu công cụ đếm lỗi (tham khảo số 20): LanguageTool và GECToR + ERRANT
+### Đối chiếu công cụ đếm lỗi LanguageTool và GECToR + ERRANT (phân tích bổ sung)
 - **Mục tiêu:** So sánh số đếm lỗi trên cùng cửa sổ 150 từ đầu tiên giữa người đọc độc lập, LanguageTool 6.6 (`ruleIssueType=grammar`) và GECToR v1.2.0 + ERRANT v3.0.2 trên 68 bài Validation (36 bài ngẫu nhiên phân tầng + 32 bài ca lỗi tuần 9).
 - **Phân loại & Trạng thái chạy thực tế:**
   - **LanguageTool 6.6:** Được chạy lại thật 100% trên cả 10 bài sanity check và 68 bài Validation (mất ~65 giây).
